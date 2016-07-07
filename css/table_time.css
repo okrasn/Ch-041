@@ -1,0 +1,25 @@
+#table_heading th{
+    padding: 25px;
+    text-align: center;
+    font: 25px Helvetica sans-serif;
+}
+#table_heading{
+    background-color: #69D2E7;
+}
+#table_body{
+    color: #FA6900;
+    text-align: center;
+}
+.color_cell{
+    background-color: #1FDA9A;
+    color: #ffffff;
+    border-radius: 10px 10px;
+}
+.well a{
+    text-decoration: none;
+    text-underline: none;
+}
+#table_caption{
+    text-align: center;
+    color: #FA6900;
+}

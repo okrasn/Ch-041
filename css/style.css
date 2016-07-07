@@ -1,0 +1,35 @@
+#container{
+    margin: auto;
+    text-align: center;
+}
+#group_1,#group_2{
+    background-color: #69D2E7;
+    color: lightgrey;
+    border-radius: 15px 15px;
+    box-shadow: 10px 10px;
+
+}
+#group_1 > a:hover,#group_2 > a:hover{
+    text-decoration: none;
+    color: white;
+}
+#groups_heading{
+    color : #F38630;
+}
+#datepicker_container{
+    overflow: hidden;
+}
+#datepicker_border{
+    border: 3px solid #69D2E7;
+    margin: 0 17.5% 0 1.3%;
+    border-radius: 15px 15px;
+}
+#schedule_btn{
+    margin-top: 32%;
+}
+
+
+
+
+
+
