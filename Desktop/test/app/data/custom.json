@@ -1,0 +1,102 @@
+{
+	"groups" : [
+		{
+			"id" : "groupOne",
+			"description" : "Group JavaScript developers",
+			"days" : [
+				{
+					"Mon" :[{
+						"time" : "09:00-09:55",
+						"subject" : "Npm"	
+					},{
+						"time" : "10:00-10:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "11:00-11:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "12:00-12:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "13:00-13:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "14:00-14:55",
+						"subject" : "Npm"	
+					}
+					]		
+				}
+			]
+		},
+		{
+
+			"id" : "groupTwo",
+			"description" : "Group Java developers",
+			"days" : [
+				{
+					"Mon" :[{
+						"time" : "09:00-09:55",
+						"subject" : "Npm"	
+					},{
+						"time" : "10:00-10:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "11:00-11:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "12:00-12:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "13:00-13:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "14:00-14:55",
+						"subject" : "Npm"	
+					}
+					]		
+				}
+			]		
+		},
+		{
+
+			"id" : "groupOne",
+			"description" : "ATQC developers",
+			"days" : [
+				{
+					"Mon" :[{
+						"time" : "09:00-09:55",
+						"subject" : "Npm"	
+					},{
+						"time" : "10:00-10:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "11:00-11:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "12:00-12:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "13:00-13:55",
+						"subject" : "Npm"	
+
+					},{
+						"time" : "14:00-14:55",
+						"subject" : "Npm"	
+					}
+					]		
+				}
+			]
+		}		
+	]
+}

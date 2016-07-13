@@ -1,0 +1,22 @@
+<div>
+    <h2>Group 1 JavaScript Developers</h2>
+    <h3>Selected date is: <em>{{dt | date:'fullDate' }}</em></h3>
+
+    <div style="display:inline-block; min-height:290px;">
+        <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+    </div>
+    <div class="row">
+    	<a class="btn btn-info" ' ui-sref='groups.group-calendar-1.table-1'>Show schedule</a>
+    </div>
+    <hr />
+</div>
+    
+<div class="row">
+    <table class="table table-bordered">
+        <tr ng-repeat='slot in schedule'>
+            <td>{{slot.time}}</td>
+            <td>{{slot.subject}}</td>
+        </tr>
+    </table>
+</div>
+    {{schedule}}
