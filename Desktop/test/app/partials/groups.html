@@ -1,44 +1,74 @@
 <div class="container">
-    <div>
-        <script type="text/ng-template" id="group-template.html">
-            <div  class="panel {{panelClass || 'panel-default'}}">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-                            <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
-                                Schedule Groups page
-                            </span>
-                        </a>
-                    </h4>
-                </div>
-                <div class="panel-collapse collapse" uib-collapse="!isOpen">
-                    <div class="panel-body" style="text-align: right" ng-transclude>
+    <div class=" text-center panel-group" id="accordion">
+      <div ng-repeat="element in groupsData" class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#{{$index}}" ng-bind='element.description'></a>
+          </h4>
+        </div>
+        <div id="{{$index}}" class="panel-collapse collapse out">
+          <div class="panel-body">
 
-                    </div>
-                </div>
-            </div>
-        </script>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<div class="container">
+    <div ng-repeat='element in groupsData'>
+        <div class="well" id="heading_box">
+            <h1 class="text-center bg-info">Schedule groups page</h1>
+        </div>
+        <br>
         <div class="checkbox">
             <label>
                 <input type="checkbox" ng-model="oneAtATime">
                 Open only one at a time
             </label>
         </div>
-        <div class="well" id="heading_box">
-            <h1 class="text-center bg-info">Schedule groups page</h1>
-        </div>
         <br>
-        <uib-accordion class="text-center" close-others="oneAtATime">
-            <uib-accordion-group id="accordion_groups_1" class="bg-info" heading="Group 1 JavaScript Developers" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-
-            </uib-accordion-group>
-            <uib-accordion-group id="accordion_groups_2" class="bg-info" heading="Group 2 Java Developers">
-
-            </uib-accordion-group>
-            <uib-accordion-group id="accordion_groups_3" class="bg-info" heading="Group 3 ATQC Developers">
-
+        <uib-accordionclass="text-center" close-others="oneAtATime">
+            <uib-accordion-group ng-bind='element.id'  id="{{element.description + $index}}" class="bg-info"  heading="{{element.description}}" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+        
+                <div ui-view></div>        
+                
             </uib-accordion-group>
         </uib-accordion>
     </div>
 </div>
+
+-->

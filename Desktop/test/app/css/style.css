@@ -4,3 +4,6 @@
 #heading_box{
     background-color: #D9EDF7;
 }
+body{
+	overflow-y: scroll; 
+}
