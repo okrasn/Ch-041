@@ -1,20 +1,25 @@
 <div class="container">
     <div class=" text-center panel-group" id="accordion">
       <div ng-repeat="element in groupsData" class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#{{$index}}" ng-bind='element.description'></a>
+        <div  class="panel-heading">
+          <h4 ui-sref="groups.groupsCalendar({groupsCalendarID : element.id})" class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#{{element.id}}"
+               ng-bind='element.description'></a>
           </h4>
         </div>
-        <div id="{{$index}}" class="panel-collapse collapse out">
+        <div id="{{element.id}}" class="panel-collapse collapse out">
           <div class="panel-body">
 
+            You selected : <span id="selected_group" ng-bind="element.id"></span>
+
+            <div class="container text-center">
+              <div ui-view></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 </div>
-
 
 
 

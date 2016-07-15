@@ -1,9 +1,6 @@
-#accordion_groups_1,#accordion_groups_2,#accordion_groups_3{
-    background-color: #D9EDF7;
-}
-#heading_box{
-    background-color: #D9EDF7;
-}
 body{
 	overflow-y: scroll; 
+}
+#table_subject{
+    margin-left: -5.5%;
 }

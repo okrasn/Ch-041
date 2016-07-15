@@ -1,0 +1,22 @@
+<div>
+    <h2>{{element.description}}</h2>
+    <h3>Selected date is: <em>{{dt | date:'fullDate' }}</em></h3>
+
+    <div style="display:inline-block; min-height:290px;">
+        <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+    </div>
+    <hr />
+</div>
+<div class="row">
+    <a class="btn btn-info" ui-sref="groups.groupsCalendar.table({tableID : element.id})">Show schedule</a>
+    <a class="btn btn-info" ui-sref="groups">Back to groups</a>
+
+</div>
+<!--
+<span ng-bind="dt.getDay()"></span>
+-->
+<div class="container">
+    <div ui-view></div>
+</div>
+    
+
