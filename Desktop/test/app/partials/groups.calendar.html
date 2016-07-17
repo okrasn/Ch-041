@@ -1,22 +1,20 @@
-<div>
-    <h2>{{element.description}}</h2>
-    <h3>Selected date is: <em>{{dt | date:'fullDate' }}</em></h3>
-
-    <div style="display:inline-block; min-height:290px;">
-        <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+<div class="row text-center">
+    <div class="col-sm-offset-2 col-sm-8">
+        <div>
+            <h2 id="group_description">{{element.description}}</h2>
+            <h3>Selected date is: <em>{{dt | date:'fullDate' }}</em></h3>
+            <div style="display:inline-block; min-height:290px;">
+                <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+            </div>
+            <hr />
+        </div>
+        <a class="btn custom_btn" ui-sref="groups.groupsCalendar.table({tableID : element.id})">Show schedule</a>
+        <a class="btn custom_btn" ui-sref="groups">Back to groups</a>
+        <hr>
+        <br>
+        <div ui-view></div>
     </div>
-    <hr />
+    <div class="col-lg-offset-2"></div>
 </div>
-<div class="row">
-    <a class="btn btn-info" ui-sref="groups.groupsCalendar.table({tableID : element.id})">Show schedule</a>
-    <a class="btn btn-info" ui-sref="groups">Back to groups</a>
 
-</div>
-<!--
-<span ng-bind="dt.getDay()"></span>
--->
-<div class="container">
-    <div ui-view></div>
-</div>
-    
 

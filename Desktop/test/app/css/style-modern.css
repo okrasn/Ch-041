@@ -1,0 +1,30 @@
+body {
+  overflow-y: auto; }
+
+#heading_container {
+  background-color: #7FB2F0;
+  border-radius: 75px 0 75px 0; }
+  #heading_container h1 {
+    color: #ffffff; }
+
+#panel_heading {
+  background-color: #ADD5F7;
+  color: #ffffff;
+  border-radius: 30px 30px; }
+
+#panel_heading:hover {
+  background-color: #4E7AC7; }
+
+#table_container {
+  color: #4E7AC7; }
+  #table_container #table_subject {
+    background-color: #ADD5F7; }
+  #table_container .selected_date {
+    color: #000000; }
+
+#group_description {
+  color: #4E7AC7; }
+
+.custom_btn {
+  background-color: #7FB2F0;
+  color: #ffffff; }

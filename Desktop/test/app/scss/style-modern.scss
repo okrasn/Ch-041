@@ -1,0 +1,39 @@
+$main-color : #7FB2F0;
+$second-main : #ADD5F7;
+$text-color-default : #ffffff;
+$text-color-custom : #4E7AC7;
+body{
+  overflow-y: auto;
+}
+#heading_container{
+  background-color: #7FB2F0;
+  h1 {
+    color: $text-color-default;
+  }
+  border-radius: 75px 0 75px 0;
+}
+#panel_heading{
+  background-color: $second-main;
+  color: $text-color-default;
+  border-radius: 30px 30px;
+}
+#panel_heading:hover{
+  background-color: $text-color-custom;
+}
+#table_container{
+  #table_subject{
+    background-color: $second-main;
+  }
+  .selected_date{
+    color: #000000;
+  }
+  color: $text-color-custom;
+}
+#group_description{
+  color:$text-color-custom ;
+}
+.custom_btn{
+  background-color: #7FB2F0;
+  color: $text-color-default;
+
+}

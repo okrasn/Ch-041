@@ -14,6 +14,7 @@
     "bower": "^1.7.9",
     "browser-sync": "^2.13.0",
     "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
     "http-server": "^0.9.0",
     "ui-bootstrap": "^0.1.2"
   }

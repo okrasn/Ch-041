@@ -18,4 +18,4 @@ angular.module('accordion', ['ngAnimate', 'ui.bootstrap'])
             alert('Error can\'t load data');
         });
 
-    })
+    });

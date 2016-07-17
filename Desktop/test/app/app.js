@@ -18,19 +18,6 @@ angular.module('schedule',['datepicker' ,'accordion','ui.router'])
                 controller : 'AccordionCtrl'
         })
     })
-    .controller('TableCtrl',['$scope','$http','transfer',function($scope,$http,transfer){
-        $scope.data = [];
-        $scope.groups = transfer.getData();
-        $http.get('data/custom.json').then(function(response){
-            console.log(response.data);
-            var length = response.data.groups.length;
-            for(var i = 0;i < length; i++){
-                $scope.data.push(response.data.groups[i]);
-            }
-        },function(response){
-            alert('Error no response');
-        })
-    }])
     .factory('transfer',[function(){
         var transferData = [];
         function setData(data){
