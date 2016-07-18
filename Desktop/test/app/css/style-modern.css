@@ -18,7 +18,8 @@ body {
 #table_container {
   color: #4E7AC7; }
   #table_container #table_subject {
-    background-color: #ADD5F7; }
+    background-color: #ADD5F7;
+    color: #000000; }
   #table_container .selected_date {
     color: #000000; }
 

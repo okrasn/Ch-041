@@ -1,4 +1,4 @@
-angular.module('schedule',['datepicker' ,'accordion','ui.router'])
+angular.module('schedule',['service','datepicker' ,'accordion','ui.router'])
     .config(function($stateProvider,$urlRouterProvider){
         $urlRouterProvider.otherwise('/groups');
         $stateProvider
@@ -17,20 +17,5 @@ angular.module('schedule',['datepicker' ,'accordion','ui.router'])
                 templateUrl: 'partials/table.html',
                 controller : 'AccordionCtrl'
         })
-    })
-    .factory('transfer',[function(){
-        var transferData = [];
-        function setData(data){
-            transferData.push(data);
-        }
-        function getData(){
-            return transferData;
-        }
-        return{
-            setData : setData,
-            getData : getData
-        }
-    }]);
-
-
+    });
 

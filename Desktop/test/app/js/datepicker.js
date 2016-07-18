@@ -1,5 +1,5 @@
 angular.module('datepicker', ['ngAnimate', 'ui.bootstrap'])
-    .controller('DatepickerCtrl', function ($scope,transfer) {
+    .controller('DatepickerCtrl', function ($scope) {
         $scope.today = function() {
             $scope.dt = new Date();
         };
@@ -55,9 +55,8 @@ angular.module('datepicker', ['ngAnimate', 'ui.bootstrap'])
                         return $scope.events[i].status;
                     }
                 }
-                transfer.setData($scope.dt)
             }
             return '';
         }
-    })
+    });
 
