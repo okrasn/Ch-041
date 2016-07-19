@@ -7,7 +7,7 @@
     "postinstall": "bower install",
     "prestart": "npm install",
     "test": "karma start karma.conf.js",
-    "start": "http-server -a localhost -p 8000 -c-1"
+    "start": "http-server -a localhost -p 3005 -c-1"
   },
   "author": "kasjs",
   "license": "ISC",

@@ -5,15 +5,15 @@
             <h2 id="group_description">{{element.description}}</h2>
             <h3>Selected date is: <em>{{dt | date:'fullDate' }}</em></h3>
             <div style="display:inline-block; min-height:290px;">
-<<<<<<< HEAD
-                <uib-datepicker ui-sref="groups.groupsCalendar.table({tableID : element.id})"
+            <uib-datepicker ui-sref="groups.groupsCalendar.table({tableID : element.id})"
                                 ng-model="dt" class="well well-sm" datepicker-options="options">
-=======
-                <uib-datepicker  ng-model="dt" class="well well-sm" datepicker-options="options">
->>>>>>> 989a5a18ee33fbdab85c3b1119658e72c0ee7da1
-                </uib-datepicker>
+            <uib-datepicker  ng-model="dt" class="well well-sm" datepicker-options="options">
             </div>
         </div>
+        <input type='text' ng-model='search_subject' placeholder="Entre subject name">
+        <button class="btn btn-info" ng-click='passingData()'>Show hours</button>
+        <h4>Ammount hours of entered subject <span id='subject_name'>{{subject}}</span> is: <strong>{{counter}}<strong></h4>
+        <span class="hide" ng-bind='element.days'></span>
         <hr>
         <div ui-view></div>
     </div>

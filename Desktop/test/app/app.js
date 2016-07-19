@@ -1,4 +1,4 @@
-angular.module('schedule',['service','datepicker' ,'accordion','ui.router'])
+angular.module('schedule',['service','service.count','datepicker','accordion','ui.router'])
     .config(function($stateProvider,$urlRouterProvider){
         $urlRouterProvider.otherwise('/groups');
         $stateProvider

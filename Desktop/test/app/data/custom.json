@@ -9,26 +9,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "JavaScript"
+							"subject" : "javascript"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "JavaScript"
+							"subject" : "javascript"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "JavaScript"
+							"subject" : "javascript"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "JavaScript"
+							"subject" : "javascript"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "JavaScript"
+							"subject" : "javascript"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "JavaScript"
+							"subject" : "javascript"
 						}
 					]
 				},
@@ -37,26 +37,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "HTML"
+							"subject" : "html"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "HTML"
+							"subject" : "html"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "HTML"
+							"subject" : "html"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "HTML"
+							"subject" : "html"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "HTML"
+							"subject" : "html"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "HTML"
+							"subject" : "html"
 						}
 					]
 				},
@@ -65,26 +65,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "SCSS"
+							"subject" : "scss"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "SCSS"
+							"subject" : "scss"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "SCSS"
+							"subject" : "scss"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "SCSS"
+							"subject" : "scss"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "SCSS"
+							"subject" : "scss"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "SCSS"
+							"subject" : "scss"
 						}
 					]
 				},
@@ -93,26 +93,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "CSS"
+							"subject" : "css"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "CSS"
+							"subject" : "css"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "CSS"
+							"subject" : "css"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "CSS"
+							"subject" : "css"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "CSS"
+							"subject" : "css"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "CSS"
+							"subject" : "css"
 						}
 					]
 				},
@@ -121,26 +121,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Git"
+							"subject" : "git"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Git"
+							"subject" : "git"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Git"
+							"subject" : "git"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "Git"
+							"subject" : "git"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "Git"
+							"subject" : "git"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Git"
+							"subject" : "git"
 						}
 					]
 				}
@@ -157,26 +157,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Java"
+							"subject" : "java"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Java"
+							"subject" : "java"
 						}
 					]
 				},
@@ -213,26 +213,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 						}
 					]
 				},
@@ -241,26 +241,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Spring"
+							"subject" : "spring"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Java"
+							"subject" : "java"
 						}
 					]
 				},
@@ -269,26 +269,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Java"
+							"subject" : "java"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "Java"
+							"subject" : "java"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 						}
 					]
 				}
@@ -305,26 +305,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "SCRUM"
+							"subject" : "scrum"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "SCRUM"
+							"subject" : "scrum"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "SCRUM"
+							"subject" : "scrum"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "SCRUM"
+							"subject" : "scrum"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "SCRUM"
+							"subject" : "scrum"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "SCRUM"
+							"subject" : "scrum"
 						}
 					]
 				},
@@ -333,26 +333,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Xp"
+							"subject" : "xp"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Xp"
+							"subject" : "xp"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Xp"
+							"subject" : "xp"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "Xp"
+							"subject" : "xp"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "Xp"
+							"subject" : "xp"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Xp"
+							"subject" : "xp"
 						}
 					]
 				},
@@ -361,26 +361,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "Agel"
+							"subject" : "agel"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "QA"
+							"subject" : "qa"
 						}
 					]
 				},
@@ -389,26 +389,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "QA"
+							"subject" : "qa"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 						}
 					]
 				},
@@ -417,26 +417,26 @@
 					"subject" :[
 						{
 							"time" : "09:00-09:55",
-							"subject" : "QA"
+							"subject" : "qa"
 						},{
 							"time" : "10:00-10:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "12:00-12:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "13:00-13:55",
-							"subject" : "QA"
+							"subject" : "qa"
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Npm"
+							"subject" : "npm"
 						}
 					]
 				}

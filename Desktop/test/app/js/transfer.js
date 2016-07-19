@@ -1,5 +1,5 @@
 angular.module('service',[])
-    .factory('transfer',['$http',function($http){
+    .factory('transfer',['$http','count_service',function($http){
         return {
         callback : function() {
             return $http.get('data/custom.json').then(function(response){
