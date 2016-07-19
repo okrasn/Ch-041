@@ -2,17 +2,19 @@
 	<div id="table_container" class="col-sm-12">
 		<h1 class="bg.info">Schedule table for: {{element.description}}</h1>
 		<h3 class="text-center selected_date">You selected: <em>{{dt | date:'fullDate' }}</em></h3>
+		<a class="btn custom_btn" ui-sref="groups">Back to groups</a>
 		<table id="table_subject" class="table table-bordered table-striped " ng-repeat= "days in element.days">
 			<tr>
-				<td ng-if="dt.getDay() == 0 && days.day == 'Sun' " ng-repeat="lesson in days.subject" >{{lesson.time}}</td>
+				<h3 class="bg-info" ng-if="dt.getDay() == 0">Sorry on this day no subject</h3>
 				<td ng-if="dt.getDay() == 1 && days.day == 'Mon' " ng-repeat="lesson in days.subject" >{{lesson.time}}</td>
 				<td ng-if="dt.getDay() == 2 && days.day == 'Tue' " ng-repeat="lesson in days.subject" >{{lesson.time}}</td>
 				<td ng-if="dt.getDay() == 3 && days.day == 'Wed' " ng-repeat="lesson in days.subject" >{{lesson.time}}</td>
 				<td ng-if="dt.getDay() == 4 && days.day == 'Thu' " ng-repeat="lesson in days.subject" >{{lesson.time}}</td>
 				<td ng-if="dt.getDay() == 5 && days.day == 'Fri' " ng-repeat="lesson in days.subject" >{{lesson.time}}</td>
+				<h3 class="bg-info" ng-if="dt.getDay() == 6">Sorry on this day no subject</h3>
 			</tr>
 			<tr>
-				<td ng-if="dt.getDay() == 0 && days.day == 'Sun' " ng-repeat="lesson in days.subject" >{{lesson.subject}}</td>
+
 				<td ng-if="dt.getDay() == 1 && days.day == 'Mon' " ng-repeat="lesson in days.subject" >{{lesson.subject}}</td>
 				<td ng-if="dt.getDay() == 2 && days.day == 'Tue' " ng-repeat="lesson in days.subject" >{{lesson.subject}}</td>
 				<td ng-if="dt.getDay() == 3 && days.day == 'Wed' " ng-repeat="lesson in days.subject" >{{lesson.subject}}</td>

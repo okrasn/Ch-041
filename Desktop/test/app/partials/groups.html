@@ -1,7 +1,7 @@
 <div class="row text-center">
     <div class="col-sm-offset-2 col-sm-8">
         <div class="panel-group" id="accordion">
-            <div ng-repeat="element in groupsData" class="panel panel-default">
+            <div ng-repeat="element in groupsData" class="panel panel-default" id="panel">
                 <div id="panel_heading" class="panel-heading">
                     <h4 ui-sref="groups.groupsCalendar({groupsCalendarID : element.id})" class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#{{element.id}}"
@@ -9,7 +9,7 @@
                     </h4>
                 </div>
                 <div id="{{element.id}}" class="panel-collapse collapse out">
-                    <div class="panel-body">
+                    <div class="panel-body" id="panel_body">
                         You selected : <span id="selected_group" ng-bind="element.id"></span>
                         <div class="text-center">
                             <div ui-view></div>

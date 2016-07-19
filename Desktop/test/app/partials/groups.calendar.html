@@ -1,20 +1,18 @@
 <div class="row text-center">
+    <div class="col-sm-offset-2"></div>
     <div class="col-sm-offset-2 col-sm-8">
         <div>
             <h2 id="group_description">{{element.description}}</h2>
             <h3>Selected date is: <em>{{dt | date:'fullDate' }}</em></h3>
             <div style="display:inline-block; min-height:290px;">
-                <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                <uib-datepicker ui-sref="groups.groupsCalendar.table({tableID : element.id})"
+                                ng-model="dt" class="well well-sm" datepicker-options="options">
+                </uib-datepicker>
             </div>
-            <hr />
         </div>
-        <a class="btn custom_btn" ui-sref="groups.groupsCalendar.table({tableID : element.id})">Show schedule</a>
-        <a class="btn custom_btn" ui-sref="groups">Back to groups</a>
         <hr>
-        <br>
         <div ui-view></div>
     </div>
-    <div class="col-sm-offset-2"></div>
 </div>
 
 

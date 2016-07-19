@@ -6,7 +6,9 @@ angular.module('accordion', ['ngAnimate', 'ui.bootstrap'])
             isFirstOpen: true,
             isFirstDisabled: false
         };
+        $scope.test = 2;
         transfer.callback().then(function(response){
             $scope.groupsData = response;
         });
     });
+

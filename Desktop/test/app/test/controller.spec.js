@@ -1,9 +1,10 @@
-describe('Controller : AccordionCtrl', function() {
-    var AccordionCtrl ;
-    beforeEach(module('schedule'));
-    it('should create three groups', function() {
 
-        expect($scope.groupsData.length).toBe(3);
-    });
+describe('AccordionCtrl', function() {
+    beforeEach(module('schedule'));
+    it('should contain `test` number 2', inject(function($controller){
+        var scope = {};
+        var ctrl = $controller('AccordionCtrl',{$scope : scope});
+        expect(scope.test).toBe(2);
+    }));
 
 });
