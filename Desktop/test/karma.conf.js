@@ -15,16 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-
-        
-        './bower_components/angular/angular.js',
-        './bower_components/angular-mocks/angular-mocks.js',
-        //'./bower_components/angular-ui-router/release/angular-ui-router.js',
-        './*.js',
-        './js/*.js',
-        './test/*.js'
-
-
+      "bower_components/angular/angular.js",
+      "bower_components/angular-ui-router/release/angular-ui-router.js",
+      "bower_components/angular-mocks/angular-mocks.js",
+      "bower_components/angular-animate/angular-animate.js",
+      "bower_components/ui-bootstrap/src/ui-bootstrap-tpls.min.js",
+      //"data/*.json",
+      "*.js",
+       "js/*.js",
+       "test/*.js"
     ],
 
 
@@ -66,12 +65,6 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome', 'Firefox'],
 
-    plugins: [
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-jasmine',
-      'karma-junit-reporter'
-    ],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
