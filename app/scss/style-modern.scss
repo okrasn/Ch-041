@@ -44,3 +44,9 @@ body{
   background-color: #7FB2F0;
   color: $text-color-default;
 }
+#amount_heading{
+  color: $main-color;
+  .subject_info{
+    color:$text-color-custom;
+  }
+}

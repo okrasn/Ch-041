@@ -19,7 +19,7 @@ module.exports = function(config) {
       "bower_components/angular-ui-router/release/angular-ui-router.js",
       "bower_components/angular-mocks/angular-mocks.js",
       "bower_components/angular-animate/angular-animate.js",
-      "bower_components/ui-bootstrap/ui-bootstrap-tpls-1.3.3.min.js",
+      "bower_components/ui-bootstrap-tpls-1.3.3.min.js",
       //"data/*.json",
       "*.js",
        "js/*.js",

@@ -9,8 +9,6 @@ angular.module('accordion', ['ngAnimate', 'ui.bootstrap'])
         //$scope.counter = 0;
          $scope.passingData = function(){
             count_service.setData($scope.search_subject);
-            console.log('ok');    
-            console.log($scope.element.days);
             $scope.subject = count_service.getData();
             var counter = 0;
             for(var i = 0; i < $scope.element.days.length;i++){
@@ -21,7 +19,8 @@ angular.module('accordion', ['ngAnimate', 'ui.bootstrap'])
                 }
             }
             $scope.counter = counter;
-        }
+            $scope.search_subject = '';
+        };
         $scope.test = 2;
         transfer.callback().then(function(response){
             $scope.groupsData = response;

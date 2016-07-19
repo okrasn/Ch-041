@@ -35,3 +35,8 @@ body {
 .custom_btn {
   background-color: #7FB2F0;
   color: #ffffff; }
+
+#amount_heading {
+  color: #7FB2F0; }
+  #amount_heading .subject_info {
+    color: #4E7AC7; }
