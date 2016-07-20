@@ -11,9 +11,17 @@
             </uib-datepicker>
             </div>
         </div>
+
         <input class="form-control text-center" type='text' ng-model='search_subject' placeholder="Enter subject name">
         <hr>
         <button class="btn btn-info" ng-click='passingData()'>Show hours</button>
+        <hr>
+        <select class="form-control"  >
+            <option  ng-repeat="list in options" value="{{list}}">{{list}}</option>
+        </select>
+
+        <button class="btn" ng-click="setSubjects()">Setup subject</button>
+
         <hr>
         <h4 id="amount_heading">Amount hours of entered subject <span class='subject_info'>{{subject}}</span> is: <strong class="subject_info">{{counter}} hours</strong></h4>
         <span class="hide" ng-bind='element.days'></span>
