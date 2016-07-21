@@ -6,11 +6,11 @@
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "test": "karma start karma.conf.js",
+    "test": "karma start app/karma.conf.js",
     "start": "http-server -a localhost -p 3005 -c-1",
     "web-update": "webdriver-manager update",
     "web-start": "webdriver-manager start",
-    "protractor": "protractor e2e-tests/protractor.conf.js"
+    "protractor": "conf.js"
 
 
 

@@ -1,9 +1,7 @@
 <div class="row text-center">
 	<div id="table_container" class="col-sm-12">
-		<h1 class="bg.info">Schedule table for: {{element.description}}</h1>
-		<h3 class="text-center selected_date">You selected: <em>{{dt | date:'fullDate' }}</em></h3>
-		<hr>
-		<a class="btn custom_btn" ui-sref="groups">Back to groups</a>
+		<h3 class="bg.info" >Schedule table for: {{element.description}}</h3>
+		<h4 class="text-center selected_date">You selected: <em ng-bind="dt | date:'fullDate'"></em></h4>
 		<hr>
 		<table id="table_subject" class="table table-bordered table-striped " ng-repeat= "days in element.days">
 			<tr>
@@ -24,6 +22,7 @@
 				<td ng-if="dt.getDay() == 5 && days.day == 'Fri' " ng-repeat="lesson in days.subject" >{{lesson.subject}}</td>
 			</tr>
 		</table>
+		<a id="back_btn" class="btn custom_btn" ui-sref="groups">Back to groups</a>
 	</div>
 </div>
 

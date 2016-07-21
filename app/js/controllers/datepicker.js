@@ -1,5 +1,5 @@
 angular.module('datepicker', ['ngAnimate', 'ui.bootstrap'])
-    .controller('DatepickerCtrl', function ($scope) {
+    .controller('DatepickerCtrl',['$scope',function ($scope) {
         $scope.today = function() {
             $scope.dt = new Date();
         };
@@ -42,7 +42,6 @@ angular.module('datepicker', ['ngAnimate', 'ui.bootstrap'])
             }
         ];
         function getDayClass(data) {
-            transfer.setData($scope.dt.getDay());
             var date = data.date,
                 mode = data.mode;
             if (mode === 'day') {
@@ -58,5 +57,5 @@ angular.module('datepicker', ['ngAnimate', 'ui.bootstrap'])
             }
             return '';
         }
-    });
+    }]);
 

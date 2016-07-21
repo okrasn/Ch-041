@@ -22,12 +22,15 @@ body {
   background-color: #4E7AC7; }
 
 #table_container {
+  border: 1px solid #ADD5F7;
   color: #4E7AC7; }
   #table_container #table_subject {
     background-color: #ADD5F7;
     color: #000000; }
   #table_container .selected_date {
     color: #000000; }
+  #table_container #back_btn {
+    margin: 10% 0 5% 0; }
 
 #group_description {
   color: #4E7AC7; }
@@ -40,3 +43,13 @@ body {
   color: #7FB2F0; }
   #amount_heading .subject_info {
     color: #4E7AC7; }
+
+#calendar_container {
+  border: 1px solid #ADD5F7; }
+
+#table_container:hover, #calendar_container:hover {
+  border: 2px solid #ADD5F7; }
+
+#select_box {
+  text-align: center;
+  text-align-last: center; }

@@ -3,8 +3,8 @@
         <div class="panel-group" id="accordion">
             <div ng-repeat="element in groupsData" class="panel panel-default" id="panel">
                 <div id="panel_heading" class="panel-heading">
-                    <h4 ui-sref="groups.groupsCalendar({groupsCalendarID : element.id})" class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#{{element.id}}"
+                    <h4  ui-sref="groups.groupsCalendar({groupsCalendarID : element.id})" class="panel-title">
+                        <a id="{{element.description}}" data-toggle="collapse" data-parent="#accordion" href="#{{element.id}}"
                         ng-bind='element.description'></a>
                     </h4>
                 </div>

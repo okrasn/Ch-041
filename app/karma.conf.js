@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './app',
+    basePath: '',
 
 
     // frameworks to use
@@ -15,15 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      "bower_components/angular/angular.js",
-      "bower_components/angular-ui-router/release/angular-ui-router.js",
-      "bower_components/angular-mocks/angular-mocks.js",
-      "bower_components/angular-animate/angular-animate.js",
-      "bower_components/ui-bootstrap-tpls-1.3.3.min.js",
+      "./bower_components/angular/angular.js",
+      "./bower_components/angular-ui-router/release/angular-ui-router.js",
+      "./bower_components/angular-mocks/angular-mocks.js",
+      "./bower_components/angular-animate/angular-animate.js",
+      "./bower_components/ui-bootstrap-tpls-1.3.3.min.js",
       //"data/*.json",
       "*.js",
-       "js/*.js",
-       "test/*.js"
+       "js/**/*.js",
+        "karma/*.js"
+
     ],
 
 

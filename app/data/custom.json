@@ -3,6 +3,7 @@
 		{
 			"id" : "groupOne",
 			"description" : "JavaScript developers",
+			"lessons" : ["javascript","html","scss","css","git"],
 			"days" : [
 				{
 					"day" : "Mon",
@@ -151,6 +152,7 @@
 
 			"id" : "groupTwo",
 			"description" : "Java developers",
+			"lessons" : ["java","play","spring","npm"],
 				"days" : [
 				{
 					"day" : "Mon",
@@ -299,6 +301,7 @@
 
 			"id" : "groupThree",
 			"description" : ".Net developers",
+			"lessons" : ["asp.net","c#","visual-studio"],
 			"days" : [
 				{
 					"day" : "Mon",
@@ -446,6 +449,7 @@
 		{
 
 			"id" : "groupFour",
+			"lessons" : ["scrum","java","play","spring","npm"],
 			"description" : "ATQC developers",
 			"days" : [
 				{
@@ -488,7 +492,7 @@
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Play"
+							"subject" : "play"
 
 						},{
 							"time" : "12:00-12:55",
@@ -500,7 +504,7 @@
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Play"
+							"subject" : "play"
 						}
 					]
 				},
@@ -594,6 +598,7 @@
 		{
 
 			"id" : "groupFive",
+			"lessons" : ["xp","scrum","java","play","npm"],
 			"description" : "QA developers",
 			"days" : [
 				{
@@ -636,7 +641,7 @@
 
 						},{
 							"time" : "11:00-11:55",
-							"subject" : "Play"
+							"subject" : "play"
 
 						},{
 							"time" : "12:00-12:55",
@@ -648,7 +653,7 @@
 
 						},{
 							"time" : "14:00-14:55",
-							"subject" : "Play"
+							"subject" : "play"
 						}
 					]
 				},

@@ -35,7 +35,11 @@ body{
   .selected_date{
     color: #000000;
   }
+  border: 1px solid $second-main;
   color: $text-color-custom;
+  #back_btn{
+    margin: 10% 0 5% 0;
+  }
 }
 #group_description{
   color:$text-color-custom ;
@@ -49,4 +53,15 @@ body{
   .subject_info{
     color:$text-color-custom;
   }
+}
+#calendar_container{
+  border: 1px solid $second-main;
+
+}
+#table_container:hover , #calendar_container:hover{
+  border: 2px solid $second-main;
+ }
+#select_box{
+ text-align: center;
+  text-align-last:center;
 }

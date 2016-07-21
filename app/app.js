@@ -5,17 +5,20 @@ angular.module('schedule',['service','service.count','datepicker','accordion','u
             .state('groups', {
                 url: '/groups',
                 templateUrl:'partials/groups.html',
-                controller : 'AccordionCtrl'
+                controller : 'AccordionCtrl',
+                controllerAs : 'ctrl'
             })
             .state('groups.groupsCalendar', {
                 url: '/groupsCalendar/:groupsCalendarID/',
                 templateUrl: 'partials/groups.calendar.html',
-                controller : 'AccordionCtrl'
+                controller : 'AccordionCtrl',
+                controllerAs : 'ctrl'
             })
             .state('groups.groupsCalendar.table', {
                 url: '/table/:tableID',
                 templateUrl: 'partials/table.html',
-                controller : 'AccordionCtrl'
+                controller : 'AccordionCtrl',
+                controllerAs :'ctrl'
         })
     });
 
