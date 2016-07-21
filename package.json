@@ -11,9 +11,6 @@
     "web-update": "webdriver-manager update",
     "web-start": "webdriver-manager start",
     "protractor": "conf.js"
-
-
-
   },
   "author": "kasjs",
   "license": "ISC",
@@ -28,6 +25,7 @@
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.1",
     "karma-chrome-launcher": "^1.0.1",
+    "karma-cli": "^1.0.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.1.0",
