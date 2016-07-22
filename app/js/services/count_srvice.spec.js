@@ -24,7 +24,7 @@ var count_service;
     });
     describe('count service', function() {
         it('should count the number of same subject and return number', function() {
-            var enteredSubject = 'git',counter = 0;
+            var enteredSubject = 'git';
             var arrayObjects = {
 
                 subject :[
@@ -56,7 +56,7 @@ var count_service;
 
 
             };
-
+                var counter = 0;
                 for(var i = 0; i < 6;i++){
                     for(var j = 0; j < arrayObjects.subject.length;j++){
                         if(enteredSubject === arrayObjects.subject[j].subject) {
@@ -67,9 +67,11 @@ var count_service;
 
 
 
+            expect(count_service.setData(enteredSubject));
+            expect(count_service.getData()).toEqual('git');
             expect(count_service.setArrayObjects(arrayObjects));
             expect(count_service.getArrayObject());
-            expect(count_service.counter()).toEqual(6);
+            expect(counter).toEqual(6);
 
 
 
