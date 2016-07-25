@@ -1,2 +1,0 @@
-Kyshnir Anatolii
-#Schedule app
