@@ -12,16 +12,12 @@
   ],
   "homepage": "https://github.com/nromanen/Ch-041",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test"
-  ],
+  "ignore": [],
   "dependencies": {
     "angular": "~1.5.8",
     "angular-ui-router": "ui-router#~0.3.1",
 	"angular-mocks": "^1.5.7",
+    "jquery": "^3.1.0",
     "bootstrap": "~3.3.6",
     "ui-bootstrap": "~2.0.0"
   }

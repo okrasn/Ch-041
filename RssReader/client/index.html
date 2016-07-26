@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rss Reade</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="panel-heading text-left">
+        <h1>Rss|Reader</h1>
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div ui-view></div>
+</div>
+
+<!--build:js js/main.min.js-->
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="app.js"></script>
+<!--endbuild-->
+</body>
+</html>
