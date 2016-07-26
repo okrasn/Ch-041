@@ -1,8 +1,8 @@
 var express         = require('express');
 var path            = require('path');
-var config          = require('./libs/config');
-var log             = require('./libs/log')(module);
-var ArticleModel    = require('./libs/mongoose').ArticleModel;
+var config          = require('./lib/config');
+var log             = require('./lib/log')(module);
+var ArticleModel    = require('./lib/mongoose').ArticleModel;
 var app = express();
 
 app.use(express.favicon());

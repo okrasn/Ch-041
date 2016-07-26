@@ -4,7 +4,7 @@
   "description": "Rss reader aplication.",
   "main": "server/server.js",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "gulp watch",
     "postinstall": "bower install",
     "prestart": "npm install",
     "test": "karma start client/karma.conf.js",
@@ -17,7 +17,8 @@
     "express": "3.3.x",
     "mongoose": "3.6.x",
     "nconf": "0.6.x",
-    "winston": "0.7.x"
+    "winston": "0.7.x",
+    "method-override" : "~2.0.2"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
     "rss",
     "reader"
   ],
-  "author": "Kasjs",
+  "author": "ch-041",
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.7.9",
