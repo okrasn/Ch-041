@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rss Reader</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body ng-app="rss.test">
+<div class="container">
+    <div class="panel-heading text-center">
+        <h1>Rss|Reader</h1>
+    </div>
+    <div class="row">
+        <div id="sidebar" class="col-sm-3">
+
+            <div  class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1">Group</a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <h3>Feeds</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a ui-sref="add" class="btn btn-info">Add Feed</a>
+        </div>
+        <div id="views_container" class="col-sm-9">
+            <div ui-view></div>
+        </div>
+    </div>
+
+</div>
+
+<!--build:js js/main.min.js-->
+<script src="libs/jquery/dist/jquery.min.js"></script>
+<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="libs/angular/angular.js"></script>
+<script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="app.js"></script>
+<script src="controllers/add.feed.controller.js"></script>
+<script src="services/add.feed.service.js"></script>
+<!--endbuild-->
+</body>
+</html>
