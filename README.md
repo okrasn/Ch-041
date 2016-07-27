@@ -1,3 +1,3 @@
-# Ch-041 Olga Cherevko
+# Ch-041 Development branch
 #
-# olga-dev
+# test-dev
