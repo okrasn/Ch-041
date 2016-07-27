@@ -1,3 +1,3 @@
-# Ch-041 Valentin Stets
+# Ch-041 Oleg Odoviichuk
 #
-# valik-dev
+# oleg-dev
