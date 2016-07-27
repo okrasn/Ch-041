@@ -1,0 +1,12 @@
+<div class="form-group">
+	<h3>Add view</h3>
+    <input class="form-control" type="text" ng-model="description" placeholder="enter description">
+    <input class="form-control" type="text" ng-model="url" placeholder="enter link">
+    <button class="btn btn-info" ng-click="addFeed()">Add New Feed</button>
+
+
+    <ul ng-repeat="feed in feeds">
+        <li><a ng-href="{{feed.url}}"></a>{{feed.description}}</li>
+    </ul>
+
+</div>
