@@ -1,19 +1,4 @@
-<div class="row">
-    <div class="col-md-12 list-header">
-        <div class="row">
-            <div class="col-md-8">
-                <span class="title"><span>IT</span> 155 under articles</span>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
-                    <button type="button" class="btn btn-default" aria-label="Center Align"><span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
-                    <button type="button" class="btn btn-default" aria-label="Justify"><span class="glyphicon glyphicon glyphicon-list" aria-hidden="true"></span></button>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    </div>
+<div class="jumbotron">
+    <h1 ng-bind="header"></h1>
+    <button class="btn btn-success btn-lg" ng-click="OnFeeds()">Show Feeds</button>
 </div>
-
-<ng-view></ng-view>
-
-
