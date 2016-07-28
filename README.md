@@ -1,3 +1,3 @@
-# Ch-041 Anatolii Kyshnyr
+# Ch-041 Development branch
 #
-# tolik-dev
+# test-dev
