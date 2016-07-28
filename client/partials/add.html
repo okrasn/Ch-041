@@ -4,39 +4,12 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" for="url">Url:</label>
                 <div class="col-sm-7">
-                    <input type="url" class="form-control form-input" id="url" placeholder="Enter url">
-                </div>
-            </div>
-            <div class="form-group">
-                <p class="text-center article-title">Articles</p>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p class="article">
-                            Lorem ipsum dolor sit amet, dicta ornatus consectetuer no eam, quo vitae tollit id,
-                            idque nostrud definitionem id cum. Ad sit hinc ocurreret.
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p class="article">
-                            Lorem ipsum dolor sit amet, dicta ornatus consectetuer no eam, quo vitae tollit id,
-                            idque nostrud definitionem id cum. Ad sit hinc ocurreret.
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p class="article">
-                            Lorem ipsum dolor sit amet, dicta ornatus consectetuer no eam, quo vitae tollit id,
-                            idque nostrud definitionem id cum. Ad sit hinc ocurreret.
-                        </p>
-                    </div>
+                    <input type="url" class="form-control form-input" ng-model='url' id="url" placeholder="Enter url">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12 center-block">
-                    <button type="submit" class="btn btn-default add-feed-btn center-block">Add feed</button>
+                    <button type="submit" class="btn btn-default add-feed-btn center-block" ng-click='addFeed()'>Add feed</button>
                 </div>
             </div>
         </form>
