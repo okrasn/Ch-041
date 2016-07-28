@@ -1,3 +1,3 @@
-# Ch-041 Oleg Odoviichuk
+# Ch-041 Development branch
 #
-# oleg-dev
+# test-dev
