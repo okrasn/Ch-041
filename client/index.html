@@ -9,34 +9,132 @@
 </head>
 
 <body ng-app="rss">
-<div class="">
-    <div class="panel-heading text-center">
-        <h1>Rss|Reader</h1>
-    </div>
-    <div class="row">
-        <div id="sidebar" class="col-sm-3">
+<div class="main-navbar">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand rss" href="#"><span>RSS</span>|READER</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="#" class="user-image" alt="User Image">
+                            <span class="hidden-xs">Alexander Pierce</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="#" class="img-circle" alt="User Image">
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
 
-            <div  class="panel-group text-center">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse1">Group</a>
-                        </h4>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat"  data-toggle="modal" data-target="#profileModal">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><span class="glyphicon glyphicon-cog"></span> </a>
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+
+
+        <ul class="sidebar-nav collapsible">
+            <li id="allFeeds">
+                <button type="button" class="btn" id="all" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                </button>All
+            </li>
+
+            <li id="feeds">
+                <a href="#items" data-toggle="collapse"><span id="glyphFeeds" class="glyphicon glyphicon-chevron-right"></span> IT</a>
+                <div class="collapse" id="items">
+                    <a href="#">Subitem 1</a>
+                    <a href="#">Subitem 2</a>
+                </div>
+            </li>
+
+            <li>
+                <div id="addFeed">
+                    <a ui-sref="add">
+                    <button type="button" class="btn btn-primary" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </button>
+                    Add Feed</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-lg-12">
+                    <div id="toggleBtn">
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="glyphToggle" class="glyphicon glyphicon-remove"></span></a>
                     </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <h3>Feeds</h3>
-                        </div>
-                    </div>
+                    <div ui-view></div>
                 </div>
             </div>
-            <a ui-sref="add" class="btn btn-info">Add Feed</a>
-        </div>
-        <div id="views_container" class="col-sm-9">
-            <div ui-view></div>
         </div>
     </div>
+</div>
+<!-- /#wrapper -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="profileModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <img src="#" class="user-image" alt="User Image">
+                <h4 class="modal-title">User name</h4>
+            </div>
+            <div class="modal-body">
+                <p>This is a large modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <!--build:js js/main.min.js-->
 <script src="libs/angular/angular.js"></script>
@@ -46,6 +144,7 @@
 <script src="app.js"></script>
 <script src="js/controllers/add_feed_controller.js"></script>
 <script src="js/services/add_feed_service.js"></script>
+<script src="js/sidebar.js"></script>
 <!--endbuild-->
 </body>
 </html>
