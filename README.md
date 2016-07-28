@@ -1,3 +1,3 @@
-# Ch-041 Vatamaniuk Oleksandr
+# Ch-041 Anatolii Kyshnyr
 #
-# alex-dev
+# tolik-dev
