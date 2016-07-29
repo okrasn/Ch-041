@@ -1,0 +1,80 @@
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav collapsible">
+            <li id="allFeeds">
+                <button type="button" class="btn" id="all" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                </button>All
+            </li>
+
+            <li id="feeds">
+                <div href="#items" data-toggle="collapse"><span id="glyphFeeds" class="glyphicon glyphicon-chevron-right"></span> IT</div>
+                <div class="collapse" id="items">
+                    <a href="#">Subitem 1</a>
+                    <a href="#">Subitem 2</a>
+                </div>
+            </li>
+
+            <li>
+                <div id="addFeed">
+                    <div data-toggle="collapse" data-target="#add-form">
+                        <button type="button" class="btn btn-primary" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </button> Add Feed</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-lg-12">
+                    <div id="toggleBtn">
+
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="feed in feeds">
+                                    <td><span ng-bind="feed.title"></span></td>
+                                    <td><button class="glyphicon glyphicon-remove" ng-click="removeFeed(feed._id)"></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+<!---------------------- ADD FEED SAMPLE ------------------------------>
+                        
+                        <form id="add-form" class="collapse form-horizontal" ng-submit="addFeed()">
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-2 control-label">Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="obj.title" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLink" class="col-sm-2 control-label">Link</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputLink" placeholder="Link" ng-model="obj.link" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-lg app-btn-purple">Add</button>
+                                </div>
+                            </div>
+                        </form>
+
+<!------------------------------------------------------------------------>
+
+                        <button href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="glyphToggle" class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                    <!--<div ui-view></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
