@@ -15,7 +15,7 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
             console.log(error);
             $scope.error = error;
         }).then(function () {
-            $state.go('home');
+            $state.go('dashboard', {id: authService.userID()});
         });
     };
 }]);

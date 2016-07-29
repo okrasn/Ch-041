@@ -1,4 +1,5 @@
-$(document).ready(function(){
+(function(){
+    $(document).ready(function(){
     var validator = $("#loginform").validate({ 
        rules:{ 
             mail:{
@@ -61,4 +62,4 @@ $(document).ready(function(){
        }           
     });
 }); //end of ready
-
+})();
