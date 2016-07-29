@@ -6,16 +6,6 @@ angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouter
             templateUrl: './partials/home.html',
             controller: 'HomeController'
         })
-        .state('feeds', {
-            url: '/users/:id',
-            templateUrl: './partials/feeds.html',
-            controller: 'FeedsController',
-            resolve: {
-                feedPromise: ['$stateParams', 'feedsService', function ($stateParams, feedsService) {
-                    return feedsService.get($stateParams.id);
-                }]
-            }
-        })
         .state('login', {
             url: '/login',
             templateUrl: './partials/auth/login.html',
@@ -29,6 +19,16 @@ angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouter
         .state("dashboard", {
             url: '/dashboard/:id',
             templateUrl: './partials/dashboard.html',
+            controller: 'DashboardController'
+        })
+        .state("dashboard.addFeed", {
+            url: '/addFeed',
+            templateUrl: './partials/addFeed.html',
+            controller: 'FeedsController'
+        })
+        .state("dashboard.feed", {
+            url: '/feed',
+            templateUrl: './partials/feed.html',
             controller: 'FeedsController',
             resolve: {
                 feedPromise: ['$stateParams', 'feedsService', function ($stateParams, feedsService) {

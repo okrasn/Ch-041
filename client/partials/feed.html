@@ -1,0 +1,10 @@
+<table class="table">
+    <tbody>
+        <tr ng-repeat="feed in feeds">
+            <td><span ng-bind="feed.title"></span></td>
+            <td>
+                <button class="glyphicon glyphicon-remove" ng-click="removeFeed(feed._id)"></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
