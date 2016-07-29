@@ -16,17 +16,16 @@
 
 
 (function () {
-    $("#menu-toggle").click(function (e) {
-        console.log("Called");
+    $("#app-wrapper").on("click", "#menu-toggle", function (e) {
         e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
+        $("#app-wrapper #wrapper").toggleClass("toggled");
     });
 
-    $("#toggleBtn").click(function () {
+    $("#app-wrapper").on("click", "#toggleBtn", function () {
         $("#glyphToggle").toggleClass(' glyphicon-align-justify glyphicon-remove');
     });
-
-    $("#feeds").click(function () {
+    
+    $("#app-wrapper").on("click", "#feeds", function () {
         $("#glyphFeeds").toggleClass('glyphicon-chevron-right glyphicon-chevron-down');
     });
 })();

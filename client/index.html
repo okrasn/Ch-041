@@ -1,4 +1,5 @@
 <html ng-app="rssreader">
+
 <head>
     <title>Rss Reader</title>
     <meta charset="utf-8">
@@ -8,22 +9,25 @@
 </head>
 
 <body>
- <ng-include src="'partials/navbar.html'"></ng-include>
-    
+   <div id="app-wrapper">
+    <ng-include src="'partials/navbar.html'"></ng-include>
+
     <div class="container-fluid">
         <div class="centered-block">
-            <ui-view></ui-view>            
+            <ui-view></ui-view>
         </div>
     </div>
-    
+    </div>
+
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/jquery-validation/jquery.validate.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./js/validationSetup.js"></script>
+    <script src="./js/jqscripts/validationSetup.js"></script>
+    <script src="./js/jqscripts/sidebar.js"></script>
     <script src="./bower_components/angular/angular.min.js"></script>
     <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    
-    <script src="./js/sidebar.js"></script>
+
+
     <script src="js/app.min.js"></script>
 </body>
 
