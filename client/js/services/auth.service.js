@@ -13,7 +13,6 @@ angular.module('rssreader').factory('authService', ['$http', '$window', function
 
         if (token) {
             var payload = JSON.parse($window.atob(token.split('.')[1]));
-
             return payload.exp > Date.now() / 1000;
         } else {
             return false;
@@ -40,9 +39,7 @@ angular.module('rssreader').factory('authService', ['$http', '$window', function
         });
     }
     auth.logIn = function (user) {
-        console.log('sending post to /login');
         return $http.post('/login', user).success(function (data) {
-            console.log("Saving data");
             auth.saveToken(data.token);
         });
     }

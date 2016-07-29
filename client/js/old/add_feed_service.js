@@ -1,4 +1,4 @@
-angular.module('add_service',[])
+angular.module('add_service')
     .factory('add_feed_service',[function(){
         var transferArray = [];
         function setArray(array){
