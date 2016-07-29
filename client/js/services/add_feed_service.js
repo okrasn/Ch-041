@@ -17,10 +17,9 @@ angular.module('add_service',[])
             return transferArray;
         }
         function getFeeds(){
-            return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + getUrl() +
+             return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + getUrl() +
                 "&callback=JSON_CALLBACK").then(function(responce){
-                feeds.push(responce.data.responseData.feed.entries[0]);
-                console.log(feeds);
+                    return responce.data.responseData.feed.entries[0];
             },function(responce){
                 console.log('Error');
             });

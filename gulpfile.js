@@ -22,13 +22,13 @@ gulp.task('browserSync',function(){
             baseDir : 'client'
         }
     })
-
-    gulp.watch('./client/scss/*.scss',['sass']);
-    gulp.watch('./client/**/*.js').on('change', browserSync.reload);
-    gulp.watch('./client/**/*.css').on('change', browserSync.reload);
-    gulp.watch('./client/**/*.html').on('change', browserSync.reload);
-    gulp.watch('./client/**/*.json').on('change', browserSync.reload);
 });
+
+gulp.watch('client/scss/*.scss',['sass']);
+gulp.watch('client/**/*.js').on('change', browserSync.reload);
+gulp.watch('client/**/*.css').on('change', browserSync.reload);
+gulp.watch('client/**/*.html').on('change', browserSync.reload);
+gulp.watch('client/**/*.json').on('change', browserSync.reload);
 
 gulp.task('default', ['sass','browserSync']);
 

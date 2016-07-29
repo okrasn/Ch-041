@@ -6,13 +6,13 @@ angular.module('rss',['add_ctrl','add_service','ui.router'])
             .state('home',{
                 url : '/home',
                 templateUrl : 'partials/home.html',
-                controller : 'AddCtrl'
+                controller : 'MainCtrl'
             })
             .state('add',{
                 url:'/add',
                 templateUrl : 'partials/add.html',
                 controller : 'AddCtrl'
-            })
+            });
             /*
             .state('register',{
                 url : '/register',
@@ -55,11 +55,11 @@ angular.module('rss',['add_ctrl','add_service','ui.router'])
             })
             */
     })
-    /*
+
     .controller('MainCtrl',['$scope','add_feed_service',function($scope,add_feed_service){
 
 
 
     }]);
 
-*/
+
