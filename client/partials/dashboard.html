@@ -3,9 +3,7 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav collapsible">
             <li id="allFeeds">
-                <button type="button" class="btn" id="all" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                </button>All
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">All</span>
             </li>
 
             <li id="feeds">
@@ -18,10 +16,11 @@
 
             <li>
                 <div id="addFeed">
-                    <div>
-                        <button type="button" class="btn btn-primary" aria-label="Left Align" ui-sref=".addFeed">
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        </button> Add Feed
+                    <div class="col-sm-12 center-block">
+                        <button type="submit" class="btn btn-default add-feed-btn center-block" ui-sref=".addFeed">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Add feed
+                        </button>
                     </div>
                 </div>
             </li>
@@ -29,14 +28,17 @@
     </div>
     <!-- /#sidebar-wrapper -->
 
+    <div class="toggle-btn-container">
+        <button href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="glyphToggle" class="glyphicon glyphicon-chevron-left"></span></button>
+    </div>
+
+
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-lg-12">
-                    <div id="toggleBtn">                        
-                        <button href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="glyphToggle" class="glyphicon glyphicon-remove"></span></button>
-                    </div>
+
                     <ui-view></ui-view>
                 </div>
             </div>
