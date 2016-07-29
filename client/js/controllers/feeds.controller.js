@@ -1,7 +1,7 @@
 angular.module('rssreader').controller('FeedsController', ['$scope', '$state', 'feedsService', 'authService', function ($scope, $state, feedsService, authService) {
     $scope.test = 'Hello world!';
     $scope.obj = {};
-    $scope.feeds = feedsService.getFeeds();
+    $scope.feeds = feedsService.feeds;
 
     $scope.addFeed = function () {
         feedsService.addFeed(authService.userID(), {
@@ -10,9 +10,9 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
         });
         $scope.obj.title = '';
         $scope.obj.link = '';
-        $scope.feeds = feedsService.getFeeds();
+        $state.go("dashboard.feed", {}, { reload: true });
     }
-    $scope.removeFeed = function(feedId){
+    $scope.removeFeed = function (feedId) {
         feedsService.removeFeed(authService.userID(), feedId);
         //$scope.feeds = feedsService.getFeeds();
         $state.reload();
