@@ -1,24 +1,29 @@
 {
-  "name": "rss_reader",
-  "description": "Rss reader aplication.",
-  "main": "app.js",
-  "authors": [
-    "Kasjs"
+    "name": "rss_reader",
+    "description": "Rss reader aplication.",
+    "main": "app.js",
+    "authors": [
+    "Ch-041"
   ],
-  "license": "ISC",
-  "keywords": [
+    "license": "ISC",
+    "keywords": [
     "rss",
     "reader"
   ],
-  "homepage": "https://github.com/nromanen/Ch-041",
-  "private": true,
-  "ignore": [],
-  "dependencies": {
-    "angular": "~1.5.8",
-    "angular-ui-router": "ui-router#~0.3.1",
-	"angular-mocks": "^1.5.7",
-    "jquery": "^3.1.0",
-    "bootstrap": "~3.3.6",
-    "ui-bootstrap": "~2.0.0"
-  }
+    "homepage": "https://github.com/nromanen/Ch-041",
+    "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+    "dependencies": {
+        "angular": "^1.5.8",
+        "angular-ui-router": "^0.3.1",
+        "jquery": "^3.1.0",
+        "jquery-validation": "jquery.validate#1.9.0",
+        "bootstrap": "^3.3.7",
+        "ui-bootstrap": "~2.0.0"
+    }
 }
