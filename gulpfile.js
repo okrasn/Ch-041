@@ -32,13 +32,11 @@ gulp.task('useref', function () {
 
 gulp.task('main', function () {
     gulp.watch('./client/scss/*.scss', ['sass']);
-    gulp.watch('./client/**/*.js').on('change');
-    gulp.watch('./client/**/*.css').on('change');
-    gulp.watch('./client/**/*.html').on('change');
-    gulp.watch('./client/**/*.json').on('change');
-    gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js'], function () {
-        gulp.start('scripts');
-    });
+//    gulp.watch('./client/**/*.js').on('change');
+//    gulp.watch('./client/**/*.css').on('change');
+//    gulp.watch('./client/**/*.html').on('change');
+//    gulp.watch('./client/**/*.json').on('change');
+    gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js'], ['scripts']);
 });
 
-gulp.task('default', ['scripts']);
+gulp.task('default', ['sass', 'scripts', 'main']);

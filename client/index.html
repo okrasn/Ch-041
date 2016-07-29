@@ -7,8 +7,9 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body >
-     <!--<div class="navbar-header">
+<body>
+ <ng-include src="'partials/navbar.html'"></ng-include>
+<!--  <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
                         aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -17,8 +18,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand rss" href="#"><span>RSS</span>|READER</a>
-            </div>-->
+            </div> -->
 
+<!--
  <nav class="navbar navbar-default pull-right" ng-controller="NavController">
         <ul class="nav navbar-nav">
             <li><a class="btn btn-default" ng-click="goHome()">Home</a></li>
@@ -28,11 +30,11 @@
             <li ng-hide="isLoggedIn()"><a class="btn btn-default" href="/#/register">Register</a></li>
         </ul>
     </nav>
+-->
     
     <div class="container-fluid">
         <div class="centered-block">
-           
-            <ui-view></ui-view>
+            <ui-view></ui-view>            
         </div>
     </div>
     
@@ -42,6 +44,7 @@
     <script src="./js/validationSetup.js"></script>
     <script src="./bower_components/angular/angular.min.js"></script>
     <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    
     <script src="./js/sidebar.js"></script>
     <script src="js/app.min.js"></script>
 </body>
