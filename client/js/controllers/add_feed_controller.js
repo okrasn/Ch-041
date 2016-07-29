@@ -4,5 +4,4 @@ angular.module('add_ctrl',[])
         $scope.addFeed = function(){
             console.log('add ctrl')
         };
-
     }]);
