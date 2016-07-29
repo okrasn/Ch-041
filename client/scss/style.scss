@@ -3,10 +3,15 @@
   padding-left: 0px !important;
 }
 .row {
-  margin-right: -0px !important;
-  margin-left: -0px !important;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+.container-fluid{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
 }
 
 @import "addFeed";
 @import "feedList";
 @import "home";
+@import "auth";

@@ -21,8 +21,8 @@
         $("#app-wrapper #wrapper").toggleClass("toggled");
     });
 
-    $("#app-wrapper").on("click", "#toggleBtn", function () {
-        $("#glyphToggle").toggleClass(' glyphicon-align-justify glyphicon-remove');
+    $("#app-wrapper").on("click", "#menu-toggle", function () {
+        $("#glyphToggle").toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
     });
     
     $("#app-wrapper").on("click", "#feeds", function () {
