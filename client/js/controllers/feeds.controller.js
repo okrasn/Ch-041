@@ -3,7 +3,6 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
     $scope.obj = {};
     $scope.feeds = feedsService.feeds;
 
-
     $scope.addFeed = function () {
         var status = feedsService.addFeed({
             link: $scope.obj.link,
@@ -15,7 +14,7 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
         // });
         // $scope.obj.title = '';
         // $scope.obj.link = '';
-        // $state.go("dashboard.feed", {}, { reload: true });
+        $state.go("dashboard.feed", {}, { reload: true });
     }
     $scope.removeFeed = function (feedId) {
         feedsService.removeFeed(authService.userID(), feedId);

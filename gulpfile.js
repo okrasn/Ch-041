@@ -10,12 +10,14 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('server', function (cb) {
-    exec('mongod --dbpath ./data/db', function (err, stdout, stderr) {
+    
+    exec('node app.js', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
     });
-    exec('node app.js', function (err, stdout, stderr) {
+    // You must create folder 'data' in the root of project folder
+    exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);

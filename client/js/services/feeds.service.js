@@ -15,13 +15,13 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
     obj.addFeed = function (feed) {
      $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + feed.link +
             "&callback=JSON_CALLBACK").then(function (responce) {
-            //var recievedFeed = responce.data.responseData.feed;
+            var recievedFeed = responce.data.responseData.feed;
             if(responce.data.responseData == null){
                 throw new Error('URL is incorrect'); 
             }
             //obj.feeds.push(responce.data.responseData.feed);
-//            console.log("Recieved Feed: ");
-//            console.log(recievedFeed);
+            console.log("Recieved Feed: ");
+            console.log(recievedFeed);
             var feedObj = {
                 title: recievedFeed.description,
                 link: recievedFeed.link,
@@ -36,10 +36,9 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
                 articleObj.content = recievedFeed.entries[i].contentSnippet;
                 articleObj.date = recievedFeed.entries[i].publishedDate;
                 feedObj.articles.push(articleObj);
-                //console.log(articleObj);
             }
-//            console.log("Modified Feed: ");
-//            console.log(feedObj);
+            console.log("Modified Feed: ");
+            console.log(feedObj);
             $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken()
