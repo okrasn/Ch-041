@@ -13,6 +13,7 @@ var express = require('express'),
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
 require('./server/models/Feeds');
+require('./server/models/Articles');
 require('./server/models/Users');
 
 require('./server/config/passport');
