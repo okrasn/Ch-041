@@ -2,17 +2,27 @@
 img {
   width: 1em;
 }
+.toggle-btn-container{
+  position: absolute;
+  width: 40px;
+  #menu-toggle{
+    position: absolute;
+    z-index: 999;
+  }
+}
+#allFeeds>.all-text{
+  padding-left: 5px;
+}
 .main-navbar .navbar {
-  background: #3949ab ;
+  background: #3949ab;
   border-radius: 0px;
   margin: 0px;
 }
 .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
-  margin-left: 60px;
   color: #fff;
 }
 .navbar-brand span, .header span{
-  color: #f8ad86 ;
+  color: #f8ad86;
 }
 
 body {
@@ -25,7 +35,7 @@ body {
 }
 
 #items {
-  text-align: center;
+  padding-left: 30px;
 }
 
 #addFeed {
@@ -33,8 +43,7 @@ body {
 }
 
 #toggleBtn {
-  padding-top: 10px;
-  padding-left: 10px;
+  padding: 5px;
   margin: inherit;
 }
 
@@ -135,9 +144,9 @@ body {
 }
 
 #page-content-wrapper {
+  padding-left: 40px !important;
   width: 100%;
   position: absolute;
-  padding: 0px;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -157,7 +166,7 @@ body {
 }
 
 .sidebar-nav li {
-  text-indent: 20px;
+  text-indent: 10px;
   line-height: 40px;
 }
 
@@ -182,7 +191,6 @@ body {
   height: 65px;
   font-size: 18px;
   line-height: 60px;
-  padding-left: 10px;
 }
 
 .sidebar-nav > #allFeeds a {
