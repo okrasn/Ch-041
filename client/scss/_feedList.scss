@@ -1,0 +1,73 @@
+.list-header {
+  border-bottom: 1px solid #888888;
+  border-shadow: 1px 2px 5px 1px #888888;
+}
+
+.table-feed {
+  padding: 5px 0px 0px 0px;
+  border-bottom: 1px solid #888888;
+  border-shadow: 1px 2px 5px 1px #888888;
+}
+
+.feed-content {
+  float: left;
+  width: 95%;
+}
+
+.read {
+  width: 5%;
+  float: left;
+}
+
+.read-icon {
+  float: right;
+}
+
+.grid-feed {
+  padding: 15px;
+}
+
+.panel {
+  margin-bottom: 0px !important;
+}
+.grid-feed{
+  .read-btn{
+    margin-top: -5px;
+  }
+  .title{
+    height: 20px;
+    overflow: hidden;
+    padding-left: 5px;
+  }
+  .description{
+    height: 80px;
+    overflow: hidden;
+    padding-left: 5px;
+  }
+  .panel{
+    height: 140px;
+  }
+  .footer{
+    height: 30px;
+    overflow: hidden;
+    padding: 3px 0px 5px 5px;
+  }
+  .read-icon, .star-icon, .share-icon{
+    padding: 5px;
+  }
+  img{
+    height: 130px;
+    float: left;
+  }
+  .panel-body{
+    padding: 5px;
+  }
+  .hidden{
+    display: none;
+  }
+  :hover{
+    .hidden{
+      display: inline !important;
+    }
+  }
+}

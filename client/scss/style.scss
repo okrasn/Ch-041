@@ -1,3 +1,8 @@
+@import "addFeed";
+@import "feedList";
+@import "home";
+@import "auth";
+
 #views_container{
   padding-right: 0px !important;
   padding-left: 0px !important;
@@ -11,7 +16,4 @@
   padding-left: 0px !important;
 }
 
-@import "addFeed";
-@import "feedList";
-@import "home";
-@import "auth";
+

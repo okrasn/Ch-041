@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
     router = express.Router(),
     passport = require('passport'),
     jwt = require('express-jwt'),
+    Article = mongoose.model('Article'),
     Feed = mongoose.model('Feed'),
     User = mongoose.model('User');
 
@@ -46,13 +47,23 @@ router.get('/users/:user', auth, function (req, res, next) {
 // add new feed
 router.post('/users/:user/addFeed', auth, function (req, res, next) {
     var feed = new Feed(req.body);
-    feed.user = req.user;
+    feed.articles = [];
+    console.log(feed);
 
+    for (var i = 0; i < req.body.articles.length; i++) {
+        article = new Article(req.body.articles[i]);
+        article.feed = feed._id;
+        feed.articles.push(article);
+        article.save(function (err, article) {
+            if (err) {
+                return next(err);
+            }
+        });
+    }
     feed.save(function (err, feed) {
         if (err) {
             return next(err);
         }
-
         req.user.feeds.push(feed);
         req.user.save(function (err, user) {
             if (err) {
@@ -65,17 +76,23 @@ router.post('/users/:user/addFeed', auth, function (req, res, next) {
 
 router.delete('/users/:user/deleteFeed/:id', function (req, res, next) {
     return Feed.findById(req.params.id, function (err, feed) {
-        if(!feed) {
+        if (!feed) {
             res.statusCode = 404;
-            return res.send({ error: 'Feed not found' });
+            return res.send({
+                error: 'Feed not found'
+            });
         }
         return feed.remove(function (err) {
             if (!err) {
-                return res.send({ status: 'OK' });
+                return res.send({
+                    status: 'OK'
+                });
             } else {
                 res.statusCode = 500;
-                log.error('Internal error(%d): %s',res.statusCode,err.message);
-                return res.send({ error: 'Server error' });
+                log.error('Internal error(%d): %s', res.statusCode, err.message);
+                return res.send({
+                    error: 'Server error'
+                });
             }
         });
     });
