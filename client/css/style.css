@@ -168,7 +168,13 @@ body {
   margin-right: 10px;
   margin-top: -2px; }
 
-@media (max-width: 767px) {
+.sidebar-nav li div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; }
+
+@media (max-width: 768px) {
   .navbar-nav > .user-menu .user-image {
     float: none;
     margin-right: 0;
@@ -298,14 +304,12 @@ body {
   background: none; }
 
 @media (min-width: 768px) {
-  #page-content-wrapper {
-    padding-left: 40px !important; }
   #wrapper {
     padding-left: 250px; }
   #wrapper.toggled {
     padding-left: 0; }
   #sidebar-wrapper {
-    width: 290px; }
+    width: 250px; }
   #wrapper.toggled #sidebar-wrapper {
     width: 0; }
   #page-content-wrapper {
