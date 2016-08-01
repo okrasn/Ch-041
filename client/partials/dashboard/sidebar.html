@@ -15,8 +15,8 @@
                                 <div class="collapse" id="{{ $index + category.key }}">
                                     <ul>
                                         <li ng-repeat="feed in category.values">
-                                            <a ng-click="getByFeed(feed._id)" ng-bind="feed.title">
-                                            </a>
+                                            <div ng-click="getByFeed(feed._id)" ng-bind="feed.title">
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
