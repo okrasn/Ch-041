@@ -57,7 +57,13 @@ body {
   margin-right: 10px;
   margin-top: -2px;
 }
-@media (max-width: 767px) {
+.sidebar-nav li div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+@media (max-width: 768px) {
   .navbar-nav > .user-menu .user-image {
     float: none;
     margin-right: 0;
@@ -65,6 +71,7 @@ body {
     line-height: 10px;
   }
 }
+
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
   height: 175px;
@@ -204,9 +211,6 @@ body {
 }
 
 @media(min-width:768px) {
-  #page-content-wrapper {
-    padding-left: 40px !important;
-  }
   #wrapper {
     padding-left: 250px;
   }
@@ -216,7 +220,7 @@ body {
   }
 
   #sidebar-wrapper {
-    width: 290px;
+    width: 250px;
   }
 
   #wrapper.toggled #sidebar-wrapper {
