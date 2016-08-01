@@ -25,7 +25,7 @@
         $("#glyphToggle").toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
     });
     
-    $("#app-wrapper").on("click", "#feeds", function () {
-        $("#glyphFeeds").toggleClass('glyphicon-chevron-right glyphicon-chevron-down');
-    });
+//    $("#sidebar-wrapper").on("click", ".feeds", function () {
+//        $(".glyphFeeds").toggleClass('glyphicon-chevron-right glyphicon-chevron-down');
+//    });
 })();

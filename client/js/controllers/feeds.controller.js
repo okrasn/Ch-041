@@ -1,20 +1,21 @@
-angular.module('rssreader').controller('FeedsController', ['$scope', '$state', 'feedsService', 'authService', function ($scope, $state, feedsService, authService) {
+angular.module('rssreader').controller('FeedsController', ['$scope', '$state', 'feedsService', function ($scope, $state, feedsService) {
     $scope.test = 'Hello world!';
     $scope.obj = {};
-    $scope.feeds = feedsService.feeds;
-
+    $scope.feeds = feedsService.feedsDictionary;
+    $scope.categories = feedsService.CATEGORIES;
+    
     $scope.addFeed = function () {
-        feedsService.addFeed(authService.userID(), {
-            title: $scope.obj.title,
-            link: $scope.obj.link,
+        $scope.error = '';
+        feedsService.addFeed($scope.obj).then(function(res){
+            $state.go("dashboard.fullFeed");
+        }, function(err){
+            if(!err.data)
+                $scope.error = err.message;
+            else $scope.error = err.data.message;
         });
-        $scope.obj.title = '';
-        $scope.obj.link = '';
-        $state.go("dashboard.feed", {}, { reload: true });
     }
     $scope.removeFeed = function (feedId) {
-        feedsService.removeFeed(authService.userID(), feedId);
-        //$scope.feeds = feedsService.getFeeds();
+        feedsService.removeFeed(feedId);
         $state.reload();
     }
 }]);
