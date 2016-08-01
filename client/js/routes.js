@@ -19,12 +19,12 @@ angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouter
         .state("dashboard", {
             url: '/dashboard/:id',
             templateUrl: './partials/dashboard.html',
-            controller: 'DashboardController'
+            controller: 'DashboardController',
         })
         .state("dashboard.addFeed", {
             url: '/addFeed',
             templateUrl: './partials/addFeed.html',
-            controller: 'FeedsController'
+            controller: 'FeedsController',
         })
         .state("dashboard.feed", {
             url: '/feed',
