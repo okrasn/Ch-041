@@ -10,7 +10,6 @@ angular.module('rssreader').factory('authService', ['$http', '$window', function
 
     auth.isLoggedIn = function () {
         var token = auth.getToken();
-
         if (token) {
             var payload = JSON.parse($window.atob(token.split('.')[1]));
             return payload.exp > Date.now() / 1000;
@@ -36,11 +35,15 @@ angular.module('rssreader').factory('authService', ['$http', '$window', function
     auth.register = function (user) {
         return $http.post('/register', user).success(function (data) {
             auth.saveToken(data.token);
+        }).error(function(err){
+            console.log(err.message);
         });
     }
     auth.logIn = function (user) {
         return $http.post('/login', user).success(function (data) {
             auth.saveToken(data.token);
+        }).error(function(err){
+            console.log(err.message);
         });
     }
     auth.logOut = function () {

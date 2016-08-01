@@ -13,62 +13,61 @@
 
 
 <!-- Form -->
-    <div class="col-xs-12 col-md-offset-3 col-md-6">
-        <div class="loginform-border">
-            <h2 class="header">
+<div class="col-xs-12 col-md-offset-3 col-md-6">
+    <div class="loginform-border">
+        <h2 class="header">
         <span>RSS</span>|READER
       </h2>
+        <div class="row">
+            <div class="col-xs-12 col-md-9">
+                <form name="test" id="loginform" ng-submit="logIn()">
+                    <div class="form-group login">
+                        <label for="InputEmail">EMAIL</label>
+                        <input type="email" name="mail" class="form-control" id="InputEmail" placeholder="jacksparrow@gmail.com" ng-model="user.email">
+                    </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-md-9">
-                    <form name="test" id="loginform" ng-submit="logIn()">
-                        <div class="form-group login">
-                            <label for="InputEmail">EMAIL</label>
-                            <input type="email" name="mail" class="form-control" id="InputEmail" placeholder="jacksparrow@gmail.com" ng-model="user.email">
-                        </div>
+                    <div class="form-group login">
+                        <label for="InputPassword">PASSWORD</label>
+                        <input type="password" name="pwd" class="form-control" id="InputPassword" placeholder="Enter your Password" ng-model="user.password">
+                    </div>
 
-                        <div class="form-group login">
-                            <label for="InputPassword">PASSWORD</label>
-                            <input type="password" name="pwd" class="form-control" id="InputPassword" placeholder="Enter your Password" ng-model="user.password">
-                        </div>
-    
-                        <div class="checkbox margin">
-                            <label>
-                                <input type="checkbox" ng-model="session">Remember me</label>
-                            <a class="pass text-right" href="">Forget password?</a>
-                        </div>
+                    <div class="checkbox margin">
+                        <label>
+                            <input type="checkbox" ng-model="session">Remember me</label>
+                        <a class="pass text-right" href="">Forget password?</a>
+                    </div>
 
-                        <button type="submit" id="login" class="btn btn-default my-btn">SIGN IN</button>
+                    <button type="submit" id="login" class="btn btn-default my-btn">SIGN IN</button>
 
-                        <div class="errormsg" ng-show="error" ng-bind="error.message"></div>
-                    </form>
-                </div>
-                <!-- /.col-xs-12 col-md-9 -->
-                <div class="hidden-xs hidden-sm col-md-1 ">
-                    <div class="divder"></div><span>OR</span>
-                    <div class="divder"></div>
-                </div>
-
-                <div class="col-xs-12 col-md-2 links">
-                    <a href="#" title="twitter"><img src="../assets/images/twitter.png" alt="twitter"></a>
-                    <a href="#" title="google+"><img src="../assets/images/google-plus.png" alt="google"></a>
-                    <a href="#" title="facebook"><img src="../assets/images/facebook.png" alt="facebook"></a>
-                    <a href="#" title="in"><img src="/assets/images/linkedin.png" alt="linkedin"></a>
-
-                </div>
-                <!-- /.col-xs-12 col-md-2 -->
+                    <div class="errormsg" ng-show="error" ng-bind="error.message"></div>
+                </form>
             </div>
-            <!-- /.row -->
-
-            <div class="row" >
-                <div class=" col-xs-12 col-md-9 signup">
-                    <p>Do not have account?<a href="/#/register"> Sign up</a></p>
-                </div>
-                <div class=" col-xs-12 col-md-3"></div>
+            <!-- /.col-xs-12 col-md-9 -->
+            <div class="hidden-xs hidden-sm col-md-1 ">
+                <div class="divder"></div><span>OR</span>
+                <div class="divder"></div>
             </div>
-            <!-- /.row -->
+
+            <div class="col-xs-12 col-md-2 links">
+                <a href="#" title="twitter"><img src="../assets/images/twitter.png" alt="twitter"></a>
+                <a href="#" title="google+"><img src="../assets/images/google-plus.png" alt="google"></a>
+                <a href="#" title="facebook"><img src="../assets/images/facebook.png" alt="facebook"></a>
+                <a href="#" title="in"><img src="/assets/images/linkedin.png" alt="linkedin"></a>
+
+            </div>
+            <!-- /.col-xs-12 col-md-2 -->
         </div>
-        <!-- /.loginform-border -->
+        <!-- /.row -->
+
+        <div class="row">
+            <div class=" col-xs-12 col-md-9 signup">
+                <p>Do not have account?<a href="/#/register"> Sign up</a></p>
+            </div>
+            <div class=" col-xs-12 col-md-3"></div>
+        </div>
+        <!-- /.row -->
     </div>
-    <!-- /.col-xs-12 col-md-offset-3 col-md-6 -->
+    <!-- /.loginform-border -->
+</div>
+<!-- /.col-xs-12 col-md-offset-3 col-md-6 -->
 <!-- /.Form -->
