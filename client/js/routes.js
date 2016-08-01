@@ -17,23 +17,36 @@ angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouter
             controller: 'AuthController'
         })
         .state("dashboard", {
-            url: '/dashboard/:id',
-            templateUrl: './partials/dashboard.html',
-            controller: 'DashboardController',
-        })
-        .state("dashboard.addFeed", {
-            url: '/addFeed',
-            templateUrl: './partials/addFeed.html',
-            controller: 'FeedsController',
-        })
-        .state("dashboard.feed", {
-            url: '/feed',
-            templateUrl: './partials/feed.html',
-            controller: 'FeedsController',
+            url: '/dashboard',
+            views: {
+                '': {
+                    templateUrl: './partials/dashboard/dashboard.html',
+                    controller: 'DashboardController',
+                },
+                'sidebar@dashboard': {
+                    templateUrl: './partials/dashboard/sidebar.html',
+                    controller: 'SidebarController'
+                }
+            },
             resolve: {
-                feedPromise: ['$stateParams', 'feedsService', function ($stateParams, feedsService) {
-                    return feedsService.get($stateParams.id);
+                feedPromise: ['feedsService', function (feedsService) {
+                    return feedsService.getAllFeeds();
                 }]
             }
+        })
+        .state("dashboard.fullFeed", {
+            url: '/fullFeed',
+            templateUrl: './partials/dashboard/full-feed.html',
+            controller: 'ArticlesController',
+            resolve: {
+                articlesPromise: ['articlesService', function (articlesService) {
+                    return articlesService.getAllArticles();
+                }]
+            }
+        })
+        .state("dashboard.addFeed", {
+            url: '/add',
+            templateUrl: './partials/dashboard/add-feed.html',
+            controller: 'FeedsController'
         });
 }]);

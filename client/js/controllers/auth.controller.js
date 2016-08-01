@@ -1,6 +1,7 @@
 angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', function ($scope, $state, authService, $window) {
     $scope.user = {};
     $scope.session;
+    $scope.error = '';
 
     $scope.register = function () {
         authService.register($scope.user).error(function (error) {
@@ -11,6 +12,7 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
     };
 
     $scope.logIn = function () {
+        $scope.error = '';
         authService.logIn($scope.user, $scope.session).error(function (error) {
             $scope.error = error;
         }).then(function () {
@@ -24,7 +26,7 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
             else
             console.log("Checked");
 
-            $state.go('dashboard.feed', {
+            $state.go('dashboard.fullFeed', {
                 id: authService.userID()
             });
         });

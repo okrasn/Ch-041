@@ -1,0 +1,41 @@
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-lg-12">
+                <div id="sidebar-wrapper">
+                    <div class="sidebar-nav collapsible">
+                        <div id="allFeeds">
+                            <a ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text"> All</span></a>
+                        </div>
+                        <ul>
+                            <li class="feeds" ng-repeat="category in feeds">
+                                <div data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key)">
+                                    <span class="glyphFeeds" class="glyphicon glyphicon-chevron-right"><span ng-bind="category.key"></span></span>
+                                </div>
+                                <div class="collapse" id="{{ $index + category.key }}">
+                                    <ul>
+                                        <li ng-repeat="feed in category.values">
+                                            <a ng-click="getByFeed(feed._id)" ng-bind="feed.title">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <div id="addFeed">
+                            <div class="col-sm-12 center-block">
+                                <button type="button" class="btn btn-default add-feed-btn center-block" ui-sref=".addFeed">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add feed
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toggle-btn-container">
+                    <button href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="glyphToggle" class="glyphicon glyphicon-chevron-left"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
