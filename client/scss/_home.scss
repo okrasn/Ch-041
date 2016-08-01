@@ -146,7 +146,6 @@ body {
 }
 
 #page-content-wrapper {
-  padding-left: 40px !important;
   width: 100%;
   position: absolute;
 }
@@ -205,6 +204,9 @@ body {
 }
 
 @media(min-width:768px) {
+  #page-content-wrapper {
+    padding-left: 40px !important;
+  }
   #wrapper {
     padding-left: 250px;
   }
