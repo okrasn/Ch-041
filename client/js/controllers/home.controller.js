@@ -1,5 +1,4 @@
 angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'authService', function ($scope, $state, authService) {
-    $scope.userId = authService.userID();
     $scope.header = 'Welcome to Rss Reader';
     
     $scope.isLoggedIn = authService.isLoggedIn;
@@ -8,7 +7,7 @@ angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'a
     $scope.OnFeeds = function () {
         //console.log("OnFeeds");
         if (authService.isLoggedIn())
-            $state.go('dashboard.feed', {id: $scope.userId});
+            $state.go('dashboard.fullFeed', {id: authService.userID()});
         else{
             alert('Unauthtorized');
         }

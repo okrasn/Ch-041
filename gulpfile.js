@@ -1,13 +1,29 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var useref = require('gulp-useref');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var watch = require('gulp-watch');
-var sourcemaps = require('gulp-sourcemaps');
-var ngHtml2Js = require("gulp-ng-html2js");
-var ngAnnotate = require('gulp-ng-annotate');
+var exec = require('child_process').exec;
+var gulp = require('gulp'),
+    sass = require('gulp-sass'),
+    useref = require('gulp-useref'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
+    watch = require('gulp-watch'),
+    sourcemaps = require('gulp-sourcemaps'),
+    ngHtml2Js = require("gulp-ng-html2js"),
+    ngAnnotate = require('gulp-ng-annotate');
 
+gulp.task('server', function (cb) {
+    
+    exec('node app.js', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+    // You must create folder 'data' in the root of project folder
+    exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+    console.log("Server is running on port 8080");
+});
 
 gulp.task('sass', function () {
     return gulp.src('client/scss/**/*.scss')
@@ -32,11 +48,11 @@ gulp.task('useref', function () {
 
 gulp.task('main', function () {
     gulp.watch('./client/scss/*.scss', ['sass']);
-//    gulp.watch('./client/**/*.js').on('change');
-//    gulp.watch('./client/**/*.css').on('change');
-//    gulp.watch('./client/**/*.html').on('change');
-//    gulp.watch('./client/**/*.json').on('change');
+    //    gulp.watch('./client/**/*.js').on('change');
+    //    gulp.watch('./client/**/*.css').on('change');
+    //    gulp.watch('./client/**/*.html').on('change');
+    //    gulp.watch('./client/**/*.json').on('change');
     gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'], ['scripts']);
 });
 
-gulp.task('default', ['sass', 'scripts', 'main']);
+gulp.task('default', ['server', 'sass', 'scripts', 'main']);
