@@ -7,7 +7,9 @@ img {
   width: 40px;
   #menu-toggle{
     position: absolute;
-    z-index: 999;
+    z-index: 1001;
+    border: 0px solid transparent;
+    border-radius: 1px;
   }
 }
 #allFeeds>.all-text{
@@ -140,7 +142,7 @@ body {
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  width: 250px;
+  width: 290px;
 }
 
 #page-content-wrapper {
@@ -212,7 +214,7 @@ body {
   }
 
   #sidebar-wrapper {
-    width: 250px;
+    width: 290px;
   }
 
   #wrapper.toggled #sidebar-wrapper {
