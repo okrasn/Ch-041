@@ -4,12 +4,16 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
     $scope.feeds = feedsService.feeds;
 
     $scope.addFeed = function () {
-        feedsService.addFeed(authService.userID(), {
-            title: $scope.obj.title,
+        var status = feedsService.addFeed({
             link: $scope.obj.link,
         });
-        $scope.obj.title = '';
-        $scope.obj.link = '';
+        console.log(status);
+        // feedsService.addFeed(authService.userID(), {
+        //     title: $scope.obj.title,
+        //     link: $scope.obj.link,
+        // });
+        // $scope.obj.title = '';
+        // $scope.obj.link = '';
         $state.go("dashboard.feed", {}, { reload: true });
     }
     $scope.removeFeed = function (feedId) {
