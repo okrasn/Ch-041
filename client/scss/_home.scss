@@ -5,11 +5,13 @@ img {
 .toggle-btn-container{
   position: absolute;
   width: 40px;
+  margin-left: -15px;
   #menu-toggle{
     position: absolute;
     z-index: 1001;
     border: 0px solid transparent;
-    border-radius: 1px;
+    background-color: #e8e8e8;
+    border-radius: 0px;
   }
 }
 #allFeeds>.all-text{
@@ -175,7 +177,6 @@ body {
 }
 
 .sidebar-nav li {
-  text-indent: 10px;
   line-height: 40px;
 }
 .sidebar-nav ul {
@@ -200,7 +201,8 @@ body {
 }
 
 .sidebar-nav > #allFeeds {
-  height: 65px;
+  height: 50px;
+  padding-left: 40px;
   font-size: 18px;
   line-height: 60px;
 }
@@ -212,6 +214,9 @@ body {
 .sidebar-nav > #allFeeds a:hover {
   color: #fff;
   background: none;
+}
+.collapse ul{
+  padding-left: 15px;
 }
 
 @media(min-width:768px) {
