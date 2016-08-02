@@ -13,5 +13,8 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
         articlesService.getArticlesByCat(cat);
         $state.go("dashboard.fullFeed");
     }
+    $scope.removeFeed = function (feedId) {
+        feedsService.removeFeed(feedId);
+        $state.reload();
+    }
 }]);
-

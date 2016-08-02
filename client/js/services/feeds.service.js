@@ -34,11 +34,15 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
 
             for (var i = 0; i < recievedFeed.entries.length; i++) {
                 var articleObj = {};
-                
-                var content = document.createElement("content");
-                content.innerHTML = recievedFeed.entries[i].content; 
-                var img = $(content).find('img')[0].src;
 
+                var content = document.createElement("content");
+                content.innerHTML = recievedFeed.entries[i].content;
+                var img;
+                if ($(content).find('img')[0] === undefined) {
+                    img = "";
+                } else {
+                    img = $(content).find('img')[0].src;
+                }
                 articleObj.title = recievedFeed.entries[i].title;
                 articleObj.link = recievedFeed.entries[i].link;
                 articleObj.content = recievedFeed.entries[i].contentSnippet;
