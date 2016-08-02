@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('server', function (cb) {
-    
+
     exec('node app.js', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);

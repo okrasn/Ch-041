@@ -2,13 +2,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-lg-12">
-                <div id="sidebar-wrapper">
+                <div id="sidebar">
                     <div class="sidebar-nav collapsible">
                         <div id="allFeeds">
                             <a ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text"> All</span></a>
                         </div>
                         <ul>
-                            <li class="feeds" ng-repeat="category in feeds">
+                            <li class="category-item" ng-repeat="category in feeds">
                                 <div data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key)">
                                     <span class="glyphFeeds" class="glyphicon glyphicon-chevron-right"><span ng-bind="category.key"></span></span>
                                 </div>
@@ -17,6 +17,9 @@
                                         <li ng-repeat="feed in category.values">
                                             <div ng-click="getByFeed(feed._id)" ng-bind="feed.title">
                                             </div>
+                                            <span class="hidden">
+                                                <span ng-click="removeFeed(feed._id)" class="share-icon glyphicon glyphicon-remove"></span>
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>

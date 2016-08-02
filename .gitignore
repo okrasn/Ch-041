@@ -9,3 +9,6 @@ client/libs/*
 tmp
 .DS_Store
 .idea
+# Created by .ignore support plugin (hsz.mobi)
+/bower_components
+/.idea
