@@ -30,6 +30,7 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
                 articles: [],
                 user: authService.userID()
             };
+            console.log(recievedFeed);
 
             for (var i = 0; i < recievedFeed.entries.length; i++) {
                 var articleObj = {}
