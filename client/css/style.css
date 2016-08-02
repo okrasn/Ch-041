@@ -59,13 +59,28 @@ footer {
   border-shadow: 1px 2px 5px 1px #888888; }
 
 .table-feed {
-  padding: 5px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   border-bottom: 1px solid #888888;
   border-shadow: 1px 2px 5px 1px #888888; }
+
+.table-feed:hover {
+  background-color: #e8e8e8; }
+  .table-feed:hover .hidden {
+    display: inline !important; }
 
 .feed-content {
   float: left;
   width: 95%; }
+
+.head {
+  padding: 15px 0px 0px 15px;
+  margin: 0px 0px 15px 0px;
+  border-bottom: 1px solid #888888; }
+  .head .title {
+    padding: 0px 5px 0px 15px;
+    max-width: 50%; }
+  .head .btn-group {
+    margin: -6px 0px 0px 0px; }
 
 .read {
   width: 5%;
@@ -77,6 +92,8 @@ footer {
 .grid-feed {
   padding: 15px; }
 
+.panel {
+  margin-bottom: 0px !important; }
 
 .grid-feed .read-btn {
   margin-top: -5px; }
@@ -87,12 +104,15 @@ footer {
   padding-left: 5px; }
 
 .grid-feed .description {
-  height: 80px;
+  height: 90px;
   overflow: hidden;
   padding-left: 5px; }
 
 .grid-feed .panel {
-  height: 140px; }
+  height: 150px; }
+
+.grid-feed .panel:hover {
+  box-shadow: 1px 2px 5px 1px #888888; }
 
 .grid-feed .footer {
   height: 30px;
@@ -103,7 +123,7 @@ footer {
   padding: 5px; }
 
 .grid-feed img {
-  height: 130px;
+  height: 140px;
   float: left; }
 
 .grid-feed .panel-body {
@@ -112,21 +132,20 @@ footer {
 .grid-feed .hidden {
   display: none; }
 
-.grid-feed :hover .hidden {
+.grid-feed:hover .hidden {
   display: inline !important; }
 
 /**/
-img {
-  width: 1em; }
-
 .toggle-btn-container {
   position: absolute;
-  width: 40px; }
+  width: 40px;
+  margin-left: -15px; }
   .toggle-btn-container #menu-toggle {
     position: absolute;
     z-index: 1001;
     border: 0px solid transparent;
-    border-radius: 1px; }
+    background-color: #e8e8e8;
+    border-radius: 0px; }
 
 #allFeeds > .all-text {
   padding-left: 5px; }
@@ -269,7 +288,6 @@ body {
   list-style: none; }
 
 .sidebar-nav li {
-  text-indent: 10px;
   line-height: 40px; }
 
 .sidebar-nav ul {
@@ -290,7 +308,8 @@ body {
   text-decoration: none; }
 
 .sidebar-nav > #allFeeds {
-  height: 65px;
+  height: 50px;
+  padding-left: 40px;
   font-size: 18px;
   line-height: 60px; }
 
@@ -300,6 +319,9 @@ body {
 .sidebar-nav > #allFeeds a:hover {
   color: #fff;
   background: none; }
+
+.collapse ul {
+  padding-left: 15px; }
 
 @media (min-width: 768px) {
   #wrapper {
@@ -322,7 +344,7 @@ body {
   font-size: 16px;
   font-family: 'Roboto', sans-serif;
   color: #000;
-  min-width: 500px; }
+  min-width: 240px; }
 
 /*==================================Navbar=============================*/
 .main-navbar .navbar {
@@ -445,6 +467,23 @@ a.pass {
   .my-btn {
     margin-left: 0;
     width: 100%; } }
+
+.form-horizontal > #addUsername {
+  width: 85px; }
+
+.modal-footer {
+  text-align: center !important; }
+
+.panel-footer {
+  text-align: center  !important;
+  margin: 0 !important; }
+
+#panelProfile {
+  padding: 0; }
+
+p {
+  margin: 0;
+  padding: 0; }
 
 #views_container {
   padding-right: 0px !important;

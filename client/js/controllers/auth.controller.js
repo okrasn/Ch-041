@@ -1,8 +1,7 @@
-angular.module('rssreader').controller('AuthController', ['$scope', '$state',  'angularFileUpload', 'authService', '$window', function ($scope, $state, authService, $window, FileUploader) {
+angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', function ($scope, $state, authService, $window) {
     $scope.user = {};
     $scope.session;
     $scope.error = '';
-    $scope.uploader = new FileUploader();
 
     $scope.register = function () {
         authService.register($scope.user).error(function (error) {
