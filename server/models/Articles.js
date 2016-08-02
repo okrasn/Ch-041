@@ -5,6 +5,7 @@ var articleSchema = new mongoose.Schema({
     link: String,
     content: String,
     date: Date,
+    img: String,
     feed: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feed'
