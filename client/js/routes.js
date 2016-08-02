@@ -16,6 +16,11 @@ angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouter
             templateUrl: './partials/auth/register.html',
             controller: 'AuthController'
         })
+        .state('profile', {
+            url: '/profile',
+            templateUrl: './partials/auth/profile.html',
+            controller: 'AuthController'
+        })
         .state("dashboard", {
             url: '/dashboard',
             views: {
