@@ -17,7 +17,7 @@ module.exports.all = function (req, res, next) {
         }
     }).exec(function (err, result) {
         res.status(200).json(result.feeds);
-        console.log(result.feeds[0].articles);
+        //console.log(result.feeds[0].articles);
     });
 }
 
@@ -47,7 +47,7 @@ module.exports.byCategory = function (req, res, next) {
 //            console.log(value.category === req.params.cat);
             return value.category === req.params.cat;
         });
-        console.log(temp.length);
+        //console.log(temp.length);
         res.status(200).json(temp);
     });
 }
