@@ -6,12 +6,8 @@
   <form class="form-horizontal col-xs-12" name="profile" id="profileSettings">
     <div id="panelProfile" class="panel panel-default col-xs-12" >
       <div class="panel-heading">
-        <div class="text-left">
-          <img src="//assets/images/profile.png" class="avatar img-circle img-responsive" alt="avatar">
-        </div>
-        <div class="text-center">
-          <h4>username</h4>
-        </div>
+        <img src="//assets/images/profile.png" class="user-image" alt="User Image">
+        <span class="hidden-xs" ng-bind="currentUser()"></span><p>username</p>
       </div>
 
 
@@ -19,7 +15,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Email</label>
           <div class="col-sm-10">
-            <p class="form-control-static">{{user.email}}</p>
+            <p class="form-control-static">user.email</p>
           </div>
         </div>
 
@@ -28,8 +24,6 @@
           <div class="col-sm-10">
             <input class="form-control" id="newAvatar" type="file"
                    placeholder="choose another avatar">
-
-
           </div>
         </div>
 
@@ -52,9 +46,9 @@
       </div>
 
       <div class="panel-footer text-center">
-        <input type="button" class="btn btn-primary" value="Save Changes">
+        <input type="button" class="btn btn-primary" id='save_btn' value="Save  ">
         <span></span>
-        <input type="reset" class="btn btn-default" value="Cancel">
+        <input type="reset" class="btn btn-default" id="cancel_btn" value="Cancel">
       </div>
     </div>
   </form>
@@ -70,18 +64,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Change your password</h4>
+        <h4 class="modal-title">Change your username</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group ">
           <label class="col-sm-4" for="newUsername">Username:</label>
           <div class="col-sm-6">
             <input id="newUsername" type="text">
           </div>
-        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Save  </button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -99,24 +91,22 @@
         <h4 class="modal-title">Change your password</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group ">
+
           <label class="col-sm-4" for="currentPassword">Your password:</label>
           <div class="col-sm-6">
             <input id="currentPassword" type="password">
           </div>
-        </div>
-        <div class="form-group ">
+
           <label class="col-sm-4" for="newPassword">New password:</label>
           <div class="col-sm-6">
             <input id="newPassword" type="password">
           </div>
-        </div>
-        <div class="form-group ">
+
           <label class="col-sm-4" for="repeatPassword">Repeat password:</label>
           <div class="col-sm-6">
             <input id="repeatPassword" type="password">
           </div>
-        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
