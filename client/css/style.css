@@ -123,6 +123,7 @@ footer {
   padding: 5px; }
 
 .grid-feed img {
+  width: 140px;
   height: 140px;
   float: left; }
 
@@ -472,15 +473,27 @@ a.pass {
 .form-horizontal > #addUsername {
   width: 85px; }
 
-.modal-footer {
+#modalUsername .modal-body {
+  height: 60px; }
+
+#modalUsername .modal-footer {
   text-align: center !important; }
 
-.panel-footer {
-  text-align: center  !important;
-  margin: 0 !important; }
+#modalPassword .modal-body {
+  height: 150px; }
 
-#panelProfile {
-  padding: 0; }
+#modalPassword .modal-footer {
+  text-align: center !important; }
+
+#profileSettings {
+  margin-top: 150px; }
+  #profileSettings #panelProfile {
+    padding: 0; }
+    #profileSettings #panelProfile .form-group {
+      height: 50px; }
+    #profileSettings #panelProfile .panel-footer {
+      text-align: center !important;
+      margin: 0 !important; }
 
 p {
   margin: 0;
