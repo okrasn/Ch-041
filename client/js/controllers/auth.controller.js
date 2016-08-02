@@ -26,7 +26,7 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
             else
             console.log("Checked");
 
-            $state.go('dashboard.fullFeed', {
+            $state.go('dashboard.th-large', {
                 id: authService.userID()
             });
         });
