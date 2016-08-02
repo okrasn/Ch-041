@@ -34,9 +34,29 @@ angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouter
                 }]
             }
         })
-        .state("dashboard.fullFeed", {
-            url: '/fullFeed',
-            templateUrl: './partials/dashboard/full-feed.html',
+        .state("dashboard.th-large", {
+            url: '/th-large',
+            templateUrl: './partials/list/th-large.html',
+            controller: 'ArticlesController',
+            resolve: {
+                articlesPromise: ['articlesService', function (articlesService) {
+                    return articlesService.getAllArticles();
+                }]
+            }
+        })
+        .state("dashboard.list", {
+            url: '/list',
+            templateUrl: './partials/list/list.html',
+            controller: 'ArticlesController',
+            resolve: {
+                articlesPromise: ['articlesService', function (articlesService) {
+                    return articlesService.getAllArticles();
+                }]
+            }
+        })
+        .state("dashboard.th-list", {
+            url: '/th-list',
+            templateUrl: './partials/list/th-list.html',
             controller: 'ArticlesController',
             resolve: {
                 articlesPromise: ['articlesService', function (articlesService) {
