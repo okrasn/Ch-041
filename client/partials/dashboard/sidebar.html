@@ -15,7 +15,7 @@
                                 <div class="collapse" id="{{ $index + category.key }}">
                                     <ul>
                                         <li ng-repeat="feed in category.values">
-                                            <div ng-click="getByFeed(feed._id)" ng-bind="feed.title">
+                                            <div ng-click="getByFeed(feed._id, feed.title)" ng-bind="feed.title">
                                             </div>
                                             <span class="hidden">
                                                 <span ng-click="removeFeed(feed._id)" class="share-icon glyphicon glyphicon-remove"></span>

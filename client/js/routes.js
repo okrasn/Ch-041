@@ -1,4 +1,4 @@
-angular.module('rssreader', ['ui.router']).config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+angular.module('rssreader', ['ui.router', 'ngValidate']).config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('home');
     $stateProvider
         .state('home', {
