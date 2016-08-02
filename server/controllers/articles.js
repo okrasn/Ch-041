@@ -5,7 +5,7 @@ var Feed = mongoose.model('Feed');
 var Article = mongoose.model('Article');
 
 module.exports.all = function (req, res, next) {
-    return Article.find(function (err, articles) {
+    return Article.find().limit(+req.params.count*2).find(function (err, articles) {
         if (!err) {
             return res.send(articles);
         } else {
@@ -37,10 +37,12 @@ module.exports.byFeed = function (req, res, next) {
 }
 
 module.exports.byCategory = function (req, res, next) {
-    var articles = [];
+    var obj = {};
+    obj.articles = [];
     Feed.find({
-        category: req.params.cat
-    }, function (err, feed) {        
+        category: req.params.cat,
+        user: req.user._id
+    }, function (err, feed) {
         feed.forEach(function(element, index, array){
             feed[index].populate('articles', function (err, feed) {
                 if (err) {
@@ -48,11 +50,19 @@ module.exports.byCategory = function (req, res, next) {
                 }
                 if (feed.articles) {
                     feed.articles.forEach(function(element, index, array){
-                        articles.push(element);
+//                        console.log("Before:");
+//                        console.log(obj.articles);
+                        obj.articles.push(element);
+//                        console.log("After:");
+//                        console.log(obj.articles);
                     });
                 }
+                console.log("!!!!!!!!!!!!!!!!!!!!!:");
+                console.log(obj.articles);
+                return res.status(200).json(obj.articles);
             });
         });
-        return res.status(200).json(articles);
+        
     });
+    //return res.status(200).json(obj.articles);
 }
