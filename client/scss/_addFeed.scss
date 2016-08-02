@@ -1,0 +1,59 @@
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.row.content {height: 1500px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+
+.add-feed{
+  margin-top: 45px;
+  padding: 45px;
+  box-shadow: 1px 2px 5px 1px #888888;
+}
+.add-feed-btn{
+  color: #fff;
+  background-color: #42a5f5;
+  border-radius: 3px;
+  height: 45px;
+  border:0px solid transparent;
+}
+.add-feed-btn:hover{
+  background-color: #42a5f5;
+  color: #fff;
+}
+.add-feed-btn:focus{
+  background-color: #42a5f5;
+  color: #fff;
+}
+.article{
+  border-bottom: 1px solid gray;
+}
+.article-title{
+  font-weight: 600;
+}
+.form-input{
+  height: 45px;
+  border-radius: 1px;
+}
+.add-feed .control-label{
+  padding-top: 14px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {height: auto;}
+
+}
