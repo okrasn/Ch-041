@@ -13,6 +13,5 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
                 $scope.error = err.message;
             else $scope.error = err.data.message;
         });
-        $state.reload();
     }
 }]);
