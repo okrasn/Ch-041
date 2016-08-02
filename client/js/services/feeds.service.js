@@ -17,7 +17,7 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
     }
 
     obj.addFeed = function (feed) {
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.5&num=10&q=" + feed.link + "&callback=JSON_CALLBACK").then(function (responce) {
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + feed.link + "&callback=JSON_CALLBACK").then(function (responce) {
             if (responce.data.responseData === null) {
                 throw new Error("URL is incorrect or does not contain RSS Feed data");
             }
