@@ -33,10 +33,16 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
             console.log(recievedFeed);
 
             for (var i = 0; i < recievedFeed.entries.length; i++) {
-                var articleObj = {}
+                var articleObj = {};
+                
+                var content = document.createElement("content");
+                content.innerHTML = recievedFeed.entries[i].content; 
+                var img = $(content).find('img')[0].src;
+
                 articleObj.title = recievedFeed.entries[i].title;
                 articleObj.link = recievedFeed.entries[i].link;
                 articleObj.content = recievedFeed.entries[i].contentSnippet;
+                articleObj.img = img;
                 articleObj.date = recievedFeed.entries[i].publishedDate;
                 feedObj.articles.push(articleObj);
             }
