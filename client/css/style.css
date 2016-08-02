@@ -123,6 +123,7 @@ footer {
   padding: 5px; }
 
 .grid-feed img {
+  width: 140px;
   height: 140px;
   float: left; }
 
@@ -339,6 +340,14 @@ body {
   #wrapper.toggled #page-content-wrapper {
     position: relative;
     margin-right: 0; } }
+
+#home_container {
+  background: url("../assets/images/rss-header.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  color: #ffffff; }
 
 body {
   background: #fff;
