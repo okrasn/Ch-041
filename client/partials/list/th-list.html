@@ -1,6 +1,6 @@
 <!--Detailed table feeds-->
 <div class="row feeds">
-    <div class="col-md-12 grid-feed">
+    <div class="col-md-12 grid-feed" ng-repeat="article in articles">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -9,15 +9,13 @@
                         <div class="title">
                             <p>
                                 <strong>
-                                    Lorem ipsum dolor sit amet, dicta ornatus consectetuer no eam, quo vitae tollit id,
-                                    idque nostrud definitionem id cum.
+                                    <span ng-bind="article.title"></span>
                                 </strong>
                             </p>
                         </div>
                         <div class="description">
                             <p>
-                                Lorem ipsum dolor sit amet, dicta ornatus consectetuer no eam, quo vitae tollit id,
-                                idque nostrud definitionem id cum. Ad sit hinc ocurreret.
+                                <span ng-bind="article.content"></span>
                             </p>
                         </div>
                         <div class="footer">
