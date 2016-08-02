@@ -13,9 +13,6 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
                 $scope.error = err.message;
             else $scope.error = err.data.message;
         });
-    }
-    $scope.removeFeed = function (feedId) {
-        feedsService.removeFeed(feedId);
         $state.reload();
     }
 }]);
