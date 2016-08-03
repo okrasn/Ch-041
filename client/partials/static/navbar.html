@@ -1,4 +1,4 @@
-<div class="main-navbar" ng-controller="NavController">
+<div class="main-navbar" ng-controller="NavbarController">
     <nav class="navbar">
         <div class="container-fluid">
             <div class="row">
@@ -10,7 +10,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand rss" ui-sref="home"><span>RSS</span>|READER</a>
+                    <a class="navbar-brand rss" ui-sref="home"><span class="orange">RSS</span>|READER</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
                     <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
@@ -24,15 +24,15 @@
                                 <!-- User image -->
                                 <li class="user-header">
                                     <!-- Image must be square -->
-                                    <img src="//assets/images/profile.png" class="img-circle" alt="User Image">
+                                    <img src="/assets/images/profile.png" class="img-circle" alt="User Image">
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer" >
                                     <div class="pull-left">
-                                        <button href="#" class="btn btn-default btn-flat" ui-sref="profile" >Profile</button>
+                                        <button href="#" class="btn btn-default btn-flat app-btn-blue" ui-sref="profile" >Profile</button>
                                     </div>
                                     <div class="pull-right">
-                                        <button href="#" class="btn btn-default btn-flat" ng-click="logOut()">Sign out</button>
+                                        <button href="#" class="btn btn-default btn-flat app-btn-blue" ng-click="logOut()">Sign out</button>
                                     </div>
                                 </li>
                             </ul>
