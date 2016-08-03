@@ -3,6 +3,7 @@ angular.module('rssreader').factory('dashboardService', function () {
         title: ""
     };
     obj.setTitle = function(title){
+        console.log(title);
         this.title = title;
     }
     return obj;
