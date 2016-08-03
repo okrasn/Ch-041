@@ -18,7 +18,7 @@
 (function () {
     $("#app-wrapper").on("click", "#menu-toggle", function (e) {
         e.preventDefault();
-        $("#app-wrapper #wrapper").toggleClass("toggled");
+        $("#app-wrapper #sidebar-wrapper").toggleClass("toggled");
     });
 
     $("#app-wrapper").on("click", "#menu-toggle", function () {
