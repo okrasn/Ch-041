@@ -1,6 +1,16 @@
-angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', function ($scope, $state, authService, $window) {
+angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window','auth','store','$location', function ($scope, $state, authService, $window,auth,store,$location) {
     $scope.user = {};
     $scope.session;
+	//Authorization
+	$scope.auth = auth;
+	console.log(auth);
+	$scope.logout = function() {
+  		auth.signout();
+  		store.remove('profile');
+  		store.remove('token');
+  		$location.path('/login');
+	}
+
 
     $scope.register = function (form) {
         console.log($scope.user);
