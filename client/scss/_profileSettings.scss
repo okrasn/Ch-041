@@ -1,16 +1,41 @@
-.form-horizontal>#addUsername {
+.form-horizontal > #addUsername {
   width: 85px;
 }
 
-.modal-footer {
-  text-align: center !important;
+#modalUsername{
+  .modal-body {
+     height:60px;
+  }
+  .modal-footer {
+    text-align: center !important;
+  }
 }
 
-.panel-footer {
-  text-align: center  !important;
-  margin: 0 !important;
+#modalPassword{
+  .modal-body {
+    height:150px;
+  }
+  .modal-footer {
+    text-align: center !important;
+  }
 }
 
-#panelProfile {
-  padding: 0;
+
+
+
+#profileSettings {
+  margin-top: 150px;
+  #panelProfile {
+    padding: 0;
+    .form-group {
+      height: 50px;
+    }
+    .panel-footer {
+      text-align: center !important;
+      margin: 0 !important;
+
+
+    }
+  }
 }
+
