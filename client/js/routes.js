@@ -1,6 +1,8 @@
-angular.module('rssreader', ['ui.router', 'ngValidate']).config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('home');
-    $stateProvider
+angular.module('rssreader', ['ui.router', 'ngValidate'])
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    
+        $urlRouterProvider.otherwise('home');
+        $stateProvider
         .state('home', {
             url: '/home',
             templateUrl: './partials/home.html',
@@ -11,6 +13,16 @@ angular.module('rssreader', ['ui.router', 'ngValidate']).config(['$stateProvider
             templateUrl: './partials/auth/login.html',
             controller: 'AuthController'
         })
+  		.state('loginAuth', { 
+			url: '/loginAuth', 
+			templateUrl: 'partials/auth/loginAuth.html', 
+			controller: 'AuthController' 
+		})
+		.state('logoutAuth', { 
+			url: '/logoutAuth', 
+			templateUrl: 'partials/auth/logoutAuth.html', 
+			controller: 'AuthController' 
+		})
         .state('register', {
             url: '/register',
             templateUrl: './partials/auth/register.html',
@@ -31,10 +43,6 @@ angular.module('rssreader', ['ui.router', 'ngValidate']).config(['$stateProvider
                 'sidebar@dashboard': {
                     templateUrl: './partials/dashboard/sidebar.html',
                     controller: 'SidebarController'
-                },
-                'feedHead@dashboard': {
-                    templateUrl: './partials/dashboard/feed-head.html',
-                    controller: 'DashboardController'
                 }
             },
             resolve: {
