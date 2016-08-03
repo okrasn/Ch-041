@@ -98,7 +98,8 @@ $item-text-color: #000000;
         margin-right: -$sidebar-width;
     }
     .toggle-btn-container {
-        position: absolute;
+        z-index: 1000;
+        position: fixed;
         width: 40px;
         margin-left: -15px;
         #menu-toggle {
