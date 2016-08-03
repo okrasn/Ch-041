@@ -1,17 +1,17 @@
 angular.module('rssreader', ['ui.router', 'ngValidate','auth0', 'angular-storage', 'angular-jwt']).config(['$stateProvider', '$urlRouterProvider','$httpProvider','authProvider','jwtInterceptorProvider', function ($stateProvider, $urlRouterProvider, $httpProvider, authProvider,jwtInterceptorProvider) {
     
-	authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store',
-  function($location, profilePromise, idToken, store) {
-  
-    console.log("Login Success");
-    profilePromise.then(function(profile) {
-      store.set('profile', profile);
-      store.set('token', idToken);
-		console.log(profile);
-		console.log(idToken);
+authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store',
+    function($location, profilePromise, idToken, store) {
+        console.log("Login Success");
+	profilePromise.then(function(profile) {
+	store.set('profile', profile);
+	store.set('token', idToken);
+        console.log(profile);
+        console.log(idToken);
+        $location.path('/login');
     });
   
-    $location.path('/dashboard');
+    
 }]);
 
 
@@ -30,7 +30,7 @@ angular.module('rssreader', ['ui.router', 'ngValidate','auth0', 'angular-storage
 	
 	
 	$urlRouterProvider.otherwise('home');
-    $stateProvider
+        $stateProvider
         .state('home', {
             url: '/home',
             templateUrl: './partials/home.html',
@@ -133,7 +133,6 @@ $rootScope.$on('$locationChangeStart', function() {
           auth.authenticate(store.get('profile'), token);
         }
       } else {
-        // Either show the login page or use the refresh token to get a new idToken
         $location.path('/login');
       }
     }
