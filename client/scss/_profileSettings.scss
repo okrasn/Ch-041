@@ -1,0 +1,41 @@
+.form-horizontal > #addUsername {
+  width: 85px;
+}
+
+#modalUsername{
+  .modal-body {
+     height:60px;
+  }
+  .modal-footer {
+    text-align: center !important;
+  }
+}
+
+#modalPassword{
+  .modal-body {
+    height:150px;
+  }
+  .modal-footer {
+    text-align: center !important;
+  }
+}
+
+
+
+
+#profileSettings {
+  margin-top: 150px;
+  #panelProfile {
+    padding: 0;
+    .form-group {
+      height: 50px;
+    }
+    .panel-footer {
+      text-align: center !important;
+      margin: 0 !important;
+
+
+    }
+  }
+}
+

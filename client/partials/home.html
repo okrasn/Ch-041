@@ -1,0 +1,6 @@
+<div id='home_container' class="jumbotron text-center">
+    <h1 ng-bind="header"></h1>
+    <button class="btn btn-primary btn-lg app-btn-blue" ng-click="OnFeeds()" ng-hide='!isLoggedIn()'>Show Feeds</button>
+    <button class="btn btn-primary btn-lg app-btn-blue" ng-click="OnLogin()" ng-hide="isLoggedIn()">Sign In</button>
+    <button class="btn btn-primary btn-lg app-btn-blue" ng-click="OnRegister()" ng-hide="isLoggedIn()">Sign Up</button>
+</div>

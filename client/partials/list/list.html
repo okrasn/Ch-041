@@ -1,0 +1,31 @@
+
+<!--Table feeds-->
+<div class="row feeds">
+    <div class="col-md-12">
+        <div class="row table-feed" ng-repeat="article in articles">
+                <div class="col-md-2">
+                    <p>Lorem ipsum</p>
+                    <div class="footer">
+                        <div class="share">
+                                <span class="hidden">
+                                        <button type="button" class="btn btn-info btn-xs read-btn"><a
+                                                ng-href="{{article.link}}" target="_blank">READ</a></button>
+                                    <span class="star-icon glyphicon glyphicon-star"></span>
+                                    <span class="share-icon glyphicon glyphicon-share"></span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <p>
+                        <strong>
+                            <span ng-bind="article.title"></span>
+                        </strong>
+                    </p>
+                    <p>
+                        <span ng-bind="article.content"></span>
+                    </p>
+                </div>
+        </div>
+    </div>
+</div>

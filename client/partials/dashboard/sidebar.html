@@ -1,0 +1,42 @@
+<div id="page-content-wrapper">
+    <div class="row">
+        <div class="col-xs-12 col-lg-12">
+            <div id="sidebar">
+                <div class="sidebar-nav collapsible">
+                    <div class="sidebar-item">
+                        <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
+                    </div>
+                    <ul>
+                        <li class="sidebar-item" ng-repeat="category in feeds">
+                            <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key)">
+                                <span class="glyphFeeds" class="glyphicon glyphicon-chevron-right"><span ng-bind="category.key"></span></span>
+                            </a>
+                            <div class="collapse" id="{{ $index + category.key }}">
+                                <ul>
+                                    <li class="sidebar-item" ng-repeat="feed in category.values">
+                                        <a class="shortened-text" ng-click="getByFeed(feed._id, feed.title)" ng-bind="feed.title">
+                                        </a>
+                                        <!--
+                                        <span class="hidden">
+                                                <span ng-click="removeFeed(feed._id)" class="share-icon glyphicon glyphicon-remove"></span>
+                                        </span>
+-->
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="col-sm-12 center-block">
+                        <button type="button" class="btn btn-default add-feed-btn center-block app-btn-blue" ui-sref=".addFeed">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add feed
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toggle-btn-container">
+                <button href="#menu-toggle" class="btn btn-default" id="menu-toggle"><span id="glyphToggle" class="glyphicon glyphicon-chevron-left"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

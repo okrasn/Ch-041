@@ -1,0 +1,50 @@
+<div class="head">
+    <h2>
+        <span ng-bind="title" class="title"></span>
+        <span></span>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" aria-label="Left Align" ui-sref=".list"><span class="glyphicon glyphicon-list"                                                                                                        aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default" aria-label="Center Align"><span
+                    class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default" aria-label="Justify" ui-sref=".large"><span class="glyphicon glyphicon-th-large"                                                                                     aria-hidden="true"></span></button>
+        </div>
+    </h2>
+</div>
+<div ui-view></div>
+<!-- 
+Grid feeds
+<div class="row feeds">
+    <div class="col-md-6 col-lg-4 grid-feed" ng-repeat="article in articles">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img src="{{article.img}}" class="img-responsive" alt="Test img">
+                    <div class="content">
+                        <div class="title">
+                            <p>
+                                <strong>
+                                    <span ng-bind="article.title"></span>
+                                </strong>
+                            </p>
+                        </div>
+                        <div class="description">
+                            <p>
+                                <span ng-bind="article.content"></span>
+                            </p>
+                        </div>
+                        <div class="footer">
+                            <div class="share">
+                                <span class="hidden">
+                                    <button type="button" class="btn btn-info btn-xs read-btn">READ</button>
+                                    <span class="star-icon glyphicon glyphicon-star"></span>
+                                <span class="share-icon glyphicon glyphicon-share"></span>
+                                </span>
+                                <span class="read-icon glyphicon glyphicon-ok"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,116 @@
+body {
+  background: #fff;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+  min-width: 240px;
+}
+
+/*================================Loginform=============================*/
+h2.header {
+  margin-left: 15%;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.loginform-border {
+  margin-top: 25px;
+  padding: 20px 10%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 4px;
+}
+.form-group.login {
+  height: 90px;
+  margin-bottom: 0;
+  position: relative;
+}
+form .form-group:nth-child(2) {
+  height: 85px;
+}
+
+.form-group.login label.error {
+  margin-top: 3px;
+  color: #af5050;
+  float: right;
+  margin-bottom: 0;
+}
+
+.checkbox.margin {
+  margin-top: 4px;
+}
+a.pass {
+  float:right;
+}
+
+.errormsg {
+  color: #af5050;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px;
+  /*visibility: hidden;*/
+}
+
+.signup p {
+  text-align: center;
+  margin-top: 5px;
+}
+
+/*==================================Links============================*/
+
+.links a {
+  float: right;
+}
+.links img {
+  width: 50px;
+  margin-bottom: 15px;
+}
+
+.divder{
+  height: 113px;
+  margin: 0;
+  border-right: 1px solid #42a5f5;
+  padding: 0;
+}
+
+.divder+span {
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+  .checkbox {
+    font-size: 13px;
+  }
+  .divder+span {
+    margin-left: -10px;
+  }
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 991px) {
+  .links img {
+    width: 35px;
+  }
+  .links  {
+    text-align: center;
+  }
+  .checkbox {
+    font-size: 16px;
+  }
+  .loginform-border {
+  }
+  .links a {
+    float: none;
+  }
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 767px) {
+  .my-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}

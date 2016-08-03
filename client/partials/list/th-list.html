@@ -1,0 +1,36 @@
+<!--Detailed table feeds-->
+<div class="row feeds">
+    <div class="col-md-12 grid-feed" ng-repeat="article in articles">
+        <div class="row">
+            <div class="panel panel-default app-panel">
+                <div class="panel-body">
+                    <img src="{{article.img}}" class="img-responsive" alt="Test img">
+                    <div class="content">
+                        <div class="title">
+                            <p>
+                                <strong>
+                                    <span ng-bind="article.title"></span>
+                                </strong>
+                            </p>
+                        </div>
+                        <div class="description">
+                            <p>
+                                <span ng-bind="article.content"></span>
+                            </p>
+                        </div>
+                        <div class="footer">
+                            <div class="share">
+                                <span class="hidden">
+                                    <button type="button" class="btn btn-info read-btn app-btn-blue">READ</button>
+                                    <span class="star-icon glyphicon glyphicon-star"></span>
+                                    <span class="share-icon glyphicon glyphicon-share"></span>
+                                </span>
+                                <span class="read-icon glyphicon glyphicon-ok hidden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

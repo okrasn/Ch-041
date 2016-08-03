@@ -1,0 +1,115 @@
+@import "navbar";
+@import "addFeed";
+@import "feedList";
+@import "sidebar";
+@import "home";
+@import "auth";
+@import "profileSettings";
+$main-border-radius: 3px;
+$blue-btn-color: #42a5f5;
+$blue-btn-active-color: #3949ab;
+html {
+    overflow-y: scroll;
+    font-family: 'Roboto', sans-serif !important;
+    body{
+        overflow-x: hidden;
+        padding-top: 50px;
+    }
+    p {
+        margin: 0;
+        padding: 0;
+    }
+    #views_container {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+    .row {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    .container-fluid {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+    .shortened-text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .app-btn {
+        border: none;
+        border-radius: $main-border-radius !important;
+        transition: all 0.2s ease;
+        cursor: pointer !important;
+        &:visited {
+            color: white;
+        }
+        &:hover {
+            background-color: black;
+            color: white;
+            border: none;
+            transition: all 0.2s ease;
+            box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
+        }
+        &:active {
+            border: none !important;
+            outline: none;
+        }
+    }
+    .app-btn-blue {
+        @extend .app-btn;
+        color: white !important;
+        background-color: $blue-btn-color !important;
+        &:visited {
+            color: white !important;
+            background-color: $blue-btn-color !important;
+        }
+        &:hover {
+            background-color: white !important;
+            color: black !important;
+            transition: all 0.2s ease;
+        }
+        &:active {
+            color: white !important;
+            background-color: $blue-btn-active-color !important;
+        }
+    }
+    .app-btn-feed-list {
+        border: none;
+        border-radius: $main-border-radius !important;
+        transition: all 0.2s ease;
+        cursor: pointer !important;
+        &:visited {
+            border: none !important;
+        }
+        &:hover {
+            border: none;
+            transition: all 0.2s ease;
+        }
+        &:active {
+            border: none !important;
+        }
+    }
+    .app-panel {
+        border: none;
+        border-radius: $main-border-radius !important;
+        transition: all 0.2s ease;
+        box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+        &:visited {}
+        &:hover {
+            border: none;
+            transition: all 0.2s ease;
+            box-shadow: 0px 4px 15px 0px rgba(57, 73, 171, 1);
+        }
+        &:active {
+            border: none !important;
+            outline: none;
+        }
+    }
+    .hidden {
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 300ms ease;
+    }
+}
