@@ -8,7 +8,7 @@ authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'stor
 	store.set('token', idToken);
         console.log(profile);
         console.log(idToken);
-        $location.path('/login');
+        $location.path('/dashboard');
     });
   
     
