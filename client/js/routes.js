@@ -31,6 +31,10 @@ angular.module('rssreader', ['ui.router', 'ngValidate']).config(['$stateProvider
                 'sidebar@dashboard': {
                     templateUrl: './partials/dashboard/sidebar.html',
                     controller: 'SidebarController'
+                },
+                'feedHead@dashboard': {
+                    templateUrl: './partials/dashboard/feed-head.html',
+                    controller: 'DashboardController'
                 }
             },
             resolve: {
