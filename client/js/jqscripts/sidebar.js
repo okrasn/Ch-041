@@ -9,8 +9,9 @@
         $("#glyphToggle").toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
     });
 
-    $('#sidebarList li').on("click", '.glyphFeeds', function () {
-        $(this).children('.glyphicon').toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
-    });
-    
 })();
+$( document ).ready(function() {
+    $('.glyphFeeds').on("click", function () {
+        $(this).children('span.glyphicon').toggleClass("glyphicon-chevron-down");
+    });
+});
