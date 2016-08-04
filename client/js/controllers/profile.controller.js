@@ -1,18 +1,10 @@
-/**
- * Created by olga on 02.08.16.
- */
-angular.module('rssreader').controller('ProfileController', ['$scope', function ($scope) {
-   $scope.stepsModel = [];
-  
-  $scope.imageUpload = function (el) {
-    var imgreader = new FileReader();
-    imgreader.onload = $scope.imageIsLoaded;
-    imgreader.readAsDataURL(el.files[0]);
-  };
-  
-  $scope.imageIsLoaded = function (e) {
-    $scope.$apply(function () {
-      $scope.stepsModel.push(e.target.result);
-    })
-  }
+angular.module('rssreader').controller('ProfileController', ['$scope', '$state', 'authService', '$window', 'themeService', function ($scope, $state, authService, $window, themeService) {
+    $scope.user = {};
+    $scope.updateTheme = function () {
+        themeService.layout = $scope.layout;
+        console.log("Theme update");
+        console.log("Theme:" + themeService.layout);
+    }
+    $scope.layout = themeService.layout;
+    $scope.layouts = themeService.layouts;
 }]);

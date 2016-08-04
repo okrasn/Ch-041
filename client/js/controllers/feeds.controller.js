@@ -2,8 +2,7 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
     $scope.test = 'Hello world!';
     $scope.obj = {};
     $scope.feeds = feedsService.feedsDictionary;
-    $scope.categories = feedsService.CATEGORIES;
-    
+    $scope.categories = feedsService.CATEGORIES;  
     $scope.addFeed = function () {
         $scope.error = '';
         feedsService.addFeed($scope.obj).then(function(res){
