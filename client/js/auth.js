@@ -1,4 +1,4 @@
-angular.module('rssreader', ['ui.router','auth0', 'angular-storage', 'angular-jwt']).config(['$stateProvider', '$urlRouterProvider','$httpProvider','authProvider','jwtInterceptorProvider', function ($stateProvider, $urlRouterProvider, $httpProvider, authProvider,jwtInterceptorProvider) {
+/*angular.module('rssreader', ['ui.router','auth0', 'angular-storage', 'angular-jwt']).config(['$stateProvider', '$urlRouterProvider','$httpProvider','authProvider','jwtInterceptorProvider', function ($stateProvider, $urlRouterProvider, $httpProvider, authProvider,jwtInterceptorProvider) {
     
 authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store',
     function($location, profilePromise, idToken, store) {
@@ -55,3 +55,4 @@ $rootScope.$on('$locationChangeStart', function() {
 
   });
 }])
+*/
