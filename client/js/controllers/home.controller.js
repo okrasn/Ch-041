@@ -1,6 +1,5 @@
 angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'authService', function ($scope, $state, authService) {
-    $scope.header = 'Welcome to Rss Reader';
-    
+
     $scope.isLoggedIn = authService.isLoggedIn;
     $scope.currentUser = authService.currentUser;
     
