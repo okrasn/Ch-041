@@ -8,8 +8,8 @@
                     </div>
                     <ul id="sidebarList">
                         <li class="sidebar-item" ng-repeat="category in feeds">
-                            <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key)">
-                                <span class="glyphFeeds"><span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span></span>
+                            <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key)" class="glyphFeeds">
+                                <span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span>
                             </a>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>
