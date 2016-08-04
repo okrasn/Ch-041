@@ -23,6 +23,9 @@ p {
     margin: 0;
     padding: 0;
 }
+.uppercase{
+    text-transform: uppercase;
+}
 
 #views_container {
     padding-right: 0px !important;
@@ -77,8 +80,10 @@ p {
     }
     &:hover {
         background-color: white !important;
-        color: black !important;
         transition: all 0.2s ease;
+        a{
+            color: black !important;
+        }
     }
     &:active {
         color: white !important;
