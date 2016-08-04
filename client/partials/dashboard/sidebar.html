@@ -6,10 +6,10 @@
                     <div class="sidebar-item">
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
-                    <ul>
+                    <ul id="sidebarList">
                         <li class="sidebar-item" ng-repeat="category in feeds">
                             <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key)">
-                                <span class="glyphFeeds" class="glyphicon glyphicon-chevron-right"><span ng-bind="category.key"></span></span>
+                                <span class="glyphFeeds"><span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span></span>
                             </a>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>

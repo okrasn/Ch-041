@@ -1,6 +1,6 @@
 <!--Grid feeds-->
 <div class="row feeds">
-    <div class="col-md-6 col-lg-4 grid-feed" ng-repeat="article in articles">
+    <div class="col-md-6 col-lg-6 th-large" ng-repeat="article in articles">
         <div class="row">
             <div class="panel panel-default app-panel">
                 <div class="panel-body">
@@ -21,7 +21,9 @@
                         <div class="footer">
                             <div class="share">
                                 <span class="hidden">
-                                    <button type="button" class="btn btn-info read-btn app-btn-blue">READ</button>
+                                    <button type="button" class="btn btn-info read-btn app-btn-blue">
+                                        <a ng-href="{{article.link}}" target="_blank" class="uppercase">read</a>
+                                    </button>
                                     <span class="star-icon glyphicon glyphicon-star"></span>
                                     <span class="share-icon glyphicon glyphicon-share"></span>
                                 </span>
