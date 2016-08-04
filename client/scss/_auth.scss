@@ -22,12 +22,12 @@ h2.header {
   border-radius: 4px;
 }
 .form-group.login {
-  height: 90px;
+  height: 100px;
   margin-bottom: 0;
   position: relative;
 }
 form .form-group:nth-child(2) {
-  height: 85px;
+  height: 90px;
 }
 
 .form-group.login label.error {
@@ -35,10 +35,12 @@ form .form-group:nth-child(2) {
   color: #af5050;
   float: right;
   margin-bottom: 0;
+  font-size: 14px;
 }
 
 .checkbox.margin {
   margin-top: 4px;
+  margin-bottom: 25px;
 }
 a.pass {
   float:right;
@@ -49,7 +51,6 @@ a.pass {
   font-weight: bold;
   text-align: center;
   margin: 10px;
-  /*visibility: hidden;*/
 }
 
 .signup p {
@@ -111,8 +112,12 @@ a.pass {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 767px) {
-  .my-btn {
+  .app-btn-blue {
     margin-left: 0;
     width: 100%;
   }
+
+  .form-group.login label.error {
+  font-size: 12px;
+}
 }

@@ -59,7 +59,7 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
         messages: {
             mail: {
                 required: "This field is required ",
-                email: ""
+                email: "Please, use example: jacksparrow@gmail.com"
             },
 
             pwd: {

@@ -65,7 +65,7 @@ p {
         color: white;
     }
     &:hover {
-        background-color: black;
+        background-color: #fcf8e3;
         color: white;
         border: none;
         transition: all 0.2s ease;
@@ -80,7 +80,7 @@ p {
 .app-btn-blue {
     @extend .app-btn;
     color: white !important;
-    background-color: $blue-btn-color !important;
+    background-color: $navbar-color !important;
     &:visited {
         color: white !important;
         background-color: $blue-btn-color !important;
