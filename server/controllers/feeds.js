@@ -1,8 +1,8 @@
-var passport = require('passport');
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Feed = mongoose.model('Feed');
-var Article = mongoose.model('Article');
+var passport = require('passport'),
+    mongoose = require('mongoose'),
+    User = mongoose.model('User'),
+    Feed = mongoose.model('Feed'),
+    Article = mongoose.model('Article');
 
 module.exports.userParam = function (req, res, next, id) {
     var query = User.findById(id);
@@ -21,12 +21,14 @@ module.exports.userParam = function (req, res, next, id) {
 
 module.exports.allFeed = function (req, res, next) {
     req.user.populate('feeds', function (err, feed) {
+        var unique = {},
+            distinct = [];
+        
         if (err) {
             return next(err);
         }
         //Select all uniq user categories
-        var unique = {};
-        var distinct = [];
+        
         for (var i in feed.feeds) {
             if (typeof (unique[feed.feeds[i].category]) === "undefined") {
                 distinct.push(feed.feeds[i].category);

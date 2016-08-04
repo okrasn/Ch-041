@@ -37,6 +37,14 @@ p {
     padding-left: 0px !important;
 }
 
+.shortened-text-block {
+    display: inline-block;
+    width: 12em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .shortened-text {
     white-space: nowrap;
     overflow: hidden;

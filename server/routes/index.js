@@ -12,9 +12,9 @@ var auth = jwt({
     userProperty: 'payload'
 });
 
-var authCtrl = require('../controllers/authentication');
-var articlesCtrl = require('../controllers/articles');
-var feedsCtrl = require('../controllers/feeds');
+var authCtrl = require('../controllers/authentication'),
+    articlesCtrl = require('../controllers/articles'),
+    feedsCtrl = require('../controllers/feeds');
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
