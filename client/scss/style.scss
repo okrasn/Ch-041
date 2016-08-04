@@ -1,3 +1,6 @@
+$main-border-radius: 3px;
+$blue-btn-color: #42a5f5;
+$blue-btn-active-color: #3949ab;
 @import "navbar";
 @import "addFeed";
 @import "feedList";
@@ -5,9 +8,6 @@
 @import "home";
 @import "auth";
 @import "profileSettings";
-$main-border-radius: 3px;
-$blue-btn-color: #42a5f5;
-$blue-btn-active-color: #3949ab;
 html {
     font-family: 'Roboto', sans-serif !important;
 }
@@ -20,6 +20,10 @@ body {
 p {
     margin: 0;
     padding: 0;
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
 
 #views_container {
@@ -83,8 +87,10 @@ p {
     }
     &:hover {
         background-color: white !important;
-        color: black !important;
         transition: all 0.2s ease;
+        a {
+            color: black !important;
+        }
     }
     &:active {
         color: white !important;
