@@ -17,24 +17,33 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
     }
 
     obj.addFeed = function (feed) {
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + feed.link + "&callback=JSON_CALLBACK").then(function (responce) {
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (responce) {
             if (responce.data.responseData === null) {
                 throw new Error("URL is incorrect or does not contain RSS Feed data");
             }
+
+            //We are receiveng 'recievedFeed' and converting it to convenient 'feedObj'
             var recievedFeed;
+            var feedObj = {};
+
             recievedFeed = responce.data.responseData.feed;
-            var feedObj = {
-                title: recievedFeed.description,
-                link: recievedFeed.link,
-                category: feed.category,
-                articles: [],
-                user: authService.userID()
-            };
-            console.log(recievedFeed);
+
+            feedObj.title = recievedFeed.description || recievedFeed.title;
+            feedObj.link = recievedFeed.link;
+            feedObj.category = feed.category;
+            feedObj.articles = [];
+            feedObj.user = authService.userID();
+
+            //Debug
+//            console.log("recievedFeed:");
+//            console.log(recievedFeed);
+//            console.log("feedObj:");
+//            console.log(feedObj);
+//            console.log("mediaGroups:");
+//            console.log(recievedFeed.entries[1].mediaGroups);
 
             for (var i = 0; i < recievedFeed.entries.length; i++) {
                 var articleObj = {};
-
                 var content = document.createElement("content");
                 content.innerHTML = recievedFeed.entries[i].content;
                 var img;

@@ -1,6 +1,6 @@
-var passport = require('passport');
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
+var passport = require('passport'),
+    mongoose = require('mongoose'),
+    User = mongoose.model('User');
 
 module.exports.register = function (req, res, next) {
     var alreadyExists = false;

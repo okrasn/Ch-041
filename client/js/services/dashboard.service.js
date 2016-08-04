@@ -1,10 +1,11 @@
-angular.module('rssreader').factory('dashboardService', function () {
-    var obj = {
-        title: ""
-    };
-    obj.setTitle = function(title){
-        console.log(title);
-        this.title = title;
+angular.module('rssreader').service('dashboardService', function () {
+    that = this;
+    this.title = "All";
+    this.setTitle = function(title){ 
+        that.title = title;
+        console.log("Title: " + that.title);
     }
-    return obj;
+    this.getTitle = function(){
+        return that.title;
+    }
 });

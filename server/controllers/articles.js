@@ -1,8 +1,8 @@
-var passport = require('passport');
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Feed = mongoose.model('Feed');
-var Article = mongoose.model('Article');
+var passport = require('passport'),
+    mongoose = require('mongoose'),
+    User = mongoose.model('User'),
+    Feed = mongoose.model('Feed'),
+    Article = mongoose.model('Article');
 
 var results = {};
 results.articles = [];
