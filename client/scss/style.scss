@@ -1,3 +1,7 @@
+$main-border-radius: 3px;
+$blue-btn-color: #42a5f5;
+$blue-btn-active-color: #3949ab;
+
 @import "navbar";
 @import "addFeed";
 @import "feedList";
@@ -5,9 +9,7 @@
 @import "home";
 @import "auth";
 @import "profileSettings";
-$main-border-radius: 3px;
-$blue-btn-color: #42a5f5;
-$blue-btn-active-color: #3949ab;
+
 html {
     font-family: 'Roboto', sans-serif !important;
 }
