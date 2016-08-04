@@ -5,11 +5,13 @@ $panels-gap: 10px;
 }
 
 .table-feed {
+    height: 3em;
     cursor: pointer;
-    padding: 0px 0px 0px 0px;
+    padding: 0px;
     border-bottom: 1px solid #888888;
     border-shadow: 1px 2px 5px 1px #888888;
     &:hover {
+        //border: none;
         background-color: #e8e8e8;
         .hidden {
             display: inline !important;
@@ -101,7 +103,7 @@ $panels-gap: 10px;
     }
 }
 
-.grid-feed:hover {
+.grid-feed .panel:hover {
     .hidden {
         display: inline !important;
         visibility: visible;
