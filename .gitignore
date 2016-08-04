@@ -1,7 +1,7 @@
 logs/*
 !.gitkeep
 node_modules/
-#data/
+data/
 client/bower_components
 /client/js/app.min.js
 /client/css/style.css
