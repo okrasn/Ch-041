@@ -22,7 +22,7 @@ h2.header {
   border-radius: 4px;
 }
 .form-group.login {
-  height: 100px;
+  height: 90px;
   margin-bottom: 0;
   position: relative;
 }
@@ -68,7 +68,7 @@ a.pass {
   margin-bottom: 15px;
 }
 
-.divder{
+.divder {
   height: 113px;
   margin: 0;
   border-right: 1px solid #42a5f5;
@@ -112,7 +112,7 @@ a.pass {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 767px) {
-  .app-btn-blue {
+  .app-btn-blue.cswidth {
     margin-left: 0;
     width: 100%;
   }
