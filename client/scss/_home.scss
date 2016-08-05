@@ -1,33 +1,37 @@
-/**/
-
 #all {
-    background-color: #e8e8e8;
+	background-color: #e8e8e8;
 }
 
 #items {
-    padding-left: 30px;
+	padding-left: 30px;
 }
+
 
 /* Sidebar Styles */
 
-	#home_container {
-		background: url('../assets/images/rss-header.jpg') no-repeat;
-		background-size: cover;
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		color: #fff;
-		background-origin: content-box;
-
-
-	}
-
-.welcometo {
-	font-size: 63px;
-	margin-top: 70px;
-	margin-bottom: 50px;
-
-}
-body{
+body {
 	overflow-y: hidden;
+	background: lightgray;
+}
+
+@media screen and (max-width: 960px) {
+	#home_container {
+		background-size: contain;
+		background: lightgray;
+	}
+}
+
+#home_container {
+	padding-top: 15%;
+	background: lightgray center fixed;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	color: #fff;
+	.welcometo {
+		font-size: 63px;
+		margin-top: 70px;
+		margin-bottom: 50px;
+	}
 }
