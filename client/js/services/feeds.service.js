@@ -69,13 +69,13 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
         });
     }
     obj.removeFeed = function (feedId) {
-        console.log(feedId);
+//        console.log(feedId);
         return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + feedId, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
         }).success(function (res) {
-            console.log("deleted");
+//            console.log("deleted");
         });
     }
     return obj;

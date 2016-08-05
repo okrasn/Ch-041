@@ -88,18 +88,18 @@ $user-dropdown-color: #f0f0f0;
     .dropdown-toggle{
         cursor: pointer;
         color: white;
-        transition: all 0.3s ease;
+        transition: $app-transition;
         &:visited{
-            transition: all 0.3s ease;
+            transition: $app-transition;
             color: black;
         }
         &:hover{
             background-color: #f0f0f0;
-            transition: all 0.3s ease;
+            transition: $app-transition;
             color: black;
         }
         &:active{
-            transition: all 0.3s ease;
+            transition: $app-transition;
             color: black !important;
         }
     }

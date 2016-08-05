@@ -1,6 +1,10 @@
 $main-border-radius: 3px;
 $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
+$delete-btn-color: #eb4e54;
+
+$app-transition:    all 0.2s ease;
+
 @import "navbar";
 @import "addFeed";
 @import "feedList";
@@ -8,6 +12,7 @@ $blue-btn-active-color: #3949ab;
 @import "home";
 @import "auth";
 @import "profileSettings";
+@import "buttons";
 html {
     font-family: 'Roboto', sans-serif !important;
 }
@@ -55,84 +60,19 @@ p {
     text-overflow: ellipsis;
 }
 
-.app-btn {
-    border: none;
-    border-radius: $main-border-radius !important;
-    transition: all 0.2s ease;
-    cursor: pointer !important;
-    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
-    &:visited {
-        color: white;
-    }
-    &:hover {
-        background-color: #fcf8e3;
-        color: white;
-        border: none;
-        transition: all 0.2s ease;
-        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
-    }
-    &:active {
-        border: none !important;
-        outline: none;
-    }
-}
-
-.app-btn-blue {
-    @extend .app-btn;
-    color: white !important;
-    background-color: $navbar-color !important;
-    &:visited {
-        color: white !important;
-        background-color: $blue-btn-color !important;
-    }
-    &:hover {
-        color: black !important;
-        background-color: white !important;
-        transition: all 0.2s ease;
-        a {
-            color: black !important;
-        }
-    }
-    &:active {
-        color: white !important;
-        background-color: $blue-btn-active-color !important;
-    }
-}
 .cswidth {
     width: 40%;
-}
-
-//.view-buttons{
-//    display: inline-block;
-//}
-.app-btn-feed-list {
-    font-size: 1em;
-    padding: 15px;
-    border: none;
-    border-radius: $main-border-radius !important;
-    transition: all 0.2s ease;
-    cursor: pointer !important;
-    &:visited {
-        border: none !important;
-    }
-    &:hover {
-        border: none;
-        transition: all 0.2s ease;
-    }
-    &:active {
-        border: none !important;
-    }
 }
 
 .app-panel {
     border: none;
     border-radius: $main-border-radius !important;
-    transition: all 0.2s ease;
+    transition: $app-transition;
     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
     &:visited {}
     &:hover {
         border: none;
-        transition: all 0.2s ease;
+        transition: $app-transition;
         box-shadow: 0px 4px 15px 0px rgba(57, 73, 171, 1);
     }
     &:active {
@@ -145,5 +85,5 @@ p {
     display: none;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 300ms ease;
+    transition: opacity 0.2s ease;
 }

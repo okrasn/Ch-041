@@ -17,7 +17,7 @@ $panels-gap: 10px;
       display: inline !important;
       visibility: visible;
       opacity: 1;
-      transition: opacity 300ms ease;
+      transition: opacity 0.2s ease;
     }
   }
 }
@@ -42,9 +42,6 @@ $panels-gap: 10px;
   .title {
     padding: 0px 5px 0px 15px;
     max-width: 50%;
-  }
-  .btn-group {
-    margin: -6px 0px 0px 0px;
   }
 }
 
@@ -103,7 +100,7 @@ $panels-gap: 10px;
       display: inline !important;
       visibility: visible;
       opacity: 1;
-      transition: opacity 300ms ease;
+      transition: opacity 0.2s ease;
     }
   }
 }
