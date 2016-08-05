@@ -2,9 +2,14 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
     $scope.feeds = feedsService.feedsDictionary;
 
     $scope.getAll = function () {
-        articlesService.getAllArticles();
-        dashboardService.setTitle("All");
-        dashboardService.resetFeedId();
+        // if there is only one category and feed, return this feed articles
+
+        if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
+            $scope.getByFeed($scope.feeds[0].values[0]._id, $scope.feeds[0].values[0].title);
+        } else {
+            articlesService.getAllArticles();
+            dashboardService.resetFeedId();
+        }
         $state.go("dashboard." + dashboardService.currentView);
     }
     $scope.getByFeed = function (id, title) {
@@ -22,7 +27,6 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
             $scope.getByFeed($scope.feeds[index].values[0]._id, $scope.feeds[index].values[0].title);
         } else {
             articlesService.getArticlesByCat(cat);
-            dashboardService.setTitle(cat);
             dashboardService.resetFeedId();
         }
 

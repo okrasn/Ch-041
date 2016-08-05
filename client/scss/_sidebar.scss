@@ -25,7 +25,7 @@ $item-text-color: #000000;
         margin-top: 0;
         overflow-y: auto;
         background: $sidebar-color;
-        border-right: 3px solid $navbar-color;
+        //border-right: 3px solid $navbar-color;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
@@ -136,14 +136,26 @@ $item-text-color: #000000;
 
 .sidebar-item {
     padding-left: 40px;
-    padding-right: 10px;
     cursor: pointer;
     width: 100%;
     line-height: 3em;
     transition: $app-transition;
     &:hover {
         transition: $app-transition;
-        background-color: #6688ee;
-        ;
+        background-color: $item-hover-color;
+    }
+}
+
+.sidebar-item .sidebar-sub-item {
+    padding-left: 40px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%;
+    line-height: 3em;
+    transition: $app-transition;
+    &:hover {
+        transition: $app-transition;
+        border-right: 1em solid $blue-btn-active-color;
     }
 }

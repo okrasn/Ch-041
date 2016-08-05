@@ -1,8 +1,17 @@
-angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', function ($scope, $state, authService, $window,auth,store,$location) {
+angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', function ($scope, $state, authService, $window, auth, store, $location) {
     $scope.user = {};
     $scope.session;
-	//Authorization
-	/*
+
+    var ERRORS = {
+        field_required: 'This field is required',
+        email_example: 'Please, use example: jacksparrow@gmail.com',
+        char_num6_required: 'Please, enter at least 6 characters',
+        char_num9_required: 'Please, enter at least 9 characters',
+        char_num20_required: 'Please, enter at least 20 characters'
+    }
+
+    //Authorization
+    /*
 	$scope.auth = auth;
 	console.log(auth);
 	$scope.logout = function() {
@@ -31,15 +40,15 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
                 $scope.error = error;
             }).then(function () {
                 if (!$scope.session) {
-                    console.log("Not checked");
+                    //                    console.log("Not checked");
                     $scope.onExit = function () {
                         auth.logOut();
                     };
                     $window.onbeforeunload = $scope.onExit;
                 } else
-                    console.log("Checked");
+                //                    console.log("Checked");
 
-                $state.go('dashboard.th-large', {
+                    $state.go('dashboard.th-large', {
                     id: authService.userID()
                 });
             });
@@ -58,12 +67,12 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
         },
         messages: {
             mail: {
-                required: "This field is required ",
-                email: "Please, use example: jacksparrow@gmail.com"
+                required: ERRORS.field_required,
+                email: ERRORS.email_example
             },
 
             pwd: {
-                required: "This field is required "
+                required: ERRORS.field_required
             }
         }
     };
@@ -89,22 +98,22 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
         },
         messages: {
             mail: {
-                required: "This field is required ",
-                email: "Please, use example: jacksparrow@gmail.com ",
-                minlength: "Please, enter at least 9 characters ",
-                maxlength: "Please, enter no more than 20 characters. "
+                required: ERRORS.field_required,
+                email: ERRORS.email_example,
+                minlength: ERRORS.char_num9_required,
+                maxlength: ERRORS.char_num20_required
             },
 
             pwd: {
-                required: "This field is required ",
-                minlength: "Please, enter at least 6 characters ",
-                maxlength: "Please, enter no more than 20 characters. "
+                required: ERRORS.field_required,
+                minlength: ERRORS.char_num6_required,
+                maxlength: ERRORS.char_num20_required
             },
 
             reppwd: {
-                required: "This field is required ",
-                minlength: "Please, enter at least 6 characters ",
-                maxlength: "Please, enter no more than 20 characters. "
+                required: ERRORS.field_required,
+                minlength: ERRORS.char_num6_required,
+                maxlength: ERRORS.char_num20_required
             }
         }
     }
