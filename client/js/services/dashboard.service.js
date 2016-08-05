@@ -3,8 +3,11 @@ angular.module('rssreader').service('dashboardService', function () {
     that = this;
     this.title = "";
     this.setTitle = function(title){ 
+        if(title == "Add Feed"){
+            this.resetFeedId();
+        }
         that.title = title;
-        console.log("Title: " + that.title);
+//        console.log("Title: " + that.title);
     }
     this.getTitle = function(){
         return that.title;

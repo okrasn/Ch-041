@@ -5,8 +5,11 @@ $panels-gap: 10px;
 }
 
 .table-feed {
+    a {
+        color: black;
+    }
     overflow: hidden;
-    height: 4em;
+    height: 3em;
     cursor: pointer;
     padding: 0px;
     border-bottom: 1px solid #888888;
@@ -39,7 +42,6 @@ $panels-gap: 10px;
 
 .head {
     padding: 15px 15px 0px 15px;
-    margin: 0px 0px 15px 0px;
     border-bottom: 1px solid #888888;
     .title {
         padding: 0px 5px 0px 15px;
@@ -80,7 +82,7 @@ $panels-gap: 10px;
         height: 150px;
     }
     .footer {
-        height: 30px;
+//        height: 30px;
         padding: 3px 0px 5px 5px;
     }
     .read-icon,
