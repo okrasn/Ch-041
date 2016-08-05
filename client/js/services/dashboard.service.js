@@ -8,5 +8,5 @@ angular.module('rssreader').service('dashboardService', function () {
     this.getTitle = function(){
         return that.title;
     }
-    this.currentView = 'Th-large';
+    this.currentView = 'th-large';
 });

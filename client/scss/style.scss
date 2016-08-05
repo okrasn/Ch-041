@@ -101,7 +101,13 @@ p {
 .cswidth {
     width: 40%;
 }
+
+//.view-buttons{
+//    display: inline-block;
+//}
 .app-btn-feed-list {
+    font-size: 1em;
+    padding: 15px;
     border: none;
     border-radius: $main-border-radius !important;
     transition: all 0.2s ease;
