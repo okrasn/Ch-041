@@ -9,6 +9,7 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
             $state.reload("dashboard");
             $state.go("dashboard." + dashboardService.currentView);
         }, function(err){
+            console.log(err);
             if(!err.data)
                 $scope.error = err.message;
             else $scope.error = err.data.message;

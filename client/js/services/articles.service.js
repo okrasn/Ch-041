@@ -36,7 +36,7 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
     }
 
     obj.getArticlesByCat = function (cat) {
-        dashboardService.setTitle("cat");
+        dashboardService.setTitle(cat);
         obj.articles.length = 0;
         var type = "category";
         return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + cat + '/' + ARTICLES_COUNT, {

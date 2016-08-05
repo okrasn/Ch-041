@@ -4,6 +4,15 @@ var passport = require('passport'),
     Feed = mongoose.model('Feed'),
     Article = mongoose.model('Article');
 
+var ERRORS = {
+    choose_cat: 'Choose category',
+    cant_find_user: 'Can\'t find user',
+    feed_already_added: 'You have already added this feed to ',
+    feed_not_found: 'Feed not found',
+    server_error: 'Server error',
+    internal_error: 'Internal error(%d): %s'
+}
+
 module.exports.userParam = function (req, res, next, id) {
     var query = User.findById(id);
 
@@ -12,7 +21,7 @@ module.exports.userParam = function (req, res, next, id) {
             return next(err);
         }
         if (!user) {
-            return next(new Error('can\'t find user'));
+            return next(new Error(ERRORS.cant_find_user));
         }
         req.user = user;
         return next();
@@ -23,12 +32,12 @@ module.exports.allFeed = function (req, res, next) {
     req.user.populate('feeds', function (err, feed) {
         var unique = {},
             distinct = [];
-        
+
         if (err) {
             return next(err);
         }
         //Select all uniq user categories
-        
+
         for (var i in feed.feeds) {
             if (typeof (unique[feed.feeds[i].category]) === "undefined") {
                 distinct.push(feed.feeds[i].category);
@@ -56,7 +65,7 @@ module.exports.allFeed = function (req, res, next) {
                 values: []
             });
         }
-        
+
         for (var i = 0; i < feed.feeds.length; i++) {
             var j = containsKey(feed.feeds[i].category);
             if (j >= 0) {
@@ -74,10 +83,14 @@ module.exports.add = function (req, res, next) {
     }, function (err, foundFeed) {
         if (foundFeed) {
             return res.status(400).json({
-                message: "You have already added this feed to " + foundFeed.category + " category"
+                message: ERRORS.feed_already_added + foundFeed.category
             });
         }
-
+        if (req.body.category === undefined) {
+            return res.status(400).json({
+                message: ERRORS.choose_cat
+            });
+        }
         var feed = new Feed(req.body);
         feed.articles = [];
         for (var i = 0; i < req.body.articles.length; i++) {
@@ -110,7 +123,7 @@ module.exports.remove = function (req, res, next) {
         if (!feed) {
             res.statusCode = 404;
             return res.send({
-                error: 'Feed not found'
+                error: ERRORS.feed_not_found
             });
         }
         return feed.remove(function (err) {
@@ -120,9 +133,9 @@ module.exports.remove = function (req, res, next) {
                 });
             } else {
                 res.statusCode = 500;
-                log.error('Internal error(%d): %s', res.statusCode, err.message);
+                log.error(ERRORS.internal_error, res.statusCode, err.message);
                 return res.send({
-                    error: 'Server error'
+                    error: ERRORS.feed_not_found
                 });
             }
         });

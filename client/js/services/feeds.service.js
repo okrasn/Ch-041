@@ -16,8 +16,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         });
     }
 
-    obj.addFeed = function (feed) {
+    obj.addFeed = function (feed) {       
         return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articlesNum + "&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (responce) {
+            if (feed.category === undefined) {
+                throw new Error("Choose category");
+            }
             if (responce.data.responseData === null) {
                 throw new Error("URL is incorrect or does not contain RSS Feed data");
             }
@@ -74,9 +77,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
-        }).success(function (res) {
-            dashboardService.setTitle("All");
-            
+        }).success(function (res) {    
             $state.reload("dashboard");
             $state.go("dashboard." + dashboardService.currentView);
             //console.log("deleted");
