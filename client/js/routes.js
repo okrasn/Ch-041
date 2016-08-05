@@ -1,4 +1,4 @@
-angular.module('rssreader', ['ui.router', 'ngValidate'])
+angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('home');
         $stateProvider
