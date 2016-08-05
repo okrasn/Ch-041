@@ -1,4 +1,4 @@
-angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', function ($scope, $state, authService, $window, auth, store, $location) {
+angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', function ($scope, $state, authService, $window, auth, store, $location, dashboardService) {
     $scope.user = {};
     $scope.session;
 
@@ -22,14 +22,15 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
 	}
 	*/
 
-
     $scope.register = function (form) {
         console.log($scope.user);
         if (form.validate()) {
             authService.register($scope.user).error(function (error) {
                 $scope.error = error;
             }).then(function () {
-                $state.go('dashboard.th-large');
+                $state.go('dashboard.' + dashboardService.currentView, {
+                    id: authService.userID()
+                });
             });
         }
     };
@@ -44,13 +45,16 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
                     $scope.onExit = function () {
                         auth.logOut();
                     };
+                    $state.go('dashboard.' + dashboardService.currentView, {
+                        id: authService.userID()
+                    });
                     $window.onbeforeunload = $scope.onExit;
-                } else
-                //                    console.log("Checked");
-
-                    $state.go('dashboard.th-large', {
-                    id: authService.userID()
-                });
+                } else{
+                    console.log("GO@!0");
+                    $state.go('dashboard.' + dashboardService.currentView, {
+                        id: authService.userID()
+                    });
+                }                
             });
         }
     };

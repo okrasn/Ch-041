@@ -11,7 +11,6 @@ var ERRORS = {
 
 module.exports.register = function (req, res, next) {
     var alreadyExists = false;
-
     if (!req.body.email || !req.body.password || !req.body.repPassword) {
         return res.status(400).json({
             message: ERRORS.fill_out_fields
