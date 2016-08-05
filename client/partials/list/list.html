@@ -1,32 +1,31 @@
-
 <!--Table feeds-->
 <div class="row feeds">
     <div class="col-md-12">
         <div class="row table-feed" ng-repeat="article in articles">
-                <div class="col-md-2 col-xs-12">
-                    <p>Lorem ipsum</p>
-                    <div class="footer">
-                        <div class="share">
-                                <span class="hidden">
+            <div class="col-md-2 col-xs-12">
+                <span class="shortened-text-block">sadgsdgsd sadfs adsdfaasdf sadffg sdfgsdf </span>
+                <div class="footer">
+                    <div class="share">
+                        <span class="hidden">
                                         <button type="button" class="btn btn-info btn-xs read-btn">
                                             <a ng-href="{{article.link}}" target="_blank" class="uppercase">read</a>
                                         </button>
                                     <span class="star-icon glyphicon glyphicon-star"></span>
-                                    <span class="share-icon glyphicon glyphicon-share"></span>
-                                </span>
-                        </div>
+                        <span class="share-icon glyphicon glyphicon-share"></span>
+                        </span>
                     </div>
                 </div>
-                <div class="col-md-9 col-xs-11">
-                    <p>
-                        <strong>
+            </div>
+            <div class="col-md-9 col-xs-11">
+                <p>
+                    <strong>
                             <span ng-bind="article.title"></span>
                         </strong>
-                    </p>
-                    <p>
-                        <span ng-bind="article.content"></span>
-                    </p>
-                </div>
+                </p>
+                <p>
+                    <span ng-bind="article.content"></span>
+                </p>
+            </div>
             <div class="col-md-1 col-xs-1">
                 <span class="read-icon glyphicon glyphicon-ok hidden"></span>
             </div>
