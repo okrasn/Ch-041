@@ -8,13 +8,16 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 var auth = jwt({
-    secret: 'MY_SECRET',
-    userProperty: 'payload'
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
 });
 
 var authCtrl = require('../controllers/authentication'),
     articlesCtrl = require('../controllers/articles'),
-    feedsCtrl = require('../controllers/feeds');
+    feedsCtrl = require('../controllers/feeds'),
+    profCtrl = require('../controllers/profile');
+
+router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
