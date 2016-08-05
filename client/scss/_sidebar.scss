@@ -154,8 +154,9 @@ $item-text-color: #000000;
     width: 100%;
     line-height: 3em;
     transition: $app-transition;
+    border-right: 0em solid;
     &:hover {
         transition: $app-transition;
-        border-right: 1em solid $blue-btn-active-color;
+        border-right: 0.7em solid $blue-btn-active-color;
     }
 }

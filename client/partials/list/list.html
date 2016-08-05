@@ -2,33 +2,28 @@
 <div id="list" class="row feeds">
     <div class="col-md-12">
         <div class="row table-feed" ng-repeat="article in articles">
-            <div class="col-md-2 col-xs-12">
-                <span class="shortened-text-block">sadgsdgsd sadfs adsdfaasdf sadffg sdfgsdf </span>
-                <div class="footer">
-                    <div class="share">
-                        <span class="hidden">
-                            <button type="button" class="btn btn-info btn-xs read-btn">
-                                <a ng-href="{{article.link}}" target="_blank" class="uppercase">read</a>
-                            </button>
-                            <span class="star-icon glyphicon glyphicon-star"></span>
-                        <span class="share-icon glyphicon glyphicon-share"></span>
-                        </span>
+            <a ng-href="{{article.link}}">
+                <div class="col-md-2 col-xs-12">
+                    <span class="shortened-text-block">sadgsdgsd sadfs adsdfaasdf sadffg sdfgsdf </span>
+                    <div class="footer">
+                        <div class="share">
+                            <span class="hidden">
+                            <span class="star-icon glyphicon glyphicon-star onhover-orange"></span>
+                            <span class="share-icon glyphicon glyphicon-share onhover-green"></span>
+                            </span>
+                            <span class="read-icon glyphicon glyphicon-ok hidden onhover-blue"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-9 col-xs-11">
-                <p>
-                    <strong>
-                        <span ng-bind="article.title"></span>
-                    </strong>
-                </p>
-                <p>
-                    <span ng-bind="article.content"></span>
-                </p>
-            </div>
-            <div class="col-md-1 col-xs-1">
-                <span class="read-icon glyphicon glyphicon-ok hidden"></span>
-            </div>
+                <div class="col-md-9 col-xs-11">
+                    <p>
+                        <strong> <span class="shortened-text" ng-bind="article.title"></span></strong>
+                    </p>
+                    <p>
+                        <span class="shortened-text" ng-bind="article.content"></span>
+                    </p>
+                </div>
+            </a>
         </div>
     </div>
 </div>

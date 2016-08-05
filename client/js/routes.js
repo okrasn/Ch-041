@@ -57,32 +57,32 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
             .state("dashboard.th-large", {
                 url: '/th-large',
                 templateUrl: './partials/list/th-large.html',
-                controller: 'ArticlesController',
-                resolve: {
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                }]
-                }
+                controller: 'ArticlesController'
+                    //                resolve: {
+                    //                    articlesPromise: ['articlesService', function (articlesService) {
+                    //                        return articlesService.getAllArticles();
+                    //                }]
+                    //                }
             })
             .state("dashboard.list", {
                 url: '/list',
                 templateUrl: './partials/list/list.html',
-                controller: 'ArticlesController',
-                resolve: {
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                }]
-                }
+                controller: 'ArticlesController'
+                    //                resolve: {
+                    //                    articlesPromise: ['articlesService', function (articlesService) {
+                    //                        return articlesService.getAllArticles();
+                    //                }]
+                    //                }
             })
             .state("dashboard.th-list", {
                 url: '/th-list',
                 templateUrl: './partials/list/th-list.html',
-                controller: 'ArticlesController',
-                resolve: {
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                }]
-                }
+                controller: 'ArticlesController'
+                    //                resolve: {
+                    //                    articlesPromise: ['articlesService', function (articlesService) {
+                    //                        return articlesService.getAllArticles();
+                    //                }]
+                    //                }
             })
             .state("dashboard.addFeed", {
                 url: '/add',
