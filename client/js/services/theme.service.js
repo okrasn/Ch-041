@@ -17,5 +17,5 @@ angular.module('rssreader').service('themeService', ['authService', '$window', f
             name: 'Grey',
             url: 'style3'
         }
-  ];
+    ];
 }]);
