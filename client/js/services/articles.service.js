@@ -1,9 +1,11 @@
-angular.module('rssreader').service('articlesService', ['$http', 'authService', function ($http, authService) {
+angular.module('rssreader').service('articlesService', ['$http', 'authService', 'dashboardService', function ($http, authService, dashboardService) {
     var obj = {
         articles: []
     }
     var ARTICLES_COUNT = 10;
+    
     obj.getAllArticles = function () {
+        dashboardService.setTitle("All");
         obj.articles.length = 0;
         var type = "all";
         return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + ARTICLES_COUNT, {
@@ -28,13 +30,13 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
                 Authorization: 'Bearer ' + authService.getToken()
             }
         }).then(function (res) {
-            console.log("articles recieved for feed" + id + ":");
+            //console.log("articles recieved for feed" + id + ":");
             angular.copy(res.data.articles, obj.articles);
-            console.log(res.data.articles);
         });
     }
 
     obj.getArticlesByCat = function (cat) {
+        dashboardService.setTitle("cat");
         obj.articles.length = 0;
         var type = "category";
         return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + cat + '/' + ARTICLES_COUNT, {
@@ -48,7 +50,7 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
                     obj.articles.push(value);
                 });
             });
-            console.log(obj.articles);
+            //console.log(obj.articles);
         });
     }
     return obj;

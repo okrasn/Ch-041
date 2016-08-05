@@ -2,7 +2,6 @@ angular.module('rssreader').service('themeService', ['authService', '$window', f
     that = this;
     this.layout = 'style';
     this.getTheme = function(){
-        console.log("Current layout: " + that.layout);
         return that.layout!==undefined ? that.layout : "style";
     }
     this.layouts = [

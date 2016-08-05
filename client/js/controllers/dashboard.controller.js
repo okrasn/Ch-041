@@ -9,6 +9,5 @@ angular.module('rssreader').controller('DashboardController', ['$scope', '$state
     
     $scope.onFeedDelete = function(){
         feedsService.removeFeed(dashboardService.currentFeed);
-        $state.reload();
     }
 }]);

@@ -1,6 +1,7 @@
-angular.module('rssreader').service('feedsService', ['$http', 'authService', function ($http, authService) {
+angular.module('rssreader').service('feedsService', ['$http', '$state', 'authService', 'dashboardService', function ($http, $state, authService, dashboardService) {
+    var articlesNum = 10;
     var obj = {
-        //      data structure containing [{key: category, values: [feeds]}]
+        // data structure containing [{key: category, values: [feeds]}]
         feedsDictionary: [],
         allArticles: [],
         CATEGORIES: ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"]
@@ -11,13 +12,12 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
                 Authorization: 'Bearer ' + authService.getToken()
             }
         }).then(function (res) {
-            console.log(res.data);
             angular.copy(res.data, obj.feedsDictionary);
         });
     }
 
     obj.addFeed = function (feed) {
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (responce) {
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articlesNum + "&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (responce) {
             if (responce.data.responseData === null) {
                 throw new Error("URL is incorrect or does not contain RSS Feed data");
             }
@@ -35,12 +35,12 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
             feedObj.user = authService.userID();
 
             //Debug
-//            console.log("recievedFeed:");
-//            console.log(recievedFeed);
-//            console.log("feedObj:");
-//            console.log(feedObj);
-//            console.log("mediaGroups:");
-//            console.log(recievedFeed.entries[1].mediaGroups);
+            //            console.log("recievedFeed:");
+            //            console.log(recievedFeed);
+            //            console.log("feedObj:");
+            //            console.log(feedObj);
+            //            console.log("mediaGroups:");
+            //            console.log(recievedFeed.entries[1].mediaGroups);
 
             for (var i = 0; i < recievedFeed.entries.length; i++) {
                 var articleObj = {};
@@ -69,13 +69,17 @@ angular.module('rssreader').service('feedsService', ['$http', 'authService', fun
         });
     }
     obj.removeFeed = function (feedId) {
-//        console.log(feedId);
+        //console.log(feedId);
         return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + feedId, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
         }).success(function (res) {
-//            console.log("deleted");
+            dashboardService.setTitle("All");
+            
+            $state.reload("dashboard");
+            $state.go("dashboard." + dashboardService.currentView);
+            //console.log("deleted");
         });
     }
     return obj;

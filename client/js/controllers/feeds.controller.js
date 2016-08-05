@@ -6,12 +6,12 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
     $scope.addFeed = function () {
         $scope.error = '';
         feedsService.addFeed($scope.obj).then(function(res){
-//            $state.go("dashboard." + dashboardService.currentView);
+            $state.reload("dashboard");
+            $state.go("dashboard." + dashboardService.currentView);
         }, function(err){
             if(!err.data)
                 $scope.error = err.message;
             else $scope.error = err.data.message;
         });
-        $state.reload();
     }
 }]);

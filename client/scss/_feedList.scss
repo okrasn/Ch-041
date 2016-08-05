@@ -36,7 +36,7 @@ $panels-gap: 10px;
 }
 
 .head {
-  padding: 15px 0px 0px 15px;
+  padding: 15px 15px 0px 15px;
   margin: 0px 0px 15px 0px;
   border-bottom: 1px solid #888888;
   .title {
@@ -107,12 +107,9 @@ $panels-gap: 10px;
 
 .th-list {
   @extend .th-large;
-  .panel {
-    height: 145px;
-  }
   img {
-    width: 160px;
-    height: 135px;
+    width: 180;
+    height: 140;
   }
   .description {
     height: 85px;

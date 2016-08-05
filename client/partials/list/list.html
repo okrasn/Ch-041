@@ -1,5 +1,5 @@
 <!--Table feeds-->
-<div class="row feeds">
+<div id="list" class="row feeds">
     <div class="col-md-12">
         <div class="row table-feed" ng-repeat="article in articles">
             <div class="col-md-2 col-xs-12">
@@ -7,10 +7,10 @@
                 <div class="footer">
                     <div class="share">
                         <span class="hidden">
-                                        <button type="button" class="btn btn-info btn-xs read-btn">
-                                            <a ng-href="{{article.link}}" target="_blank" class="uppercase">read</a>
-                                        </button>
-                                    <span class="star-icon glyphicon glyphicon-star"></span>
+                            <button type="button" class="btn btn-info btn-xs read-btn">
+                                <a ng-href="{{article.link}}" target="_blank" class="uppercase">read</a>
+                            </button>
+                            <span class="star-icon glyphicon glyphicon-star"></span>
                         <span class="share-icon glyphicon glyphicon-share"></span>
                         </span>
                     </div>
@@ -19,8 +19,8 @@
             <div class="col-md-9 col-xs-11">
                 <p>
                     <strong>
-                            <span ng-bind="article.title"></span>
-                        </strong>
+                        <span ng-bind="article.title"></span>
+                    </strong>
                 </p>
                 <p>
                     <span ng-bind="article.content"></span>

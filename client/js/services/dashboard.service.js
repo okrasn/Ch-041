@@ -1,7 +1,7 @@
 angular.module('rssreader').service('dashboardService', function () {
     var defaultView = 'th-large';
     that = this;
-    this.title = "All";
+    this.title = "";
     this.setTitle = function(title){ 
         that.title = title;
         console.log("Title: " + that.title);

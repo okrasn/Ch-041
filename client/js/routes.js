@@ -1,6 +1,5 @@
 angular.module('rssreader', ['ui.router', 'ngValidate'])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-
         $urlRouterProvider.otherwise('home');
         $stateProvider
             .state('home', {
@@ -88,6 +87,18 @@ angular.module('rssreader', ['ui.router', 'ngValidate'])
             .state("dashboard.addFeed", {
                 url: '/add',
                 templateUrl: './partials/dashboard/add-feed.html',
-                controller: 'FeedsController'
+                controller: 'FeedsController',
+                resolve: {
+                    dashboardPromise: ['dashboardService', function (dashboardService) {
+                        return dashboardService.setTitle("Add Feed");
+                }]
+                }
             });
 }]);
+
+//
+//,
+//                resolve: {
+//                    articlesPromise: ['articlesService', function (articlesService) {
+//                        return articlesService.getAllArticles();
+//                }]
