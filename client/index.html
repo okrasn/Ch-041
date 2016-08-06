@@ -4,7 +4,11 @@
     <title>Rss Reader</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- build:css css/vendor.css -->
     <link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- endbuild -->
+
     <link rel="stylesheet" type="text/css" ng-href="css/{{layout()}}.css">
     <link href="assets/fonts/Roboto-Regular.ttf">
 </head>
@@ -19,6 +23,7 @@
         </div>
     </div>
 
+    <!-- build:js js/vendor.js -->
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script src="./bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="./bower_components/jquery-validation/dist/additional-methods.min.js"></script>
@@ -36,7 +41,7 @@
     <script type="text/javascript" src="https://cdn.auth0.com/w2/auth0-angular-4.js"></script>
     <script src="http://cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js" type="text/javascript"> </script>
     <script src="http://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js" type="text/javascript"> </script>
-
+    <!-- endbuild -->
     <script src="js/app.min.js"></script>
 </body>
 
