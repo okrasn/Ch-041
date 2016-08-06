@@ -11,7 +11,7 @@ var ERRORS = {
     feed_not_found: 'Feed not found',
     server_error: 'Server error',
     internal_error: 'Internal error(%d): %s'
-}
+};
 
 module.exports.userParam = function (req, res, next, id) {
     var query = User.findById(id);
@@ -27,7 +27,7 @@ module.exports.userParam = function (req, res, next, id) {
         req.user = user;
         return next();
     });
-}
+};
 
 module.exports.allFeed = function (req, res, next) {
     req.user.populate('feeds', function (err, feed) {
@@ -119,7 +119,7 @@ module.exports.add = function (req, res, next) {
             });
         });
     });
-}
+};
 module.exports.remove = function (req, res, next) {
     return Feed.findById(req.params.id, function (err, feed) {
         if (!feed) {

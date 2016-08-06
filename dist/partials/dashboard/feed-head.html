@@ -1,0 +1,17 @@
+<div class="head">
+    <h2 ng-bind='someVar'></h2>
+    <h2>
+        <span class="title shortened-text-block" ng-bind="headTitle()"></span> 
+    </h2>
+    <div class='clearfix'>
+        <div class="btn-group pull-left" ng-hide="hideViewBtns()">
+            <button type="button" class="btn btn-default app-btn-feed-list" aria-label="Left Align" ng-click="onViewChange('list')"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default app-btn-feed-list" aria-label="Center Align" ng-click="onViewChange('th-list')"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default app-btn-feed-list" aria-label="Justify" ng-click="onViewChange('th-large')"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button> 
+            <button type="button" class="btn btn-default app-btn-feed-list" aria-label="Justify" ng-click="onViewChange('th-large')"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+        </div>
+        <div class='pull-right' ng-show='feed()'>
+            <button type="button" class="btn btn-default app-btn-delete" aria-label="Justify" ng-click="onFeedDelete()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ var authCtrl = require('../controllers/authentication'),
     feedsCtrl = require('../controllers/feeds'),
     profCtrl = require('../controllers/profile');
 
-router.post('/upload', profCtrl.upload);
+router.post('/upload',auth, profCtrl.upload);
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);

@@ -10,6 +10,10 @@ var userSchema = new mongoose.Schema({
     },
     hash: String,
     salt: String,
+    avatar: {
+        type: String,
+        default: ""
+    },
     feeds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feed'

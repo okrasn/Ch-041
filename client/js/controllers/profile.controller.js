@@ -14,6 +14,9 @@ angular.module('rssreader')
             $scope.upload = function (file) {
                 Upload.upload({
                     url: 'http://localhost:8080/upload', //webAPI exposed to upload the file
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken()
+                    },
                     data: {
                         file: file
                     } //pass file as data, should be user ng-model
