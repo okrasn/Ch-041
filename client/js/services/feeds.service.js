@@ -1,5 +1,5 @@
 angular.module('rssreader').service('feedsService', ['$http', '$state', 'authService', 'dashboardService', function ($http, $state, authService, dashboardService) {
-    var articlesNum = 10;
+    var ARTICLES_NUM = 20;
     var obj = {
         // data structure containing [{key: category, values: [feeds]}]
         feedsDictionary: [],
@@ -17,7 +17,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     }
 
     obj.addFeed = function (feed) {       
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articlesNum + "&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (responce) {
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + ARTICLES_NUM + "&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (responce) {
             if (feed.category === undefined) {
                 throw new Error("Choose category");
             }
@@ -37,7 +37,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             feedObj.articles = [];
             feedObj.user = authService.userID();
 
-            //Debug
+            //console.log
             //            console.log("recievedFeed:");
             //            console.log(recievedFeed);
             //            console.log("feedObj:");

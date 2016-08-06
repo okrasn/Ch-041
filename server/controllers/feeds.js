@@ -18,6 +18,7 @@ module.exports.userParam = function (req, res, next, id) {
 
     query.exec(function (err, user) {
         if (err) {
+            console.log("ERROR: " + err);
             return next(err);
         }
         if (!user) {
@@ -34,6 +35,7 @@ module.exports.allFeed = function (req, res, next) {
             distinct = [];
 
         if (err) {
+            console.log("ERROR: " + err);
             return next(err);
         }
         //Select all uniq user categories

@@ -10,7 +10,12 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
             .state('login', {
                 url: '/login',
                 templateUrl: './partials/auth/login.html',
-                controller: 'AuthController'
+                controller: 'AuthController',
+                onEnter: ['$state', 'authService', function ($state, authService) {
+                    if (authService.isLoggedIn()) {
+                        $state.go('home');
+                    }
+                }]
             })
             .state('loginAuth', {
                 url: '/loginAuth',
@@ -25,7 +30,12 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
             .state('register', {
                 url: '/register',
                 templateUrl: './partials/auth/register.html',
-                controller: 'AuthController'
+                controller: 'AuthController',
+                onEnter: ['$state', 'authService', function ($state, authService) {
+                    if (authService.isLoggedIn()) {
+                        $state.go('home');
+                    }
+                }]
             })
             .state('profile', {
                 url: '/profile',
@@ -51,7 +61,10 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
                 resolve: {
                     feedPromise: ['feedsService', function (feedsService) {
                         return feedsService.getAllFeeds();
-                }]
+                }],
+                    articlesPromise: ['articlesService', function (articlesService) {
+                        return articlesService.getAllArticles();
+                    }]
                 }
             })
             .state("dashboard.th-large", {

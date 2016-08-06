@@ -8,6 +8,7 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
         feedsService.addFeed($scope.obj).then(function(res){
             $state.reload("dashboard");
             $state.go("dashboard." + dashboardService.currentView);
+            dashboardService.setTitle("All");
         }, function(err){
             console.log(err);
             if(!err.data)

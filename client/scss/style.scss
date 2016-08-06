@@ -4,6 +4,7 @@ $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
 @import "navbar";
+@import "animations";
 @import "addFeed";
 @import "feedList";
 @import "sidebar";
@@ -88,29 +89,4 @@ p {
 
 .center-text {
     text-align: center;
-}
-
-.onhover-orange {
-    transition: $app-transition;
-    color: black;
-    &:hover {
-        transition: $app-transition;
-        color: #ff9d00;
-    }
-}
-.onhover-green {
-    transition: $app-transition;
-    color: black;
-    &:hover {
-        transition: $app-transition;
-        color: #00ffb1;
-    }
-}
-.onhover-blue {
-    color: black;
-    transition: $app-transition;
-    &:hover {
-        transition: $app-transition;
-        color: $blue-btn-active-color;
-    }
 }

@@ -1,4 +1,4 @@
-angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', function ($scope, $state, authService, $window, auth, store, $location, dashboardService) {
+angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', function ($scope, $state, authService, $window, dashboardService) {
     $scope.user = {};
     $scope.session;
 

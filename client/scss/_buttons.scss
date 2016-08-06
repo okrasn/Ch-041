@@ -81,3 +81,38 @@
         border: none !important;
     }
 }
+
+span.extra-btns {
+    cursor: pointer;
+    transition: $app-transition;
+    &:hover {
+        transition: $app-transition;
+    }
+    &:active {
+        transform: scale(1.5, 1.5);
+    }
+}
+
+.onhover-orange {
+    @extend .extra-btns;
+    color: black;
+    &:hover {
+        color: #ff9d00;
+    }
+}
+
+.onhover-green {
+    @extend .extra-btns;
+    color: black;
+    &:hover {
+        color: #00ffb1;
+    }
+}
+
+.onhover-blue {
+    @extend .extra-btns;
+    color: black;
+    &:hover {
+        color: $blue-btn-active-color;
+    }
+}

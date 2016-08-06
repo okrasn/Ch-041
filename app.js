@@ -8,7 +8,8 @@ var express = require('express'),
     morgan = require('morgan'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    multer = require('multer');
+    multer = require('multer'),
+    debug = require('debug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

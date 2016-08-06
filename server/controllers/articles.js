@@ -4,8 +4,9 @@ var passport = require('passport'),
     Feed = mongoose.model('Feed'),
     Article = mongoose.model('Article');
 
-var results = {};
-results.articles = [];
+var results = {
+    articles: []
+};
 
 module.exports.all = function (req, res, next) {
     User.findById(req.user._id).populate({
@@ -16,15 +17,23 @@ module.exports.all = function (req, res, next) {
             model: 'Article'
         }
     }).exec(function (err, result) {
+        if (err) {
+            console.log("ERROR: " + err);
+            return next(err);
+        }
         res.status(200).json(result.feeds);
-        //console.log(result.feeds[0].articles);
     });
 }
 
 module.exports.byFeed = function (req, res, next) {
     return Feed.findById(req.params.id, function (err, feed) {
+        if (err) {
+            console.log("ERROR: " + err);
+            return next(err);
+        }
         feed.populate('articles', function (err, articles) {
             if (err) {
+                console.log("ERROR: " + err);
                 return next(err);
             }
             if (articles) {
@@ -43,11 +52,13 @@ module.exports.byCategory = function (req, res, next) {
             model: 'Article'
         }
     }).exec(function (err, result) {
-        var temp = result.feeds.filter(function(value){
-//            console.log(value.category === req.params.cat);
+        if (err) {
+            console.log("ERROR: " + err);
+            return next(err);
+        }
+        var temp = result.feeds.filter(function (value) {
             return value.category === req.params.cat;
         });
-        //console.log(temp.length);
         res.status(200).json(temp);
     });
 }

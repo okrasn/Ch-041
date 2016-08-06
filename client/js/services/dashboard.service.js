@@ -1,5 +1,5 @@
 angular.module('rssreader').service('dashboardService', function () {
-    var defaultView = 'th-large';
+    this.DEFAULT_VIEW = 'th-large';
     that = this;
     this.title = "";
     this.setTitle = function(title){ 
@@ -12,7 +12,7 @@ angular.module('rssreader').service('dashboardService', function () {
     this.getTitle = function(){
         return that.title;
     }
-    this.currentView = defaultView;
+    this.currentView = this.DEFAULT_VIEW;
     
     this.currentFeed = '';
     this.getFeedId = function(){

@@ -1,5 +1,6 @@
 var passport = require('passport'),
     mongoose = require('mongoose'),
+    debug = require('debug'),
     User = mongoose.model('User');
 
 var ERRORS = {
@@ -52,7 +53,14 @@ module.exports.register = function (req, res, next) {
 
 module.exports.login = function (req, res, next) {
     console.log(req.body.email + "is is logging to server");
-
+    
+    console.log("All users in database:");
+    User.find({}, function(err, res){
+        res.forEach(function(elem, index, array){
+            console.log("  - " + elem.email);
+        })
+    });
+    
     if (!req.body.email || !req.body.password) {
         return res.status(400).json({
             message: ERRORS.fill_out_fields
@@ -60,18 +68,18 @@ module.exports.login = function (req, res, next) {
     }
     passport.authenticate('local', function (err, user, info) {
         if (err) {
-            console.log(err);
+            console.log("ERROR: " + err);
             return next(err);
         }
         if (user) {
-//            console.log("USER FOUND");
+            console.log("USER FOUND");
             token = user.generateJwt();
             res.status(200);
             res.json({
                 "token": token
             });
         } else {
-//            console.log("USER NOT FOUND");
+            console.log("USER NOT FOUND");
             return res.status(401).json({
                 message: ERRORS.invalid_data
             });

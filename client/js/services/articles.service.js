@@ -3,29 +3,36 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
         articles: []
     }
     var ARTICLES_COUNT = 10;
-    
+
     obj.getAllArticles = function () {
-        dashboardService.setTitle("All");
         obj.articles.length = 0;
+        dashboardService.setTitle("All");
+        dashboardService.resetFeedId();
+
         var type = "all";
         return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + ARTICLES_COUNT, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
         }).then(function (res) {
-            console.log("All articles recieved:");
+            //console.log("All articles recieved:");
             angular.forEach(res.data, function (value, key) {
                 angular.forEach(value.articles, function (value, key) {
                     obj.articles.push(value);
                 });
             });
-            console.log(obj.articles);
+
+            //console.log(obj.articles);
         });
     }
-    obj.getArticlesByFeed = function (id) {
+    obj.getArticlesByFeed = function (feed) {
         obj.articles.length = 0;
+
+        dashboardService.setTitle(feed.title);
+        dashboardService.setFeedId(feed._id);
+
         var type = "feed";
-        return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + id + '/' + ARTICLES_COUNT, {
+        return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + feed._id + '/' + ARTICLES_COUNT, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
@@ -36,8 +43,11 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
     }
 
     obj.getArticlesByCat = function (cat) {
-        dashboardService.setTitle(cat);
         obj.articles.length = 0;
+
+        dashboardService.setTitle(cat);
+        dashboardService.resetFeedId();
+
         var type = "category";
         return $http.get('/users/' + authService.userID() + '/articles/' + type + '/' + cat + '/' + ARTICLES_COUNT, {
             headers: {

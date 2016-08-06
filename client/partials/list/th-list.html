@@ -2,9 +2,9 @@
 <div id="th-list" class="row feeds">
     <div class="col-md-12 th-list" ng-repeat="article in articles">
         <div class="row">
-            <div class="panel panel-default app-panel">
+            <div class="panel panel-default app-panel fadeInAnim">
                 <div class="panel-body">
-                    <img ng-show="article.img"  src="{{article.img}}" class="img-responsive" alt="Test img">
+                    <img ng-show="article.img" src="{{article.img}}" class="img-responsive" alt="Test img">
                     <div class="content">
                         <div class="title">
                             <p>
@@ -24,9 +24,9 @@
                                     <button type="button" class="btn btn-info read-btn app-btn-blue">
                                         <a ng-href="{{article.link}}" target="_blank" class="uppercase">read</a></button>
                                     <span class="star-icon glyphicon glyphicon-star onhover-orange"></span>
-                                    <span class="share-icon glyphicon glyphicon-share onhover-green"></span>
+                                <span class="share-icon glyphicon glyphicon-share onhover-green"></span>
                                 </span>
-                                <span class="read-icon glyphicon glyphicon-ok hidden onhover-blue"></span>
+                                <span class="hidden"><span class="read-icon glyphicon glyphicon-ok onhover-blue"></span></span>
                             </div>
                         </div>
                     </div>
@@ -35,3 +35,4 @@
         </div>
     </div>
 </div>
+<button class="btn btn-default btn-lg center-block app-btn-blue cswidth capitalize fadeInAnim">more</button>
