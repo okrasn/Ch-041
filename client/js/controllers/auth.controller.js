@@ -50,7 +50,6 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
                     });
                     $window.onbeforeunload = $scope.onExit;
                 } else{
-                    console.log("GO@!0");
                     $state.go('dashboard.' + dashboardService.currentView, {
                         id: authService.userID()
                     });

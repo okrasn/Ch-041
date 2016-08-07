@@ -54,16 +54,12 @@ gulp.task('build', function (){
     gulp.src(['client/assets/**'])
         .pipe(gulp.dest('dist/assets/'));
 
-    
     gulp.src(['client/css/**'])
         .pipe(gulp.dest('dist/css/'));
 
     gulp.src(['client/index.html'])
         .pipe(useref())
         .pipe(gulp.dest('dist/'))
-
-
-
 });
 
 gulp.task('default', ['server', 'build', 'main']);

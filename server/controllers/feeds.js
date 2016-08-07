@@ -83,6 +83,10 @@ module.exports.add = function (req, res, next) {
         link: req.body.link,
         user: req.body.user
     }, function (err, foundFeed) {
+        //console.log(user);
+//        return res.status(400).json({
+//                message: ERRORS.choose_cat
+//            });
         if (foundFeed) {
             return res.status(400).json({
                 message: ERRORS.feed_already_added + foundFeed.category

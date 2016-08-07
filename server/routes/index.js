@@ -37,6 +37,6 @@ router.get('/users/:user/articles/category/:cat/:count', auth, articlesCtrl.byCa
 // add new feed
 router.post('/users/:user/addFeed', auth, feedsCtrl.add);
 // remove feed
-router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);
+router.delete('/users/:user/deleteFeed/:id', auth, feedsCtrl.remove);
 
 module.exports = router;

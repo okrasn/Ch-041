@@ -8,8 +8,9 @@ var express = require('express'),
     morgan = require('morgan'),
     mongoose = require('mongoose'),
     passport = require('passport'),
-    multer = require('multer'),
-    debug = require('debug');
+    multer = require('multer');
+var port = 8080;
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -41,13 +42,15 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
 })); // support encoded bodies
+//app.use(express.session({ secret: 'MY_SECRET' })); 
 
 app.use(passport.initialize());
+//app.use(passport.session()); 
 app.use('/', routes);
 
 app.use(morgan('dev'));
 
-app.listen(8080, function () {
+app.listen(port, function () {
     console.log('Server running on port 8080!');
 });
 
