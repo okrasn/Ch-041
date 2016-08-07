@@ -35,6 +35,26 @@ gulp.task('main', function () {
     gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'], ['scripts']);
 });
 
+gulp.task('sass', function () {
+    return gulp.src('client/scss/**/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('client/css'));
+});
+
+gulp.task('scripts', function () {
+    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
+        .pipe(concat('app.min.js'))
+        .pipe(uglify()).on('error', function (e) {
+            console.log(e);
+        })
+        .pipe(gulp.dest('./client/js/'))
+});
+
+gulp.task('useref', function () {
+    return gulp.src('client/*.html')
+        .pipe(useref())
+        .pipe(gulp.dest('min'))
+});
 
 
 gulp.task('build', function (){
@@ -62,4 +82,4 @@ gulp.task('build', function (){
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('default', ['server', 'build', 'main']);
+gulp.task('default', ['server', 'sass', 'scripts', 'main']); 
