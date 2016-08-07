@@ -1,4 +1,4 @@
-angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
+angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon'])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('home');
         $stateProvider
@@ -65,7 +65,10 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload'])
                     articlesPromise: ['articlesService', function (articlesService) {
                         return articlesService.getAllArticles();
                     }]
-                }
+                },
+                onEnter: ['articlesService', function (articlesService) {
+                    return articlesService.getAllArticles();
+                    }]
             })
             .state("dashboard.th-large", {
                 url: '/th-large',

@@ -11,11 +11,7 @@ var results = {
 module.exports.all = function (req, res, next) {
     User.findById(req.user._id).populate({
         path: 'feeds',
-        model: 'Feed',
-        populate: {
-            path: 'articles',
-            model: 'Article'
-        }
+        model: 'Feed'
     }).exec(function (err, result) {
         if (err) {
             console.log("ERROR: " + err);
@@ -31,26 +27,14 @@ module.exports.byFeed = function (req, res, next) {
             console.log("ERROR: " + err);
             return next(err);
         }
-        feed.populate('articles', function (err, articles) {
-            if (err) {
-                console.log("ERROR: " + err);
-                return next(err);
-            }
-            if (articles) {
-                return res.status(200).json(articles);
-            }
-        });
+        res.status(200).json(feed);
     });
 }
 
 module.exports.byCategory = function (req, res, next) {
     User.findById(req.user._id).populate({
         path: 'feeds',
-        model: 'Feed',
-        populate: {
-            path: 'articles',
-            model: 'Article'
-        }
+        model: 'Feed'
     }).exec(function (err, result) {
         if (err) {
             console.log("ERROR: " + err);

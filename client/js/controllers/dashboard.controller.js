@@ -17,6 +17,8 @@ angular.module('rssreader').controller('DashboardController', ['$scope', '$state
     }
     
     $scope.onFeedDelete = function(){
-        feedsService.removeFeed(dashboardService.currentFeed);
+        feedsService.removeFeed(dashboardService.getFeedId());
+        $state.reload("dashboard");
+        $state.go("dashboard." + dashboardService.currentView);
     }
 }]);
