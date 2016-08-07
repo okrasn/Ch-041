@@ -15,6 +15,7 @@
         box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
     }
     &:active {
+        transition: $app-transition;
         border: none !important;
         outline: none;
     }

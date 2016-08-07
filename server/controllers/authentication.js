@@ -1,6 +1,5 @@
 var passport = require('passport'),
     mongoose = require('mongoose'),
-    debug = require('debug'),
     User = mongoose.model('User');
 
 var ERRORS = {
@@ -57,7 +56,7 @@ module.exports.login = function (req, res, next) {
     console.log("All users in database:");
     User.find({}, function(err, res){
         res.forEach(function(elem, index, array){
-            console.log("  - " + elem.email);
+            console.log("  - " + elem.email + "(" + elem._id + ")");
         })
     });
     

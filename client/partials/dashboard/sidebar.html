@@ -14,7 +14,9 @@
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>
                                     <li class="sidebar-sub-item" ng-repeat="feed in category.values">
-                                        <a class="shortened-text" ng-click="getByFeed(feed)" ng-bind="feed.title">
+                                        <a class="shortened-text" ng-click="getByFeed(feed)">
+                                            <img ng-src="{{feed.link|favicon}}">
+                                            <span ng-bind="feed.title"></span>
                                         </a>
                                         <!--
                                         <span class="hidden">

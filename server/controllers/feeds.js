@@ -79,48 +79,55 @@ module.exports.allFeed = function (req, res, next) {
 }
 
 module.exports.add = function (req, res, next) {
-    Feed.findOne({
-        link: req.body.link,
-        user: req.body.user
-    }, function (err, foundFeed) {
-        if (foundFeed) {
-            return res.status(400).json({
-                message: ERRORS.feed_already_added + foundFeed.category
-            });
-        }
-        if (req.body.category === undefined) {
-            return res.status(400).json({
-                message: ERRORS.choose_cat
-            });
-        }
-        var feed = new Feed(req.body);
-        feed.articles = [];
-        for (var i = 0; i < req.body.articles.length; i++) {
-            article = new Article(req.body.articles[i]);
-            article.feed = feed._id;
-            feed.articles.push(article);
-            article.save(function (err, article) {
-                console.log(feed);
-                if (err) {
-                    return next(err);
-                }
-            });
-        }
-        feed.save(function (err, feed) {
-            if (err) {
-                return next(err);
+    if (req.body.category === undefined) {
+        return res.status(400).json({
+            message: ERRORS.choose_cat
+        });
+    }
+    User.findById(req.user._id, function (err, user) {
+        user.populate("feeds", function (err, user) {
+            console.log(user);
+            if (!user.feeds.find(function (elem) {
+                    console.log("   RSS: " + elem.rsslink);
+                    console.log("REQRSS: " + req.body.rsslink);
+                    return elem.rsslink == req.body.rsslink;
+                })) {
+                var feed = new Feed(req.body);
+                feed.save(function (err, feed) {
+                    if (err) {
+                        return next(err);
+                    }
+                    req.user.feeds.push(feed);
+                    req.user.save(function (err, user) {
+                        if (err) {
+                            return next(err);
+                        }
+                        res.json(feed);
+                    });
+                });
+            } else {
+                return res.status(400).json({
+                    message: ERRORS.feed_already_added
+                });
             }
-            req.user.feeds.push(feed);
-            req.user.save(function (err, user) {
-                if (err) {
-                    return next(err);
-                }
-                res.json(feed);
-            });
         });
     });
 };
+
 module.exports.remove = function (req, res, next) {
+    // First, delete feed record from user feeds array 
+    User.findById(req.user._id, function (err, user) {
+        user.feeds.forEach(function (elem, index, array) {
+            if (elem == req.params.id) {
+                user.feeds.splice(index, 1);
+                user.save(function (err) {
+                    if (err) return handleError(err);
+                });
+            }
+        });
+    });
+
+    // Delete feed from database
     return Feed.findById(req.params.id, function (err, feed) {
         if (!feed) {
             res.statusCode = 404;
@@ -128,6 +135,7 @@ module.exports.remove = function (req, res, next) {
                 error: ERRORS.feed_not_found
             });
         }
+
         return feed.remove(function (err) {
             if (!err) {
                 return res.send({

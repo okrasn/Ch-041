@@ -3,8 +3,6 @@ angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'a
     $scope.currentUser = authService.currentUser;
 
     $scope.OnFeeds = function () {
-        articlesService.getAllArticles();
-        console.log(articlesService.articles);
         if (authService.isLoggedIn()) {
             if (articlesService.articles.length == 0) {
                 console.log("Empty");
