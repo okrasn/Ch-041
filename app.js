@@ -13,7 +13,7 @@ var port = 8080;
 
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname,'client','assets','images','favicon(1).ico')));
+app.use(favicon(path.join(__dirname,'client','assets','images','favicon.ico')));
 require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
