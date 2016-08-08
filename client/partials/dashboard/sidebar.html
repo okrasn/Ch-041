@@ -7,9 +7,9 @@
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
                     <ul id="sidebarList">
-                        <li class="sidebar-item" ng-repeat="category in feeds">
+                        <li class="sidebar-item" ng-repeat="category in feeds" ng-click="toggle = !toggle">
                             <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
-                                <span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span>
+                                <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
                             </a>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>

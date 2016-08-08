@@ -32,4 +32,6 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
         }
         else return true;
     }
+
+    $scope.toggle = false;
 }]);
