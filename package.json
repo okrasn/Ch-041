@@ -1,0 +1,26 @@
+{
+  "name": "kasjs",
+  "version": "0.0.1",
+  "description": "rss reader\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[_\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001bauth_angular",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+	 "prestart" : "npm install"
+  },
+  "author": "kasjs",
+  "license": "ISC",
+	"dependencies": {
+    "async": "^1.5.2",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "colors": "^1.1.2",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "jwt-simple": "^0.4.1",
+    "moment": "^2.12.0",
+    "mongoose": "^4.4.6",
+    "morgan": "^1.7.0",
+    "request": "^2.69.0"
+  }
+}

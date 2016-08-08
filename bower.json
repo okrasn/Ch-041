@@ -1,0 +1,33 @@
+{
+  "name": "kasjs",
+  "authors": [
+    "Kasjs <gemyni85@gmail.com>"
+  ],
+  "description": "auth_angular",
+  "main": "",
+  "keywords": [
+    "auth"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "satellizer": "^0.15.4",
+    "angular-messages": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-mocks": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "angular-toastr": "^2.0.0",
+    "Ionicons": "ionicons#^2.0.1"
+  }
+}
