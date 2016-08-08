@@ -1,13 +1,13 @@
 angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
     $scope.feeds = feedsService.feedsDictionary;
     $scope.favs = feedsService.favourites;
+    
     $scope.getAll = function () {
         console.log("getAll");
         // if there is only one category and feed, return this feed articles
         if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
             $scope.getByFeed($scope.feeds[0].values[0]);
         } else {
-            console.log("Service");
             articlesService.getAllArticles();
         }
         $state.go("dashboard." + dashboardService.currentView);

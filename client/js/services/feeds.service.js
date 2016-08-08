@@ -13,7 +13,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             angular.copy(res.data, that.feedsDictionary);
             console.log("dictionary:");
             console.log(that.feedsDictionary);
-            that.getAllFavourites();
+            that.getAllFavourites().then(function (res) {
+                angular.copy(res.data, that.favourites);
+                console.log("favs:");
+                console.log(that.favourites);
+            });
         });
     }
     this.getAllFavourites = function () {
@@ -21,10 +25,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
-        }).then(function (res) {
-            angular.copy(res.data, that.favourites);
-            console.log("favs:");
-            console.log(res.data);
         });
     }
 
@@ -61,7 +61,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken()
                 }
-            })
+            });
         }, function (err) {
             console.log(err);
         });

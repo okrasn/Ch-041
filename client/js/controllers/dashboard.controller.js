@@ -17,7 +17,9 @@ angular.module('rssreader').controller('DashboardController', ['$scope', '$state
         feedsService.removeFeed(dashboardService.getFeedId())
             .then(function (res) {
             $state.reload("dashboard");
-            $state.go("dashboard." + dashboardService.currentView);
+            //$state.go("dashboard." + dashboardService.currentView);
+        }, function(err){
+            console.log(err);
         });
     }
 }]);

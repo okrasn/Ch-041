@@ -4,7 +4,7 @@ angular.module('rssreader').controller('ArticlesController', ['$scope', '$state'
     $scope.addFavourite = function (article) {
         articlesService.addFavourite(article).then(function (res) {
             $state.reload("dashboard");
-            $state.go("dashboard." + dashboardService.currentView);
+            //$state.go("dashboard." + dashboardService.currentView);
         }, function (err) {
             console.log(err.data.message);
         });
@@ -12,7 +12,9 @@ angular.module('rssreader').controller('ArticlesController', ['$scope', '$state'
     $scope.removeFavourite = function (article) {
         articlesService.removeFavourite(article).then(function (res) {
             $state.reload("dashboard");
-            $state.go("dashboard." + dashboardService.currentView);
+            //$state.go("dashboard." + dashboardService.currentView);
+        }, function(err){
+            console.log(err);
         });
     }
 }]);
