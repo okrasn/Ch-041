@@ -7,10 +7,12 @@
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
                     <ul id="sidebarList">
-                        <li class="sidebar-item" ng-repeat="category in feeds" ng-click="toggle = !toggle">
-                            <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
-                                <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
-                            </a>
+                        <li class="sidebar-item" ng-repeat="category in feeds">
+                            <span ng-click="toggle = !toggle">
+                                <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
+                                    <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
+                                </a>
+                            </span>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>
                                     <li class="sidebar-sub-item" ng-repeat="feed in category.values">
