@@ -73,7 +73,7 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 },
                 onEnter: ['articlesService', function (articlesService) {
                     return articlesService.getAllArticles();
-                    }]
+                }]
             })
             .state("dashboard.th-large", {
                 url: '/th-large',
