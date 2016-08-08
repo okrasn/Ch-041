@@ -10,6 +10,10 @@ var userSchema = new mongoose.Schema({
     },
     hash: String,
     salt: String,
+    avatar: {
+        type: String,
+        default: ""
+    },
     feeds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feed'
@@ -35,5 +39,13 @@ userSchema.methods.generateJwt = function () {
         email: this.email
     }, "MY_SECRET",  { expiresIn: parseInt(expiry.getTime() / 1000) });
 };
+
+//userSchema.methods.containsFeed = function (feed) {
+//    this.feeds.find(function(link){
+//        console.log("Contains check: ");
+//        console.log(elem == feed);
+//        return elem.rsslink == feed;
+//    });
+//};
 
 mongoose.model('User', userSchema);

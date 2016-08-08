@@ -21,10 +21,12 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.1",
+    "ng-file-upload": "",
     "jquery": "^3.1.0",
     "angular-file-upload": "^2.3.4",
     "bootstrap": "^3.3.7",
     "ui-bootstrap": "~2.0.0",
-    "jpkleemans-angular-validate": "^1.1.1"
+    "jpkleemans-angular-validate": "^1.1.1",
+    "angular-favicon": "^0.3.2"
   }
 }

@@ -25,6 +25,16 @@ gulp.task('server', function (cb) {
     console.log("Server is running on port 8080");
 });
 
+
+gulp.task('main', function () {
+    gulp.watch('./client/scss/*.scss', ['sass']);
+    //    gulp.watch('./client/**/*.js').on('change');
+    //    gulp.watch('./client/**/*.css').on('change');
+    //    gulp.watch('./client/**/*.html').on('change');
+    //    gulp.watch('./client/**/*.json').on('change');
+    gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'], ['scripts']);
+});
+
 gulp.task('sass', function () {
     return gulp.src('client/scss/**/*.scss')
         .pipe(sass())
@@ -46,13 +56,30 @@ gulp.task('useref', function () {
         .pipe(gulp.dest('min'))
 });
 
-gulp.task('main', function () {
-    gulp.watch('./client/scss/*.scss', ['sass']);
-    //    gulp.watch('./client/**/*.js').on('change');
-    //    gulp.watch('./client/**/*.css').on('change');
-    //    gulp.watch('./client/**/*.html').on('change');
-    //    gulp.watch('./client/**/*.json').on('change');
-    gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'], ['scripts']);
+
+gulp.task('build', function (){
+    gulp.src('client/scss/**/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('dist/css/'));
+
+    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
+        .pipe(concat('app.min.js'))
+        .pipe(uglify()).on('error', function (e) {
+    })
+        .pipe(gulp.dest('dist/js/'));
+
+    gulp.src(['client/partials/**/*.html'])
+        .pipe(gulp.dest('dist/partials/'));
+
+    gulp.src(['client/assets/**'])
+        .pipe(gulp.dest('dist/assets/'));
+
+    gulp.src(['client/css/**'])
+        .pipe(gulp.dest('dist/css/'));
+
+    gulp.src(['client/index.html'])
+        .pipe(useref())
+        .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('default', ['server', 'sass', 'scripts', 'main']);
+gulp.task('default', ['server', 'sass', 'scripts', 'main']); 

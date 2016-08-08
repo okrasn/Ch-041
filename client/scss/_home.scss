@@ -1,4 +1,6 @@
-/**/
+body{
+    background-color: #fff;
+}
 
 #all {
     background-color: #e8e8e8;
@@ -9,11 +11,34 @@
 }
 
 /* Sidebar Styles */
+
+//body {
+//	overflow-y: hidden;
+//	background: lightgray;
+//}
+@media screen and (max-width: 960px) {
+    #home_container {
+        //background-size: contain;
+        //background: lightgray;
+    }
+}
+
 #home_container {
-	background: url('../assets/images/rss-header.jpg');
+    background: url('../assets/images/rss-header.jpg');
     background-size: cover;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	color: #ffffff;
+    color: white;
+    //background: lightgray center fixed;
+    //background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .animatable{
+        position: relative;
+        padding-top: 10%;
+        animation: animatetop 1s;
+    }
+    .welcometo {
+        font-size: 63px;
+        margin-bottom: 50px;
+    }
 }

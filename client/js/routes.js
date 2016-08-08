@@ -1,17 +1,29 @@
-angular.module('rssreader', ['ui.router', 'ngValidate'])
+angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon'])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-
         $urlRouterProvider.otherwise('home');
         $stateProvider
             .state('home', {
                 url: '/home',
                 templateUrl: './partials/home.html',
                 controller: 'HomeController'
+//                resolve: {
+//                    feedPromise: ['feedsService', function (feedsService) {
+//                        return feedsService.getAllFeeds();
+//                }],
+//                    articlesPromise: ['articlesService', function (articlesService) {
+//                        return articlesService.getAllArticles();
+//                    }]
+//                }
             })
             .state('login', {
                 url: '/login',
                 templateUrl: './partials/auth/login.html',
-                controller: 'AuthController'
+                controller: 'AuthController',
+                onEnter: ['$state', 'authService', function ($state, authService) {
+                    if (authService.isLoggedIn()) {
+                        $state.go('home');
+                    }
+                }]
             })
             .state('loginAuth', {
                 url: '/loginAuth',
@@ -26,7 +38,12 @@ angular.module('rssreader', ['ui.router', 'ngValidate'])
             .state('register', {
                 url: '/register',
                 templateUrl: './partials/auth/register.html',
-                controller: 'AuthController'
+                controller: 'AuthController',
+                onEnter: ['$state', 'authService', function ($state, authService) {
+                    if (authService.isLoggedIn()) {
+                        $state.go('home');
+                    }
+                }]
             })
             .state('profile', {
                 url: '/profile',
@@ -53,41 +70,56 @@ angular.module('rssreader', ['ui.router', 'ngValidate'])
                     feedPromise: ['feedsService', function (feedsService) {
                         return feedsService.getAllFeeds();
                 }]
-                }
+                },
+                onEnter: ['articlesService', function (articlesService) {
+                    return articlesService.getAllArticles();
+                    }]
             })
             .state("dashboard.th-large", {
                 url: '/th-large',
                 templateUrl: './partials/list/th-large.html',
-                controller: 'ArticlesController',
-                resolve: {
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                }]
-                }
+                controller: 'ArticlesController'
+                    //                resolve: {
+                    //                    articlesPromise: ['articlesService', function (articlesService) {
+                    //                        return articlesService.getAllArticles();
+                    //                }]
+                    //                }
             })
             .state("dashboard.list", {
                 url: '/list',
                 templateUrl: './partials/list/list.html',
-                controller: 'ArticlesController',
-                resolve: {
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                }]
-                }
+                controller: 'ArticlesController'
+                    //                resolve: {
+                    //                    articlesPromise: ['articlesService', function (articlesService) {
+                    //                        return articlesService.getAllArticles();
+                    //                }]
+                    //                }
             })
             .state("dashboard.th-list", {
                 url: '/th-list',
                 templateUrl: './partials/list/th-list.html',
-                controller: 'ArticlesController',
-                resolve: {
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                }]
-                }
+                controller: 'ArticlesController'
+                    //                resolve: {
+                    //                    articlesPromise: ['articlesService', function (articlesService) {
+                    //                        return articlesService.getAllArticles();
+                    //                }]
+                    //                }
             })
             .state("dashboard.addFeed", {
                 url: '/add',
                 templateUrl: './partials/dashboard/add-feed.html',
-                controller: 'FeedsController'
+                controller: 'FeedsController',
+                resolve: {
+                    dashboardPromise: ['dashboardService', function (dashboardService) {
+                        return dashboardService.setTitle("Add Feed");
+                }]
+                }
             });
 }]);
+
+//
+//,
+//                resolve: {
+//                    articlesPromise: ['articlesService', function (articlesService) {
+//                        return articlesService.getAllArticles();
+//                }]

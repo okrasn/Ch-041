@@ -8,7 +8,6 @@ $item-text-color: #000000;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    
     @media(min-width: 768px) {
         padding-left: $sidebar-width;
         .toggled {
@@ -26,6 +25,7 @@ $item-text-color: #000000;
         margin-top: 0;
         overflow-y: auto;
         background: $sidebar-color;
+        //border-right: 3px solid $navbar-color;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
@@ -33,53 +33,52 @@ $item-text-color: #000000;
         @media screen and (min-width: 768px) {
             width: $sidebar-width;
         }
-        .sidebar-nav {
-            position: absolute;
-            top: 0;
-            width: $sidebar-width;
-            margin: 0;
+    }
+    .sidebar-nav {
+        position: absolute;
+        top: 0;
+        width: $sidebar-width;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        //            .category-item {
+        //                &:hover {
+        //                    background-color: $item-hover-color;
+        //                    
+        //                }
+        //            }
+        ul {
             padding: 0;
-            list-style: none;
-//            .category-item {
-//                &:hover {
-//                    background-color: $item-hover-color;
-//                    
-//                }
-//            }
-            ul {
-                padding: 0;
-                list-style-type: none;
-            }
-            li {
-                a {
-                    display: block;
+            list-style-type: none;
+        }
+        li {
+            a {
+                display: block;
+                text-decoration: none;
+                color: $item-text-color;
+                &:hover {
                     text-decoration: none;
-                    color: $item-text-color;
-                    &:hover {
-                        text-decoration: none;
-                        
-                        background-color: none;
-                    }
-                    &:active,
-                    &:focus {
-                        text-decoration: none;
-                    }
+                    background-color: none;
+                }
+                &:active,
+                &:focus {
+                    text-decoration: none;
                 }
             }
-            #allFeedsBtn {
-                height: 50px;
-                font-size: 18px;
-                line-height: 60px;
-                a {
-                    color: $item-text-color;
-                    &:hover {
-                        color: #fff;
-                        background: none;
-                    }
+        }
+        #allFeedsBtn {
+            height: 50px;
+            font-size: 18px;
+            line-height: 60px;
+            a {
+                color: $item-text-color;
+                &:hover {
+                    color: #fff;
+                    background: none;
                 }
-                .all-text {
-                    padding-left: 10px;
-                }
+            }
+            .all-text {
+                padding-left: 10px;
             }
         }
     }
@@ -135,13 +134,55 @@ $item-text-color: #000000;
     }
 }
 
-.sidebar-item{
+@media(max-width:768px) {
+    #sidebar-wrapper {
+        padding-left: 0;
+    }
+    #sidebar-wrapper.toggled {
+        padding-left: $sidebar-width;
+    }
+    #sidebar {
+        position: absolute;
+        width: 0;
+    }
+    #sidebar-wrapper.toggled #sidebar {
+        width: $sidebar-width;
+    }
+    #page-content-wrapper {
+        padding: 0;
+        position: relative;
+    }
+    #sidebar-wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+.sidebar-item {
     padding-left: 40px;
-    padding-right: 10px;
     cursor: pointer;
     width: 100%;
     line-height: 3em;
-    &:hover{
-        background-color: $item-hover-color; 
+    transition: $app-transition;
+    border-right: 0em solid;
+    &:hover {
+        transition: $app-transition;
+        border-right: 0.7em solid $blue-btn-active-color;
+        background-color: $item-hover-color;
+    }
+}
+
+.sidebar-item .sidebar-sub-item {
+    padding-left: 40px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    width: 100%;
+    line-height: 3em;
+    transition: $app-transition;
+    border-right: 0em solid;
+    &:hover {
+        transition: $app-transition;
+        border-right: 0.7em solid $blue-btn-active-color;
     }
 }

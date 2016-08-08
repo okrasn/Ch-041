@@ -8,13 +8,16 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 var auth = jwt({
-    secret: 'MY_SECRET',
-    userProperty: 'payload'
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
 });
 
 var authCtrl = require('../controllers/authentication'),
     articlesCtrl = require('../controllers/articles'),
-    feedsCtrl = require('../controllers/feeds');
+    feedsCtrl = require('../controllers/feeds'),
+    profCtrl = require('../controllers/profile');
+
+router.post('/upload',auth, profCtrl.upload);
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
@@ -34,6 +37,6 @@ router.get('/users/:user/articles/category/:cat/:count', auth, articlesCtrl.byCa
 // add new feed
 router.post('/users/:user/addFeed', auth, feedsCtrl.add);
 // remove feed
-router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);
+router.delete('/users/:user/deleteFeed/:id', auth, feedsCtrl.remove);
 
 module.exports = router;
