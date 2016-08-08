@@ -88,11 +88,19 @@ module.exports.login = function (req, res, next) {
 }
 
 module.exports.changePassword = function (req, res, next) {
+    // if (!req.body.current || !req.body.new || !req.body.newRepeat) {
+    //     return res.status(400).json({
+    //         message: ERRORS.fill_out_fields
+    //     });
+    // }
+    
     if (req.body.new !== req.body.newRepeat) {
         return res.status(400).json({
             message: ERRORS.pass_not_match
         });
     }
+
+
     User.findOne({
         email: req.body.email
     }, function (err, user) {

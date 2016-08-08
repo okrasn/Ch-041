@@ -54,6 +54,7 @@ angular.module('rssreader')
                 }).success(function (data) {
                     authService.saveToken(data.token);
                 }).error(function (err) {
+                    $scope.err = err;
                     console.log(err.message);
                 });
             }
