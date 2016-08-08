@@ -79,6 +79,10 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
     }
     obj.getFavArticle = function(article){
         obj.isFavourites = true;
+        
+        dashboardService.setTitle("Favourites");
+        dashboardService.resetFeedId();
+        
         obj.articles.length = 0;
         obj.articles.push(article);
     }
