@@ -4,14 +4,9 @@ angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'a
 
     $scope.OnFeeds = function () {
         if (authService.isLoggedIn()) {
-            console.log(feedsService.getAllFeeds());
-            if (feedsService.getDictionary().length == 0) {
-                $state.go('dashboard.addFeed');
-            } else {
-                $state.go('dashboard.' + dashboardService.currentView, {
-                    id: authService.userID()
-                });
-            }
+            $state.go('dashboard.' + dashboardService.currentView, {
+                id: authService.userID()
+            });
         } else {
             alert('Unauthtorized');
         }

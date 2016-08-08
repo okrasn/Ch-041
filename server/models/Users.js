@@ -17,6 +17,10 @@ var userSchema = new mongoose.Schema({
     feeds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feed'
+    }],
+    favourites: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Article'
     }]
 });
 
@@ -39,13 +43,5 @@ userSchema.methods.generateJwt = function () {
         email: this.email
     }, "MY_SECRET",  { expiresIn: parseInt(expiry.getTime() / 1000) });
 };
-
-//userSchema.methods.containsFeed = function (feed) {
-//    this.feeds.find(function(link){
-//        console.log("Contains check: ");
-//        console.log(elem == feed);
-//        return elem.rsslink == feed;
-//    });
-//};
 
 mongoose.model('User', userSchema);

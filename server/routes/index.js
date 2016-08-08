@@ -26,17 +26,20 @@ router.post('/login', authCtrl.login);
 router.param('user', feedsCtrl.userParam);
 // get user and his feeds
 router.get('/users/:user', auth, feedsCtrl.allFeed);
+router.get('/users/:user/favourites', auth, feedsCtrl.allFavourites);
 
-// get all articles
-router.get('/users/:user/articles/all/:count', auth, articlesCtrl.all);
-// get feeds articles
-router.get('/users/:user/articles/feed/:id/:count', auth, articlesCtrl.byFeed);
-// get category articles
-router.get('/users/:user/articles/category/:cat/:count', auth, articlesCtrl.byCategory);
+//// get all articles
+//router.get('/users/:user/articles/all/:count', auth, articlesCtrl.all);
+//// get feeds articles
+//router.get('/users/:user/articles/feed/:id/:count', auth, articlesCtrl.byFeed);
+//// get category articles
+//router.get('/users/:user/articles/category/:cat/:count', auth, articlesCtrl.byCategory);
 
 // add new feed
 router.post('/users/:user/addFeed', auth, feedsCtrl.add);
+router.post('/users/:user/addFavArticle', auth, feedsCtrl.addFavArticle);
 // remove feed
 router.delete('/users/:user/deleteFeed/:id', auth, feedsCtrl.remove);
+router.delete('/users/:user/deleteFavFeed/:id', auth, feedsCtrl.removeFavArticle);
 
 module.exports = router;

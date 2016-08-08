@@ -1,6 +1,7 @@
 angular.module('rssreader').service('articlesService', ['$http', 'authService', 'dashboardService', 'feedsService', function ($http, authService, dashboardService, feedsService) {
     var obj = {
-        articles: []
+        articles: [],
+        isFavourites: false
     }
     var articles_num = 50;
 
@@ -23,14 +24,16 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
                 articleObj.img = img;
                 articleObj.date = recievedFeed.entries[i].publishedDate;
                 obj.articles.push(articleObj);
-                console.log("Push");
             }
 //            console.log("articles:");
 //            console.log(obj.articles);
         });
     }
-
+    obj.checkIfFavourites = function(){
+        return obj.isFavourites;
+    }
     obj.getAllArticles = function () {
+        obj.isFavourites = false;
         obj.articles.length = 0;
         dashboardService.setTitle("All");
         dashboardService.resetFeedId();
@@ -43,6 +46,7 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
     }
 
     obj.getArticlesByFeed = function (feed) {
+        obj.isFavourites = false;
         obj.articles.length = 0;
         dashboardService.setTitle(feed.title);
         dashboardService.setFeedId(feed._id);
@@ -50,6 +54,7 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
     }
 
     obj.getArticlesByCat = function (cat) {
+        obj.isFavourites = false;
         obj.articles.length = 0;
         dashboardService.setTitle(cat);
         dashboardService.resetFeedId();
@@ -58,6 +63,38 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
                 angular.forEach(value.values, function (value, key) {
                     fetchArticles(value);
                 });
+            }
+        });
+    }
+    
+    obj.getFavourites = function () {
+        obj.isFavourites = true;
+        obj.articles.length = 0;
+        
+        dashboardService.setTitle("Favourites");
+        dashboardService.resetFeedId();
+        
+        console.log(feedsService.favourites);
+        angular.copy(feedsService.favourites, obj.articles);
+    }
+    obj.getFavArticle = function(article){
+        obj.isFavourites = true;
+        obj.articles.length = 0;
+        obj.articles.push(article);
+    }
+    obj.addFavourite = function(article){
+        return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken()
+            }
+        });
+    }
+    obj.removeFavourite = function(article){
+        console.log("Removing:");
+        console.log("ArticleId:" + article._id);
+        return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id, {
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken()
             }
         });
     }

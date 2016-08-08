@@ -18,11 +18,23 @@
                                             <img ng-src="{{feed.link|favicon}}">
                                             <span ng-bind="feed.title"></span>
                                         </a>
-                                        <!--
-                                        <span class="hidden">
-                                                <span ng-click="removeFeed(feed._id)" class="share-icon glyphicon glyphicon-remove"></span>
-                                        </span>
--->
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul id="sidebarList" ng-show="hideFavourites()">
+                        <li class="sidebar-item">
+                            <a data-toggle="collapse" data-target="#favourites" ng-class="glyphFeeds" ng-click="getFavourites()">
+                                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right"></span><span>Favourites</span>
+                            </a>
+                            <div class="collapse" id="favourites">
+                                <ul>
+                                    <li class="sidebar-sub-item" ng-repeat="article in favs">
+                                        <a class="shortened-text" ng-click="getFavArticle(article)">
+                                            <img ng-src="{{article.link|favicon}}">
+                                            <span ng-bind="article.title"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

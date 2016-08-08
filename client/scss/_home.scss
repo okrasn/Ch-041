@@ -40,5 +40,8 @@ body{
     .welcometo {
         font-size: 63px;
         margin-bottom: 50px;
+        @media screen and (max-width: 768px){
+            font-size: 36px;
+        }
     }
 }

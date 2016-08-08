@@ -1,5 +1,6 @@
 angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
     $scope.feeds = feedsService.feedsDictionary;
+    $scope.favs = feedsService.favourites;
     $scope.getAll = function () {
         console.log("getAll");
         // if there is only one category and feed, return this feed articles
@@ -24,6 +25,17 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
             articlesService.getArticlesByCat(cat);
         }
         $state.go("dashboard." + dashboardService.currentView);
+    }
+    $scope.getFavourites = function(){
+        articlesService.getFavourites();
+        $state.go("dashboard." + dashboardService.currentView);
+    }
+    $scope.getFavArticle = function(article){
+        articlesService.getFavArticle(article);
+        $state.go("dashboard." + dashboardService.currentView);
+    }
+    $scope.hideFavourites = function(){
+        return $scope.favs.length;
     }
     
     $scope.checkIfEmpty = function(){
