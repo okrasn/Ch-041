@@ -21,19 +21,13 @@ router.post('/upload',auth, profCtrl.upload);
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
+router.post('/changePassword', auth, authCtrl.changePassword);
 
 // define user param
 router.param('user', feedsCtrl.userParam);
 // get user and his feeds
 router.get('/users/:user', auth, feedsCtrl.allFeed);
 router.get('/users/:user/favourites', auth, feedsCtrl.allFavourites);
-
-//// get all articles
-//router.get('/users/:user/articles/all/:count', auth, articlesCtrl.all);
-//// get feeds articles
-//router.get('/users/:user/articles/feed/:id/:count', auth, articlesCtrl.byFeed);
-//// get category articles
-//router.get('/users/:user/articles/category/:cat/:count', auth, articlesCtrl.byCategory);
 
 // add new feed
 router.post('/users/:user/addFeed', auth, feedsCtrl.add);

@@ -1,7 +1,7 @@
 angular.module('rssreader')
-    .controller('ProfileController', ['Upload', 'profileService', '$scope',
+    .controller('ProfileController', ['Upload', '$http' ,'profileService', '$scope',
         'authService', '$window', 'themeService',
-        function (Upload, profileService, $scope,
+        function (Upload, $http, profileService, $scope,
             authService, $window, themeService) {
 
             $scope.submit = function () {
@@ -37,6 +37,26 @@ angular.module('rssreader')
                 });
             };
 
+            $scope.newUserData = {
+                email: authService.currentUser(),
+                current: "",
+                new: "",
+                newRepeat: ""
+            }
+
+            $scope.changePass = function () {
+                console.log("Submit change");
+                console.log($scope.newUserData);
+                return $http.post('/changePassword', $scope.newUserData, {
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken()
+                    }
+                }).success(function (data) {
+                    authService.saveToken(data.token);
+                }).error(function (err) {
+                    console.log(err.message);
+                });
+            }
 
             $scope.user = authService.currentUser;
             $scope.updateTheme = function () {
