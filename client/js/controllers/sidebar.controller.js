@@ -1,10 +1,12 @@
 angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
     $scope.feeds = feedsService.feedsDictionary;
     $scope.getAll = function () {
+        console.log("getAll");
         // if there is only one category and feed, return this feed articles
         if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
-            $scope.getByFeed($scope.feeds[0].values[0]._id, $scope.feeds[0].values[0].title);
+            $scope.getByFeed($scope.feeds[0].values[0]);
         } else {
+            console.log("Service");
             articlesService.getAllArticles();
         }
         $state.go("dashboard." + dashboardService.currentView);
@@ -22,5 +24,12 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
             articlesService.getArticlesByCat(cat);
         }
         $state.go("dashboard." + dashboardService.currentView);
+    }
+    
+    $scope.checkIfEmpty = function(){
+        if(feedsService.getDictionary().length == 0){
+            return false;
+        }
+        else return true;
     }
 }]);

@@ -40,4 +40,12 @@ userSchema.methods.generateJwt = function () {
     }, "MY_SECRET",  { expiresIn: parseInt(expiry.getTime() / 1000) });
 };
 
+//userSchema.methods.containsFeed = function (feed) {
+//    this.feeds.find(function(link){
+//        console.log("Contains check: ");
+//        console.log(elem == feed);
+//        return elem.rsslink == feed;
+//    });
+//};
+
 mongoose.model('User', userSchema);

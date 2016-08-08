@@ -3,7 +3,7 @@
         <div class="col-xs-12 col-lg-12">
             <div id="sidebar">
                 <div class="sidebar-nav collapsible">
-                    <div class="sidebar-item">
+                    <div class="sidebar-item" ng-show="checkIfEmpty()">
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
                     <ul id="sidebarList">
@@ -14,7 +14,9 @@
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>
                                     <li class="sidebar-sub-item" ng-repeat="feed in category.values">
-                                        <a class="shortened-text" ng-click="getByFeed(feed)" ng-bind="feed.title">
+                                        <a class="shortened-text" ng-click="getByFeed(feed)">
+                                            <img ng-src="{{feed.link|favicon}}">
+                                            <span ng-bind="feed.title"></span>
                                         </a>
                                         <!--
                                         <span class="hidden">
