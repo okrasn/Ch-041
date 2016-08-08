@@ -10,8 +10,8 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         }).then(function (res) {
             angular.copy(res.data, that.feedsDictionary);
-            console.log("dictionary:");
-            console.log(that.feedsDictionary);
+//            console.log("dictionary:");
+//            console.log(that.feedsDictionary);
         });
     }
 

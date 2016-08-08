@@ -1,9 +1,9 @@
-angular.module('rssreader').service('dashboardService', function () {
+angular.module('rssreader').service('dashboardService', [function () {
     this.DEFAULT_VIEW = 'th-large';
     that = this;
     this.title = "";
     this.setTitle = function(title){ 
-        if(title == "Add Feed"){
+        if(title == "Add Feed" ){
             this.resetFeedId();
         }
         that.title = title;
@@ -24,4 +24,4 @@ angular.module('rssreader').service('dashboardService', function () {
     this.resetFeedId = function(){
         that.currentFeed = '';
     }
-});
+}]);

@@ -25,4 +25,11 @@ angular.module('rssreader').controller('SidebarController', ['$scope', '$state',
         }
         $state.go("dashboard." + dashboardService.currentView);
     }
+    
+    $scope.checkIfEmpty = function(){
+        if(feedsService.getDictionary().length == 0){
+            return false;
+        }
+        else return true;
+    }
 }]);

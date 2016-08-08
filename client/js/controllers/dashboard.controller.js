@@ -3,7 +3,7 @@ angular.module('rssreader').controller('DashboardController', ['$scope', '$state
     $scope.feed = dashboardService.getFeedId;
     
     $scope.hideViewBtns = function(){
-        if($scope.headTitle() === "Add Feed"){
+        if($scope.headTitle() === "Add Feed" || feedsService.getDictionary().length == 0){
             return true;
         }
         else{
@@ -19,6 +19,6 @@ angular.module('rssreader').controller('DashboardController', ['$scope', '$state
     $scope.onFeedDelete = function(){
         feedsService.removeFeed(dashboardService.getFeedId());
         $state.reload("dashboard");
-        $state.go("dashboard." + dashboardService.currentView);
+        //$state.go("dashboard." + dashboardService.currentView);
     }
 }]);

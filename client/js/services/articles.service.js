@@ -31,7 +31,6 @@ angular.module('rssreader').service('articlesService', ['$http', 'authService', 
     }
 
     obj.getAllArticles = function () {
-        console.log("getAllArticles");
         obj.articles.length = 0;
         dashboardService.setTitle("All");
         dashboardService.resetFeedId();

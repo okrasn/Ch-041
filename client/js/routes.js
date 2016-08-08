@@ -6,6 +6,14 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 url: '/home',
                 templateUrl: './partials/home.html',
                 controller: 'HomeController'
+//                resolve: {
+//                    feedPromise: ['feedsService', function (feedsService) {
+//                        return feedsService.getAllFeeds();
+//                }],
+//                    articlesPromise: ['articlesService', function (articlesService) {
+//                        return articlesService.getAllArticles();
+//                    }]
+//                }
             })
             .state('login', {
                 url: '/login',
@@ -61,10 +69,7 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 resolve: {
                     feedPromise: ['feedsService', function (feedsService) {
                         return feedsService.getAllFeeds();
-                }],
-                    articlesPromise: ['articlesService', function (articlesService) {
-                        return articlesService.getAllArticles();
-                    }]
+                }]
                 },
                 onEnter: ['articlesService', function (articlesService) {
                     return articlesService.getAllArticles();
