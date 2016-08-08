@@ -27,8 +27,8 @@
                                     <span class="star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()"></span>
                                 <span class="share-icon glyphicon glyphicon-share onhover-green"></span>
                                 </span>
-                                <span class="hidden" ng-hide="isFavourites()"><span class="read-icon glyphicon glyphicon-ok onhover-blue"></span></span>
-                                <span ng-show="isFavourites()"><span class="read-icon glyphicon glyphicon-trash onhover-blue" ng-click="removeFavourite(article)"></span></span>
+                                <span class="hidden"><span class="read-icon glyphicon glyphicon-ok onhover-blue" ng-hide="isFavourites()"></span></span>
+                                <span ng-show="isFavourites()"><span class="read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
                             </div>
                         </div>
                     </div>
