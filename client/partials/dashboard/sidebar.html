@@ -11,7 +11,7 @@
                             <span ng-click="toggle = !toggle">
                                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
                                     <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
-                                </a>
+                            </a>
                             </span>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>
@@ -27,9 +27,11 @@
                     </ul>
                     <ul id="sidebarList" ng-show="hideFavourites()">
                         <li class="sidebar-item">
+                            <span ng-click="toggle1 = !toggle1">
                             <a data-toggle="collapse" data-target="#favourites" ng-class="glyphFeeds" ng-click="getFavourites()">
-                                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right"></span><span>Favourites</span>
+                                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle1}"></span><span>Favourites</span>
                             </a>
+                            </span>
                             <div class="collapse" id="favourites">
                                 <ul>
                                     <li class="sidebar-sub-item" ng-repeat="article in favs">
