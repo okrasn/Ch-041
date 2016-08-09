@@ -43,6 +43,7 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 controller: 'ProfileController',
                 onEnter: ['$state', 'authService', function ($state, authService) {
                     if (!authService.isLoggedIn()) {
+                        authService.logOut();
                         $state.go('home');
                     }
                 }]

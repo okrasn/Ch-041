@@ -11,12 +11,12 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         }).then(function (res) {
             angular.copy(res.data, that.feedsDictionary);
-            console.log("dictionary:");
-            console.log(that.feedsDictionary);
+//            console.log("dictionary:");
+//            console.log(that.feedsDictionary);
             that.getAllFavourites().then(function (res) {
                 angular.copy(res.data, that.favourites);
-                console.log("favs:");
-                console.log(that.favourites);
+//                console.log("favs:");
+//                console.log(that.favourites);
             });
         });
     }
@@ -68,8 +68,8 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     }
 
     this.removeFeed = function (feedId) {
-        console.log("Removing:");
-        console.log("feedId:" + feedId);
+//        console.log("Removing:");
+//        console.log("feedId:" + feedId);
         return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + feedId, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
