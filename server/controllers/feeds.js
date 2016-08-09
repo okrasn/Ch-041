@@ -7,7 +7,7 @@ var passport = require('passport'),
 var ERRORS = {
     choose_cat: 'Choose category',
     cant_find_user: 'Can\'t find user',
-    feed_already_added: 'You have already added this feed to ',
+    feed_already_added: 'You have already added this feed ',
     fav_article_already_added: 'You have already added this article to favourites',
     feed_not_found: 'Feed not found',
     article_not_found: 'Article not found',

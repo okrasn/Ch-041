@@ -7,8 +7,10 @@ angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '
         feedsService.addFeed($scope.obj).then(function (res) {
             articlesService.getAllArticles();
             $state.reload("dashboard");
-            articlesService.getAllArticles();
+//            articlesService.getAllArticles();
             $state.go("dashboard." + dashboardService.currentView);
+//                        articlesService.getAllArticles();
+
         }, function (err) {
             console.log(err);
             if (!err.data)
