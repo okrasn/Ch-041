@@ -6,7 +6,7 @@
                     <div class="sidebar-item" ng-show="checkIfEmpty()">
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
-                    <ul id="sidebarList">
+                    <ul>
                         <li class="sidebar-item" ng-repeat="category in feeds">
                             <span ng-click="toggle = !toggle">
                                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
@@ -25,7 +25,7 @@
                             </div>
                         </li>
                     </ul>
-                    <ul id="sidebarList" ng-show="hideFavourites()">
+                    <ul ng-show="hideFavourites()">
                         <li class="sidebar-item">
                             <span ng-click="toggle1 = !toggle1">
                             <a data-toggle="collapse" data-target="#favourites" ng-class="glyphFeeds" ng-click="getFavourites()">
