@@ -2,28 +2,32 @@
 <div id="list" class="row feeds">
     <div class="col-md-12">
         <div class="row table-feed fadeInAnim" ng-repeat="article in articles">
-            <a ng-href="{{article.link}}">
-                <div class="col-md-2 col-xs-12">
-                    <span class="shortened-text-block">sadgsdgsd sadfs adsdfaasdf sadffg sdfgsdf </span>
-                    <div class="footer">
-                        <div class="share">
-                            <span class="hidden">
-                            <span class="star-icon glyphicon glyphicon-star onhover-orange"></span>
-                            <span class="share-icon glyphicon glyphicon-share onhover-green"></span>
-                            <span class="read-icon glyphicon glyphicon-ok onhover-blue"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-9 col-xs-11">
+
+
+            <div class="col-md-9 col-sm-10 col-xs-12">
+                <a ng-href="{{article.link}}">
                     <p>
                         <strong> <span class="shortened-text" ng-bind="article.title"></span></strong>
                     </p>
                     <p>
                         <span class="shortened-text" ng-bind="article.content"></span>
                     </p>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-2 col-xs-12">
+                <div class="footer">
+                    <div class="share center-text">
+                        <span>
+                            <span class="star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article); $event.stopPropagation();" ng-hide="isFavourites()">
+                            </span>
+<!--                            <span class="share-icon glyphicon glyphicon-share onhover-green"></span>-->
+<!--                            <span class="share-icon glyphicon glyphicon-ok onhover-blue" ng-hide="isFavourites()"></span>-->
+                        </span>
+                        <span ng-show="isFavourites()"><span class="read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
+                    </div>
                 </div>
-            </a>
+
+            </div>
         </div>
     </div>
 </div>

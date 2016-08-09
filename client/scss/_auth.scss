@@ -8,20 +8,30 @@ body {
 /*================================Loginform=============================*/
 
 h2.header {
-    margin-left: 15%;
+    //margin-left: 15%;
     margin-bottom: 30px;
     font-weight: 700;
+    text-align: center;
 }
+.animate-error{
+        position: relative;
+        animation: animatetop 1s;
+        width: 70%;
+        margin: 10px auto 0;
+    }
 
 .capitalize {
     text-transform: capitalize;
 }
 
-.loginform-border {
+.cstmform-border {
     margin-top: 25px;
-    padding: 20px 10%;
+    padding: 20px 10% 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 4px;
+    @media screen and (max-width: 768px){
+        padding: 1em;
+    }
 }
 
 .form-group.login {
@@ -44,7 +54,7 @@ h2.header {
 
 .checkbox.margin {
     margin-top: 4px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 a.pass {

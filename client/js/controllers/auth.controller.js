@@ -10,18 +10,6 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
         char_num20_required: 'Please, enter at least 20 characters'
     }
 
-    //Authorization
-    /*
-	$scope.auth = auth;
-	console.log(auth);
-	$scope.logout = function() {
-  		auth.signout();
-  		store.remove('profile');
-  		store.remove('token');
-  		$location.path('/login');
-	}
-	*/
-
     $scope.register = function (form) {
         console.log($scope.user);
         if (form.validate()) {
@@ -121,3 +109,17 @@ angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'a
         }
     }
 }]);
+
+
+
+    //Authorization
+    /*
+    $scope.auth = auth;
+    console.log(auth);
+    $scope.logout = function() {
+        auth.signout();
+        store.remove('profile');
+        store.remove('token');
+        $location.path('/login');
+    }
+    */

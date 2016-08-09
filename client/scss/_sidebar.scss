@@ -49,6 +49,7 @@ $item-text-color: #000000;
         //            }
         ul {
             padding: 0;
+            margin: 0;
             list-style-type: none;
         }
         li {
@@ -80,6 +81,9 @@ $item-text-color: #000000;
             .all-text {
                 padding-left: 10px;
             }
+        }
+        .app-btn-blue{
+            margin-top: 1em;
         }
     }
     .toggled {

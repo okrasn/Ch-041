@@ -1,6 +1,7 @@
 angular.module('rssreader').service('feedsService', ['$http', '$state', 'authService', 'dashboardService', function ($http, $state, authService, dashboardService) {
     that = this;
     this.feedsDictionary = [];
+    this.favourites = [];
     this.allArticles = [];
     this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"];
     this.getAllFeeds = function () {
@@ -10,8 +11,20 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         }).then(function (res) {
             angular.copy(res.data, that.feedsDictionary);
-//            console.log("dictionary:");
-//            console.log(that.feedsDictionary);
+            console.log("dictionary:");
+            console.log(that.feedsDictionary);
+            that.getAllFavourites().then(function (res) {
+                angular.copy(res.data, that.favourites);
+                console.log("favs:");
+                console.log(that.favourites);
+            });
+        });
+    }
+    this.getAllFavourites = function () {
+        return $http.get('/users/' + authService.userID() + "/favourites", {
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken()
+            }
         });
     }
 
@@ -38,7 +51,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             feedObj.rsslink = feed.link
             feedObj.category = feed.category;
 
-            //            console.log("recievedFeed:");
+            // console.log("recievedFeed:");
             //            console.log(recievedFeed);
             //            console.log("feedObj:");
             //            console.log(feedObj);
@@ -48,7 +61,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken()
                 }
-            })
+            });
         }, function (err) {
             console.log(err);
         });
@@ -61,8 +74,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
-        }).success(function (res) {
-            //            that.getAllFeeds();
         });
     }
 }]);

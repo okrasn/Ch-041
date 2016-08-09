@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12 col-lg-12">
             <div id="sidebar">
-                <div class="sidebar-nav collapsible">
+                <div class="sidebar-nav collapsible fadeInAnim">
                     <div class="sidebar-item" ng-show="checkIfEmpty()">
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
@@ -11,7 +11,7 @@
                             <span ng-click="toggle = !toggle">
                                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
                                     <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
-                                </a>
+                            </a>
                             </span>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>
@@ -20,11 +20,25 @@
                                             <img ng-src="{{feed.link|favicon}}">
                                             <span ng-bind="feed.title"></span>
                                         </a>
-                                        <!--
-                                        <span class="hidden">
-                                                <span ng-click="removeFeed(feed._id)" class="share-icon glyphicon glyphicon-remove"></span>
-                                        </span>
--->
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul id="sidebarList" ng-show="hideFavourites()">
+                        <li class="sidebar-item">
+                            <span ng-click="toggle1 = !toggle1">
+                            <a data-toggle="collapse" data-target="#favourites" ng-class="glyphFeeds" ng-click="getFavourites()">
+                                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle1}"></span><span>Favourites</span>
+                            </a>
+                            </span>
+                            <div class="collapse" id="favourites">
+                                <ul>
+                                    <li class="sidebar-sub-item" ng-repeat="article in favs">
+                                        <a class="shortened-text" ng-click="getFavArticle(article)">
+                                            <img ng-src="{{article.link|favicon}}">
+                                            <span ng-bind="article.title"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

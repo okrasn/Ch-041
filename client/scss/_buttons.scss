@@ -90,6 +90,7 @@ span.extra-btns {
         transition: $app-transition;
     }
     &:active {
+        transition: $app-transition;
         transform: scale(1.5, 1.5);
     }
 }
@@ -100,6 +101,20 @@ span.extra-btns {
     &:hover {
         color: #ff9d00;
     }
+    &:active {
+        color: #e2ff00;
+    }
+}
+
+.onhover-red {
+    @extend .extra-btns;
+    color: black;
+    &:hover {
+        color: #ff6c00;
+    }
+    &:active {
+        color: #ff0000;
+    }
 }
 
 .onhover-green {
@@ -108,6 +123,9 @@ span.extra-btns {
     &:hover {
         color: #00ffb1;
     }
+    &:hover {
+        color: #00ff62;
+    }
 }
 
 .onhover-blue {
@@ -115,5 +133,23 @@ span.extra-btns {
     color: black;
     &:hover {
         color: $blue-btn-active-color;
+    }
+    &:hover {
+        color: $blue-btn-active-color;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .app-btn-blue {
+        width: 60%;
+        height: 3em;
+        font-size: 1.5em;
+    }
+    .navbar .app-btn-blue {
+        width: 70%;
+        height: 2em;
+    }
+    .margin {
+        margin-bottom: 20px;
     }
 }
