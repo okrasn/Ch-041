@@ -13,7 +13,6 @@ angular.module('rssreader').service('dashboardService', [function () {
         return that.title;
     }
     this.currentView = this.DEFAULT_VIEW;
-    
     this.currentFeed = '';
     this.getFeedId = function(){
         return that.currentFeed;

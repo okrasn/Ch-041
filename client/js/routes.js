@@ -6,14 +6,6 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 url: '/home',
                 templateUrl: './partials/home.html',
                 controller: 'HomeController'
-                    //                resolve: {
-                    //                    feedPromise: ['feedsService', function (feedsService) {
-                    //                        return feedsService.getAllFeeds();
-                    //                }],
-                    //                    articlesPromise: ['articlesService', function (articlesService) {
-                    //                        return articlesService.getAllArticles();
-                    //                    }]
-                    //                }
             })
             .state('login', {
                 url: '/login',
@@ -48,7 +40,12 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
             .state('profile', {
                 url: '/profile',
                 templateUrl: './partials/auth/profile.html',
-                controller: 'ProfileController'
+                controller: 'ProfileController',
+                onEnter: ['$state', 'authService', function ($state, authService) {
+                    if (!authService.isLoggedIn()) {
+                        $state.go('home');
+                    }
+                }]
             })
             .state("dashboard", {
                 url: '/dashboard',
@@ -67,46 +64,29 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                     }
                 },
                 resolve: {
-                    //                    articlesPromise: ['articlesService', function (articlesService) {
-                    //                        return articlesService.getAllArticles();
-                    //                }],
                     feedPromise: ['feedsService', function (feedsService) {
                         return feedsService.getAllFeeds();
                 }]
                 },
-                onEnter: ['articlesService', function (articlesService) {
+                onEnter: ['articlesService', 'dashboardService', '$state', 'authService', function (articlesService,  $state, authService, dashboardService) {
                     articlesService.getAllArticles();
+                    dashboardService.currentView = dashboardService.DEFAULT_VIEW;
                 }]
             })
             .state("dashboard.th-large", {
                 url: '/th-large',
                 templateUrl: './partials/list/th-large.html',
                 controller: 'ArticlesController'
-                    //                resolve: {
-                    //                    articlesPromise: ['articlesService', function (articlesService) {
-                    //                        return articlesService.getAllArticles();
-                    //                }]
-                    //                }
             })
             .state("dashboard.list", {
                 url: '/list',
                 templateUrl: './partials/list/list.html',
                 controller: 'ArticlesController'
-                    //                resolve: {
-                    //                    articlesPromise: ['articlesService', function (articlesService) {
-                    //                        return articlesService.getAllArticles();
-                    //                }]
-                    //                }
             })
             .state("dashboard.th-list", {
                 url: '/th-list',
                 templateUrl: './partials/list/th-list.html',
                 controller: 'ArticlesController'
-                    //                resolve: {
-                    //                    articlesPromise: ['articlesService', function (articlesService) {
-                    //                        return articlesService.getAllArticles();
-                    //                }]
-                    //                }
             })
             .state("dashboard.addFeed", {
                 url: '/add',
@@ -119,10 +99,3 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 }
             });
 }]);
-
-//
-//,
-//                resolve: {
-//                    articlesPromise: ['articlesService', function (articlesService) {
-//                        return articlesService.getAllArticles();
-//                }]
