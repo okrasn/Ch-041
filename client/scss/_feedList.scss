@@ -12,6 +12,9 @@ $panels-gap: 10px;
     a {
         color: black;
     }
+    .vertical-center{
+        line-height: 3em;
+    }
     overflow: hidden;
     height: 3em;
     cursor: pointer;
@@ -64,6 +67,7 @@ $panels-gap: 10px;
 
 .panel {
     margin-bottom: 0px !important;
+    
 }
 
 .th-large {
@@ -103,7 +107,7 @@ $panels-gap: 10px;
         padding: 5px;
     }
     .panel:hover {
-        .hidden {
+        .my-hidden {
             display: inline !important;
             visibility: visible;
             opacity: 1;
@@ -120,5 +124,13 @@ $panels-gap: 10px;
     }
     .description {
         height: 85px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .panel .my-hidden{
+        visibility: visible;
+        display: inline;
+        opacity: 1; 
     }
 }

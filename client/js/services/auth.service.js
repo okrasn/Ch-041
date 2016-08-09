@@ -35,14 +35,14 @@ angular.module('rssreader').factory('authService', ['$http', '$window', function
     auth.register = function (user) {
         return $http.post('/register', user).success(function (data) {
             auth.saveToken(data.token);
-        }).error(function(err){
+        }).error(function (err) {
             console.log(err.message);
         });
     }
     auth.logIn = function (user) {
         return $http.post('/login', user).success(function (data) {
             auth.saveToken(data.token);
-        }).error(function(err){
+        }).error(function (err) {
             console.log(err.message);
         });
     }
