@@ -34,7 +34,7 @@ angular.module('rssreader').service('articlesService', ['$http', '$q', 'authServ
         return obj.isFavourites;
     }
     obj.getAllArticles = function () {
-        console.log("all");
+//        console.log("all");
         obj.isFavourites = false;
         obj.articles.length = 0;
         dashboardService.setTitle("All");

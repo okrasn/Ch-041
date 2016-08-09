@@ -28,7 +28,6 @@ angular.module('rssreader').factory('authService', ['$http', '$window', function
         if (auth.isLoggedIn()) {
             var token = auth.getToken();
             var payload = JSON.parse($window.atob(token.split('.')[1]));
-
             return payload._id;
         }
     }
