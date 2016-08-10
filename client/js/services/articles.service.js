@@ -1,4 +1,4 @@
-angular.module('rssreader').service('articlesService', ['$http', '$q', 'authService', 'dashboardService', 'feedsService', function ($http, $q, authService, dashboardService, feedsService) {
+angular.module('rssreader').service('articlesService', ['$http', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $q, authService, $timeout, dashboardService, feedsService) {
     var obj = {
         articles: [],
         isFavourites: false
@@ -34,15 +34,20 @@ angular.module('rssreader').service('articlesService', ['$http', '$q', 'authServ
         return obj.isFavourites;
     }
     obj.getAllArticles = function () {
-//        console.log("all");
+        console.log("all");
+        //        return $timeout(function(){
+        //            console.log("Resolving");
+        //        }, 2000);
         obj.isFavourites = false;
         obj.articles.length = 0;
         dashboardService.setTitle("All");
         dashboardService.resetFeedId();
-        //return fetchArticles(feedsService.feedsDictionary[0].values[0]);
+
         angular.forEach(feedsService.feedsDictionary, function (value, key) {
             angular.forEach(value.values, function (value, key) {
-                fetchArticles(value);
+                return fetchArticles(value).then(function (res) {
+                    console.log("res");
+                });
             });
         });
     }
@@ -96,8 +101,8 @@ angular.module('rssreader').service('articlesService', ['$http', '$q', 'authServ
         });
     }
     obj.removeFavourite = function (article) {
-        console.log("Removing:");
-        console.log("ArticleId:" + article._id);
+//        console.log("Removing:");
+//        console.log("ArticleId:" + article._id);
         return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()

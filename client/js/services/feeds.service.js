@@ -5,18 +5,15 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     this.allArticles = [];
     this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"];
     this.getAllFeeds = function () {
+        console.log('feeds');
         return $http.get('/users/' + authService.userID(), {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
         }).then(function (res) {
             angular.copy(res.data, that.feedsDictionary);
-//            console.log("dictionary:");
-//            console.log(that.feedsDictionary);
             that.getAllFavourites().then(function (res) {
                 angular.copy(res.data, that.favourites);
-//                console.log("favs:");
-//                console.log(that.favourites);
             });
         });
     }
@@ -27,11 +24,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         });
     }
-
-    this.getDictionary = function () {
-        return that.feedsDictionary;
-    }
-
     this.addFeed = function (feed) {
         return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (response) {
             if (feed.category === undefined) {
@@ -61,6 +53,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken()
                 }
+            }).then(function (res) {
             });
         }, function (err) {
             console.log(err);
@@ -68,8 +61,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     }
 
     this.removeFeed = function (feedId) {
-//        console.log("Removing:");
-//        console.log("feedId:" + feedId);
         return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + feedId, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
