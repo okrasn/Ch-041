@@ -66,18 +66,14 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 },
                 resolve: {
                     feedPromise: ['feedsService', function (feedsService) {
+                        console.log('resolveFeeds');
                         return feedsService.getAllFeeds();
-                }]
+                   }]
                 },
-                onEnter: ['articlesService', 'dashboardService', '$state', 'authService', function (articlesService,  $state, authService, dashboardService) {
+                onEnter: ['articlesService', 'dashboardService', 'feedsService', '$state', 'authService', function (articlesService, dashboardService, feedsService, $state, authService) {
+                    console.log("OnEnter");
                     articlesService.getAllArticles();
-                    dashboardService.currentView = dashboardService.DEFAULT_VIEW;
                 }]
-            })
-            .state("dashboard.th-large", {
-                url: '/th-large',
-                templateUrl: './partials/list/th-large.html',
-                controller: 'ArticlesController'
             })
             .state("dashboard.list", {
                 url: '/list',
@@ -89,14 +85,17 @@ angular.module('rssreader', ['ui.router', 'ngValidate', 'ngFileUpload', 'favicon
                 templateUrl: './partials/list/th-list.html',
                 controller: 'ArticlesController'
             })
+            .state("dashboard.th-large", {
+                url: '/th-large',
+                templateUrl: './partials/list/th-large.html',
+                controller: 'ArticlesController'
+            })
             .state("dashboard.addFeed", {
                 url: '/add',
                 templateUrl: './partials/dashboard/add-feed.html',
                 controller: 'FeedsController',
-                resolve: {
-                    dashboardPromise: ['dashboardService', function (dashboardService) {
-                        return dashboardService.setTitle("Add Feed");
+                onEnter: ['dashboardService', function (dashboardService) {
+                    dashboardService.setTitle("Add Feed");
                 }]
-                }
             });
 }]);
