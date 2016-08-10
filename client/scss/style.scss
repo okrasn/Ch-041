@@ -3,15 +3,7 @@ $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
-@import "navbar";
-@import "animations";
-@import "addFeed";
-@import "feedList";
-@import "sidebar";
-@import "home";
-@import "auth";
-@import "profileSettings";
-@import "buttons";
+
 html {
     font-family: 'Roboto', sans-serif !important;
 }
@@ -90,3 +82,14 @@ p {
 .center-text {
     text-align: center;
 }
+
+@import "navbar";
+@import "animations";
+@import "addFeed";
+@import "feedList";
+@import "sidebar";
+@import "home";
+@import "auth";
+@import "profileSettings";
+@import "buttons";
+
