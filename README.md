@@ -9,8 +9,8 @@
   3. Click on __Advanced System Settings__ which opens up a pop up box as below
   4. Click on __Environment__ variables and do as shown in Fig. 2
   [![Install](http://www.acemyskills.com/wp-content/uploads/2015/08/Environment-Variables-1024x497.png?resize=50%)](http://www.acemyskills.com/wp-content/uploads/2015/08/Environment-Variables.png)
-4. Create folder for DB temp files in the root (_'projectRoot'/data_)
-5. Run next command in __cmd__
+4. Create folder for DB temp files in the root,  if (_'projectRoot'/data_)
+5. Run next command via __cmd__ in project folder
 ```sh
 $ npm start
 ```
