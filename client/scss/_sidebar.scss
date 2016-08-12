@@ -53,7 +53,7 @@ $item-text-color: #000000;
                 color: $item-text-color;
                 &:hover {
                     text-decoration: none;
-                    background-color: none;
+                    background-color: transparent;
                 }
                 &:active,
                 &:focus {
@@ -102,9 +102,9 @@ $item-text-color: #000000;
         #menu-toggle {
             position: absolute;
             z-index: 1001;
-            border: 0px solid transparent;
+            border: 0 solid transparent;
             background-color: #e8e8e8;
-            border-radius: 0px;
+            border-radius: 0;
         }
     }
 }

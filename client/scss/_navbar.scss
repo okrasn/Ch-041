@@ -54,15 +54,15 @@ $user-dropdown-color: #f0f0f0;
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar-nav .user-menu .dropdown-toggle{
-    background: #3949ab !important;
+.navbar-nav>.user-menu>.dropdown-toggle{
+    background: #3949ab;
     &:active{
-        background: #3949ab !important;
+        background: #3949ab;
     }
     &:hover{
-        background: #3949ab !important;
+        background: #3949ab;
     }
-    a span:hover{
+    span:hover{
         color: #ffffff;
     }
 }
