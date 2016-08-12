@@ -135,4 +135,7 @@ $panels-gap: 10px;
         display: inline;
         opacity: 1; 
     }
+    .btn-group .th-large{
+        display: none !important;
+    }
 }
