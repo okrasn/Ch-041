@@ -6,25 +6,55 @@ angular.module('rssreader').service('articlesService', ['$http', '$q', 'authServ
     var articles_num = 50;
 
     var fetchArticles = function (feed) {
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articles_num + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSON&callback=JSON_CALLBACK").then(function (response) {
-                var recievedFeed = response.data.responseData.feed;
-                for (var i = 0; i < recievedFeed.entries.length; i++) {
-                    var articleObj = {};
-                    var content = document.createElement("content");
-                    content.innerHTML = recievedFeed.entries[i].content;
-                    var img;
-                    if ($(content).find('img')[0] === undefined) {
-                        img = "";
-                    } else {
-                        img = $(content).find('img')[0].src;
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articles_num + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml").then(function (response) {
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
+                var items = [];
+                if (feed.format === "RSS") {
+                    items = xmlDoc.getElementsByTagName('item');
+                    for (var i = 0; i < items.length; i++) {
+                        var articleObj = {};
+                        articleObj.title = items[i].getElementsByTagName('title')[0].innerHTML;
+                        articleObj.link = items[i].getElementsByTagName('link')[0].textContent;
+                        // -- Image ---
+                        if (!items[i].getElementsByTagName('enclosure').length) {
+                            var foundImg = {
+                                src: ""
+                            }
+                            try {
+                                foundImg.src = $(items[i].getElementsByTagName("description")[0].textContent).find('img')[0].src;
+                            } catch (err) {
+                                foundImg.src = ""
+                            }
+                            articleObj.img = foundImg.src;
+                        } else {
+                            articleObj.img = items[i].getElementsByTagName('enclosure')[0].getAttribute('url');
+                        }
+                        // ---------
+                        var content = document.createElement('div');
+                        content.innerHTML = items[i].getElementsByTagName('description')[0].textContent;
+                        articleObj.content = $(content).text();
+                        articleObj.date = items[i].getElementsByTagName('pubDate')[0].textContent;
+                        obj.articles.push(articleObj);
                     }
-                    articleObj.title = recievedFeed.entries[i].title;
-                    articleObj.link = recievedFeed.entries[i].link;
-                    articleObj.content = recievedFeed.entries[i].contentSnippet;
-                    articleObj.img = img;
-                    articleObj.date = recievedFeed.entries[i].publishedDate;
-                    obj.articles.push(articleObj);
+                } else if (feed.format === "ATOM") {
+                    items = xmlDoc.getElementsByTagName('entry');
+                    for (var i = 0; i < items.length; i++) {
+                        var articleObj = {};
+                        var img = $.parseHTML(items[i].getElementsByTagName('content')[0].childNodes[0].data)[0].src;
+                        if (img === undefined) {
+                            img = "";
+                        }
+                        articleObj.img = img;
+                        articleObj.title = items[i].getElementsByTagName('title')[0].textContent;
+                        articleObj.link = items[i].getElementsByTagName('id')[0].textContent;
+                        articleObj.content =
+                            $(items[i].getElementsByTagName('content')[0].childNodes[0].data).text();
+                        articleObj.date = items[i].getElementsByTagName('published')[0].textContent;
+                        obj.articles.push(articleObj);
+                    }
                 }
+
             },
             function (err) {
                 console.log(err);
@@ -101,8 +131,8 @@ angular.module('rssreader').service('articlesService', ['$http', '$q', 'authServ
         });
     }
     obj.removeFavourite = function (article) {
-//        console.log("Removing:");
-//        console.log("ArticleId:" + article._id);
+        //        console.log("Removing:");
+        //        console.log("ArticleId:" + article._id);
         return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
@@ -110,4 +140,4 @@ angular.module('rssreader').service('articlesService', ['$http', '$q', 'authServ
         });
     }
     return obj;
-}]);
+            }]);

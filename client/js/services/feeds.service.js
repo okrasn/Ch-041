@@ -12,6 +12,8 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         }).then(function (res) {
             angular.copy(res.data, that.feedsDictionary);
+            console.log("dictionary:");
+            console.log(that.feedsDictionary);
             that.getAllFavourites().then(function (res) {
                 angular.copy(res.data, that.favourites);
             });
@@ -24,37 +26,72 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         });
     }
+    var checkRssFormat = function (xmlDoc) {
+        //Determine if RSS
+        if (xmlDoc.getElementsByTagName('rss').length) {
+            return 'RSS';
+            //Determine if ATOM
+        } else if (xmlDoc.getElementsByTagName('feed').length) {
+            return 'ATOM';
+        }
+        return -1
+    }
+    var generateFeed = function (doc, feed, format) {
+        var feedObj = {};
+        if (format === 'RSS') {
+            var channel = doc.getElementsByTagName('channel')[0];
+            feedObj.title = channel.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+            feedObj.description = channel.getElementsByTagName('description')[0].childNodes[0].nodeValue;
+            feedObj.link = channel.getElementsByTagName("link")[0].childNodes[0].nodeValue;
+            feedObj.rsslink = feed.link;
+            feedObj.category = feed.category;
+        } else if (format === 'ATOM') {
+            feedObj.title = doc.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+            feedObj.description = '';
+            feedObj.link = doc.getElementsByTagName('link')[0].getAttribute('href');
+            feedObj.rsslink = feed.link;
+            feedObj.category = feed.category;
+        }
+        feedObj.format = format;
+        console.log("result:");
+        console.log(feedObj);
+        return feedObj;
+    }
     this.addFeed = function (feed) {
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK").then(function (response) {
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml").then(function (response) {
             if (feed.category === undefined) {
                 throw new Error("Choose category");
             }
             if (response.data.responseData === null) {
                 throw new Error("URL is incorrect or does not contain RSS Feed data");
             }
+            console.log("XML:");
 
-            //We are receiveng 'recievedFeed' and converting it to suit schema template
-            var recievedFeed;
-            var feedObj = {};
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
+            console.log(xmlDoc);
+            var format = checkRssFormat(xmlDoc, feed, format);
+            if (format === -1) {
+                throw new Error("URL is incorrect or does not contain RSS Feed data");
+            } else {
+                var feedObj = generateFeed(xmlDoc, feed, format);
+                console.log("feedObj:");
+                console.log(feedObj);
+                return $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
+                    headers: {
+                        Authorization: 'Bearer ' + authService.getToken()
+                    }
+                });
+            }
 
-            recievedFeed = response.data.responseData.feed;
-            feedObj.title = recievedFeed.description || recievedFeed.title;
-            feedObj.link = recievedFeed.link;
-            feedObj.rsslink = feed.link
-            feedObj.category = feed.category;
-
-            // console.log("recievedFeed:");
+            //            console.log("XML:");
+            //            console.log(response.data);
+            //            console.log("recievedFeed:");
             //            console.log(recievedFeed);
-            //            console.log("feedObj:");
-            //            console.log(feedObj);
+
             //            console.log("mediaGroups:");
             //            console.log(recievedFeed.entries[1].mediaGroups);
-            return $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
-                headers: {
-                    Authorization: 'Bearer ' + authService.getToken()
-                }
-            }).then(function (res) {
-            });
+
         }, function (err) {
             console.log(err);
         });

@@ -2,6 +2,7 @@
 var express = require('express'),
     fs = require("fs"),
     app = express(),
+    session = require('express-session'),
     bodyParser = require('body-parser'),
     favicon = require('serve-favicon'),
     path = require('path'),
@@ -11,22 +12,15 @@ var express = require('express'),
     multer = require('multer');
 var port = 8080;
 
-
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname,'client','assets','images','favicon.ico')));
+
 require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
-
 require('./server/config/passport');
-
 
 var routes = require('./server/routes/index');
 
-mongoose.connect('mongodb://localhost/feeds');
-
-//app.set('views', path.join(__dirname, 'client'));
-//app.set('view engine', 'html');
 app.use(function (req, res, next) { //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
     res.header("Access-Control-Allow-Origin", "http://localhost");
@@ -34,23 +28,60 @@ app.use(function (req, res, next) { //allow cross origin requests
     next();
 });
 
-
-app.use(express.static('./client'));
-app.use(express.static('./server/uploads'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
 })); // support encoded bodies
-//app.use(express.session({ secret: 'MY_SECRET' })); 
-
+app.use(session({
+    secret: 'MY_SECRET',
+    resave: false,
+    saveUninitialized: false
+})); 
 app.use(passport.initialize());
-//app.use(passport.session()); 
-app.use('/', routes);
-
+app.use(passport.session()); 
 app.use(morgan('dev'));
-
 app.listen(port, function () {
     console.log('Server running on port 8080!');
+});
+app.use(express.static('./client'));
+app.use(express.static('./server/uploads'));
+app.use('/', routes);
+
+// mongoose
+mongoose.connect('mongodb://localhost/feeds');
+mongoose.connection.on('error', function(err) {
+  console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+});
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 module.exports = app;

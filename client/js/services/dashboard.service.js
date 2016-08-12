@@ -22,8 +22,8 @@ angular.module('rssreader').service('dashboardService', [function () {
         }
     }
     this.getViewMode = function(){
-        console.log("Retreving view mode:");
-        console.log(that.viewModes[that.currentViewMode]);        
+//        console.log("Retreving view mode:");
+//        console.log(that.viewModes[that.currentViewMode]);        
         return that.viewModes[that.currentViewMode];
     }
     
