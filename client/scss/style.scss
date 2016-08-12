@@ -21,7 +21,9 @@ p {
 .uppercase {
     text-transform: uppercase;
 }
-
+.no-padding{
+    padding: 0px !important;
+}
 #views_container {
     padding-right: 0px !important;
     padding-left: 0px !important;
@@ -39,7 +41,7 @@ p {
 
 .shortened-text-block {
     display: inline-block;
-    width: 12em;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
