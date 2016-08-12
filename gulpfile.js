@@ -46,12 +46,6 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('./client/js/'))
 });
 
-gulp.task('full_scripts', function () {
-    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
-        .pipe(concat('app.full.js'))
-      	.pipe(gulp.dest('./client/js/full'))
-});
-
 gulp.task('useref', function () {
     return gulp.src('client/*.html')
         .pipe(useref())
@@ -84,4 +78,4 @@ gulp.task('build', function (){
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('default', ['server', 'build', 'sass', 'scripts','full_scripts' 'main']); 
+gulp.task('default', ['server', 'build', 'sass', 'scripts', 'main']); 
