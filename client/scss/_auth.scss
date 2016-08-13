@@ -13,6 +13,12 @@ h2.header {
     font-weight: 700;
     text-align: center;
 }
+.animate-error{
+        position: relative;
+        animation: animatetop 1s;
+        width: 70%;
+        margin: 10px auto 0;
+    }
 
 .capitalize {
     text-transform: capitalize;
@@ -55,11 +61,13 @@ a.pass {
     float: right;
 }
 
-.errormsg {
+.msg-error{
+ margin-top: 3px;
     color: #af5050;
+    float: right;
+    margin-bottom: 0;
+    font-size: 14px;
     font-weight: bold;
-    text-align: center;
-    margin: 10px;
 }
 
 .signup p {

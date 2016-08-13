@@ -1,7 +1,3 @@
-.form-horizontal > #addUsername {
-    width: 85px;
-}
-
 a.cstmblock {
     display: block;
     cursor: pointer;
@@ -10,11 +6,15 @@ a.cstmblock {
     text-align: center;
     font-weight: bold;
 }
-
+.panel-default { 
+    border: white;
+}
 .panel-default>.panel-heading {
     padding: 0;
     background-color: $navbar-color;
     color: white;
+    width: 275px;
+    float: right;
 }
 
 .panel-default>.panel-heading:hover {
@@ -25,46 +25,53 @@ a.cstmblock {
     border: none;
 }
 
-#modalUsername {
-    .modal-body {
-        height: 60px;
-    }
-    .modal-footer {
-        text-align: center !important;
-    }
+.profile label {
+    line-height: 30px;
+    font-size: 17px;
 }
 
-#modalPassword {
-    position: relative;
-    .center {
-        margin: auto;
-        width: 50%;
-    }
-    .modal-body {
-        height: 150px;
-    }
-    .modal-footer {
-        text-align: center !important;
-    }
+img.img-size {
+   width: 100px; 
+   height: 100px;
 }
 
-#profileSettings {
-    margin-top: 150px;
-    #panelProfile {
-        .panel-heading {
-            .user-image {
-                width: 150px;
-                height: 150px;
-                border-radius: 50%;
-            }
-        }
-        padding: 0;
-        .form-group {
-            height: 50px;
-        }
-        .panel-footer {
-            text-align: center !important;
-            margin: 0 !important;
-        }
-    }
+.file-upload {
+     position: relative; /* Даем возможность делать позиционирование, внутри данного элемента */
+     overflow: hidden; /* Все что выходит за пределы - скрываем */
+     width: 52%; /* Задаем ширину кнопки выбора файла */
+     height: 35px; /* Задаем высоту кнопки выбора файла */ 
+     float: right;
+     background: $navbar-color;
+     border-radius: 4px;
+     margin-top: 15px;
+     padding: 8px 4px;
+     color: #fff;
+     text-align: center;
 }
+.file-upload:hover {
+     background-color: #fcf8e3;
+        color: black;
+        border: none;
+        transition: $app-transition;
+        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
+}
+.file-upload input[type="file"]{
+    display: none; /* Обязательно скрываем настоящий Input File */
+}
+.file-upload label {
+     /* Растягиваем label на всю возможную площадь блока .file-upload */
+     display: block;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     cursor: pointer;
+     font-size: 16px;
+}
+.file-upload span {
+     line-height: 36px; /* Делаем вертикальное выравнивание текста, который написан на кнопке */
+}
+
+
+

@@ -38,7 +38,7 @@
                         $scope.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
                     });
                 };
-
+                $scope.currentUser = authService.currentUser();
                 $scope.newUserData = {
                     email: authService.currentUser(),
                     currentPass: "",
