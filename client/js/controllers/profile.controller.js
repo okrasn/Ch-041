@@ -5,7 +5,6 @@
         'authService', '$window', 'themeService', 'dashboardService',
         function (Upload, $http, $state, profileService, $scope,
                 authService, $window, themeService, dashboardService) {
-
                 $scope.submit = function () {
                     console.log($scope.file);
                     if ($scope.upload_form.file.$valid && $scope.file) { //check if from is valid
@@ -48,7 +47,6 @@
 
                 $scope.changePass = function () {
                     console.log("Submit change password");
-                    //                console.log($scope.newUserData);
                     return $http.post('/changePassword', $scope.newUserData, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()

@@ -1,52 +1,52 @@
-angular.module('rssreader').service('dashboardService', [function () {
-    var that = this;
-    
-    this.DEFAULT_VIEW = 2;
-    this.currentViewMode = that.DEFAULT_VIEW;
+(function () {
+    'use strict';
+    angular.module('rssreader').service('dashboardService', [function () {
+        var obj = {}
+        obj.DEFAULT_VIEW = 2;
+        obj.currentViewMode = obj.DEFAULT_VIEW;
 
-    // We have three view modes
-    this.viewModes = [
+        // We have three view modes
+        obj.viewModes = [
         'list',
         'th-list',
         'th-large'
     ];
-    this.resetViewMode = function () {
-        that.currentViewMode = that.DEFAULT_VIEW;
-    }
-    this.setViewMode = function(index){
-        if(index > that.viewModes.length-1){
-            throw new Error("View mode you are trying to set is not defined");
+        obj.alertMsg = "";
+        obj.successMsg = "";
+        obj.resetViewMode = function () {
+            obj.currentViewMode = obj.DEFAULT_VIEW;
         }
-        else {
-            that.currentViewMode = index;
+        obj.setViewMode = function (index) {
+            if (index > obj.viewModes.length - 1) {
+                throw new Error("View mode you are trying to set is not defined");
+            } else {
+                obj.currentViewMode = index;
+            }
         }
-    }
-    this.getViewMode = function(){
-//        console.log("Retreving view mode:");
-//        console.log(that.viewModes[that.currentViewMode]);        
-        return that.viewModes[that.currentViewMode];
-    }
-    
-    this.title = "";
-    this.setTitle = function (title) {
-        if (title == "Add Feed") {
-            this.resetFeedId();
+        obj.getViewMode = function () {
+            return obj.viewModes[obj.currentViewMode];
         }
-        that.title = title;
-    }
-    this.getTitle = function () {
-        return that.title;
-    }
-    
-    this.currentView = this.DEFAULT_VIEW;
-    this.currentFeed = '';
-    this.getFeedId = function () {
-        return that.currentFeed;
-    }
-    this.setFeedId = function (id) {
-        that.currentFeed = id;
-    }
-    this.resetFeedId = function () {
-        that.currentFeed = '';
-    }
+        obj.title = "";
+        obj.setTitle = function (title) {
+            if (title == "Add Feed") {
+                obj.resetFeedId();
+            }
+            obj.title = title;
+        }
+        obj.getTitle = function () {
+            return obj.title;
+        }
+        obj.currentView = obj.DEFAULT_VIEW;
+        obj.currentFeed = '';
+        obj.getFeedId = function () {
+            return obj.currentFeed;
+        }
+        obj.setFeedId = function (id) {
+            obj.currentFeed = id;
+        }
+        obj.resetFeedId = function () {
+            obj.currentFeed = '';
+        }
+        return obj;
 }]);
+})();

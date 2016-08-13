@@ -1,5 +1,11 @@
 <div id="sidebar-wrapper">
-        <!-- Sidebar -->
+    <div class="message-box bg-success animate-show" ng-show="successMsg">
+        <span ng-bind="successMsg"></span>
+    </div>
+       <div class="message-box bg-danger animate-show" ng-show="alertMsg">
+        <span ng-bind="alertMsg"></span>
+    </div>
+    <!-- Sidebar -->
     <div ui-view="sidebar"></div>
     <!-- Page Content -->
     <div ui-view="feedHead"></div>

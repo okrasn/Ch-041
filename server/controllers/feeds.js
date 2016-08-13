@@ -138,23 +138,17 @@ module.exports.addFavArticle = function (req, res, next) {
                 console.log(req.body.link);
                 return elem.link === req.body.link;
             })) {
-            console.log("____________ALREADY ADDED_________________");
             res.statusCode = 400;
             return res.send({
                 message: ERRORS.fav_article_already_added
             });
         } else {
             var article = new Article(req.body);
-            //    console.log("-------------------article------------");
-            //    console.log(article);
-            //    console.log("-------------------end------------");
             article.save(function (err, article) {
                 if (err) {
                     return next(err);
                 }
                 req.user.favourites.push(article);
-                //        console.log("ARRRAAYY");
-                //        console.log(req.user.favourites);
                 req.user.save(function (err, user) {
                     if (err) {
                         return next(err);

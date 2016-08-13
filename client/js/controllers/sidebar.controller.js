@@ -6,7 +6,6 @@
         $scope.favs = feedsService.favourites;
 
         $scope.getAll = function () {
-            console.log("getAll");
             // if there is only one category and feed, return this feed articles
             if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
                 $scope.getByFeed($scope.feeds[0].values[0]);
@@ -16,7 +15,7 @@
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getByFeed = function (feed) {
-            //console.log(feed);
+            console.log("Invoke by feed");
             articlesService.getArticlesByFeed(feed);
             $state.go("dashboard." + dashboardService.getViewMode());
         }

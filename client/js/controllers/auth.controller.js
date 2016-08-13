@@ -13,7 +13,6 @@
         }
 
         $scope.register = function (form) {
-            //        console.log($scope.user);
             if (form.validate()) {
                 authService.register($scope.user).error(function (error) {
                     $scope.error = error;

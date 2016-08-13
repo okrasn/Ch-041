@@ -1,18 +1,19 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', function ($scope, $state, dashboardService, feedsService) {
+    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', 'dashboardService', 'feedsService', function ($scope, $state, $timeout, dashboardService, feedsService) {
         if (feedsService.feedsDictionary.length) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
-        } 
-        else {
+        } else {
             dashboardService.setTitle("Add Feed");
             $state.go('dashboard.addFeed');
         }
-        
 
         $scope.headTitle = dashboardService.getTitle;
         $scope.feed = dashboardService.getFeedId;
+        $scope.alertMsg = dashboardService.alertMsg;
+        $scope.successMsg = dashboardService.successMsg;
+
         $scope.hideViewBtns = function () {
             if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
                 return true;
@@ -20,7 +21,6 @@
                 return false;
             }
         }
-
         $scope.checkIfToggled = function (mode) {
             return dashboardService.getViewMode() === mode;
         }
@@ -47,5 +47,20 @@
                     console.log(err);
                 });
         }
+
+        $scope.$watch('alertMsg', function (newVal) {
+            if (newVal && newVal.length) {
+                $timeout(function () {
+                    $scope.alertMsg = null;
+                }, 4000);
+            }
+        });
+        $scope.$watch('successMsg', function (newVal) {
+            if (newVal && newVal.length) {
+                $timeout(function () {
+                    $scope.successMsg = null;
+                }, 4000);
+            }
+        });
     }]);
 })();

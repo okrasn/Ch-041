@@ -780,3 +780,21 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
     height: 2em; }
   .margin {
     margin-bottom: 20px; } }
+
+.message-box {
+  z-index: 1000;
+  position: fixed;
+  padding: 1em;
+  border-radius: 3px;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%); }
+
+.animate-show {
+  opacity: 1; }
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.5s; }
+
+.animate-show.ng-hide {
+  opacity: 0; }
