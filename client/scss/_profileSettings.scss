@@ -6,35 +6,32 @@ a.cstmblock {
     text-align: center;
     font-weight: bold;
 }
-.panel-default { 
-    border: white;
-}
-.panel-default>.panel-heading {
-    padding: 0;
-    background-color: $navbar-color;
-    color: white;
-    width: 275px;
-    float: right;
-}
-
-.panel-default>.panel-heading:hover {
-    color: black !important;
-    background-color: white !important;
-    transition: $app-transition;
-    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
-    border: none;
-}
 
 .profile label {
     line-height: 30px;
     font-size: 17px;
+}
+.form-group.change-pass {
+    height: 64px;
+    margin-bottom: 0;
+}
+.form-group.change-pass label.error {
+    color: #af5050;
+    float: right;
+    margin-bottom: 0;
+    font-size: 14px;
 }
 
 img.img-size {
    width: 100px; 
    height: 100px;
 }
-
+.profile-size{
+    height: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1;
+}
 .file-upload {
      position: relative; /* Даем возможность делать позиционирование, внутри данного элемента */
      overflow: hidden; /* Все что выходит за пределы - скрываем */

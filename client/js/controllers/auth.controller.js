@@ -1,3 +1,5 @@
+(function () {
+    'use strict';
 angular.module('rssreader').config(['$validatorProvider', function ($validatorProvider) {
         $validatorProvider.addMethod("pattern", function (value, element) {
             return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
@@ -111,20 +113,22 @@ controller('AuthController', ['$scope', '$state', 'authService', '$window', 'das
             }
         }
     }
-}]).directive('pwCheck', [function () {
-    return {
-      require: 'ngModel',
-      link: function (scope, elem, attrs, ctrl) {
-        var firstPassword = '#' + attrs.pwCheck;
-        elem.add(firstPassword).on('keyup', function () {
-          scope.$apply(function () {
-            if(elem.val() === "") {
-                return;
-            }
-            var v = elem.val()===$(firstPassword).val();
-            ctrl.$setValidity('pwmatch', v);
-          });
-        });
-      }
-    }
-  }]);
+}]);
+// .directive('pwCheck', [function () {
+//     return {
+//       require: 'ngModel',
+//       link: function (scope, elem, attrs, ctrl) {
+//         var firstPassword = '#' + attrs.pwCheck;
+//         elem.add(firstPassword).on('keyup', function () {
+//           scope.$apply(function () {
+//             if(elem.val() === "") {
+//                 return;
+//             }
+//             var v = elem.val()===$(firstPassword).val();
+//             ctrl.$setValidity('pwmatch', v);
+//           });
+//         });
+//       }
+//     }
+//   }]);
+})();

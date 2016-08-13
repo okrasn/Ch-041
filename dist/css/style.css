@@ -631,25 +631,29 @@ a.cstmblock {
   text-align: center;
   font-weight: bold; }
 
-.panel-default > .panel-heading {
-  padding: 0;
-  background-color: #3949ab;
-  color: white; }
-
-.panel-default > .panel-heading:hover {
-  color: black !important;
-  background-color: white !important;
-  transition: all 0.2s ease;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
-  border: none; }
-
 .profile label {
   line-height: 30px;
   font-size: 17px; }
 
+.form-group.change-pass {
+  height: 64px;
+  margin-bottom: 0; }
+
+.form-group.change-pass label.error {
+  color: #af5050;
+  float: right;
+  margin-bottom: 0;
+  font-size: 14px; }
+
 img.img-size {
   width: 100px;
   height: 100px; }
+
+.profile-size {
+  height: 35px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1; }
 
 .file-upload {
   position: relative;
@@ -699,7 +703,8 @@ img.img-size {
   border-radius: 3px !important;
   transition: all 0.2s ease;
   cursor: pointer !important;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76); }
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+  overflow: hidden; }
   .app-btn:visited, .app-btn-blue:visited {
     color: white; }
   .app-btn:hover, .app-btn-blue:hover {
@@ -802,6 +807,10 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
     color: #3949ab; }
 
 @media only screen and (max-width: 768px) {
+  .app-btn-blue {
+    width: 70%;
+    height: 3em;
+    font-size: 1.5em; }
   .navbar .app-btn-blue {
     width: 70%;
     height: 2em; }
