@@ -1,10 +1,10 @@
 (function () {
     'use strict';
     angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
-        $scope.feeds = feedsService.feedsDictionary;
+        $scope.feeds = feedsService.feedsDictionary
         $scope.favs = feedsService.favourites;
-        $scope.onDrag = function(index){
-            $scope.feeds.splice(index, 1); 
+        $scope.onDrag = function (index) {
+            $scope.feeds.splice(index, 1);
             feedsService.setCategoryOrder();
         }
         $scope.getAll = function () {

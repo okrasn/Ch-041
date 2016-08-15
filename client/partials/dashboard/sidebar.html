@@ -11,12 +11,12 @@
                             ng-repeat="category in feeds" 
                             dnd-draggable="category" 
                             dnd-moved="onDrag($index)" 
-                            dnd-effect-allowed="move" 
+                            dnd-effect-allowed="move"
                             >
                             <span ng-click="toggle = !toggle">
                                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
                                     <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
-                            </a>
+                                </a>
                             </span>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>

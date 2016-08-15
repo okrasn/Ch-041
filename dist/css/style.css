@@ -118,7 +118,7 @@ p {
     background: #3949ab; }
   .navbar-nav > .user-menu > .dropdown-toggle:hover {
     background: #3949ab; }
-  .navbar-nav > .user-menu > .dropdown-toggle span:hover {
+  .navbar-nav > .user-menu > .dropdown-toggle > span:hover {
     color: #ffffff; }
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > p {
@@ -397,13 +397,8 @@ p {
       color: #000000; }
       #dashboard .sidebar-nav li a:hover {
         text-decoration: none;
-<<<<<<< HEAD
-        background-color: none; }
-      #dashboard .sidebar-nav li a:active, #dashboard .sidebar-nav li a:focus {
-=======
         background-color: transparent; }
-      #sidebar-wrapper .sidebar-nav li a:active, #sidebar-wrapper .sidebar-nav li a:focus {
->>>>>>> a37adb305cbbcc68a0ba73d029a6510489c6ec35
+      #dashboard .sidebar-nav li a:active, #dashboard .sidebar-nav li a:focus {
         text-decoration: none; }
     #dashboard .sidebar-nav #allFeedsBtn {
       height: 50px;

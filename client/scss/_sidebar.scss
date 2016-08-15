@@ -185,10 +185,9 @@ ul[dnd-list] .dndPlaceholder {
     cursor: pointer;
     width: 100%;
     line-height: 3em;
-    transition: $app-transition;
     border-right: 0em solid;
     &:hover {
-        transition: $app-transition;
+        transition: background 0.2s ease;
         border-right: 0.7em solid $blue-btn-active-color;
         background-color: $item-hover-color;
     }
