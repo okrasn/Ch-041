@@ -1,18 +1,18 @@
-.fade-in-anim{
-        animation: fadeIn 0.8s;
-    }
+.fade-in-anim {
+    animation: fadeIn 0.8s;
+}
 
 .slide-down-anim {
-        position: relative;
-        padding-top: 10%;
-        animation: animatetop 1s;
-    }
+    position: relative;
+    padding-top: 10%;
+    animation: animatetop 1s;
+}
 
-@keyframes fadeIn{
-    0%{
+@keyframes fadeIn {
+    0% {
         opacity: 0;
     }
-    100%{
+    100% {
         opacity: 1;
     }
 }
@@ -22,7 +22,7 @@
         top: -400px;
         opacity: 0;
     }
-    60%{
+    60% {
         top: 40px;
         opacity: 0.6;
     }

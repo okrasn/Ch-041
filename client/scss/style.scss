@@ -85,6 +85,10 @@ p {
     text-align: center;
 }
 
+* {
+  outline: none;
+}
+
 @import "navbar";
 @import "animations";
 @import "addFeed";
@@ -94,4 +98,4 @@ p {
 @import "auth";
 @import "profileSettings";
 @import "buttons";
-
+@import "message-box";

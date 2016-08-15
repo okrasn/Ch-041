@@ -1,6 +1,6 @@
 angular.module('rssreader').service('dashboardService', [function () {
     var that = this;
-    
+
     this.DEFAULT_VIEW = 2;
     this.currentViewMode = that.DEFAULT_VIEW;
 
@@ -13,20 +13,16 @@ angular.module('rssreader').service('dashboardService', [function () {
     this.resetViewMode = function () {
         that.currentViewMode = that.DEFAULT_VIEW;
     }
-    this.setViewMode = function(index){
-        if(index > that.viewModes.length-1){
+    this.setViewMode = function (index) {
+        if (index > that.viewModes.length - 1) {
             throw new Error("View mode you are trying to set is not defined");
-        }
-        else {
+        } else {
             that.currentViewMode = index;
         }
     }
-    this.getViewMode = function(){
-//        console.log("Retreving view mode:");
-//        console.log(that.viewModes[that.currentViewMode]);        
+    this.getViewMode = function () {
         return that.viewModes[that.currentViewMode];
     }
-    
     this.title = "";
     this.setTitle = function (title) {
         if (title == "Add Feed") {
@@ -37,7 +33,7 @@ angular.module('rssreader').service('dashboardService', [function () {
     this.getTitle = function () {
         return that.title;
     }
-    
+
     this.currentView = this.DEFAULT_VIEW;
     this.currentFeed = '';
     this.getFeedId = function () {

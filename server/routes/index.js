@@ -32,13 +32,15 @@ router.post('/changePassword', auth, authCtrl.changePassword);
 router.param('user', feedsCtrl.userParam);
 // get user and his feeds
 router.get('/users/:user', auth, feedsCtrl.allFeed);
-router.get('/users/:user/favourites', auth, feedsCtrl.allFavourites);
+router.get('/users/:user/favourites', auth, articlesCtrl.allFavourites);
 
 // add new feed
 router.post('/users/:user/addFeed', auth, feedsCtrl.add);
-router.post('/users/:user/addFavArticle', auth, feedsCtrl.addFavArticle);
+router.post('/users/:user/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
+router.post('/users/:user/addFavArticle', auth, articlesCtrl.addFavArticle);
+
 // remove feed
 router.delete('/users/:user/deleteFeed/:id', auth, feedsCtrl.remove);
-router.delete('/users/:user/deleteFavFeed/:id', auth, feedsCtrl.removeFavArticle);
+router.delete('/users/:user/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
 
 module.exports = router;
