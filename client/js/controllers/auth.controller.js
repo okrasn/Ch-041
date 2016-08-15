@@ -125,7 +125,7 @@ controller('AuthController', ['$scope', '$state', 'authService', '$window', 'das
                 mesureStrength: function (p) {
 
                     var _force = 0;                    
-                    var _regex = /[$-/:-?{-~!"^_`\[\]]/g;
+                    var _regex = /[#@$-/:-?-~!"^_`]/g;
                                           
                     var _lowerLetters = /[a-z]+/.test(p);                    
                     var _upperLetters = /[A-Z]+/.test(p);
@@ -139,7 +139,7 @@ controller('AuthController', ['$scope', '$state', 'authService', '$window', 'das
                     _force += _passedMatches * 10;
                         
                     // penality (short password)
-                    _force = (p.length <= 6) ? Math.min(_force, 10) : _force;                                      
+                    _force = (p.length <= 5) ? Math.min(_force, 10) : _force;                                      
                     
                     // penality (poor variety of characters)
                     _force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
@@ -181,21 +181,4 @@ controller('AuthController', ['$scope', '$state', 'authService', '$window', 'das
     };
 
 });
-// .directive('pwCheck', [function () {
-//     return {
-//       require: 'ngModel',
-//       link: function (scope, elem, attrs, ctrl) {
-//         var firstPassword = '#' + attrs.pwCheck;
-//         elem.add(firstPassword).on('keyup', function () {
-//           scope.$apply(function () {
-//             if(elem.val() === "") {
-//                 return;
-//             }
-//             var v = elem.val()===$(firstPassword).val();
-//             ctrl.$setValidity('pwmatch', v);
-//           });
-//         });
-//       }
-//     }
-//   }]);
 })();
