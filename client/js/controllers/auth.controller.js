@@ -30,7 +30,6 @@
                     $scope.error = error;
                 }).then(function () {
                     if (!$scope.session) {
-                        //                    console.log("Not checked");
                         $scope.onExit = function () {
                             auth.logOut();
                         };
@@ -110,15 +109,4 @@
             }
         }
 }]);
-    //Authorization
-    /*
-    $scope.auth = auth;
-    console.log(auth);
-    $scope.logout = function() {
-        auth.signout();
-        store.remove('profile');
-        store.remove('token');
-        $location.path('/login');
-    }
-    */
 })();

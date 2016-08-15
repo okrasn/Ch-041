@@ -1,10 +1,12 @@
 (function () {
     'use strict';
-
     angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
         $scope.feeds = feedsService.feedsDictionary;
         $scope.favs = feedsService.favourites;
-
+        $scope.onDrag = function(index){
+            $scope.feeds.splice(index, 1); 
+            feedsService.setCategoryOrder();
+        }
         $scope.getAll = function () {
             // if there is only one category and feed, return this feed articles
             if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
@@ -15,7 +17,6 @@
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getByFeed = function (feed) {
-            console.log("Invoke by feed");
             articlesService.getArticlesByFeed(feed);
             $state.go("dashboard." + dashboardService.getViewMode());
         }

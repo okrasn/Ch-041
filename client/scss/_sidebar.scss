@@ -2,7 +2,7 @@ $sidebar-width: 350px;
 $sidebar-color: #e8e8e8;
 $item-hover-color: #c1c1c1;
 $item-text-color: #000000;
-#sidebar-wrapper {
+#dashboard {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -109,34 +109,52 @@ $item-text-color: #000000;
     }
 }
 
+ul[dnd-list], ul[dnd-list] > li {
+    position: relative;
+}
+
+ul[dnd-list] {
+    min-height: 3em;
+    //padding-left: 0px;
+}
+
+ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #c1c1c1;
+    min-height: 3em;
+}
+
 @media(min-width:768px) {
-    #sidebar-wrapper {
+    #dashboard {
         padding-left: $sidebar-width;
     }
-    #sidebar-wrapper.toggled {
+    #dashboard.toggled {
         padding-left: 0;
     }
     #sidebar {
         width: $sidebar-width;
     }
-    #sidebar-wrapper.toggled #sidebar {
+    #dashboard.toggled #sidebar {
         width: 0;
     }
     #page-content-wrapper {
         padding: 0;
         position: relative;
     }
-    #sidebar-wrapper.toggled #page-content-wrapper {
+    #dashboard.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
     }
 }
 
 @media(max-width:768px) {
-    #sidebar-wrapper {
+    #dashboard {
         padding-left: 0;
     }
-    #sidebar-wrapper.toggled {
+    #dashboard.toggled {
         padding-left: 80%;
     }
     #sidebar {
@@ -149,21 +167,21 @@ $item-text-color: #000000;
     ul {
         width: 100%;
     }
-    #sidebar-wrapper.toggled #sidebar {
+    #dashboard.toggled #sidebar {
         width: 80%;
     }
     #page-content-wrapper {
         padding: 0;
         position: relative;
     }
-    #sidebar-wrapper.toggled #page-content-wrapper {
+    #dashboard.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
     }
 }
 
 .sidebar-item {
-    padding-left: 40px;
+    padding-left: 1em;
     cursor: pointer;
     width: 100%;
     line-height: 3em;
@@ -180,7 +198,7 @@ $item-text-color: #000000;
 }
 
 .sidebar-item .sidebar-sub-item {
-    padding-left: 40px;
+    padding-left: 1em;
     padding-right: 10px;
     box-sizing: border-box;
     cursor: pointer;

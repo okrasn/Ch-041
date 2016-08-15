@@ -7,17 +7,14 @@
             articlesService.addFavourite(article).then(function (res) {
                 $state.reload("dashboard");
                 dashboardService.successMsg = "Article successfully added to favourites"
-                    //$state.go("dashboard." + dashboardService.currentView);
             }, function (err) {
-                console.log(err.data.message);
+                console.log(err);
                 dashboardService.alertMsg = err.data.message;
-                console.log(dashboardService.alertMsg);
             });
         }
         $scope.removeFavourite = function (article) {
             articlesService.removeFavourite(article).then(function (res) {
                 $state.reload("dashboard");
-                //$state.go("dashboard." + dashboardService.currentView);
             }, function (err) {
                 console.log(err);
             });

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'favicon'])
+    angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists'])
         .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('home');
             $stateProvider
@@ -68,12 +68,10 @@
                     },
                     resolve: {
                         feedPromise: ['feedsService', function (feedsService) {
-                            console.log('resolveFeeds');
                             return feedsService.getAllFeeds();
                    }]
                     },
                     onEnter: ['articlesService', 'dashboardService', 'feedsService', '$state', 'authService', function (articlesService, dashboardService, feedsService, $state, authService) {
-                        console.log("OnEnter");
                         articlesService.getAllArticles();
                 }]
                 })

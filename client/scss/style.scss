@@ -83,6 +83,10 @@ p {
     text-align: center;
 }
 
+* {
+  outline: none;
+}
+
 @import "navbar";
 @import "animations";
 @import "addFeed";
