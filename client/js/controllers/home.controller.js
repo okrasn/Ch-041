@@ -4,7 +4,7 @@
         $scope.isLoggedIn = authService.isLoggedIn;
         $scope.currentUser = authService.currentUser;
 
-        $scope.OnFeeds = function () {
+        $scope.onFeeds = function () {
             console.log(dashboardService.getViewMode());
             if (authService.isLoggedIn()) {
                 $state.go('dashboard.' + dashboardService.getViewMode(), {
@@ -14,10 +14,10 @@
                 alert('Unauthtorized');
             }
         }
-        $scope.OnRegister = function () {
+        $scope.onRegister = function () {
             $state.go('register');
         }
-        $scope.OnLogin = function () {
+        $scope.onLogin = function () {
             $state.go('login');
         }
     }]);
