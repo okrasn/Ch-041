@@ -1,8 +1,9 @@
+'use strict';
 angular.module('rssreader').service('themeService', ['authService', '$window', function (authService, $window) {
     that = this;
     this.layout = 'style';
-    this.getTheme = function(){
-        return that.layout!==undefined ? that.layout : "style";
+    this.getTheme = function () {
+        return that.layout !== undefined ? that.layout : "style";
     }
     this.layouts = [
         {

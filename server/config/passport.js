@@ -28,12 +28,12 @@ passport.use(new LocalStrategy({
     }
 ));
 
-passport.serializeUser(function(user, done) {
-  console.log("serializing " + user.username);
-  done(null, user);
+passport.serializeUser(function (user, done) {
+    console.log("serializing " + user.username);
+    done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
-  console.log("deserializing " + obj);
-  done(null, obj);
+passport.deserializeUser(function (obj, done) {
+    console.log("deserializing " + obj);
+    done(null, obj);
 });

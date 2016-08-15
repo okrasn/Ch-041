@@ -10,8 +10,7 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('server', function (cb) {
-
-    exec('node app.js', function (err, stdout, stderr) {
+    exec('nodemon app.js', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -24,7 +23,6 @@ gulp.task('server', function (cb) {
     });
     console.log("Server is running on port 8080");
 });
-
 
 gulp.task('main', ['scripts', 'sass'], function () {
     gulp.watch('./client/scss/*.scss', ['sass']);
@@ -51,13 +49,11 @@ gulp.task('scripts', function () {
 //         .pipe(concat('app.full.js'))
 //       	.pipe(gulp.dest('./client/js/full'))
 // });
-
 gulp.task('useref', function () {
     return gulp.src('client/*.html')
         .pipe(useref())
         .pipe(gulp.dest('min'))
 });
-
 
 gulp.task('build', function (){
     gulp.src('client/scss/**/*.scss')

@@ -74,14 +74,12 @@ module.exports.login = function (req, res, next) {
             return next(err);
         }
         if (user) {
-            console.log("USER FOUND");
             token = user.generateJwt();
             res.status(200);
             res.json({
                 "token": token
             });
         } else {
-            console.log("USER NOT FOUND");
             return res.status(401).json({
                 message: ERRORS.invalid_data
             });
