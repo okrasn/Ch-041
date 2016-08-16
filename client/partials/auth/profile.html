@@ -87,32 +87,3 @@
         </form>
     </div>
 </div>
-
-
-
-
-<!--     <form class="form-horizontal col-xs-12" name="profile" id="profileSettings">
-        <div id="panelProfile" class="panel panel-default col-xs-12">
-            <div class="panel-heading">
-                <div class="profile-view" ng-repeat="step in file">
-                <img class="user-image" ng-src="{{step}}" alt="User Image">
-                <span class="hidden-xs" ng-bind="currentUser()"></span>
-                </div>
-            </div>
-        </div>
-        
-    </form>
-    <form name="upload_form">
-        <div class="form-group">
-            <div class="col-sm-10">
-                <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
-                <img ng-show="!!file" ngf-thumbnail="file || '/thumb.jpg'" />
-                <i ng-show="upload_form.file.$error.required">*required</i>
-                <br>
-                <i ng-show="upload_form.file.$error.maxSize">File too large
-          {{file.size / 1000000|number:1}}MB: max 20M</i>
-    
-                <button type="submit" ng-click="submit()">submit</button>
-            </div>
-        </div>
-    </form> -->

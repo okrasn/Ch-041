@@ -3,7 +3,7 @@
     angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
         $validatorProvider.addMethod("pattern", function(value, element) {
             return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
-        }, "");
+        }, "Password must contain(a-z,A-Z,0-9,!@#)");
     }]).
     controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', function($scope, $state, authService, $window, dashboardService) {
         $scope.user = {};
@@ -15,7 +15,7 @@
             min_6symbl: 'Please, enter at least 6 characters',
             min_9symbl: 'Please, enter at least 9 characters',
             max_20symbl: 'Please, enter no more then 20 characters',
-            reg_exp: '1 of each symbls (a-z,A-Z,0-9,!@#)'
+            reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
         }
 
         $scope.register = function(form) {
@@ -123,16 +123,16 @@
                     colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
                     mesureStrength: function(p) {
 
-                        var _force = 0;
-                        var _regex = /[#@$-/:-?-~!"^_`]/g;
+                        var _force = 0,
+                         _regex = /[#@$-/:-?-~!"^_`]/g,
 
-                        var _lowerLetters = /[a-z]+/.test(p);
-                        var _upperLetters = /[A-Z]+/.test(p);
-                        var _numbers = /[0-9]+/.test(p);
-                        var _symbols = _regex.test(p);
+                         _lowerLetters = /[a-z]+/.test(p),
+                         _upperLetters = /[A-Z]+/.test(p),
+                         _numbers = /[0-9]+/.test(p),
+                         _symbols = _regex.test(p),
 
-                        var _flags = [_lowerLetters, _upperLetters, _numbers, _symbols];
-                        var _passedMatches = $.grep(_flags, function(el) {
+                         _flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
+                         _passedMatches = $.grep(_flags, function(el) {
                             return el === true; }).length;
 
                         _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
