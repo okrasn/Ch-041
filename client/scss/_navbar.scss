@@ -14,6 +14,9 @@ $user-dropdown-color: #f0f0f0;
     margin-left: 60px;
     color: #fff;
 }
+.navbar>.container-fluid{
+    padding: 0;
+}
 
 .navbar-nav > .user-menu .user-image {
     float: left;
@@ -119,7 +122,7 @@ $user-dropdown-color: #f0f0f0;
         }
         &:active{
             transition: $app-transition;
-            color: black !important;
+            color: black;
         }
     }
 }

@@ -1,4 +1,4 @@
-$panels-gap: 10px;
+$panels-gap: 0.5em;
 .change-view-btn{
     padding-bottom: 5px;
 }
@@ -33,12 +33,6 @@ $panels-gap: 10px;
     &:hover {
         transition: $app-transition;
         background-color: #e8e8e8;
-        .hidden {
-            display: inline !important;
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 0.2s ease;
-        }
     }
 }
 
@@ -72,13 +66,11 @@ $panels-gap: 10px;
     float: right;
 }
 
-.panel {
-    margin-bottom: 0 !important;
-    
-}
-
-.th-large {
+#th-large {
     padding: $panels-gap;
+    [class*=' col-']{
+        padding: $panels-gap;
+    }
     .read-btn {
         margin-left: 5px;
         margin-top: -5px;
@@ -95,6 +87,7 @@ $panels-gap: 10px;
     }
     .panel {
         height: 152px;
+        margin: 0;
     }
     .footer {
         padding: 5px 0 5px 0;
@@ -114,7 +107,7 @@ $panels-gap: 10px;
     }
     .panel:hover {
         .my-hidden {
-            display: inline !important;
+            display: inline;
             visibility: visible;
             opacity: 1;
             transition: opacity 0.2s ease;
@@ -122,8 +115,11 @@ $panels-gap: 10px;
     }
 }
 
-.th-list {
-    @extend .th-large;
+#th-list {
+    @extend #th-large;
+    [class*='col-']{
+        padding: $panels-gap;
+    }
     img {
         width: 180px;
         height: 142px;

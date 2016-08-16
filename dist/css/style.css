@@ -15,18 +15,6 @@ p {
 .no-padding {
   padding: 0 !important; }
 
-#views_container {
-  padding-right: 0px !important;
-  padding-left: 0px !important; }
-
-.row {
-  margin-right: 0px !important;
-  margin-left: 0px !important; }
-
-.container-fluid {
-  padding-right: 0px !important;
-  padding-left: 0px !important; }
-
 .shortened-text-block {
   display: inline-block;
   width: 100%;
@@ -303,45 +291,46 @@ p {
 .panel {
   margin-bottom: 0 !important; }
 
-.th-large, .th-list {
+#th-large {
   padding: 10px; }
-  .th-large .read-btn, .th-list .read-btn {
+  #th-large .read-btn {
     margin-left: 5px;
     margin-top: -5px; }
-  .th-large .title, .th-list .title {
+  #th-large .title {
     height: 20px;
     overflow: hidden;
     padding-left: 5px; }
-  .th-large .description, .th-list .description {
+  #th-large .description {
     height: 90px;
     overflow: hidden;
     padding-left: 5px; }
-  .th-large .panel, .th-list .panel {
+  #th-large .panel {
     height: 152px; }
-  .th-large .footer, .th-list .footer {
+  #th-large .footer {
     padding: 5px 0 5px 0; }
-  .th-large .read-icon, .th-list .read-icon,
-  .th-large .star-icon, .th-list .star-icon,
-  .th-large .share-icon, .th-list .share-icon {
+  #th-large .read-icon,
+  #th-large .star-icon,
+  #th-large .share-icon {
     padding: 3px; }
-  .th-large img, .th-list img {
+  #th-large img {
     width: 180px;
     height: 142px;
     float: left; }
-  .th-large .panel-body, .th-list .panel-body {
+  #th-large .panel-body {
     padding: 5px; }
-  .th-large .panel:hover .my-hidden, .th-list .panel:hover .my-hidden {
+  #th-large .panel:hover .my-hidden {
     display: inline !important;
     visibility: visible;
     opacity: 1;
     transition: opacity 0.2s ease; }
 
-.th-list img {
-  width: 180px;
-  height: 142px; }
-
-.th-list .description {
-  height: 90px; }
+.th-list {
+  padding: 10px; }
+  .th-list img {
+    width: 180px;
+    height: 142px; }
+  .th-list .description {
+    height: 90px; }
 
 @media screen and (max-width: 768px) {
   .panel .my-hidden {
@@ -491,10 +480,9 @@ ul[dnd-list] .dndPlaceholder {
   cursor: pointer;
   width: 100%;
   line-height: 3em;
-  transition: all 0.2s ease;
   border-right: 0em solid; }
   .sidebar-item:hover {
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
     border-right: 0.7em solid #3949ab;
     background-color: #c1c1c1; }
   @media (max-width: 768px) {
