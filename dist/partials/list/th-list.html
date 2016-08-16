@@ -5,29 +5,21 @@
             <div class="panel-body">
                 <img ng-show="article.img" ng-src="{{article.img}}" class="img-responsive" alt="Test img">
                 <div class="content">
-                    <div class="title">
-                        <p>
-                            <strong>
-                                <span ng-bind="article.title"></span>
-                            </strong>
-                        </p>
+                    <div class="article-title">
+                        <span ng-bind="article.title"></span>
                     </div>
-                    <div class="description">
-                        <p>
-                            <span ng-bind="article.content"></span>
-                        </p>
+                    <div class="article-content">
+                        <span ng-bind="article.content"></span>
                     </div>
                     <div class="footer">
                         <div class="share">
                             <span class="my-hidden">
-                                    <a type="button" class="btn btn-info read-btn app-btn-blue uppercase" ng-href="{{article.link}}" target="_blank" class="">
-                                        read
-                                    </a>
-                                    <span class="star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article);" ng-hide="isFavourites()"></span>
-                            <!--                                <span class="share-icon glyphicon glyphicon-share onhover-green"></span>-->
+                                <a type="button" class="btn btn-info read-btn app-btn-blue uppercase" ng-href="{{article.link}}" target="_blank" class="">
+                                    read
+                                </a>
+                                <span class="star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article);" ng-hide="isFavourites()"></span>
                             </span>
-                            <!--                                <span class="my-hidden"><span class="read-icon glyphicon glyphicon-ok onhover-blue" ng-hide="isFavourites()"></span></span>-->
-                            <span class="read-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()"></span>
+                            <span class="read-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
                         </div>
                     </div>
                 </div>

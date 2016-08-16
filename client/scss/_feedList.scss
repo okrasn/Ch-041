@@ -52,7 +52,7 @@ $panels-gap: 0.5em;
 .head {
     padding: 15px 15px 0 15px;
     border-bottom: 1px solid #888888;
-    .title {
+    .article-title {
         padding: 0;
     }
 }
@@ -75,12 +75,13 @@ $panels-gap: 0.5em;
         margin-left: 5px;
         margin-top: -5px;
     }
-    .title {
+    .article-title {
+        font-weight: 700;
         height: 20px;
         overflow: hidden;
         padding-left: 5px;
     }
-    .description {
+    .article-content {
         height: 90px;
         overflow: hidden;
         padding-left: 5px;
@@ -123,9 +124,6 @@ $panels-gap: 0.5em;
     img {
         width: 180px;
         height: 142px;
-    }
-    .description {
-        height: 90px;
     }
 }
 

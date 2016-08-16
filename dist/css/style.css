@@ -57,6 +57,7 @@ p {
   outline: none; }
 
 .main-navbar .navbar {
+  z-index: 10000;
   height: 50px;
   background: #3949ab;
   border-radius: 0px;
@@ -141,18 +142,18 @@ p {
   .navbar-nav .user-menu .dropdown-menu .user-footer:after {
     clear: both; }
 
-.navbar-nav .dropdown-toggle {
+li.dropdown > a.dropdown-toggle {
   cursor: pointer;
   color: white;
   transition: all 0.2s ease; }
-  .navbar-nav .dropdown-toggle:visited {
+  li.dropdown > a.dropdown-toggle:visited {
     transition: all 0.2s ease;
     color: black; }
-  .navbar-nav .dropdown-toggle:hover {
+  li.dropdown > a.dropdown-toggle:hover {
     background-color: #f0f0f0;
     transition: all 0.2s ease;
     color: black; }
-  .navbar-nav .dropdown-toggle:active {
+  li.dropdown > a.dropdown-toggle:active {
     transition: all 0.2s ease;
     color: black; }
 
@@ -277,7 +278,7 @@ p {
 .head {
   padding: 15px 15px 0 15px;
   border-bottom: 1px solid #888888; }
-  .head .title {
+  .head .article-title {
     padding: 0; }
 
 .read {
@@ -294,11 +295,12 @@ p {
   #th-large .read-btn, #th-list .read-btn {
     margin-left: 5px;
     margin-top: -5px; }
-  #th-large .title, #th-list .title {
+  #th-large .article-title, #th-list .article-title {
+    font-weight: 700;
     height: 20px;
     overflow: hidden;
     padding-left: 5px; }
-  #th-large .description, #th-list .description {
+  #th-large .article-content, #th-list .article-content {
     height: 90px;
     overflow: hidden;
     padding-left: 5px; }
@@ -329,9 +331,6 @@ p {
 #th-list img {
   width: 180px;
   height: 142px; }
-
-#th-list .description {
-  height: 90px; }
 
 @media screen and (max-width: 768px) {
   .panel .my-hidden {
@@ -701,7 +700,7 @@ a.cstmblock {
   .app-btn:visited, .app-btn-blue:visited {
     color: white; }
   .app-btn:hover, .app-btn-blue:hover {
-    background-color: #fcf8e3;
+    background-color: black;
     color: white;
     border: none;
     transition: all 0.2s ease;
@@ -808,20 +807,104 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   .margin {
     margin-bottom: 20px; } }
 
-.message-box {
-  z-index: 1000;
-  position: fixed;
-  padding: 1em;
-  border-radius: 3px;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -10%); }
+.ng-modal-dialog {
+  z-index: 100;
+  position: absolute;
+  width: 400px;
+  height: 70px;
+  top: 50px;
+  right: 0px;
+  background-color: #5f5f5f;
+  color: white;
+  animation: 0.3s slideDown; }
 
-.animate-show {
-  opacity: 1; }
+.ng-modal-dialog-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-align: left; }
 
-.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-  transition: all linear 0.5s; }
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
 
-.animate-show.ng-hide {
-  opacity: 0; }
+.ng-modal-dialog {
+  z-index: 100;
+  position: absolute;
+  width: 400px;
+  height: 70px;
+  top: 50px;
+  right: 0px;
+  background-color: #5f5f5f;
+  color: white;
+  animation: 0.3s slideDown; }
+
+.ng-modal-dialog-content {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  text-align: left; }
+
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
+
+.ng-modal-dialog {
+  z-index: 100;
+  position: absolute;
+  width: 400px;
+  height: 70px;
+  top: 50px;
+  right: 0px;
+  background-color: #5f5f5f;
+  color: white;
+  animation: 0.3s slideDown; }
+
+.ng-modal-dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: left; }
+
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
+
+.ng-modal-dialog {
+  z-index: 100;
+  position: absolute;
+  width: 400px;
+  height: 70px;
+  top: 50px;
+  right: 0px;
+  background-color: #5f5f5f;
+  color: white;
+  animation: 0.3s slideDown; }
+
+.ng-modal-dialog-content {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  text-align: left; }
+
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
