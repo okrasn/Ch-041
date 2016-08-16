@@ -13,7 +13,6 @@
                     obj.articles.length = 0;
                     dashboardService.setTitle("All");
                     dashboardService.resetFeedId();
-
                     angular.forEach(feedsService.feedsDictionary, function (value, key) {
                         angular.forEach(value.values, function (value, key) {
                             return fetchArticles(value);
@@ -128,9 +127,10 @@
                                 title: items[i].getElementsByTagName('title')[0].innerHTML,
                                 link: items[i].getElementsByTagName('link')[0].textContent,
                                 img: getImage(items[i], feed.format),
-                                content: getContent(items[i], feed.format) || this.title,
+                                content: getContent(items[i], feed.format),
                                 date: items[i].getElementsByTagName('pubDate')[0].textContent
                             };
+                            articleObj.content = articleObj.content || articleObj.title;
                             obj.articles.push(articleObj);
                         }
                     } else if (feed.format === "ATOM") {
@@ -140,9 +140,10 @@
                                 title: items[i].getElementsByTagName('title')[0].textContent,
                                 link: items[i].getElementsByTagName('id')[0].textContent,
                                 img: getImage(items[i], feed.format),
-                                content: getContent(items[i], feed.format) || this.title,
+                                content: getContent(items[i], feed.format),
                                 date: items[i].getElementsByTagName('published')[0].textContent
                             };
+                            articleObj.content = articleObj.content || articleObj.title;
                             obj.articles.push(articleObj);
                         }
                     }

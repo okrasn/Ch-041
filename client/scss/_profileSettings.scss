@@ -18,8 +18,8 @@ a.cstmblock {
 }
 
 .panel-default>.panel-heading:hover {
-    color: black !important;
-    background-color: white !important;
+    color: black;
+    background-color: white;
     transition: $app-transition;
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.76);
     border: none;
@@ -30,7 +30,7 @@ a.cstmblock {
         height: 60px;
     }
     .modal-footer {
-        text-align: center !important;
+        text-align: center;
     }
 }
 
@@ -44,7 +44,7 @@ a.cstmblock {
         height: 150px;
     }
     .modal-footer {
-        text-align: center !important;
+        text-align: center;
     }
 }
 
@@ -63,8 +63,8 @@ a.cstmblock {
             height: 50px;
         }
         .panel-footer {
-            text-align: center !important;
-            margin: 0 !important;
+            text-align: center;
+            margin: 0;
         }
     }
 }

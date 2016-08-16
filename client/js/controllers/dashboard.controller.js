@@ -1,6 +1,7 @@
 (function () {
     'use strict';
     angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', 'dashboardService', 'feedsService', function ($scope, $state, $timeout, dashboardService, feedsService) {
+        $scope.modalShown = false;
         if (feedsService.feedsDictionary.length) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
@@ -39,6 +40,9 @@
             $state.go('dashboard.' + dashboardService.getViewMode());
         }
         $scope.onFeedDelete = function () {
+            $scope.modalShown = !$scope.modalShown;
+        }
+        $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())
                 .then(function (res) {
                     $state.reload("dashboard");

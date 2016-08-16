@@ -10,9 +10,7 @@
                     Authorization: 'Bearer ' + authService.getToken()
                 }
             }).then(function (res) {
-                console.log(res);
-                angular.copy(res.data, that.feedsDictionary);
-                that.getAllFavourites().then(function (res) {
+                angular.copy(res.data, that.feedsDictionary);                that.getAllFavourites().then(function (res) {
                     angular.copy(res.data, that.favourites);
                 });
             });
@@ -92,7 +90,6 @@
             for (var i = 0; i < that.feedsDictionary.length; i++) {
                 obj.newCategories.push(that.feedsDictionary[i].key);
             }
-            console.log(obj.newCategories);
             return $http.post('/users/' + authService.userID() + '/setCategoryOrder', obj, {
                 headers: {
                     Authorization: 'Bearer ' + authService.getToken()
