@@ -65,7 +65,6 @@ module.exports.allFeed = function (req, res, next) {
         res.json(feedsDictionary);
     });
 }
-
 module.exports.add = function (req, res, next) {
     if (req.body.category === undefined) {
         return res.status(400).json({

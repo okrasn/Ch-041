@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', function ($scope, $state, authService, $window, dashboardService) {
+    angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', function ($scope, $state, authService, $window, dashboardService, $auth) {
         $scope.user = {};
         $scope.session;
 
@@ -67,6 +67,16 @@
                 }
             }
         };
+		
+		$scope.authenticate = function (provider) {
+			$auth.authenticate(provider).then(function(response){
+				console.log($auth.getToken());
+				authService.saveToken(response.data.token);
+				$state.go('dashboard.' + dashboardService.getViewMode(), {
+							id: authService.userID()
+				});
+			})
+		}
 
         $scope.validationRegistrOptions = {
             rules: {

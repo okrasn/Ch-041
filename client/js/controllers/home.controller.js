@@ -1,4 +1,4 @@
-(function () {
+	(function () {
     'use strict';
     angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'authService', 'dashboardService', 'feedsService', function ($scope, $state, authService, dashboardService, feedsService) {
         $scope.isLoggedIn = authService.isLoggedIn;
