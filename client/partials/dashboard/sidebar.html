@@ -6,17 +6,17 @@
                     <div class="sidebar-item" ng-show="checkIfEmpty()">
                         <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
                     </div>
-                    <ul dnd-list="feeds">
+                    <ul dnd-list="feeds" ng-show="checkIfEmpty()">
                         <li class="sidebar-item" 
                             ng-repeat="category in feeds" 
                             dnd-draggable="category" 
                             dnd-moved="onDrag($index)" 
-                            dnd-effect-allowed="move" 
+                            dnd-effect-allowed="move"
                             >
                             <span ng-click="toggle = !toggle">
                                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
                                     <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
-                            </a>
+                                </a>
                             </span>
                             <div class="collapse" id="{{ $index + category.key }}">
                                 <ul>

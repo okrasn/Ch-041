@@ -2,21 +2,14 @@ var mongoose = require('mongoose'),
     express = require('express'),
     router = express.Router(),
     passport = require('passport'),
+    jwt = require('jwt-simple'),
     Article = mongoose.model('Article'),
     Feed = mongoose.model('Feed'),
     User = mongoose.model('User'),
-	qs = require('querystring'),
-	async = require('async'),
-	bcrypt = require('bcryptjs'),
-	jwt = require('express-jwt'),
-	cors = require('cors'),
-	logger = require('morgan'),
-	moment = require('moment'),
-	request = require('request'),
 	config = require('../config/config');
 
 //var auth = jwt({
-//    secret: 'MY_SECRET',
+//    secret: config.TOKEN_SECRET,
 //    userProperty: 'payload'
 //});
 
@@ -25,16 +18,17 @@ var authCtrl = require('../controllers/authentication'),
     feedsCtrl = require('../controllers/feeds'),
     profCtrl = require('../controllers/profile');
 
-//router.get('/', function (req, res) {
-//    res.render('home', {
-//        user: req.user
-//    });
+//router.get('/', auth, function (req, res) {
+////    res.render('home', {
+////        user: req.user
+////    });
 //});
-router.post('/upload' , profCtrl.upload);
+router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
+//Auth
 router.post('/auth/google', authCtrl.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
 router.get('/api/me', authCtrl.getUserInfo);

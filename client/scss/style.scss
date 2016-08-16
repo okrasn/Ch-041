@@ -3,9 +3,8 @@ $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
-
 html {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -21,22 +20,10 @@ p {
 .uppercase {
     text-transform: uppercase;
 }
-.no-padding{
-    padding: 0 !important;
-}
-#views_container {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-}
 
-.row {
-    margin-right: 0px !important;
-    margin-left: 0px !important;
-}
-
-.container-fluid {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
+#app-wrapper>.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 .shortened-text-block {
@@ -59,7 +46,7 @@ p {
 
 .app-panel {
     border: none;
-    border-radius: $main-border-radius !important;
+    border-radius: $main-border-radius;
     transition: $app-transition;
     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
     &:visited {}
@@ -69,7 +56,7 @@ p {
         box-shadow: 0 4px 15px 0 rgba(57, 73, 171, 1);
     }
     &:active {
-        border: none !important;
+        border: none;
         outline: none;
     }
 }
@@ -86,7 +73,7 @@ p {
 }
 
 * {
-  outline: none;
+    outline: none;
 }
 
 @import "navbar";
@@ -98,4 +85,4 @@ p {
 @import "auth";
 @import "profileSettings";
 @import "buttons";
-@import "message-box";
+//@import "toaster";

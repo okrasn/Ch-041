@@ -3,9 +3,9 @@ logs/*
 node_modules/
 data/
 client/bower_components
-/client/js/app.min.js
-/client/css/style.css
-./dist
+client/js/app.min.js
+client/css/style.css
+dist/
 client/libs/*
 tmp
 .DS_Store
@@ -14,4 +14,4 @@ tmp
 /bower_components
 /.idea
 uploads/
-/dist/js/app.min.js
+

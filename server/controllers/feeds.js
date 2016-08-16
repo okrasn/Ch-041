@@ -65,6 +65,7 @@ module.exports.allFeed = function (req, res, next) {
         res.json(feedsDictionary);
     });
 }
+
 module.exports.add = function (req, res, next) {
     if (req.body.category === undefined) {
         return res.status(400).json({
@@ -106,7 +107,7 @@ module.exports.remove = function (req, res, next) {
             if (user.feeds[i] === req.params.id) {
                 user.feeds.splice(i, 1);
                 user.save(function (err) {
-                    if (err) return handleError(err);
+                    if (err) return next(err);
                 });
             }
         }
@@ -124,7 +125,7 @@ module.exports.remove = function (req, res, next) {
                     if (feed.category === user.categories[i]) {
                         user.categories.splice(i, 1);
                         user.save(function (err) {
-                            if (err) return handleError(err);
+                            if (err) return next(err);
                         });
                     }
                 }
@@ -158,6 +159,6 @@ module.exports.remove = function (req, res, next) {
 module.exports.setCategoryOrder = function (req, res, next) {
     req.user.categories = req.body.newCategories;
     req.user.save(function (err) {
-        if (err) return handleError(err);
+        if (err) return next(err);
     });
 }

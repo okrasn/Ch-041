@@ -1,8 +1,9 @@
 $navbar-color: #3949ab;
 $user-dropdown-color: #f0f0f0;
-
+$navbar-height: 50px;
 .main-navbar .navbar {
-    height: 50px;
+    z-index: 10000;
+    height: $navbar-height;
     background: $navbar-color;
     border-radius: 0px;
     margin: 0px;
@@ -13,6 +14,10 @@ $user-dropdown-color: #f0f0f0;
 .navbar>.container-fluid .navbar-brand {
     margin-left: 60px;
     color: #fff;
+}
+
+.navbar>.container-fluid {
+    padding: 0;
 }
 
 .navbar-nav > .user-menu .user-image {
@@ -31,7 +36,7 @@ $user-dropdown-color: #f0f0f0;
         margin-top: -8px;
         line-height: 10px;
     }
-    .nav.navbar-nav.navbar-right{
+    .nav.navbar-nav.navbar-right {
         margin: auto;
     }
 }
@@ -40,6 +45,7 @@ $user-dropdown-color: #f0f0f0;
     background: #f0f0f0;
     padding: 20px;
 }
+
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
     padding: 10px;
     text-align: center;
@@ -54,15 +60,15 @@ $user-dropdown-color: #f0f0f0;
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar-nav>.user-menu>.dropdown-toggle{
+.navbar-nav>.user-menu>.dropdown-toggle {
     background: #3949ab;
-    &:active{
+    &:active {
         background: #3949ab;
     }
-    &:hover{
+    &:hover {
         background: #3949ab;
     }
-    > span:hover{
+    > span:hover {
         color: #ffffff;
     }
 }
@@ -96,35 +102,36 @@ $user-dropdown-color: #f0f0f0;
         .dropdown-menu {
             width: 100%;
             background-color: $user-dropdown-color;
-            .user-footer{
+            .user-footer {
                 background-color: $user-dropdown-color;
             }
             .user-footer:after {
                 clear: both;
-            }            
-        }
-    }
-    .dropdown-toggle{
-        cursor: pointer;
-        color: white;
-        transition: $app-transition;
-        &:visited{
-            transition: $app-transition;
-            color: black;
-        }
-        &:hover{
-            background-color: #f0f0f0;
-            transition: $app-transition;
-            color: black;
-        }
-        &:active{
-            transition: $app-transition;
-            color: black !important;
+            }
         }
     }
 }
 
-.navbar .navbar-right{
+li.dropdown>a.dropdown-toggle {
+    cursor: pointer;
+    color: white;
+    transition: $app-transition;
+    &:visited {
+        transition: $app-transition;
+        color: black;
+    }
+    &:hover {
+        background-color: #f0f0f0;
+        transition: $app-transition;
+        color: black;
+    }
+    &:active {
+        transition: $app-transition;
+        color: black;
+    }
+}
+
+.navbar .navbar-right {
     margin-right: 0;
     margin-top: 0;
 }
@@ -139,6 +146,6 @@ $user-dropdown-color: #f0f0f0;
     color: white;
 }
 
-.orange{
-    color:#ff9d00;
+.orange {
+    color: #ff9d00;
 }

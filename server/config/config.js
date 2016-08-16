@@ -1,5 +1,5 @@
 module.exports = {
-	MONGO_URI: process.env.MONGO_URI || 'localhost',
+  MONGO_URI: process.env.MONGO_URI || 'localhost',
   TOKEN_SECRET: process.env.TOKEN_SECRET || '496c59a0260a0c999ae39eccdff5ff03_rss',
 
   // OAuth 2.0

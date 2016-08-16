@@ -45,6 +45,15 @@
                 });
             }
         };
+		$scope.authenticate = function (provider) {
+			$auth.authenticate(provider).then(function(response){
+				console.log($auth.getToken());
+				authService.saveToken(response.data.token);
+				$state.go('dashboard.' + dashboardService.getViewMode(), {
+							id: authService.userID()
+				});
+			})
+		}
 
         $scope.validationLoginOptions = {
             rules: {
@@ -67,16 +76,6 @@
                 }
             }
         };
-		
-		$scope.authenticate = function (provider) {
-			$auth.authenticate(provider).then(function(response){
-				console.log($auth.getToken());
-				authService.saveToken(response.data.token);
-				$state.go('dashboard.' + dashboardService.getViewMode(), {
-							id: authService.userID()
-				});
-			})
-		}
 
         $scope.validationRegistrOptions = {
             rules: {
