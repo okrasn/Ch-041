@@ -11,6 +11,7 @@ a.cstmblock {
     line-height: 30px;
     font-size: 17px;
 }
+<<<<<<< HEAD
 .form-group.change-pass {
     height: 64px;
     margin-bottom: 0;
@@ -33,10 +34,10 @@ img.img-size {
     line-height: 1;
 }
 .file-upload {
-     position: relative; /* Даем возможность делать позиционирование, внутри данного элемента */
-     overflow: hidden; /* Все что выходит за пределы - скрываем */
-     width: 52%; /* Задаем ширину кнопки выбора файла */
-     height: 35px; /* Задаем высоту кнопки выбора файла */ 
+     position: relative;
+     overflow: hidden;
+     width: 52%; 
+     height: 35px; 
      float: right;
      background: $navbar-color;
      border-radius: 4px;
@@ -45,6 +46,7 @@ img.img-size {
      color: #fff;
      text-align: center;
 }
+
 .file-upload:hover {
      background-color: #fcf8e3;
         color: black;
@@ -53,10 +55,9 @@ img.img-size {
         box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
 }
 .file-upload input[type="file"]{
-    display: none; /* Обязательно скрываем настоящий Input File */
+    display: none;
 }
 .file-upload label {
-     /* Растягиваем label на всю возможную площадь блока .file-upload */
      display: block;
      position: absolute;
      top: 0;
@@ -67,8 +68,5 @@ img.img-size {
      font-size: 16px;
 }
 .file-upload span {
-     line-height: 36px; /* Делаем вертикальное выравнивание текста, который написан на кнопке */
+     line-height: 36px; 
 }
-
-
-

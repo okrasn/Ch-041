@@ -40,7 +40,7 @@ module.exports.removeFavArticle = function (req, res, next) {
         if (elem == req.params.id) {
             req.user.favourites.splice(index, 1);
             req.user.save(function (err) {
-                if (err) return handleError(err);
+                if (err) return next(err);
             });
         }
     });

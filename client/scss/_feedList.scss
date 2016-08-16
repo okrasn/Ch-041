@@ -1,4 +1,4 @@
-$panels-gap: 10px;
+$panels-gap: 0.5em;
 .change-view-btn{
     padding-bottom: 5px;
 }
@@ -33,12 +33,6 @@ $panels-gap: 10px;
     &:hover {
         transition: $app-transition;
         background-color: #e8e8e8;
-        .hidden {
-            display: inline !important;
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 0.2s ease;
-        }
     }
 }
 
@@ -58,7 +52,7 @@ $panels-gap: 10px;
 .head {
     padding: 15px 15px 0 15px;
     border-bottom: 1px solid #888888;
-    .title {
+    .article-title {
         padding: 0;
     }
 }
@@ -72,29 +66,29 @@ $panels-gap: 10px;
     float: right;
 }
 
-.panel {
-    margin-bottom: 0 !important;
-    
-}
-
-.th-large {
+#th-large {
     padding: $panels-gap;
+    [class*=' col-']{
+        padding: $panels-gap;
+    }
     .read-btn {
         margin-left: 5px;
         margin-top: -5px;
     }
-    .title {
+    .article-title {
+        font-weight: 700;
         height: 20px;
         overflow: hidden;
         padding-left: 5px;
     }
-    .description {
+    .article-content {
         height: 90px;
         overflow: hidden;
         padding-left: 5px;
     }
     .panel {
         height: 152px;
+        margin: 0;
     }
     .footer {
         padding: 5px 0 5px 0;
@@ -114,7 +108,7 @@ $panels-gap: 10px;
     }
     .panel:hover {
         .my-hidden {
-            display: inline !important;
+            display: inline;
             visibility: visible;
             opacity: 1;
             transition: opacity 0.2s ease;
@@ -122,14 +116,14 @@ $panels-gap: 10px;
     }
 }
 
-.th-list {
-    @extend .th-large;
+#th-list {
+    @extend #th-large;
+    [class*='col-']{
+        padding: $panels-gap;
+    }
     img {
         width: 180px;
         height: 142px;
-    }
-    .description {
-        height: 90px;
     }
 }
 
