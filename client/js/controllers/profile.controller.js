@@ -66,14 +66,12 @@
                         minlength: PROFILE_ERRORS.min_9symbl,
                         maxlength: PROFILE_ERRORS.max_20symbl
                     },
-
                     newPassword: {
                         required: PROFILE_ERRORS.field_required,
                         minlength: PROFILE_ERRORS.min_6symbl,
                         maxlength: PROFILE_ERRORS.max_20symbl,
                         pattern: PROFILE_ERRORS.reg_exp
                     },
-
                     repeatNewPassword: {
                         required: PROFILE_ERRORS.field_required
                     }
@@ -85,9 +83,9 @@
                 console.log("Theme update");
                 console.log("Theme:" + themeService.layout);
             };
+            
             $scope.layout = themeService.layout;
             $scope.layouts = themeService.layouts;
-
         }
     ]).directive('pwCheck', [function() {
         return {
