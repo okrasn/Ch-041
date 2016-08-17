@@ -884,6 +884,22 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
     top: 50px;
     opacity: 1; } }
 
+
+.ng-modal-dialog-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-align: left; }
+
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
+
 .ng-modal-dialog {
   z-index: 100;
   position: absolute;
@@ -901,6 +917,13 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   padding: 10px;
   text-align: left; }
 
+
+.ng-modal-dialog-content {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  text-align: left; }
+
 @keyframes slideDown {
   0% {
     top: 20px;
@@ -908,3 +931,57 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   100% {
     top: 50px;
     opacity: 1; } }
+
+.ng-modal-dialog {
+  z-index: 100;
+  position: absolute;
+  width: 400px;
+  height: 70px;
+  top: 50px;
+  right: 0px;
+  background-color: #5f5f5f;
+  color: white;
+  animation: 0.3s slideDown; }
+
+.ng-modal-dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: left; }
+
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
+
+.ng-modal-dialog {
+  z-index: 100;
+  position: absolute;
+  width: 400px;
+  height: 70px;
+  top: 50px;
+  right: 0px;
+  background-color: #5f5f5f;
+  color: white;
+  animation: 0.3s slideDown; }
+
+.ng-modal-dialog-content {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  text-align: left; }
+
+
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+
+    opacity: 1; } }
+
