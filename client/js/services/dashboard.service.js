@@ -1,8 +1,11 @@
-angular.module('rssreader').service('dashboardService', [function () {
+angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
+    if(!$window.localStorage['view-mode']){
+        $window.localStorage['view-mode'] = this.DEFAULT_VIEW;
+    }
+    
     var that = this;
-
     this.DEFAULT_VIEW = 2;
-    this.currentViewMode = that.DEFAULT_VIEW;
+    this.currentViewMode = $window.localStorage['view-mode'];
 
     // We have three view modes
     this.viewModes = [
@@ -11,16 +14,18 @@ angular.module('rssreader').service('dashboardService', [function () {
         'th-large'
     ];
     this.resetViewMode = function () {
-        that.currentViewMode = that.DEFAULT_VIEW;
+        $window.localStorage['view-mode'] = this.DEFAULT_VIEW;
     }
     this.setViewMode = function (index) {
+        $window.localStorage['view-mode'] = index;
         if (index > that.viewModes.length - 1) {
             throw new Error("View mode you are trying to set is not defined");
         } else {
-            that.currentViewMode = index;
+            that.currentViewMode = $window.localStorage['view-mode'];
         }
     }
     this.getViewMode = function () {
+        that.currentViewMode = $window.localStorage['view-mode'];
         return that.viewModes[that.currentViewMode];
     }
     this.title = "";
@@ -34,7 +39,6 @@ angular.module('rssreader').service('dashboardService', [function () {
         return that.title;
     }
 
-    this.currentView = this.DEFAULT_VIEW;
     this.currentFeed = '';
     this.getFeedId = function () {
         return that.currentFeed;

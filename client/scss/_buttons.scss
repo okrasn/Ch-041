@@ -167,6 +167,10 @@ span.extra-btns {
         outline: none;
     }
 }
+.app-btn-toaster-red{
+    @extend .app-btn-toaster;
+    color: #eb4e54;
+}
 
 @media only screen and (max-width: 768px) {
     .navbar .app-btn-blue {

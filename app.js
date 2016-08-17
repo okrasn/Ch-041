@@ -12,7 +12,7 @@ var express = require('express'),
     multer = require('multer');
 var port = 8080;
 
-app.use(favicon(path.join(__dirname,'client','assets','images','favicon.ico')));
+app.use(favicon(path.join(__dirname, 'client', 'assets', 'images', 'favicon.ico')));
 
 require('./server/models/Feeds');
 require('./server/models/Articles');
@@ -36,9 +36,9 @@ app.use(session({
     secret: 'MY_SECRET',
     resave: false,
     saveUninitialized: false
-})); 
+}));
 app.use(passport.initialize());
-app.use(passport.session()); 
+app.use(passport.session());
 app.use(morgan('dev'));
 app.listen(port, function () {
     console.log('Server running on port 8080!');
@@ -49,12 +49,12 @@ app.use('/', routes);
 
 // mongoose
 mongoose.connect('mongodb://localhost/feeds');
-mongoose.connection.on('error', function(err) {
-  console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+mongoose.connection.on('error', function (err) {
+    console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -65,7 +65,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -76,7 +76,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
