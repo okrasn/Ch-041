@@ -89,7 +89,7 @@
                 }]
                 });
 			$authProvider.facebook({
-				clientId: '174625396282043',
+				clientId: '173686319709284',
 				name: 'facebook',
 				url: '/auth/facebook',
 				authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',

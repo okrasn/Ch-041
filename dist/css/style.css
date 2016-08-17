@@ -341,6 +341,7 @@ li.dropdown > a.dropdown-toggle {
     display: none; } }
 
 #dashboard {
+  font-family: 'Roboto', sans-serif;
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -800,6 +801,26 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   .onhover-blue:hover {
     color: #3949ab; }
 
+.app-btn-toaster {
+  border: none;
+  border-radius: 3px;
+  background-color: #5f5f5f;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  color: white;
+  margin: 0 0.5em 0 0.5em;
+  text-transform: uppercase; }
+  .app-btn-toaster:hover {
+    background-color: #9f9f9f;
+    color: white;
+    border: none;
+    transition: all 0.2s ease; }
+  .app-btn-toaster:active {
+    background-color: #ad8888;
+    transition: all 0.2s ease;
+    border: none;
+    outline: none; }
+
 @media only screen and (max-width: 768px) {
   .navbar .app-btn-blue {
     width: 70%;
@@ -808,6 +829,7 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
     margin-bottom: 20px; } }
 
 .ng-modal-dialog {
+  border-radius: 3px;
   z-index: 100;
   position: absolute;
   width: 400px;
@@ -819,60 +841,12 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   animation: 0.3s slideDown; }
 
 .ng-modal-dialog-content {
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   display: flex;
-  align-items: center;
-  padding: 10px;
-  text-align: left; }
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-    opacity: 1; } }
-
-.ng-modal-dialog {
-  z-index: 100;
-  position: absolute;
-  width: 400px;
-  height: 70px;
-  top: 50px;
-  right: 0px;
-  background-color: #5f5f5f;
-  color: white;
-  animation: 0.3s slideDown; }
-
-.ng-modal-dialog-content {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  text-align: left; }
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-    opacity: 1; } }
-
-.ng-modal-dialog {
-  z-index: 100;
-  position: absolute;
-  width: 400px;
-  height: 70px;
-  top: 50px;
-  right: 0px;
-  background-color: #5f5f5f;
-  color: white;
-  animation: 0.3s slideDown; }
-
-.ng-modal-dialog-content {
-  display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: uppercase;
   padding: 10px;
   text-align: left; }
 
@@ -883,105 +857,3 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   100% {
     top: 50px;
     opacity: 1; } }
-
-
-.ng-modal-dialog-content {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  text-align: left; }
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-    opacity: 1; } }
-
-.ng-modal-dialog {
-  z-index: 100;
-  position: absolute;
-  width: 400px;
-  height: 70px;
-  top: 50px;
-  right: 0px;
-  background-color: #5f5f5f;
-  color: white;
-  animation: 0.3s slideDown; }
-
-.ng-modal-dialog-content {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  text-align: left; }
-
-
-.ng-modal-dialog-content {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  text-align: left; }
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-    opacity: 1; } }
-
-.ng-modal-dialog {
-  z-index: 100;
-  position: absolute;
-  width: 400px;
-  height: 70px;
-  top: 50px;
-  right: 0px;
-  background-color: #5f5f5f;
-  color: white;
-  animation: 0.3s slideDown; }
-
-.ng-modal-dialog-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  text-align: left; }
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-    opacity: 1; } }
-
-.ng-modal-dialog {
-  z-index: 100;
-  position: absolute;
-  width: 400px;
-  height: 70px;
-  top: 50px;
-  right: 0px;
-  background-color: #5f5f5f;
-  color: white;
-  animation: 0.3s slideDown; }
-
-.ng-modal-dialog-content {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  text-align: left; }
-
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-
-    opacity: 1; } }
-
