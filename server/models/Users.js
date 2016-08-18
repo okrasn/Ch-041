@@ -5,32 +5,32 @@ var mongoose = require('mongoose'),
 	config = require('../config/config'),
 	
 	userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        unique: true,
-        required: true
-    },
-	password: { type: String, select: false },
-  	displayName: String,
-	picture : String,
-	facebook: String,
-	google: String,
-    hash: String,
-    salt: String,
-    avatar: {
-        type: String,
-        default: ""
-    },
-    categories: [String],
-    feeds: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Feed'
-    }],
-    favourites: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Article'
-    }]
-});
+		email: {
+			type: String,
+			unique: true,
+			required: true
+		},
+		password: { type: String, select: false },
+		displayName: String,
+		picture : String,
+		facebook: String,
+		google: String,
+		hash: String,
+		salt: String,
+		avatar: {
+			type: String,
+			default: ""
+		},
+		categories: [String],
+		feeds: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Feed'
+		}],
+		favourites: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Article'
+		}]
+	});
 
 userSchema.pre('save', function(next) {
   var user = this;
