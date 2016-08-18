@@ -8,21 +8,22 @@ body {
 /*================================Loginform=============================*/
 
 h2.header {
-    //margin-left: 15%;
     margin-bottom: 30px;
     font-weight: 700;
     text-align: center;
 }
-.animate-error{
-        position: relative;
-        animation: animatetop 1s;
-        width: 70%;
-        margin: 10px auto 0;
-    }
 
-input.ng-pristine + ul#strength {
+.animate-error {
+    position: relative;
+    animation: animatetop 1s;
+    width: 70%;
+    margin: 10px auto 0;
+}
+
+input.ng-pristine + #strength {
     display:none;
 }
+
 ul#strength {
     display:inline;
     list-style:none;
@@ -31,9 +32,7 @@ ul#strength {
     padding:0;
     vertical-align:2px;
 }
-.point:last {
-    margin:0 !important;
-}
+
 .point {
     background:#DDD;
     border-radius:2px;
@@ -41,14 +40,14 @@ ul#strength {
     height:5px;
     margin-right:1px;
     width:20px;
+    &:last {
+        margin:0 !important;
+    }
 }
+
 #footer {
     position:fixed;
     bottom:5px;
-}
-
-.capitalize {
-    text-transform: capitalize;
 }
 
 .cstmform-border {
@@ -88,7 +87,7 @@ a.pass {
     float: right;
 }
 
-.msg-error{
+.msg-error {
  margin-top: 3px;
     color: #af5050;
     float: right;
@@ -97,10 +96,11 @@ a.pass {
     font-weight: bold;
 }
 
-.signup p {
+.signup>p {
     text-align: center;
     margin-top: 5px;
 }
+
 .register {
     text-align: center;
     margin-top: 20px;
@@ -155,7 +155,6 @@ a.pass {
     .checkbox {
         font-size: 16px;
     }
-    .loginform-border {}
     .links a {
         float: none;
     }

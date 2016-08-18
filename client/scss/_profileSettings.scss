@@ -12,12 +12,12 @@ a.cstmblock {
     font-size: 17px;
 }
 
-.form-group.change-pass {
+.change-pass {
     height: 64px;
     margin-bottom: 0;
 }
 
-.form-group.change-pass label.error {
+.change-pass .error {
     color: #af5050;
     float: right;
     margin-bottom: 0;
@@ -29,7 +29,7 @@ img.img-size {
    height: 100px;
 }
 
-.profile-size{
+.profile-size {
     height: 35px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -51,18 +51,18 @@ img.img-size {
 }
 
 .file-upload:hover {
-     background-color: #fcf8e3;
-        color: black;
-        border: none;
-        transition: $app-transition;
-        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
+    background-color: #fcf8e3;
+    color: black;
+    border: none;
+    transition: $app-transition;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
 }
 
-.file-upload input[type="file"]{
+.file-upload input[type="file"] {
     display: none;
 }
 
-.file-upload label {
+.file-upload>label {
      display: block;
      position: absolute;
      top: 0;

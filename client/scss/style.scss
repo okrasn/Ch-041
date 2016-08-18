@@ -86,3 +86,7 @@ p {
 @import "profileSettings";
 @import "buttons";
 @import "toaster";
+
+.capitalize {
+    text-transform: capitalize;
+}

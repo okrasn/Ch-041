@@ -39,9 +39,9 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-xs-offset-5 col-xs-7">
-        <button class="btn btn-default btn-lg app-btn-blue capitalize pull-right profile-size" ng-click="showChangepwd = !showChangepwd">change password</button>
-        </div>
+            <div class="col-xs-offset-5 col-xs-7">
+                <button class="btn btn-default btn-lg app-btn-blue capitalize pull-right profile-size" ng-click="showChangepwd = !showChangepwd">change password</button>
+            </div>
         </div>
         <form name="changePassForm" class="fade-in-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
             <div class="form-group change-pass">
@@ -68,14 +68,13 @@
                         <span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
                         Passwords does't match.</span>
                     </div>
-                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-default btn-lg  app-btn-blue profile-size capitalize">save</button>
-                    <button type="reset" class="btn btn-default btn-lg  app-btn-blue profile-size capitalize">reset</button>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-default btn-lg  app-btn-blue profile-size capitalize">save</button>
+                        <button type="reset" class="btn btn-default btn-lg  app-btn-blue profile-size capitalize">reset</button>
                     </div>
                 </div>
             </div>

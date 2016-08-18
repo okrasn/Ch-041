@@ -23,7 +23,7 @@
                 authService.register($scope.user).error(function(error) {
                     $scope.error = error;
                 }).then(function() {
-                    $state.go('dashboard.' + dashboardService.currentView, {
+                    $state.go('dashboard.' + dashboardService.getViewMode(), {
                         id: authService.userID()
                     });
                 });
@@ -32,19 +32,19 @@
 
         $scope.logIn = function(form) {
             if (form.validate()) {
-                authService.logIn($scope.user, $scope.session).error(function(error) {
+                authService.logIn($scope.user, $scope.session).error(function (error) {
                     $scope.error = error;
                 }).then(function() {
                     if (!$scope.session) {
                         $scope.onExit = function() {
                             auth.logOut();
                         };
-                        $state.go('dashboard.' + dashboardService.currentView, {
+                        $state.go('dashboard.' + dashboardService.getViewMode(), {
                             id: authService.userID()
                         });
                         $window.onbeforeunload = $scope.onExit;
                     } else {
-                        $state.go('dashboard.' + dashboardService.currentView, {
+                        $state.go('dashboard.' + dashboardService.getViewMode(), {
                             id: authService.userID()
                         });
                     }

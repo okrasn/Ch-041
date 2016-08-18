@@ -43,7 +43,7 @@ gulp.task('scripts', function () {
         })
         .pipe(gulp.dest('./client/js/'))
 });
-
+// =====================working not correct========================
 // gulp.task('full_scripts', function () {
 //     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
 //         .pipe(concat('app.full.js'))
