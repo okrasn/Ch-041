@@ -1,5 +1,5 @@
 (function () {
-    'use strict';
+'use strict';
     angular.module('rssreader').factory('authService', ['$http', '$window', '$auth','transfer', 'jwtHelper', function ($http, $window, $auth, transfer, jwtHelper) {
         var auth = {
             saveToken: function (token) {
@@ -19,15 +19,11 @@
             },
             currentUser: function () {
                 if (auth.isLoggedIn()) {
-                    var token = auth.getToken();
-            		var payload = $auth.getPayload();
-					console.log(transfer.getObj().email);
-                    return transfer.getObj().email;
+                	return transfer.getObj().email;
 				}
             },
             userID: function () {
                 if (auth.isLoggedIn()) {
-                    var token = auth.getToken();
             		var payload = $auth.getPayload();
 					console.log(payload);
             		return payload.sub;

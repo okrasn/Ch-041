@@ -1,5 +1,5 @@
 (function () {
-	'use strict';
+'use strict';
 	angular.module('rssreader')
 		.controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
         'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'transfer',
