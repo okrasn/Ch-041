@@ -196,6 +196,14 @@ li.dropdown > a.dropdown-toggle {
     top: 0;
     opacity: 1; } }
 
+@keyframes slideDown {
+  0% {
+    top: 20px;
+    opacity: 0; }
+  100% {
+    top: 50px;
+    opacity: 1; } }
+
 .add-feed {
   margin-top: 45px;
   padding: 2em;
@@ -849,11 +857,3 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   text-transform: uppercase;
   padding: 10px;
   text-align: left; }
-
-@keyframes slideDown {
-  0% {
-    top: 20px;
-    opacity: 0; }
-  100% {
-    top: 50px;
-    opacity: 1; } }

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', function ($scope, $state, authService) {
+    angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService' ,'transfer', function ($scope, $state, authService, transfer) {
         $scope.isLoggedIn = authService.isLoggedIn;
         $scope.currentUser = authService.currentUser;
         $scope.logOut = function () {
@@ -10,6 +10,7 @@
         $scope.goHome = function () {
             if ($scope.isLoggedIn()) {
                 $state.go("dashboard");
+		$scope.account = transfer.getObj();
             } else {
                 $state.go("home");
             }

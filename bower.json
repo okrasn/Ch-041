@@ -30,6 +30,7 @@
     "angular-favicon": "^0.3.2",
     "angular-material": "^1.0.9",
     "angular-drag-and-drop-lists": "^1.4.0",
-	"satellizer": "^0.15.4"  
+    "satellizer": "^0.15.4",
+    "angular-jwt": "^0.1.1"
   }
 }

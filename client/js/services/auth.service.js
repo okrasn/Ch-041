@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', function ($http, $window, $auth) {
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth','transfer', 'jwtHelper', function ($http, $window, $auth, transfer, jwtHelper) {
         var auth = {
             saveToken: function (token) {
                 $auth.setToken(token);
@@ -21,8 +21,9 @@
                 if (auth.isLoggedIn()) {
                     var token = auth.getToken();
             		var payload = $auth.getPayload();
-                    return payload.email;
-                }
+					console.log(transfer.getObj().email);
+                    return transfer.getObj().email;
+				}
             },
             userID: function () {
                 if (auth.isLoggedIn()) {
@@ -52,5 +53,5 @@
             }
         }
         return auth;
-}]);
+	}]);
 })();

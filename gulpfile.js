@@ -7,10 +7,11 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     sourcemaps = require('gulp-sourcemaps'),
     ngHtml2Js = require("gulp-ng-html2js"),
-    ngAnnotate = require('gulp-ng-annotate');
+    ngAnnotate = require('gulp-ng-annotate'),
+	nodemon = require('nodemon');
 
 gulp.task('server', function (cb) {
-    exec('node app.js', function (err, stdout, stderr) {
+    exec('nodemon app.js', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -38,7 +39,7 @@ gulp.task('sass', function () {
 gulp.task('scripts', function () {
     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
         .pipe(concat('app.min.js'))
-        .pipe(uglify()).on('error', function (e) {
+        .on('error', function (e) {
             console.log(e);
         })
         .pipe(gulp.dest('./client/js/'))
