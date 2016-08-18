@@ -1,29 +1,41 @@
 <!--Detailed table feeds-->
-<div id="th-list" class="feeds">
-    <div class="col-xs-12 th-list" ng-repeat="article in articles">
+<div id="th-list" class="clearfix feeds">
+    <div class="col-xs-12" ng-repeat="article in articles">
         <div class="panel panel-default app-panel fade-in-anim">
-            <div class="panel-body">
-                <img ng-show="article.img" ng-src="{{article.img}}" class="img-responsive" alt="Test img">
-                <div class="content">
-                    <div class="article-title">
-                        <span ng-bind="article.title"></span>
-                    </div>
-                    <div class="article-content">
-                        <span ng-bind="article.content"></span>
-                    </div>
-                    <div class="footer">
-                        <div class="share">
-                            <span class="my-hidden">
-                                <a type="button" class="btn btn-info read-btn app-btn-blue uppercase" ng-href="{{article.link}}" target="_blank" class="">
-                                    read
-                                </a>
-                                <span class="star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article);" ng-hide="isFavourites()"></span>
-                            </span>
-                            <span class="read-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
-                        </div>
-                    </div>
+            <img ng-show="article.img" ng-src="{{article.img}}" class="img-responsive" alt="Article image">
+            <div class="content">
+                <div class="article-title">
+                    <span ng-bind="article.title"></span>
+                </div>
+                <div class="article-content">
+                    <span ng-bind="article.content"></span>
+                </div>
+                <div class="footer">
+                    <span class="my-hidden">
+                        <a type="button" class="btn btn-info read-btn app-btn-blue uppercase" ng-href="{{article.link}}" target="_blank" class="">
+                            read
+                        </a>
+                        <span class="star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article);" ng-hide="isFavourites()"></span>
+                    </span>
+                    <span class="read-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
                 </div>
             </div>
         </div>
     </div>
+    <modal show='modalShown'>
+        <h4>ADD TO FAVOURITES</h4>
+        <div>
+            <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories">
+                <option value="" disabled selected hidden>Choose</option>
+            </select>
+        </div>
+        <div class="center-children">
+            <button type="button" class="btn btn-lg app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+        </div>
+        <div class="alert alert-danger text-center fade-in-anim" role="alert" ng-show="error">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <span ng-bind="error"></span>
+        </div>
+    </modal>
 </div>

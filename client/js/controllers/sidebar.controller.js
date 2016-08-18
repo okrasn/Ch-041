@@ -2,7 +2,7 @@
     'use strict';
     angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
         $scope.feeds = feedsService.feedsDictionary
-        $scope.favs = feedsService.favourites;
+        $scope.favs = feedsService.favouritesDictionary;
         $scope.onDrag = function (index) {
             $scope.feeds.splice(index, 1);
             feedsService.setCategoryOrder();
@@ -33,6 +33,10 @@
             articlesService.getFavourites();
             $state.go("dashboard." + dashboardService.getViewMode());
         }
+        $scope.getFavArticlesByCat = function(cat){
+            articlesService.getFavArticlesByCat(cat);
+            $state.go("dashboard." + dashboardService.getViewMode());
+        }
         $scope.getFavArticle = function (article) {
             articlesService.getFavArticle(article);
             $state.go("dashboard." + dashboardService.getViewMode());
@@ -46,7 +50,6 @@
                 return false;
             } else return true;
         }
-
         $scope.toggle = false;
     }]);
 })();

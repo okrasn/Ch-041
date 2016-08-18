@@ -2,6 +2,7 @@ $sidebar-width: 350px;
 $sidebar-color: #e8e8e8;
 $item-hover-color: #c1c1c1;
 $item-text-color: #000000;
+
 #dashboard {
     font-family: 'Roboto', sans-serif;
     padding-left: 0;
@@ -9,12 +10,15 @@ $item-text-color: #000000;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
     @media(min-width: 768px) {
         padding-left: $sidebar-width;
+
         .toggled {
             padding-left: 0;
         }
     }
+
     #sidebar {
         width: $sidebar-width;
         z-index: 100;
@@ -31,10 +35,12 @@ $item-text-color: #000000;
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
+
         @media screen and (min-width: 768px) {
             width: $sidebar-width;
         }
     }
+
     .sidebar-nav {
         position: absolute;
         top: 0;
@@ -42,63 +48,76 @@ $item-text-color: #000000;
         margin: 0;
         padding: 0;
         list-style: none;
+
         ul {
             padding: 0;
             margin: 0;
             list-style-type: none;
         }
-        li {
-            a {
-                display: block;
+
+        a {
+            display: block;
+            text-decoration: none;
+            color: $item-text-color;
+
+            &:hover {
                 text-decoration: none;
-                color: $item-text-color;
-                &:hover {
-                    text-decoration: none;
-                    background-color: transparent;
-                }
-                &:active,
-                &:focus {
-                    text-decoration: none;
-                }
+                background-color: transparent;
+            }
+
+            &:active,
+            &:focus {
+                text-decoration: none;
             }
         }
+
         #allFeedsBtn {
             height: 50px;
             font-size: 18px;
             line-height: 60px;
+
             a {
                 color: $item-text-color;
+
                 &:hover {
                     color: #fff;
                     background: none;
                 }
             }
+
             .all-text {
                 padding-left: 10px;
             }
         }
+
         .app-btn-blue {
             margin-top: 1em;
         }
     }
+
     .toggled {
         padding-left: $sidebar-width;
     }
+
     .toggled #sidebar {
         width: $sidebar-width;
     }
+
     #page-content-wrapper {
         width: 100%;
         position: absolute;
     }
+
     .toggled #page-content-wrapper {
         position: absolute;
         margin-right: -$sidebar-width;
     }
+
     .toggle-btn-container {
         z-index: 100;
         position: fixed;
         width: 40px;
+
         #menu-toggle {
             position: absolute;
             z-index: 101;
@@ -121,6 +140,7 @@ ul[dnd-list] {
 ul[dnd-list] .dndDraggingSource {
     display: none;
 }
+
 ul[dnd-list] .dndPlaceholder {
     display: block;
     background-color: #c1c1c1;
@@ -131,19 +151,24 @@ ul[dnd-list] .dndPlaceholder {
     #dashboard {
         padding-left: $sidebar-width;
     }
+
     #dashboard.toggled {
         padding-left: 0;
     }
+
     #sidebar {
         width: $sidebar-width;
     }
+
     #dashboard.toggled #sidebar {
         width: 0;
     }
+
     #page-content-wrapper {
         padding: 0;
         position: relative;
     }
+
     #dashboard.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
@@ -154,26 +179,33 @@ ul[dnd-list] .dndPlaceholder {
     #dashboard {
         padding-left: 0;
     }
+
     #dashboard.toggled {
         padding-left: 80%;
     }
+
     #sidebar {
         position: absolute;
         width: 0;
     }
-    #sidebar>.sidebar-nav {
+
+    #sidebar > .sidebar-nav {
         width: 100%;
     }
+
     ul {
         width: 100%;
     }
+
     #dashboard.toggled #sidebar {
         width: 80%;
     }
+
     #page-content-wrapper {
         padding: 0;
         position: relative;
     }
+
     #dashboard.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
@@ -186,11 +218,13 @@ ul[dnd-list] .dndPlaceholder {
     width: 100%;
     line-height: 3em;
     border-right: 0em solid;
+
     &:hover {
         transition: background 0.2s ease;
         border-right: 0.7em solid $blue-btn-active-color;
         background-color: $item-hover-color;
     }
+
     @media(max-width:768px) {
         padding-left: 10px;
     }
@@ -198,17 +232,18 @@ ul[dnd-list] .dndPlaceholder {
 
 .sidebar-item .sidebar-sub-item {
     padding-left: 1em;
-    padding-right: 10px;
     box-sizing: border-box;
     cursor: pointer;
     width: 100%;
     line-height: 3em;
     transition: $app-transition;
     border-right: 0em solid;
+
     &:hover {
         transition: $app-transition;
         border-right: 0.7em solid $blue-btn-active-color;
     }
+
     @media(max-width:768px) {
         padding-left: 20px;
     }

@@ -35,7 +35,7 @@ p {
   border: none;
   border-radius: 3px;
   transition: all 0.2s ease;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76); }
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
   .app-panel:hover {
     border: none;
     transition: all 0.2s ease;
@@ -56,13 +56,19 @@ p {
 * {
   outline: none; }
 
+.center-children {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .main-navbar .navbar {
   z-index: 10000;
   height: 50px;
   background: #3949ab;
   border-radius: 0px;
   margin: 0px;
-  color: white; }
+  color: white;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084); }
 
 .navbar > .container .navbar-brand,
 .navbar > .container-fluid .navbar-brand {
@@ -236,7 +242,7 @@ li.dropdown > a.dropdown-toggle {
     height: auto; } }
 
 .change-view-btn {
-  padding-bottom: 5px; }
+  padding-bottom: 1em; }
 
 .list-header {
   border-bottom: 1px solid #888888;
@@ -288,37 +294,38 @@ li.dropdown > a.dropdown-toggle {
 .read-icon {
   float: right; }
 
+#list, #th-list, #th-large, #th-list {
+  background-color: #f9f9fb; }
+  #list img, #th-list img, #th-large img, #th-list img {
+    width: 185px;
+    height: 145px;
+    border-radius: 3px;
+    float: left;
+    margin-right: 1em; }
+  #list .app-btn-blue, #th-list .app-btn-blue, #th-large .app-btn-blue, #th-list .app-btn-blue {
+    display: black; }
+
 #th-large, #th-list {
   padding: 0.5em; }
   #th-large [class*=' col-'], #th-list [class*=' col-'] {
     padding: 0.5em; }
-  #th-large .read-btn, #th-list .read-btn {
-    margin-left: 5px;
-    margin-top: -5px; }
   #th-large .article-title, #th-list .article-title {
+    margin-bottom: 5px;
     font-weight: 700;
     height: 20px;
-    overflow: hidden;
-    padding-left: 5px; }
+    overflow: hidden; }
   #th-large .article-content, #th-list .article-content {
-    height: 90px;
-    overflow: hidden;
-    padding-left: 5px; }
+    height: 88px;
+    overflow: hidden; }
   #th-large .panel, #th-list .panel {
-    height: 152px;
-    margin: 0; }
-  #th-large .footer, #th-list .footer {
-    padding: 5px 0 5px 0; }
+    height: 175px;
+    margin: 0;
+    padding: 1em; }
   #th-large .read-icon, #th-list .read-icon,
   #th-large .star-icon, #th-list .star-icon,
   #th-large .share-icon, #th-list .share-icon {
-    padding: 3px; }
-  #th-large img, #th-list img {
-    width: 180px;
-    height: 142px;
-    float: left; }
-  #th-large .panel-body, #th-list .panel-body {
-    padding: 5px; }
+    padding: 3px;
+    vertical-align: middle; }
   #th-large .panel:hover .my-hidden, #th-list .panel:hover .my-hidden {
     display: inline;
     visibility: visible;
@@ -328,17 +335,15 @@ li.dropdown > a.dropdown-toggle {
 #th-list [class*='col-'] {
   padding: 0.5em; }
 
-#th-list img {
-  width: 180px;
-  height: 142px; }
-
 @media screen and (max-width: 768px) {
   .panel .my-hidden {
     visibility: visible;
     display: inline;
     opacity: 1; }
   .btn-group > .th-large {
-    display: none; } }
+    display: none; }
+  #th-large, #th-list, #th-list {
+    padding: 0; } }
 
 #dashboard {
   font-family: 'Roboto', sans-serif;
@@ -381,14 +386,14 @@ li.dropdown > a.dropdown-toggle {
       padding: 0;
       margin: 0;
       list-style-type: none; }
-    #dashboard .sidebar-nav li a {
+    #dashboard .sidebar-nav a {
       display: block;
       text-decoration: none;
       color: #000000; }
-      #dashboard .sidebar-nav li a:hover {
+      #dashboard .sidebar-nav a:hover {
         text-decoration: none;
         background-color: transparent; }
-      #dashboard .sidebar-nav li a:active, #dashboard .sidebar-nav li a:focus {
+      #dashboard .sidebar-nav a:active, #dashboard .sidebar-nav a:focus {
         text-decoration: none; }
     #dashboard .sidebar-nav #allFeedsBtn {
       height: 50px;
@@ -491,7 +496,6 @@ ul[dnd-list] .dndPlaceholder {
 
 .sidebar-item .sidebar-sub-item {
   padding-left: 1em;
-  padding-right: 10px;
   box-sizing: border-box;
   cursor: pointer;
   width: 100%;
@@ -697,7 +701,8 @@ a.cstmblock {
   border-radius: 3px;
   transition: all 0.2s ease;
   cursor: pointer;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76); }
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+  text-transform: uppercase; }
   .app-btn:visited, .app-btn-blue:visited {
     color: white; }
   .app-btn:hover, .app-btn-blue:hover {
@@ -834,13 +839,14 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
 .toaster-window {
   border-radius: 3px;
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   width: 400px;
   height: 70px;
   top: 50px;
   right: 0px;
   background-color: #5f5f5f;
-  color: white; }
+  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
 
 .toaster-content {
   font-family: 'Roboto', sans-serif;
@@ -849,7 +855,7 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
-  padding: 10px;
+  padding: 1em;
   text-align: left; }
 
 .toaster-overlay {
@@ -861,17 +867,11 @@ span.extra-btns, span.onhover-orange, span.onhover-red, span.onhover-green, span
   height: 100%;
   opacity: 0; }
 
-toaster.ng-hide-add {
+.toaster-window.ng-hide-remove {
   animation: 0.3s slideDown; }
 
-toaster.ng-hide-remove {
+.toaster-window.ng-hide-add {
   animation: 0.3s slideUp; }
-
-.slide-up {
-  animation: 0.3s slideUp; }
-
-.slide-down {
-  animation: 0.3s slideDown; }
 
 @keyframes slideDown {
   0% {
@@ -887,4 +887,108 @@ toaster.ng-hide-remove {
     opacity: 1; }
   100% {
     top: 20px;
+    opacity: 0; } }
+
+@keyframes slideDownMobile {
+  0% {
+    bottom: 0;
+    opacity: 1; }
+  100% {
+    bottom: -70px;
+    opacity: 0; } }
+
+@keyframes slideUpMobile {
+  0% {
+    bottom: -70px;
+    opacity: 0; }
+  100% {
+    bottom: 0;
+    opacity: 1; } }
+
+@media screen and (max-width: 768px) {
+  .toaster-window {
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    left: 0px; }
+  .toaster-window.ng-hide-remove {
+    animation: 0.3s slideUpMobile; }
+  .toaster-window.ng-hide-add {
+    animation: 0.3s slideDownMobile; } }
+
+.modal-window {
+  z-index: 1000;
+  position: fixed;
+  width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white; }
+  .modal-window h4 {
+    text-align: center; }
+
+.modal-content {
+  border-radius: 3px;
+  color: black;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  padding: 1em;
+  text-align: left; }
+  .modal-content .app-btn-blue {
+    margin-top: 1em; }
+
+.hide-modal-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: black;
+  z-index: 999; }
+
+.modal-overlay {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+  transition: opacity 0.3s ease; }
+
+.modal-overlay.ng-hide {
+  opacity: 0; }
+
+.modal-overlay.ng-hide-remove, .modal-overlay.ng-hide-add {
+  transition: opacity 0.3s ease; }
+
+.modal-window.ng-hide-remove {
+  animation: 0.3s slideDownModal; }
+
+.modal-window.ng-hide-add {
+  animation: 0.3s slideUpModal; }
+
+@keyframes slideDownModal {
+  0% {
+    transform: scale(0.2, 0.2);
+    top: 10%;
+    left: 0%;
+    opacity: 0; }
+  20% {
+    opacity: 1; }
+  100% {
+    top: 50%;
+    opacity: 1; } }
+
+@keyframes slideUpModal {
+  0% {
+    top: 50%;
+    opacity: 1; }
+  80% {
+    opacity: 0.5; }
+  100% {
+    transform: scale(0.2, 0.2);
+    top: 10%;
+    left: 0%;
     opacity: 0; } }

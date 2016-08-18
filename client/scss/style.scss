@@ -3,6 +3,8 @@ $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
+$main-background-color: #f9f9fb;
+$main-app-padding: 1em;
 html {
     font-family: 'Roboto', sans-serif;
 }
@@ -48,7 +50,7 @@ p {
     border: none;
     border-radius: $main-border-radius;
     transition: $app-transition;
-    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     &:visited {}
     &:hover {
         border: none;
@@ -76,6 +78,14 @@ p {
     outline: none;
 }
 
+.center-children{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 @import "navbar";
 @import "animations";
 @import "addFeed";
@@ -85,4 +95,5 @@ p {
 @import "auth";
 @import "profileSettings";
 @import "buttons";
-@import "toaster";
+@import "modals/toaster";
+@import "modals/modal";

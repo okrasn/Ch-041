@@ -1,0 +1,103 @@
+﻿$fadeTime: 0.3s;
+$modal-background-color: white;
+
+.modal-window {
+    z-index: 1000;
+    position: fixed;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+
+    h4 {
+        text-align: center;
+    }
+}
+
+.modal-content {
+    border-radius: $main-border-radius;
+    color: black;
+    background-color: $modal-background-color;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    padding: $main-app-padding;
+    text-align: left;
+
+    .app-btn-blue {
+        margin-top: 1em;
+    }
+}
+
+.hide-modal-btn{
+    cursor: pointer;
+    position: absolute;
+    top: $main-app-padding;
+    right: $main-app-padding;
+    color:black;
+    z-index: 999;
+}
+
+.modal-overlay {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.7;
+    transition: opacity $fadeTime ease;
+}
+
+.modal-overlay.ng-hide {
+    opacity: 0;
+}
+
+.modal-overlay.ng-hide-remove, .modal-overlay.ng-hide-add {
+    transition: opacity $fadeTime ease;
+}
+
+.modal-window.ng-hide-remove {
+    animation: $fadeTime slideDownModal;
+}
+
+.modal-window.ng-hide-add {
+    animation: $fadeTime slideUpModal;
+}
+
+@keyframes slideDownModal {
+    0% {
+        transform: scale(0.2, 0.2);
+        top: 10%;
+        left: 0%;
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 50%;
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpModal {
+    0% {
+        top: 50%;
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(0.2, 0.2);
+        top: 10%;
+        left: 0%;
+        opacity: 0;
+    }
+}

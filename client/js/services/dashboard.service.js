@@ -6,7 +6,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
     var that = this;
     this.DEFAULT_VIEW = 2;
     this.currentViewMode = $window.localStorage['view-mode'];
-
+    this.modalShown = false;
     // We have three view modes
     this.viewModes = [
         'list',

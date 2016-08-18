@@ -25,7 +25,7 @@ gulp.task('server', function (cb) {
 });
 
 gulp.task('main', ['scripts', 'sass'], function () {
-    gulp.watch('./client/scss/*.scss', ['sass']);
+    gulp.watch('./client/scss/**/*.scss', ['sass']);
     gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'], ['scripts']);
 });
 

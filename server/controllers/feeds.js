@@ -8,7 +8,6 @@ var ERRORS = {
     choose_cat: 'Choose category',
     cant_find_user: 'Can\'t find user',
     feed_already_added: 'You have already added this feed ',
-    fav_article_already_added: 'You have already added this article to favourites',
     feed_not_found: 'Feed not found',
     article_not_found: 'Article not found',
     server_error: 'Server error',
@@ -38,7 +37,7 @@ module.exports.allFeed = function (req, res, next) {
             return next(err);
         }
 
-        //Writing data to dictionary with category as keys and feeds as values
+        // Data will be storred in dictionary with categories as keys and feeds as values
         var feedsDictionary = [];
         var containsKey = function (key) {
                 for (var i = 0; i < feedsDictionary.length; i++) {

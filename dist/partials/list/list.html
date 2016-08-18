@@ -11,16 +11,30 @@
                 </a>
             </div>
             <div class="col-xs-1">
-                <div class="footer">
-                    <div class="share center-text">
-                        <span>
-                            <span class="vertical-center star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article); $event.stopPropagation();" ng-hide="isFavourites()">
-                            </span>
+                <div class="share center-text">
+                    <span>
+                        <span class="vertical-center star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()">
                         </span>
-                        <span ng-show="isFavourites()"><span class="vertical-center read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
-                    </div>
+                    </span>
+                    <span ng-show="isFavourites()"><span class="vertical-center read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
                 </div>
             </div>
         </div>
     </div>
+    <modal show='modalShown'>
+        <h4>ADD TO FAVOURITES</h4>
+        <div>
+            <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories">
+                <option value="" disabled selected hidden>Choose</option>
+            </select>
+        </div>
+        <div class="center-children">
+            <button type="button" class="btn btn-lg app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+        </div>
+        <div class="alert alert-danger text-center fade-in-anim" role="alert" ng-show="error">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <span ng-bind="error"></span>
+        </div>
+    </modal>
 </div>

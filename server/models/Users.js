@@ -15,6 +15,7 @@ var userSchema = new mongoose.Schema({
         default: ""
     },
     categories: [String],
+    favCategories: [String],
     feeds: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feed'
