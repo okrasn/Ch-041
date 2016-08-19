@@ -9,6 +9,7 @@
         $scope.isFavourites = articlesService.checkIfFavourites;
         $scope.favForAdd = {};
         $scope.addFavourite = function (article) {
+            $scope.error = null;
             $scope.modalShown = !$scope.modalShown;
             $scope.favForAdd = article;
         }

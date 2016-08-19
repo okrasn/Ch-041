@@ -8,7 +8,10 @@
             dashboardService.setTitle("Add Feed");
             $state.go('dashboard.addFeed');
         }
-
+        $scope.sidebar = dashboardService.checkSidebar;
+        $scope.toggleSidebar = function () {
+            dashboardService.sidebar = !dashboardService.sidebar;
+        }
         $scope.toasterShown = false;
         $scope.headTitle = dashboardService.getTitle;
         $scope.feed = dashboardService.getFeedId;

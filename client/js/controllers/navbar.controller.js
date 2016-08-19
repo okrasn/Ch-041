@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', function ($scope, $state, authService) {
+    angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'dashboardService', function ($scope, $state, authService, dashboardService) {
         $scope.isLoggedIn = authService.isLoggedIn;
         $scope.currentUser = authService.currentUser;
         $scope.logOut = function () {
@@ -13,6 +13,10 @@
             } else {
                 $state.go("home");
             }
+        }
+        $scope.toggleSidebar = function () {
+            console.log();
+            dashboardService.sidebar = !dashboardService.sidebar;
         }
     }]);
 })();

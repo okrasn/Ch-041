@@ -1,53 +1,53 @@
-$sidebar-width: 350px;
 $sidebar-color: #e8e8e8;
 $item-hover-color: #c1c1c1;
 $item-text-color: #000000;
+$sidebar-mobile-width: 270px;
+
+#sidebar-toggle {
+    float: left;
+    margin-left: 1em;
+}
 
 #dashboard {
     font-family: 'Roboto', sans-serif;
-    padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 
-    @media(min-width: 768px) {
-        padding-left: $sidebar-width;
+    #sidebar-wrapper {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        display: block;
+        padding: 0px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: $sidebar-color;
+        border-right: 1px solid #eee;
+        animation: 0.3s slideLeft ease;
+    }
 
-        .toggled {
-            padding-left: 0;
-        }
+    .sidebar-mobile{
+        display: block;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        z-index: 99;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
     }
 
     #sidebar {
-        width: $sidebar-width;
-        z-index: 100;
-        position: fixed;
-        left: $sidebar-width;
-        width: 0;
-        height: 100%;
-        margin-left: -$sidebar-width;
-        margin-top: 0;
-        overflow-y: auto;
-        background: $sidebar-color;
-        //border-right: 3px solid $navbar-color;
+        width: 100%;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
-
-        @media screen and (min-width: 768px) {
-            width: $sidebar-width;
-        }
-    }
-
-    .sidebar-nav {
-        position: absolute;
-        top: 0;
-        width: $sidebar-width;
-        margin: 0;
-        padding: 0;
-        list-style: none;
 
         ul {
             padding: 0;
@@ -95,36 +95,9 @@ $item-text-color: #000000;
         }
     }
 
-    .toggled {
-        padding-left: $sidebar-width;
-    }
-
-    .toggled #sidebar {
-        width: $sidebar-width;
-    }
-
     #page-content-wrapper {
         width: 100%;
         position: absolute;
-    }
-
-    .toggled #page-content-wrapper {
-        position: absolute;
-        margin-right: -$sidebar-width;
-    }
-
-    .toggle-btn-container {
-        z-index: 100;
-        position: fixed;
-        width: 40px;
-
-        #menu-toggle {
-            position: absolute;
-            z-index: 101;
-            border: 0 solid transparent;
-            background-color: #e8e8e8;
-            border-radius: 0;
-        }
     }
 }
 
@@ -134,7 +107,6 @@ ul[dnd-list], ul[dnd-list] > li {
 
 ul[dnd-list] {
     min-height: 3em;
-    //padding-left: 0px;
 }
 
 ul[dnd-list] .dndDraggingSource {
@@ -147,69 +119,8 @@ ul[dnd-list] .dndPlaceholder {
     min-height: 3em;
 }
 
-@media(min-width:768px) {
-    #dashboard {
-        padding-left: $sidebar-width;
-    }
-
-    #dashboard.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar {
-        width: $sidebar-width;
-    }
-
-    #dashboard.toggled #sidebar {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 0;
-        position: relative;
-    }
-
-    #dashboard.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
-}
-
-@media(max-width:768px) {
-    #dashboard {
-        padding-left: 0;
-    }
-
-    #dashboard.toggled {
-        padding-left: 80%;
-    }
-
-    #sidebar {
-        position: absolute;
-        width: 0;
-    }
-
-    #sidebar > .sidebar-nav {
-        width: 100%;
-    }
-
-    ul {
-        width: 100%;
-    }
-
-    #dashboard.toggled #sidebar {
-        width: 80%;
-    }
-
-    #page-content-wrapper {
-        padding: 0;
-        position: relative;
-    }
-
-    #dashboard.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
+#sidebar-wrapper.toggled {
+    display: block;
 }
 
 .sidebar-item {
@@ -225,7 +136,7 @@ ul[dnd-list] .dndPlaceholder {
         background-color: $item-hover-color;
     }
 
-    @media(max-width:768px) {
+    @media(max-width: $phone-res) {
         padding-left: 10px;
     }
 }
@@ -239,7 +150,30 @@ ul[dnd-list] .dndPlaceholder {
     border-right: 0em solid;
     border-left: 2px solid black;
 
-    @media(max-width:768px) {
+    @media(max-width: $phone-res) {
         padding-left: 20px;
+    }
+}
+
+@media(max-width: $tablet-res) {
+    #sidebar-wrapper {
+        width: $sidebar-mobile-width;
+    }
+
+    ul {
+        width: 100%;
+    }
+
+     #dashboard #sidebar-wrapper.sidebar-mobile{
+        display: none;
+    }
+}
+
+@keyframes slideLeft{
+    0%{
+        transform: translateX(-$sidebar-mobile-width);
+    }
+    100%{
+        transform: translateX(0);
     }
 }

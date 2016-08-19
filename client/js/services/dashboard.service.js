@@ -1,13 +1,17 @@
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
+    var that = this;
     this.DEFAULT_VIEW = 2;
+
     if (!$window.localStorage.viewMode) {
         $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }
 
-    var that = this;
+    this.sidebar = true;
+    this.checkSidebar = function () {
+        return that.sidebar;
+    }
     this.currentViewMode = $window.localStorage.viewMode;
     this.modalShown = false;
-    // We have three view modes
     this.viewModes = [
         'list',
         'th-list',
@@ -25,7 +29,6 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
         }
     }
     this.getViewMode = function () {
-        console.log($window.localStorage);
         that.currentViewMode = $window.localStorage.viewMode;
         return that.viewModes[that.currentViewMode];
     }
