@@ -3,9 +3,13 @@
     angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
         $scope.feeds = feedsService.feedsDictionary
         $scope.favs = feedsService.favouritesDictionary;
-        $scope.onDrag = function (index) {
+        $scope.onFeedsDrag = function (index) {
             $scope.feeds.splice(index, 1);
-            feedsService.setCategoryOrder();
+            feedsService.setFeedsOrder();
+        }
+        $scope.onFavsDrag = function (index) {
+            $scope.favs.splice(index, 1);
+            feedsService.setFavsOrder();
         }
         $scope.getAll = function () {
             // if there is only one category and feed, return this feed articles

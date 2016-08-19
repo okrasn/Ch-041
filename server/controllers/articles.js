@@ -2,18 +2,17 @@ var passport = require('passport'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Feed = mongoose.model('Feed'),
-    Article = mongoose.model('Article');
-
-var ERRORS = {
-    fav_article_already_added: 'You have already added this article to favourites',
-    article_not_found: 'Article not found'
-}
+    Article = mongoose.model('Article'),
+    ERRORS = {
+        fav_article_already_added: 'You have already added this article to favourites',
+        article_not_found: 'Article not found'
+    }
 
 module.exports.addFavArticle = function (req, res, next) {
     req.user.populate('favourites', function (err, user) {
         if (user.favourites.find(function (elem) {
                 return elem.link === req.body.link;
-            })) {
+        })) {
             res.statusCode = 400;
             return res.send({
                 message: ERRORS.fav_article_already_added
@@ -21,7 +20,7 @@ module.exports.addFavArticle = function (req, res, next) {
         } else {
             var article = new Article(req.body);
             if (!article.category) {
-                article.category = 'unsorted';
+                article.category = 'Unsorted';
             }
             console.log(article);
             if (user.favCategories.indexOf(article.category) === -1) {

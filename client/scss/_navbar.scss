@@ -1,6 +1,13 @@
 $navbar-color: #3949ab;
 $user-dropdown-color: #f0f0f0;
 $navbar-height: 50px;
+
+.navbar-header {
+    margin-right: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
 .main-navbar .navbar {
     z-index: 10000;
     height: $navbar-height;
@@ -8,18 +15,16 @@ $navbar-height: 50px;
     border-radius: 0px;
     margin: 0px;
     color: white;
-    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14),
-              0px 0px 2px 2px rgba(0, 0, 0, 0.098),
-              0px 0px 5px 1px rgba(0, 0, 0, 0.084);
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
 
-.navbar>.container .navbar-brand,
-.navbar>.container-fluid .navbar-brand {
+.navbar > .container .navbar-brand,
+.navbar > .container-fluid .navbar-brand {
     margin-left: 60px;
     color: #fff;
 }
 
-.navbar>.container-fluid {
+.navbar > .container-fluid {
     padding: 0;
 }
 
@@ -39,6 +44,7 @@ $navbar-height: 50px;
         margin-top: -8px;
         line-height: 10px;
     }
+
     .nav.navbar-nav.navbar-right {
         margin: auto;
     }
@@ -47,6 +53,7 @@ $navbar-height: 50px;
 .grey {
     background: #f0f0f0;
     padding: 20px;
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
@@ -63,14 +70,17 @@ $navbar-height: 50px;
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar-nav>.user-menu>.dropdown-toggle {
+.navbar-nav > .user-menu > .dropdown-toggle {
     background: #3949ab;
+
     &:active {
         background: #3949ab;
     }
+
     &:hover {
         background: #3949ab;
     }
+
     > span:hover {
         color: #ffffff;
     }
@@ -105,9 +115,11 @@ $navbar-height: 50px;
         .dropdown-menu {
             width: 100%;
             background-color: $user-dropdown-color;
+
             .user-footer {
                 background-color: $user-dropdown-color;
             }
+
             .user-footer:after {
                 clear: both;
             }
@@ -115,19 +127,22 @@ $navbar-height: 50px;
     }
 }
 
-li.dropdown>a.dropdown-toggle {
+li.dropdown > a.dropdown-toggle {
     cursor: pointer;
     color: white;
     transition: $app-transition;
+
     &:visited {
         transition: $app-transition;
         color: black;
     }
+
     &:hover {
         background-color: #f0f0f0;
         transition: $app-transition;
         color: black;
     }
+
     &:active {
         transition: $app-transition;
         color: black;

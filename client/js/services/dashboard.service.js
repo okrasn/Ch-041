@@ -1,11 +1,11 @@
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
-    if(!$window.localStorage['view-mode']){
-        $window.localStorage['view-mode'] = this.DEFAULT_VIEW;
-    }
-    
-    var that = this;
     this.DEFAULT_VIEW = 2;
-    this.currentViewMode = $window.localStorage['view-mode'];
+    if (!$window.localStorage.viewMode) {
+        $window.localStorage.viewMode = this.DEFAULT_VIEW;
+    }
+
+    var that = this;
+    this.currentViewMode = $window.localStorage.viewMode;
     this.modalShown = false;
     // We have three view modes
     this.viewModes = [
@@ -14,18 +14,19 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
         'th-large'
     ];
     this.resetViewMode = function () {
-        $window.localStorage['view-mode'] = this.DEFAULT_VIEW;
+        $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }
     this.setViewMode = function (index) {
-        $window.localStorage['view-mode'] = index;
+        $window.localStorage.viewMode = index;
         if (index > that.viewModes.length - 1) {
             throw new Error("View mode you are trying to set is not defined");
         } else {
-            that.currentViewMode = $window.localStorage['view-mode'];
+            that.currentViewMode = $window.localStorage.viewMode;
         }
     }
     this.getViewMode = function () {
-        that.currentViewMode = $window.localStorage['view-mode'];
+        console.log($window.localStorage);
+        that.currentViewMode = $window.localStorage.viewMode;
         return that.viewModes[that.currentViewMode];
     }
     this.title = "";

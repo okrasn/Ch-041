@@ -1,5 +1,4 @@
-﻿$fadeTime: 0.3s;
-$modal-background-color: white;
+﻿$modal-background-color: white;
 
 .modal-window {
     z-index: 1000;
@@ -29,12 +28,12 @@ $modal-background-color: white;
     }
 }
 
-.hide-modal-btn{
+.hide-modal-btn {
     cursor: pointer;
     position: absolute;
     top: $main-app-padding;
     right: $main-app-padding;
-    color:black;
+    color: black;
     z-index: 999;
 }
 
@@ -66,38 +65,14 @@ $modal-background-color: white;
     animation: $fadeTime slideUpModal;
 }
 
-@keyframes slideDownModal {
-    0% {
-        transform: scale(0.2, 0.2);
-        top: 10%;
-        left: 0%;
-        opacity: 0;
+@media screen and (max-width: $phone-res) {
+    .modal-window {
+        width: 100%;
+        padding-right: 1em;
+        padding-left: 1em;
     }
 
-    20% {
-        opacity: 1;
-    }
-
-    100% {
-        top: 50%;
-        opacity: 1;
-    }
-}
-
-@keyframes slideUpModal {
-    0% {
-        top: 50%;
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 0.5;
-    }
-
-    100% {
-        transform: scale(0.2, 0.2);
-        top: 10%;
-        left: 0%;
-        opacity: 0;
+    .hide-modal-btn {
+        right: $main-app-padding*2;
     }
 }

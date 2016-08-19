@@ -85,7 +85,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         });
     }
 
-    this.setCategoryOrder = function () {
+    this.setFeedsOrder = function () {
         var obj = {
             newCategories: []
         }
@@ -93,6 +93,20 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             obj.newCategories.push(that.feedsDictionary[i].key);
         }
         return $http.post('/users/' + authService.userID() + '/setCategoryOrder', obj, {
+            headers: {
+                Authorization: 'Bearer ' + authService.getToken()
+            }
+        });
+    }
+
+    this.setFavsOrder = function () {
+        var obj = {
+            newCategories: []
+        }
+        for (var i = 0; i < that.favouritesDictionary.length; i++) {
+            obj.newCategories.push(that.favouritesDictionary[i].key);
+        }
+        return $http.post('/users/' + authService.userID() + '/setFavsCategoryOrder', obj, {
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }

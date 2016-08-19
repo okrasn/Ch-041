@@ -37,6 +37,7 @@ router.get('/users/:user/favourites', auth, articlesCtrl.allFavourites);
 // add new feed
 router.post('/users/:user/addFeed', auth, feedsCtrl.add);
 router.post('/users/:user/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
+router.post('/users/:user/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
 router.post('/users/:user/addFavArticle', auth, articlesCtrl.addFavArticle);
 
 // remove feed

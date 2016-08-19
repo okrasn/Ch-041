@@ -3,7 +3,7 @@
     angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService,articlesService, dashboardService) {
         $scope.obj = {};
         $scope.categories = feedsService.CATEGORIES;
-
+        $scope.error = null;
         $scope.modalShown = false;
         $scope.articles = articlesService.articles;
         $scope.isFavourites = articlesService.checkIfFavourites;
@@ -20,6 +20,9 @@
                 //dashboardService.successMsg = "Article successfully added to favourites"
             }, function (err) {
                 console.log(err);
+                if (!err.data)
+                    $scope.error = err.message;
+                else $scope.error = err.data.message;
                 //dashboardService.alertMsg = err.data.message;
             });
         }
@@ -33,6 +36,31 @@
             }, function (err) {
                 console.log(err);
             });
+        }
+        $scope.getArticleDate = function (date) {
+            var postDate = new Date(Date.parse(date));
+            var dd = postDate.getDate();
+            var mm = postDate.getMonth() + 1; 
+            var yyyy = postDate.getFullYear();
+
+            var hh = postDate.getHours();
+            var min = postDate.getMinutes();
+
+            if (hh.toString().length === 1) {
+                hh = '0' + hh;
+            }
+            if (min.toString().length === 1) {
+                min = '0' + min;
+            }
+
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            var formatedDate = dd + '/' + mm + '/' + yyyy + " " + hh + ":" + min;
+            return formatedDate;
         }
     }]);
 })();

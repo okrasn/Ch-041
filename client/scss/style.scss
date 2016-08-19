@@ -5,13 +5,17 @@ $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
 $main-background-color: #f9f9fb;
 $main-app-padding: 1em;
+$phone-res: 768px;
+$tablet-res: 992px;
+$desktop-res: 1200px;
+
 html {
     font-family: 'Roboto', sans-serif;
 }
 
 body {
     overflow-x: hidden;
-    padding-top: 50px;
+    margin-top: 50px;
 }
 
 p {
@@ -23,7 +27,7 @@ p {
     text-transform: uppercase;
 }
 
-#app-wrapper>.container-fluid {
+#app-wrapper > .container-fluid {
     padding-right: 0px;
     padding-left: 0px;
 }
@@ -51,12 +55,16 @@ p {
     border-radius: $main-border-radius;
     transition: $app-transition;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    &:visited {}
+
+    &:visited {
+    }
+
     &:hover {
         border: none;
         transition: $app-transition;
         box-shadow: 0 4px 15px 0 rgba(57, 73, 171, 1);
     }
+
     &:active {
         border: none;
         outline: none;
@@ -78,16 +86,31 @@ p {
     outline: none;
 }
 
-.center-children{
+.center-children {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+@media screen and (max-width: $phone-res) {
+    .hide-mobile {
+        display: none;
+    }
+}
 
+@media screen and (max-width: $tablet-res) {
+    .hide-tablet {
+        display: none;
+    }
+}
+
+@media screen and (max-width: $desktop-res) {
+    .hide-desktop {
+        display: none;
+    }
+}
 
 @import "navbar";
-@import "animations";
 @import "addFeed";
 @import "feedList";
 @import "sidebar";
@@ -97,3 +120,4 @@ p {
 @import "buttons";
 @import "modals/toaster";
 @import "modals/modal";
+@import "animations";
