@@ -27,7 +27,6 @@ $sidebar-mobile-width: 270px;
         overflow-y: auto;
         background-color: $sidebar-color;
         border-right: 1px solid #eee;
-        animation: 0.3s slideLeft ease;
     }
 
     .sidebar-mobile {
@@ -157,6 +156,7 @@ ul[dnd-list] .dndPlaceholder {
 
 @media(max-width: $tablet-res) {
     #sidebar-wrapper {
+        animation: 0.3s slideLeft ease;
         width: $sidebar-mobile-width;
     }
 
@@ -166,15 +166,5 @@ ul[dnd-list] .dndPlaceholder {
 
     #dashboard #sidebar-wrapper.sidebar-mobile {
         display: none;
-    }
-}
-
-@keyframes slideLeft {
-    0% {
-        transform: translateX(-$sidebar-mobile-width);
-    }
-
-    100% {
-        transform: translateX(0);
     }
 }

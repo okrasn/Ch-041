@@ -6,7 +6,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
         $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }
 
-    this.sidebar = true;
+    this.sidebar = false;
     this.checkSidebar = function () {
         return that.sidebar;
     }
