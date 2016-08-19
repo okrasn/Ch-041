@@ -32,10 +32,10 @@ router.get('/users/:user', feedsCtrl.allFeed);
 router.get('/users/:user/favourites', articlesCtrl.allFavourites);
 
 // add new feed
-router.post('/users/:user/addFeed', auth, feedsCtrl.add);
-router.post('/users/:user/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
-router.post('/users/:user/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
-router.post('/users/:user/addFavArticle', auth, articlesCtrl.addFavArticle);
+router.post('/users/:user/addFeed', feedsCtrl.add);
+router.post('/users/:user/setCategoryOrder', feedsCtrl.setCategoryOrder);
+router.post('/users/:user/setFavsCategoryOrder', feedsCtrl.setFavsCategoryOrder);
+router.post('/users/:user/addFavArticle', articlesCtrl.addFavArticle);
 
 // remove feed
 router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);

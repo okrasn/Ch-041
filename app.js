@@ -53,9 +53,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
-app.listen(port, function () {
-    console.log('Server running on port 8080!');
-});
 app.use(express.static('./client'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
