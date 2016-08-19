@@ -21,6 +21,7 @@
 						var lenght = response.data.user.length;
 						for (var i = 0; i < lenght; i++) {
 							if (response.data.user[i].email === $auth.getPayload().email) {
+
 								$scope.profile = response.data.user[i];
 							}
 						}
@@ -29,5 +30,5 @@
 				})
 			};
 			$scope.getProfile();
-    }]);
+	}]);
 })();
