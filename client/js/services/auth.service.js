@@ -1,34 +1,26 @@
 (function () {
-    'use strict';
-    angular.module('rssreader').factory('authService', ['$http', '$window', function ($http, $window) {
+'use strict';
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth','transfer', 'jwtHelper', function ($http, $window, $auth, transfer, jwtHelper) {
         var auth = {
             saveToken: function (token) {
-                $window.localStorage['rss-reader-token'] = token;
+                $auth.setToken(token);
             },
             getToken: function () {
-                return $window.localStorage['rss-reader-token'];
+                return $auth.getToken();
             },
             isLoggedIn: function () {
-                var token = auth.getToken();
-                if (token) {
-                    var payload = JSON.parse($window.atob(token.split('.')[1]));
-                    return payload.exp > Date.now() / 1000;
-                } else {
-                    return false;
-                }
+                return $auth.isAuthenticated();
             },
             currentUser: function () {
                 if (auth.isLoggedIn()) {
-                    var token = auth.getToken();
-                    var payload = JSON.parse($window.atob(token.split('.')[1]));
-                    return payload.email;
-                }
+                	return $auth.getPayload().email;
+				}
             },
             userID: function () {
                 if (auth.isLoggedIn()) {
-                    var token = auth.getToken();
-                    var payload = JSON.parse($window.atob(token.split('.')[1]));
-                    return payload._id;
+					var payload = $auth.getPayload();
+					console.log(payload);
+            		return payload.sub;
                 }
             },
             register: function (user) {
@@ -46,9 +38,10 @@
                 });
             },
             logOut: function () {
-                $window.localStorage.removeItem('rss-reader-token');
+                $auth.removeToken();
+        		$auth.logout();
             }
         }
         return auth;
-}]);
+	}]);
 })();
