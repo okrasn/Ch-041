@@ -4,7 +4,7 @@
             <span class="orange">Your</span>
         |Profile
         </h2>
-        <form>
+        <form name="upload_form">
             <div class="form-group">
                 <div class="row">
                     <label class="col-xs-5 capitalize">your email:</label>
@@ -16,16 +16,21 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-xs-5">
-                        <img src="/assets/images/profile.png" class="img-size" name="upload image" alt="User Image">
+                        <img ngf-thumbnail="file || '/assets/images/profile.png'" class="img-size" name="image" alt="User Image">
                     </div>
                     <div class="col-xs-7">
                         <input type="text" class="form-control" name="">
                         <div class="file-upload">
                             <label>
-                                <input type="file" ng-model="file" name="file">
+                                <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB">
                                 <span>Upload avatar</span>
                             </label>
                         </div>
+                        <button type="submit" ng-click="submit()">submit</button>
+                        <i ng-show="upload_form.file.$error.required">*required</i><br>
+            <i ng-show="upload_form.file.$error.maxSize">File too large 
+            {{file.size / 1000000|number:1}}MB: max 20M</i>
+            <p>{{progress}}</p>
                     </div>
                 </div>
             </div>
