@@ -1,3 +1,4 @@
+$toaster-height: 70px;
 .fade-in-anim {
     animation: fadeIn 0.8s;
 }
@@ -31,13 +32,11 @@
         opacity: 1;
     }
 }
-
 @keyframes slideDown {
     0% {
         top: -$navbar-height + $toaster-height;
         opacity: 0;
     }
-
     100% {
         top: $navbar-height;
         opacity: 1;

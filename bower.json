@@ -31,5 +31,8 @@
     "angular-material": "^1.0.9",
     "angular-drag-and-drop-lists": "^1.4.0",
     "font-awesome": "fontawesome#^4.6.3"
+    "satellizer": "^0.15.4",
+    "angular-jwt": "^0.1.1",
+    "angular-toastr": "^2.0.0"
   }
 }
