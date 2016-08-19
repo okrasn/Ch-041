@@ -1,0 +1,139 @@
+$panels-gap: 0.5em;
+.change-view-btn{
+    padding-bottom: 5px;
+}
+.list-header {
+    border-bottom: 1px solid #888888;
+    border-shadow: 1px 2px 5px 1px #888888;
+}
+
+.strong-text{
+    font-weight: 700;
+}
+
+.table-feed {
+    margin: 5px;
+    >div>a {
+        color: black;
+        text-decoration: none;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+    .vertical-center{
+        line-height: 3em;
+    }
+    overflow: hidden;
+    height: 3em;
+    cursor: pointer;
+    padding: 0px;
+    border-bottom: 1px solid #888888;
+    border-shadow: 1px 2px 5px 1px #888888;
+    transition: $app-transition;
+    &:hover {
+        transition: $app-transition;
+        background-color: #e8e8e8;
+    }
+}
+
+.feed-content {
+    float: left;
+    width: 95%;
+}
+
+.btn a {
+    color: #ffffff;
+    text-decoration: none;
+    &:hover {
+        color: #ffffff;
+    }
+}
+
+.head {
+    padding: 15px 15px 0 15px;
+    border-bottom: 1px solid #888888;
+    .article-title {
+        padding: 0;
+    }
+}
+
+.read {
+    width: 5%;
+    float: left;
+}
+
+.read-icon {
+    float: right;
+}
+
+#th-large {
+    padding: $panels-gap;
+    [class*=' col-']{
+        padding: $panels-gap;
+    }
+    .read-btn {
+        margin-left: 5px;
+        margin-top: -5px;
+    }
+    .article-title {
+        font-weight: 700;
+        height: 20px;
+        overflow: hidden;
+        padding-left: 5px;
+    }
+    .article-content {
+        height: 90px;
+        overflow: hidden;
+        padding-left: 5px;
+    }
+    .panel {
+        height: 152px;
+        margin: 0;
+    }
+    .footer {
+        padding: 5px 0 5px 0;
+    }
+    .read-icon,
+    .star-icon,
+    .share-icon {
+        padding: 3px;
+    }
+    img {
+        width: 180px;
+        height: 142px;
+        float: left;
+    }
+    .panel-body {
+        padding: 5px;
+    }
+    .panel:hover {
+        .my-hidden {
+            display: inline;
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+    }
+}
+
+#th-list {
+    @extend #th-large;
+    [class*='col-']{
+        padding: $panels-gap;
+    }
+    img {
+        width: 180px;
+        height: 142px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .panel .my-hidden{
+        visibility: visible;
+        display: inline;
+        opacity: 1; 
+    }
+    .btn-group > .th-large{
+        display: none;
+    }
+}
