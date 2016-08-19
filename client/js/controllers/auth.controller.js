@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper) {
+	angular.module('rssreader').controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toastr', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toastr) {
 		$scope.user = {};
 		$scope.session;
 
@@ -17,7 +17,6 @@
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
 				}).then(function (response) {
-					transfer.setObj(response.data.user)
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
 					});
@@ -37,19 +36,21 @@
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
+						toastr.success('You have successfully login');
 						$window.onbeforeunload = $scope.onExit;
 					} else {
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
+						toastr.success('You have successfully login');
 					}
 				});
 			}
 		};
 		$scope.authenticate = function (provider) {
 			$auth.authenticate(provider).then(function (response) {
-				transfer.setObj(response.data.profile);
 				authService.saveToken(response.data.token);
+				toastr.success('You have successfully authenticated');
 				$state.go('dashboard.' + dashboardService.getViewMode(), {
 					id: authService.userID()
 				});

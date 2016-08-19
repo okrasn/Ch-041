@@ -9,22 +9,16 @@
                 return $auth.getToken();
             },
             isLoggedIn: function () {
-                var token = auth.getToken();
-                if (token) {
-                    var payload = $auth.getPayload();
-                    return payload.exp > Date.now() / 1000;
-                } else {
-                    return false;
-                }
+                return $auth.isAuthenticated();
             },
             currentUser: function () {
                 if (auth.isLoggedIn()) {
-                	return transfer.getObj().email;
+                	return $auth.getPayload().email;
 				}
             },
             userID: function () {
                 if (auth.isLoggedIn()) {
-            		var payload = $auth.getPayload();
+					var payload = $auth.getPayload();
 					console.log(payload);
             		return payload.sub;
                 }

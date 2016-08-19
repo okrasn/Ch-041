@@ -19,10 +19,10 @@ var passport = require('passport'),
 function createJWT(user) {
 	var payload = {
 		sub: user._id,
+		email : user.email,
 		iat: moment().unix(),
 		exp: moment().add(14, 'days').unix()
 	};
-	console.log(payload);
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
 
@@ -92,9 +92,9 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.getUserInfo = function (req, res) {
-	User.findOne(req.user.email, function (err, user) {
+	User.find(req.user, function (err, user) {
 		res.send({
-			user: user
+			user : user
 		});
 	});
 
@@ -166,7 +166,7 @@ module.exports.googleAuth = function (req, res) {
 						}
 						user.google = profile.sub;
 						user.email = profile.email;
-						user.picture = user.picture || profile.picture.replace('sz=50', 'sz=200');
+						user.picture = user.picture || profile.picture.replace('sz=100', 'sz=100');
 						user.displayName = user.displayName || profile.name;
 						user.save(function () {
 							var token = createJWT(user);
@@ -297,6 +297,24 @@ module.exports.facebookAuth = function (req, res) {
 		});
 	});
 }
+module.exports.unlink = function(req, res) {
+	var provider = req.body.provider
+  		providers = ['facebook', 'google', 'linkedin',  'twitter'];
+			if (providers.indexOf(provider) === -1) {
+    			return res.status(400).send({ message: 'Unknown OAuth Provider' });
+  			}
+
+  	User.findById(req.user.id, function(err, user) {
+    	if (!user) {
+      		return res.status(400).send({ message: 'User Not Found' });
+    	}
+    	user[provider] = undefined;
+    	user.save(function() {
+    		res.status(200).end();
+    	});
+  	});
+};
+
 
 module.exports.changePassword = function (req, res, next) {
 	if (!req.body.currentPass || !req.body.newPass || !req.body.newPassRepeat) {

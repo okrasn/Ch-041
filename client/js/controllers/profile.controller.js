@@ -2,27 +2,41 @@
 'use strict';
 	angular.module('rssreader')
 		.controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'transfer',
+        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toastr',
         function (Upload, $http, $state, profileService, $scope,
-		authService, $window, themeService, dashboardService, $auth, accountInfo, transfer) {
+		authService, $window, themeService, dashboardService, $auth, accountInfo, toastr) {
 			$scope.getProfile = function () {
 				accountInfo.getProfile().then(function (response) {
-					for (var i = 0; i < response.data.length; i++) {
-						if (response.data[i].email === transfer.getObj()) {
-							$scope.profile = response.data[i].email;
+					if($auth.isAuthenticated()){
+						var lenght = response.data.user.length;
+						for(var i = 0;i < lenght;i++){
+							if(response.data.user[i].email === $auth.getPayload().email){
+								$scope.profile = response.data.user[i];
+							}
 						}
-					}
 						console.log($scope.profile);
+					}
 				})
 			};
-
-			$scope.updateProfile = function () {
-				accountInfo.updateProfile($scope.profile)
-					.then(function () {
-						console.log('Profile has been updated');
-					})
-				};
-			$scope.getProfile();
+			$scope.getProfile();	
+			
+			$scope.link = function(provider) {
+      			$auth.link(provider).then(function() {
+          		toastr.info('You have successfully linked a ' + provider + ' account');
+          		$scope.getProfile();
+        		});
+    		};
+			
+			$scope.unlink = function(provider) {
+      			$auth.unlink(provider).then(function() {
+          			toastr.info('You have unlinked a ' + provider + ' account');
+          			$scope.getProfile();
+        		})
+ 
+    		};
+			$scope.updateProfile = function(){
+				$scope.getProfile();	
+			}
 
 
 			$scope.submit = function () {
