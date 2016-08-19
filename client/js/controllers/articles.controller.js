@@ -18,13 +18,11 @@
             console.log($scope.obj.category);
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
                 $state.reload("dashboard");
-                //dashboardService.successMsg = "Article successfully added to favourites"
             }, function (err) {
                 console.log(err);
                 if (!err.data)
                     $scope.error = err.message;
                 else $scope.error = err.data.message;
-                //dashboardService.alertMsg = err.data.message;
             });
         }
         $scope.cancelAddFavourite = function () {
@@ -39,13 +37,12 @@
             });
         }
         $scope.getArticleDate = function (date) {
-            var postDate = new Date(Date.parse(date));
-            var dd = postDate.getDate();
-            var mm = postDate.getMonth() + 1; 
-            var yyyy = postDate.getFullYear();
-
-            var hh = postDate.getHours();
-            var min = postDate.getMinutes();
+            var postDate = new Date(Date.parse(date)),
+                dd = postDate.getDate(),
+                mm = postDate.getMonth() + 1,
+                yyyy = postDate.getFullYear(),
+                hh = postDate.getHours(),
+                min = postDate.getMinutes();
 
             if (hh.toString().length === 1) {
                 hh = '0' + hh;
@@ -60,8 +57,7 @@
             if (mm < 10) {
                 mm = '0' + mm;
             }
-            var formatedDate = dd + '/' + mm + '/' + yyyy + " " + hh + ":" + min;
-            return formatedDate;
+            return dd + '/' + mm + '/' + yyyy + " " + hh + ":" + min;
         }
     }]);
 })();
