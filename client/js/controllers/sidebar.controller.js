@@ -1,6 +1,8 @@
 (function () {
     'use strict';
     angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
+        $scope.feedsListDragableTypes = ['feeds'];
+        $scope.favsListDragableTypes = ['favs'];
         $scope.feeds = feedsService.feedsDictionary
         $scope.favs = feedsService.favouritesDictionary;
         $scope.onFeedsDrag = function (index) {

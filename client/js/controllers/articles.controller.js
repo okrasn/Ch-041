@@ -8,6 +8,7 @@
         $scope.articles = articlesService.articles;
         $scope.isFavourites = articlesService.checkIfFavourites;
         $scope.favForAdd = {};
+        $scope.articleForShare = {};
         $scope.addFavourite = function (article) {
             $scope.error = null;
             $scope.modalShown = !$scope.modalShown;
@@ -28,6 +29,15 @@
         $scope.cancelAddFavourite = function () {
             $scope.modalShown = false;
             $scope.favForAdd = {};
+        }
+        $scope.share = function (article) {
+            $scope.error = null;
+            $scope.modalShareShown = !$scope.modalShareShown;
+            $scope.articleForShare = article;
+        }
+        $scope.cancelSharing = function () {
+            $scope.modalShareShown = false;
+            $scope.articleForShare = {};
         }
         $scope.removeFavourite = function (article) {
             articlesService.removeFavourite(article).then(function (res) {

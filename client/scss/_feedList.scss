@@ -107,18 +107,17 @@
     }
 
     .article-footer-item {
-        padding-left: $main-app-padding;
+        padding-right: $main-app-padding;
         vertical-align: middle;
     }
 
     .article-fav-icon {
         @extend .article-footer-item;
-        padding-left: $main-app-padding;
-        padding-right: $main-app-padding;
     }
 
     .article-time-icon {
         @extend .article-footer-item;
+        margin-right: $main-app-padding/2;
         float: right;
         line-height: $main-app-padding*2;
         color: #888;
@@ -127,7 +126,6 @@
 
     .article-date {
         @extend .article-footer-item;
-        margin-left: $main-app-padding/2;
         float: right;
         line-height: $main-app-padding*2;
         color: #888;
@@ -187,8 +185,6 @@
 @media screen and (max-width: $desktop-res) {
     #th-list img, #th-large {
         .article-fav-icon {
-            padding-left: 0;
-            padding-right: 0;
             line-height: 2em;
         }
 

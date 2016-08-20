@@ -5,24 +5,24 @@
                 <button type="button" id="sidebar-toggle" class="navbar-toggle visible-sm visible-xs" ng-click="toggleSidebar()">
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-show="isLoggedIn()">
+                <button type="button" class="navbar-toggle collapsed visible-sm visible-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-show="isLoggedIn()">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
-                <div>
+                <div class="logo_wrapper">
                     <a class="navbar-brand rss" ui-sref="home"><span class="orange">RSS</span>|READER</a>
                 </div>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right " ng-show="isLoggedIn()">
-                    <li class="dropdown user user-menu hidden-sm">
+                <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
+                    <li class="dropdown user user-menu hidden-sm hidden-xs">
                         <a class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/assets/images/profile.png" class="user-image" alt="User Image">
-                            <span class="hidden-xs" ng-bind="currentUser()"></span>
+                            <span class="hidden-xs hidden-sm" ng-bind="currentUser()"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <!-- Image must be square -->
+                                 <!--Image must be square--> 
                                 <img ng-if='!profile.picture' src="/assets/images/profile.png" class="img-circle" alt="User Image">
                                 <img ng-show="profile.picture" src='{{profile.picture}}' class="img-circle" alt="User Image">
                             </li>
@@ -36,8 +36,8 @@
                             </li>
                         </ul>
                     </li>
-                    <div class="grey hidden-sm hidden-md hidden-lg">
-                        <li class="user-header ">
+                    <div class="grey hidden-md hidden-lg">
+                        <li class="user-header">
                             <div class="row">
                                 <div class="col-xs-offset-3 col-xs-6">
                                     <div class="text-center">

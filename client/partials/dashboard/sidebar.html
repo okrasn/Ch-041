@@ -9,8 +9,14 @@
             </a>
         </span>
         <div class="collapse" id="favourites">
-            <ul dnd-list="favs">
-                <li class="sidebar-sub-item" ng-repeat="category in favs" dnd-draggable="category" dnd-moved="onFavsDrag($index)" dnd-effect-allowed="move">
+            <ul dnd-list="favs"
+                dnd-allowed-types="favsListDragableTypes">
+                <li class="sidebar-sub-item"
+                    ng-repeat="category in favs"
+                    dnd-draggable="category"
+                    dnd-type="'favs'"
+                    dnd-moved="onFavsDrag($index)"
+                    dnd-effect-allowed="move">
                     <span ng-click="toggle = !toggle">
                         <a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.key }}" ng-click="getFavArticlesByCat(category.key)" class="glyphFeeds">
                             <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
@@ -30,8 +36,15 @@
             </ul>
         </div>
     </div>
-    <ul dnd-list="feeds" ng-show="checkIfEmpty()">
-        <li class="sidebar-item" ng-repeat="category in feeds" dnd-draggable="category" dnd-moved="onFeedsDrag($index)" dnd-effect-allowed="move">
+    <ul dnd-list="feeds"
+        dnd-allowed-types="feedsListDragableTypes"
+        ng-show="checkIfEmpty()">
+        <li class="sidebar-item"
+            ng-repeat="category in feeds"
+            dnd-draggable="category"
+            dnd-type="'feeds'"
+            dnd-moved="onFeedsDrag($index)"
+            dnd-effect-allowed="move">
             <span ng-click="toggle = !toggle">
                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
                     <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>

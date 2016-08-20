@@ -92,6 +92,11 @@ p {
     align-items: center;
 }
 
+.alert{
+    margin-bottom: 0px;
+    margin-top: $main-app-padding;
+}
+
 @media screen and (max-width: $phone-res) {
     .hide-mobile {
         display: none;

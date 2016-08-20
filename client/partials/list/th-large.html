@@ -16,6 +16,7 @@
                             read
                         </a>
                         <span class="article-fav-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()"></span>
+                        <span class="article-fav-icon fa fa-share-alt onhover-green" ng-click="share(article)"></span>
                     </span>
                     <span class="trash-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
                     <span class="article-date" ng-bind="getArticleDate(article.date)"></span>
@@ -34,6 +35,22 @@
         <div class="center-children">
             <button type="button" class="btn btn-lg app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
         </div>
+        <div class="alert alert-danger text-center fade-in-anim" role="alert" ng-show="error">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <span ng-bind="error"></span>
+        </div>
+    </modal>
+    <modal show='modalShareShown'>
+        <h4 class="uppercase">share</h4>
+        <a class="app-btn-blue fa fa-vk"
+           socialshare
+           socialshare-provider="vk"
+           socialshare-text="{{articleForShare.title}}"
+           socialshare-description="{{articleForShare.content}}"
+           socialshare-url="{{articleForShare.link}}"
+           socialshare-media="{{articleForShare.img}}">
+        </a>
         <div class="alert alert-danger text-center fade-in-anim" role="alert" ng-show="error">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span>

@@ -19,7 +19,7 @@ $navbar-height: 50px;
 }
 
 .navbar > .container .navbar-brand,
-.navbar > .container-fluid .navbar-brand {
+.container-fluid > .navbar-header > .logo_wrapper > a {
     margin-left: 60px;
     color: #fff;
 }
@@ -37,19 +37,6 @@ $navbar-height: 50px;
     margin-top: -2px;
 }
 
-@media (max-width: 768px) {
-    .navbar-nav > .user-menu .user-image {
-        float: none;
-        margin-right: 0;
-        margin-top: -8px;
-        line-height: 10px;
-    }
-
-    .nav.navbar-nav.navbar-right {
-        margin: auto;
-    }
-}
-
 .grey {
     background: #f0f0f0;
     padding: 20px;
@@ -59,15 +46,15 @@ $navbar-height: 50px;
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
     padding: 10px;
     text-align: center;
-}
 
-.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
-    z-index: 5;
-    height: 150px;
-    width: 150px;
-    border: 3px solid;
-    border-color: transparent;
-    border-color: rgba(255, 255, 255, 0.2);
+    > img {
+        z-index: 5;
+        height: 150px;
+        width: 150px;
+        border: 3px solid;
+        border-color: transparent;
+        border-color: rgba(255, 255, 255, 0.2);
+    }
 }
 
 .navbar-nav > .user-menu > .dropdown-toggle {
@@ -92,12 +79,13 @@ $navbar-height: 50px;
     color: rgba(255, 255, 255, 0.8);
     font-size: 17px;
     margin-top: 10px;
+
+    > small {
+        display: block;
+        font-size: 12px;
+    }
 }
 
-.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p > small {
-    display: block;
-    font-size: 12px;
-}
 
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer {
     background-color: #f9f9f9;
@@ -113,7 +101,7 @@ $navbar-height: 50px;
 .navbar-nav {
     .user-menu {
         .dropdown-menu {
-            width: 100%;
+            min-width: 200px;
             background-color: $user-dropdown-color;
 
             .user-footer {
@@ -154,16 +142,42 @@ li.dropdown > a.dropdown-toggle {
     margin-top: 0;
 }
 
-@media (max-width: 991px) {
-    .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:hover {
-        background-color: #f9f9f9;
-    }
-}
-
 .user-menu {
     color: white;
 }
 
 .orange {
     color: #ff9d00;
+}
+
+@media screen and (max-width: $tablet-res) {
+    .navbar-header {
+        width: 100%;
+        >.logo_wrapper {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+    }
+
+    .container-fluid > .navbar-header > .logo_wrapper > a{
+        margin-left: 0;
+    }
+
+    .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:hover {
+        background-color: #f9f9f9;
+    }
+}
+
+@media (max-width: $phone-res) {
+    .navbar-nav > .user-menu .user-image {
+        float: none;
+        margin-right: 0;
+        margin-top: -8px;
+        line-height: 10px;
+    }
+
+    .nav.navbar-nav.navbar-right {
+        margin: auto;
+    }
 }
