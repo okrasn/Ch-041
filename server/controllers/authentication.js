@@ -5,7 +5,7 @@ var passport = require('passport'),
 	jwt = require('jwt-simple'),
 	config = require('../config/config'),
 	request = require('request'),
-	
+
 	ERRORS = {
 		fill_out_fields: 'Please fill out all fields',
 		user_not_found: 'User not found',
@@ -19,12 +19,26 @@ var passport = require('passport'),
 function createJWT(user) {
 	var payload = {
 		sub: user._id,
-		email : user.email,
+		email: user.email,
 		iat: moment().unix(),
 		exp: moment().add(14, 'days').unix()
 	};
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
+
+function ensureAuth(req, res) {
+  User.findById(req.user, function(err, user) {
+    if (!user) {
+      return res.status(400).send({ message: 'User not found' });
+    }
+    user.displayName = req.body.displayName || user.displayName;
+    user.email = req.body.email || user.email;
+    user.save(function(err) {
+      res.status(200).end();
+    });
+  });
+};
+
 
 module.exports.register = function (req, res) {
 
@@ -41,12 +55,23 @@ module.exports.register = function (req, res) {
 	User.findOne({
 		email: req.body.email
 	}, function (err, existingUser) {
-		if (existingUser) {
-			return res.status(409).send({
-				message: 'Email is already taken',
-				existingUser
-
+		if (existingUser && (existingUser.google || existingUser.facebook )) {
+			existingUser.password = existingUser.generateHash(req.body.password);
+			existingUser.save(function(err,existingUser){
+				if (err) {
+					res.status(500).send({
+						message: err.message
+					});
+				}
+				
+			return res.send({
+				existingUser: existingUser
 			});
+			res.end();	
+			})
+//			return res.status(409).send({
+//				message: 'Email is already taken'
+//			});
 		}
 		var user = new User({
 			displayName: req.body.displayName,
@@ -94,7 +119,7 @@ module.exports.login = function (req, res) {
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {
 		res.send({
-			user : user
+			user: user
 		});
 	});
 
@@ -131,9 +156,9 @@ module.exports.googleAuth = function (req, res) {
 		form: params
 	}, function (err, response, token) {
 		var accessToken = token.access_token,
-		headers = {
-			Authorization: 'Bearer ' + accessToken
-		};
+			headers = {
+				Authorization: 'Bearer ' + accessToken
+			};
 
 
 		request.get({
@@ -157,7 +182,7 @@ module.exports.googleAuth = function (req, res) {
 						});
 					}
 					var token = req.header('Authorization').split(' ')[1],
-					payload = jwt.decode(token, config.TOKEN_SECRET);
+						payload = jwt.decode(token, config.TOKEN_SECRET);
 					User.findById(payload.sub, function (err, user) {
 						if (!user) {
 							return res.status(400).send({
@@ -297,22 +322,26 @@ module.exports.facebookAuth = function (req, res) {
 		});
 	});
 }
-module.exports.unlink = function(req, res) {
+module.exports.unlink = function (req, res) {
 	var provider = req.body.provider
-  		providers = ['facebook', 'google', 'linkedin',  'twitter'];
-			if (providers.indexOf(provider) === -1) {
-    			return res.status(400).send({ message: 'Unknown OAuth Provider' });
-  			}
+	providers = ['facebook', 'google'];
+	if (providers.indexOf(provider) === -1) {
+		return res.status(400).send({
+			message: 'Unknown OAuth Provider'
+		});
+	}
 
-  	User.findById(req.user.id, function(err, user) {
-    	if (!user) {
-      		return res.status(400).send({ message: 'User Not Found' });
-    	}
-    	user[provider] = undefined;
-    	user.save(function() {
-    		res.status(200).end();
-    	});
-  	});
+	User.findById(req.body.id, function (err, user) {
+		if (!user) {
+			return res.status(400).send({
+				message: 'User Not Found'
+			});
+		}
+		user[provider] = undefined;
+		user.save(function () {
+			res.status(200).end();
+		});
+	});
 };
 
 
@@ -349,11 +378,9 @@ module.exports.changePassword = function (req, res, next) {
 					if (err) {
 						return next(err);
 					}
-					var token;
-					token = user.generateJwt();
-					res.status(200);
-					res.json({
-						"token": token
+				var token = createJWT(user);
+					res.send({
+						token: createJWT(user)
 					});
 				});
 			} else {

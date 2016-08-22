@@ -28,16 +28,19 @@
     		};
 			
 			$scope.unlink = function(provider) {
-      			$auth.unlink(provider).then(function() {
-          			toastr.info('You have unlinked a ' + provider + ' account');
-          			$scope.getProfile();
-        		})
- 
+				$http.post('/auth/unlink',{
+					id : $scope.profile._id,
+					provider : provider
+				}).then(function(response){
+					toastr.info('You have unlinked a ' + provider + ' account');
+					$scope.getProfile();
+					console.log(response);
+				});
     		};
 			$scope.updateProfile = function(){
 				$scope.getProfile();	
 			}
-
+			$scope.getProfile();	
 
 			$scope.submit = function () {
 				console.log($scope.file);

@@ -10,9 +10,10 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	multer = require('multer'),
-	//port = 8080,
 	cors = require('cors'),
-	logger = require('morgan');
+	logger = require('morgan'),
+	nev = require('email-verification')(mongoose),
+	nodemailer = require('nodemailer');
 
 app.use(favicon(path.join(__dirname, 'client', 'assets', 'images', 'favicon.ico')));
 
@@ -59,25 +60,25 @@ app.use(morgan('dev'));
 // mongoose
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
+//app.use(function (req, res, next) {
+//	var err = new Error('Not Found');
+//	err.status = 404;
+//	next(err);
+//});
 
 // error handlers
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
-	app.use(function (err, req, res, next) {
-		res.status(err.status || 500);
-		res.render('error', {
-			message: err.message,
-			error: err
-		});
-	});
-}
+//if (app.get('env') === 'development') {
+//	app.use(function (err, req, res, next) {
+//		res.status(err.status || 500);
+//		res.render('error', {
+//			message: err.message,
+//			error: err
+//		});
+//	});
+//}
 
 if (app.get('env') === 'production') {
 	app.use(function (req, res, next) {
@@ -88,13 +89,13 @@ if (app.get('env') === 'production') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: {}
-	});
-});
+//app.use(function (err, req, res, next) {
+//	res.status(err.status || 500);
+//	res.render('error', {
+//		message: err.message,
+//		error: {}
+//	});
+//});
 
 app.listen(app.get('port'), app.get('host'), function () {
 	console.log('Server running on port 8080!');

@@ -11,6 +11,10 @@ var mongoose = require('mongoose'),
 			required: true
 		},
 		password: { type: String, select: false },
+		local: {
+			email : String,
+			password : String
+		},
 		displayName: String,
 		picture : String,
 		facebook: String,
@@ -49,6 +53,10 @@ userSchema.methods.comparePassword = function(password, done) {
 	bcrypt.compare(password, this.password, function(err, isMatch) {
 		done(err, isMatch);
 	});
+};
+
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
 userSchema.methods.setPassword = function (password) {
