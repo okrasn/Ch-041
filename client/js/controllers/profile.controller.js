@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 (function() {
     'use strict';
     angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
