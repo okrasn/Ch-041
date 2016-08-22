@@ -2,6 +2,6 @@
     'use strict';
     angular.module('rssreader')
         .service('profileService', ['$window', 'Upload',
-      function (Upload, $window) {
+      function ($window, Upload) {
 }]);
 })();

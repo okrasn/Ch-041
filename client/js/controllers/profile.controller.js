@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (function() {
     'use strict';
     angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
@@ -5,16 +6,50 @@
             return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
         }, "Please specify the correct domain for your documents");
     }]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-        'authService', '$window', 'themeService', 'dashboardService',
-        function(Upload, $http, $state, profileService, $scope,
-            authService, $window, themeService, dashboardService) {
+        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toastr',
+        function (Upload, $http, $state, profileService, $scope,
+        authService, $window, themeService, dashboardService, $auth, accountInfo, toastr) {
+
+            $scope.getProfile = function () {
+                accountInfo.getProfile().then(function (response) {
+                    if($auth.isAuthenticated()){
+                        var lenght = response.data.user.length;
+                        for(var i = 0;i < lenght;i++){
+                            if(response.data.user[i].email === $auth.getPayload().email){
+                                $scope.profile = response.data.user[i];
+                            }
+                        }
+                        console.log($scope.profile);
+                    }
+                })
+            };
+            $scope.getProfile();
+
+            $scope.link = function(provider) {
+                $auth.link(provider).then(function() {
+                toastr.info('You have successfully linked a ' + provider + ' account');
+                $scope.getProfile();
+                });
+            };
+            
+            $scope.unlink = function(provider) {
+                $auth.unlink(provider).then(function() {
+                    toastr.info('You have unlinked a ' + provider + ' account');
+                    $scope.getProfile();
+                })
+ 
+            };
+            $scope.updateProfile = function(){
+                $scope.getProfile();    
+            };
+
             $scope.currentUser = authService.currentUser();
             $scope.newUserData = {
                 email: authService.currentUser(),
                 currentPass: "",
                 newPass: "",
                 newPassRepeat: ""
-            };
+            }
 
             $scope.submit = function() { //function to call on form submit
                 if ($scope.upload_form.file.$valid && $scope.file) { //check if from is valid
