@@ -16,12 +16,12 @@ gulp.task('server', function (cb) {
 		console.log(stderr);
 		cb(err);
 	});
-	// You must create folder 'data' in the root of project folder
-//	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-//		console.log(stdout);
-//		console.log(stderr);
-//		cb(err);
-//	});
+	 //You must create folder 'data' in the root of project folder
+	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
 	console.log("Server is running on port 8080");
 });
 

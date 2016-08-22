@@ -55,20 +55,20 @@ module.exports.register = function (req, res) {
 	User.findOne({
 		email: req.body.email
 	}, function (err, existingUser) {
-		if (existingUser && existingUser.google) {
-//			existingUser.password = existingUser.generateHash(req.body.password);
-//			existingUser.save(function(err, existingUser){
-//				if (err) {
-//					res.status(500).send({
-//						message: err.message
-//					});
-//				}
-//				
-//			})
-//			return res.send({
-//				token:  createJWT(existingUser),
-//				existingUser : existingUser
-//			});
+		if (existingUser && (existingUser.google || existingUser.facebook)) {
+			existingUser.password = req.body.password;
+			existingUser.save(function(err, existingUser){
+				if (err) {
+					res.status(500).send({
+						message: err.message
+					});
+				}
+				
+			})
+			return res.send({
+				token:  createJWT(existingUser),
+				existingUser : existingUser
+			});
 		
 			return res.status(409).send({
 				message: 'Email is already taken'
@@ -374,7 +374,7 @@ module.exports.changePassword = function (req, res, next) {
 			});
 		} else {
 			if (req.body.currentPass) {
-				user.password = req.body.newPass);
+				user.password = req.body.newPass;
 
 				user.save(function (err) {
 					if (err) {
@@ -384,10 +384,7 @@ module.exports.changePassword = function (req, res, next) {
                     res.json({
                         "token": createJWT(user)
                     });
-//				var token = createJWT(user);
-//					res.send({
-//						token: createJWT(user)
-//					});
+
 				});
 			} else {
 				return res.status(400).json({
