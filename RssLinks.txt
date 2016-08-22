@@ -5,6 +5,8 @@ http://www.theverge.com/rss/frontpage
 http://itc.ua/feed
 http://news.liga.net/all/rss.xml
 
+$2a$10$F/xae23l4pO2KJ0exRjmc.JPmpBCusXLC./GhFzhmNitTcefCrawm
+
 0996465583
 
 module.exports.register = function (req, res) {

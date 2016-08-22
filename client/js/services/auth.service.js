@@ -38,7 +38,7 @@
                 });
             },
             logOut: function () {
-                $auth.removeToken();
+                //$auth.removeToken();
         		$auth.logout();
             }
         }

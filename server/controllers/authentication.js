@@ -21,7 +21,7 @@ function createJWT(user) {
 		sub: user._id,
 		email: user.email,
 		iat: moment().unix(),
-		exp: moment().add(14, 'days').unix()
+		exp: moment().add(10, 'days').unix()
 	};
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
@@ -55,23 +55,24 @@ module.exports.register = function (req, res) {
 	User.findOne({
 		email: req.body.email
 	}, function (err, existingUser) {
-		if (existingUser && (existingUser.google || existingUser.facebook )) {
-			existingUser.password = existingUser.generateHash(req.body.password);
-			existingUser.save(function(err,existingUser){
-				if (err) {
-					res.status(500).send({
-						message: err.message
-					});
-				}
-				
-			return res.send({
-				existingUser: existingUser
-			});
-			res.end();	
-			})
-//			return res.status(409).send({
-//				message: 'Email is already taken'
+		if (existingUser && existingUser.google) {
+//			existingUser.password = existingUser.generateHash(req.body.password);
+//			existingUser.save(function(err, existingUser){
+//				if (err) {
+//					res.status(500).send({
+//						message: err.message
+//					});
+//				}
+//				
+//			})
+//			return res.send({
+//				token:  createJWT(existingUser),
+//				existingUser : existingUser
 //			});
+		
+			return res.status(409).send({
+				message: 'Email is already taken'
+			});
 		}
 		var user = new User({
 			displayName: req.body.displayName,
@@ -99,13 +100,14 @@ module.exports.login = function (req, res) {
 	}, '+password', function (err, user) {
 		if (!user) {
 			return res.status(401).send({
-				message: 'Invalid email and/or password'
+				message: 'Invalid email and/or password email'
 			});
 		}
 		user.comparePassword(req.body.password, function (err, isMatch) {
 			if (!isMatch) {
 				return res.status(401).send({
-					message: 'Invalid email and/or password'
+					pwd : user.password,
+					message: 'Invalid email and/or password pwd'
 				});
 			}
 			res.send({
@@ -371,17 +373,21 @@ module.exports.changePassword = function (req, res, next) {
 				message: ERRORS.user_not_found
 			});
 		} else {
-			if (user.validPassword(req.body.currentPass)) {
-				user.setPassword(req.body.newPass);
+			if (req.body.currentPass) {
+				user.password = req.body.newPass);
 
 				user.save(function (err) {
 					if (err) {
 						return next(err);
 					}
-				var token = createJWT(user);
-					res.send({
-						token: createJWT(user)
-					});
+					res.status(200);
+                    res.json({
+                        "token": createJWT(user)
+                    });
+//				var token = createJWT(user);
+//					res.send({
+//						token: createJWT(user)
+//					});
 				});
 			} else {
 				return res.status(400).json({
