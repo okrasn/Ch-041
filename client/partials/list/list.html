@@ -1,23 +1,21 @@
 <!--Table feeds-->
-<div id="list" class="row feeds">
-    <div class="col-md-12" ng-repeat="article in articles">
-        <div class="row table-feed fade-in-anim">
-            <div class="col-lg-11 col-xs-10">
-                <a ng-href="{{article.link}}">
-                    <p class="shortened-text strong-text" ng-bind="article.title">
-                    </p>
-                    <p class="shortened-text" ng-bind="article.content">
-                    </p>
-                </a>
-            </div>
-            <div class="col-lg-1 col-xs-2">
-                <div class="share center-text">
-                    <span>
-                        <span class="vertical-center star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()">
-                        </span>
+<div id="list" class="feeds">
+    <div class="table-feed fade-in-anim" ng-repeat="article in articles">
+        <div class="col-lg-11 col-xs-10">
+            <a ng-href="{{article.link}}">
+                <p class="shortened-text strong-text" ng-bind="article.title">
+                </p>
+                <p class="shortened-text" ng-bind="article.content">
+                </p>
+            </a>
+        </div>
+        <div class="col-lg-1 col-xs-2">
+            <div class="share center-text">
+                <span>
+                    <span class="vertical-center star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()">
                     </span>
-                    <span ng-show="isFavourites()"><span class="vertical-center read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
-                </div>
+                </span>
+                <span ng-show="isFavourites()"><span class="vertical-center read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
             </div>
         </div>
     </div>

@@ -2,9 +2,9 @@
     <div class="row">
         <div id="sidebar-wrapper" class="col-md-3 col-lg-2 fade-in-anim" ui-view="sidebar" ng-class="{'sidebar-mobile' : !sidebar()}"></div>
         <div class="sidebar-overlay visible-xs visible-sm" ng-click="toggleSidebar()" ng-show="sidebar()"></div>
-        <div class="col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2">
-            <div ui-view="feedHead"></div>
-            <div ui-view></div>
+        <div id="content-wrapper" class="col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2">
+            <div ui-view="feedHead" class="row"></div>
+            <div ui-view class="row"></div>
         </div>
     </div>
 </div>

@@ -1,23 +1,32 @@
-angular.module('rssreader').directive('toaster', [function () {
+angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', function ($timeout, toasterService) {
     return {
         restrict: 'E',
-        scope: {
-            show: '='
-        },
-        replace: true,
         transclude: true,
         link: function (scope, element, attrs) {
+            if (attrs.overlay) {
+                scope.overlay = true;
+            }
+            else {
+                scope.overlay = false;
+            }
             scope.toasterStyle = {};
-
-            if (attrs.width)
-                scope.toasterStyle.width = attrs.width;
-            if (attrs.height)
-                scope.toasterStyle.height = attrs.height;
-            scope.hideToaster= function () {
-                scope.show = false;
+            scope.confirmFeedDelete = function () {
+                scope.$parent.confirmFeedDelete();
+                scope.hideToaster();
+            }
+            scope.confirmRemoveFavourite = function () {
+                scope.$parent.confirmRemoveFavourite();
+                scope.hideToaster();
+            }
+            scope.hideToaster = function () {
+                $timeout.cancel(scope.timer);
+                scope.$destroy();
+                toasterService.removeToaster(element);
             };
-            
+            scope.timer = $timeout(function () {
+                scope.hideToaster();
+            }, 5000);
         },
-        templateUrl: '../partials/modals/toaster.html' 
+        templateUrl: '../partials/modals/toaster.html'
     };
 }]);

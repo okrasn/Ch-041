@@ -102,7 +102,6 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 app.listen(app.get('port'), app.get('host'), function () {
 	console.log('Server running on port 8080!');
 });

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', 'dashboardService', 'feedsService', function ($scope, $state, $timeout, dashboardService, feedsService) {
+    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', '$compile', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, $timeout, $compile, dashboardService, feedsService, toasterService) {
         if (feedsService.feedsDictionary.length) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
@@ -8,11 +8,12 @@
             dashboardService.setTitle("Add Feed");
             $state.go('dashboard.addFeed');
         }
+
         $scope.sidebar = dashboardService.checkSidebar;
         $scope.toggleSidebar = function () {
             dashboardService.sidebar = !dashboardService.sidebar;
         }
-        $scope.toasterShown = false;
+
         $scope.headTitle = dashboardService.getTitle;
         $scope.feed = dashboardService.getFeedId;
         $scope.alertMsg = dashboardService.alertMsg;
@@ -44,34 +45,16 @@
         }
         var timer;
         $scope.onFeedDelete = function () {
-            $scope.toasterShown = !$scope.toasterShown;
-            $timeout.cancel(timer);
-            timer = $timeout(function () {
-                $scope.toasterShown = false;
-            }, 5000);
+            toasterService.confirmFeedDelete("feed", $scope);
         }
         $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())
                 .then(function (res) {
+                    toasterService.success("Feed successfully deleted", $scope);
                     $state.reload("dashboard");
                 }, function (err) {
                     console.log(err);
                 });
         }
-
-        $scope.$watch('alertMsg', function (newVal) {
-            if (newVal && newVal.length) {
-                $timeout(function () {
-                    $scope.alertMsg = null;
-                }, 4000);
-            }
-        });
-        $scope.$watch('successMsg', function (newVal) {
-            if (newVal && newVal.length) {
-                $timeout(function () {
-                    $scope.successMsg = null;
-                }, 4000);
-            }
-        });
     }]);
 })();
