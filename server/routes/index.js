@@ -18,14 +18,12 @@ var authCtrl = require('../controllers/authentication'),
     feedsCtrl = require('../controllers/feeds'),
     profCtrl = require('../controllers/profile');
 
-<<<<<<< HEAD
-=======
 //router.get('/', auth, function (req, res) {
 ////    res.render('home', {
 ////        user: req.user
 ////    });
 //});
->>>>>>> 7d6d54bcf6294a91a0da1a097b288f6086ead9e9
+
 router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);
