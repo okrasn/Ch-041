@@ -4,6 +4,7 @@
     transition: $app-transition;
     cursor: pointer;
     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+    overflow: hidden;
     &:visited {
         color: white;
     }
@@ -169,6 +170,11 @@ span.extra-btns {
 }
 
 @media only screen and (max-width: 768px) {
+   .app-btn-blue {
+       width: 70%;
+       height: 3em;
+       font-size: 1.5em;
+   }
     .navbar .app-btn-blue {
         width: 70%;
         height: 2em;

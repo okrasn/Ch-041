@@ -23,6 +23,7 @@ var authCtrl = require('../controllers/authentication'),
 ////        user: req.user
 ////    });
 //});
+
 router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);

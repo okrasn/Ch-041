@@ -21,16 +21,14 @@ var upload = multer({ //multer settings
 
 /** API path that will upload the files */
 module.exports.upload = function (req, res) {
-    upload(req, res, function (err) {
-        if (err) {
-            res.json({
-                error_code: 1,
-                err_desc: err
-            });
-            return;
-        }
-
-
+     upload(req,res,function(err){
+            if(err){
+                 res.json({error_code:1,err_desc:err});
+                 return;
+            }
+             res.json({error_code:0,err_desc:null});
+        })
+};
         // @TODO: need to create req.user object using jwt token 
         /*  mongoose.model('User').findOneAndUpdate({_id: req.user.id}, {avatar: req.file.path}, {new: true}, function (err, user) {
 
@@ -45,7 +43,3 @@ module.exports.upload = function (req, res) {
                   user: user
                   });
           });*/
-
-
-    });
-};
