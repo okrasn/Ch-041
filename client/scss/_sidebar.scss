@@ -155,7 +155,7 @@ ul[dnd-list] .dndPlaceholder {
 
 @media(max-width: $tablet-res) {
     #sidebar-wrapper {
-        animation: 0.3s slideLeft ease;
+        animation: 0.3s slideRight ease;
         width: $sidebar-mobile-width;
     }
 
@@ -164,6 +164,8 @@ ul[dnd-list] .dndPlaceholder {
     }
 
     #dashboard #sidebar-wrapper.sidebar-mobile {
-        display: none;
+        transition: all 0.3s ease;
+        left: -$sidebar-mobile-width;
+        animation: 0.3s slideLeft ease;
     }
 }

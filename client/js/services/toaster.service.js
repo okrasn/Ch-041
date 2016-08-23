@@ -3,7 +3,9 @@
 	angular.module('rssreader').service('toasterService', ['$compile', '$animate', function ($compile, $animate) {
 		var domParent = angular.element('body');
 		var toasters = [];
+		var buildToaster = function () {
 
+		}
 		// TODO: need some more refactoring, better to use single buildToaster method with options parameter. Will be done soon.
 		this.confirmFeedDelete = function (elementName, scope) {
 			var appendHtml = $compile("<toaster class='toaster-default toaster-wrapper' overlay='true'><div class='toaster-icon fa fa-question'></div><span>Delete this feed</span><button class='app-btn-toaster-red' aria-label='Justify' ng-click='confirmFeedDelete()'>yes</button><button class='app-btn-toaster' aria-label='Justify' ng-click='hideToaster()'>no</button></toaster>")(scope.$new());

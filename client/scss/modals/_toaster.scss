@@ -70,7 +70,6 @@ $fadeTime: 0.3s;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
     font-family: 'Roboto', sans-serif;
     height: 100%;
     display: flex;
@@ -96,15 +95,22 @@ $fadeTime: 0.3s;
     .toaster-window {
         width: 100%;
         top: auto;
-        bottom: 0;
+        bottom: 0px;
         left: 0px;
     }
 
-    .toaster-window.ng-hide-remove {
-        animation: $fadeTime slideUpMobile;
-    }
+    .toaster-wrapper {
+        transition: all $fadeTime linear;
 
-    .toaster-window.ng-hide-add {
-        animation: $fadeTime slideDownMobile;
+        &.ng-enter > .toaster > .toaster-window {
+            top: auto;
+            animation: $fadeTime slideUpMobile;
+        }
+
+        &.ng-leave > .toaster > .toaster-window {
+            top: auto;
+            animation: $fadeTime slideDownMobile;
+            bottom: -$toaster-height;
+        }
     }
 }
