@@ -11,9 +11,8 @@ var express = require('express'),
 	passport = require('passport'),
 	multer = require('multer'),
 	cors = require('cors'),
-	logger = require('morgan'),
-	nev = require('email-verification')(mongoose),
-	nodemailer = require('nodemailer');
+	logger = require('morgan');
+	//nodemailer = require('nodemailer');
 
 app.use(favicon(path.join(__dirname, 'client', 'assets', 'images', 'favicon.ico')));
 

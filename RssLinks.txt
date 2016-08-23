@@ -9,6 +9,8 @@ $2a$10$F/xae23l4pO2KJ0exRjmc.JPmpBCusXLC./GhFzhmNitTcefCrawm
 
 0996465583
 
+ Саша Гніпель 0990996372
+
 module.exports.register = function (req, res) {
 
 	if (!req.body.email || !req.body.password || !req.body.repPassword) {

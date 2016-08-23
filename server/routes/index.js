@@ -6,17 +6,17 @@ var mongoose = require('mongoose'),
     Article = mongoose.model('Article'),
     Feed = mongoose.model('Feed'),
     User = mongoose.model('User'),
-	config = require('../config/config');
+	config = require('../config/config'),
+	authCtrl = require('../controllers/authentication'),
+    articlesCtrl = require('../controllers/articles'),
+    feedsCtrl = require('../controllers/feeds'),
+    profCtrl = require('../controllers/profile');
 
 //var auth = jwt({
 //    secret: config.TOKEN_SECRET,
 //    userProperty: 'payload'
 //});
 
-var authCtrl = require('../controllers/authentication'),
-    articlesCtrl = require('../controllers/articles'),
-    feedsCtrl = require('../controllers/feeds'),
-    profCtrl = require('../controllers/profile');
 
 //router.get('/', auth, function (req, res) {
 ////    res.render('home', {
