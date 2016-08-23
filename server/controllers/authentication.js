@@ -6,63 +6,63 @@ var passport = require('passport'),
 	config = require('../config/config'),
 	request = require('request'),
 	nev = require('email-verification')(mongoose);
-	ERRORS = {
-		fill_out_fields: 'Please fill out all fields',
-		user_not_found: 'User not found',
-		pass_not_match: 'Passwords not match',
-		same_pass: 'Please enter new password',
-		pass_incorrect: 'Entered password is incorrect',
-		user_exist: 'That user already exists',
-		invalid_data: 'Invalid email or password'
-	};
+ERRORS = {
+	fill_out_fields: 'Please fill out all fields',
+	user_not_found: 'User not found',
+	pass_not_match: 'Passwords not match',
+	same_pass: 'Please enter new password',
+	pass_incorrect: 'Entered password is incorrect',
+	user_exist: 'That user already exists',
+	invalid_data: 'Invalid email or password'
+};
 //	User = require('../models/Users');	
 
-var myHasher = function(password, tempUserData, insertTempUser, callback) {
-  var hash = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-  return insertTempUser(hash, tempUserData, callback);
+var myHasher = function (password, tempUserData, insertTempUser, callback) {
+	var hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+	return insertTempUser(hash, tempUserData, callback);
 };
 
-// async version of hashing function
-myHasher = function(password, tempUserData, insertTempUser, callback) {
-  bcrypt.genSalt(8, function(err, salt) {
-    bcrypt.hash(password, salt, function(err, hash) {
-      return insertTempUser(hash, tempUserData, callback);
-    });
-  });
+
+myHasher = function (password, tempUserData, insertTempUser, callback) {
+	bcrypt.genSalt(10, function (err, salt) {
+		bcrypt.hash(password, salt, function (err, hash) {
+			return insertTempUser(hash, tempUserData, callback);
+		});
+	});
 };
 
 // NEV configuration =====================
 nev.configure({
-  persistentUserModel: User,
-  expirationTime: 600, // 10 minutes
+	persistentUserModel: User,
+	expirationTime: 600, // 10 minutes
 
-  verificationURL: 'http://localhost:8080/email-verification/${URL}',
-  transportOptions: {
-    service: 'Gmail',
-    auth: {
-      user: 'gemyni85@gmail.com',
-      pass: 'mantru1985'
-    }
-  },
+	verificationURL: 'http://localhost:8080/email-verification/${URL}',
+	transportOptions: {
+		service: 'Gmail',
+		auth: {
+			user: 'gemyni85@gmail.com',
+			pass: 'mantru1985'
+		}
+	},
 
-  hashingFunction: myHasher,
-  passwordFieldName: 'password',
-}, function(err, options) {
-  if (err) {
-    console.log(err);
-    return;
-  }
+	hashingFunction: myHasher,
+	passwordFieldName: 'password',
+}, function (err, options) {
+	if (err) {
+		console.log(err);
+		return;
+	}
 
-  console.log('configured: ' + (typeof options === 'object'));
+	console.log('configured: ' + (typeof options === 'object'));
 });
 
-nev.generateTempUserModel(User, function(err, tempUserModel) {
-  if (err) {
-    console.log(err);
-    return;
-  }
+nev.generateTempUserModel(User, function (err, tempUserModel) {
+	if (err) {
+		console.log(err);
+		return;
+	}
 
-  console.log('generated temp user model: ' + (typeof tempUserModel === 'function'));
+	console.log('generated temp user model: ' + (typeof tempUserModel === 'function'));
 });
 //---------------------------------------------------------------------------------------
 function createJWT(user) {
@@ -76,16 +76,18 @@ function createJWT(user) {
 }
 
 function ensureAuth(req, res) {
-  User.findById(req.user, function(err, user) {
-    if (!user) {
-      return res.status(400).send({ message: 'User not found' });
-    }
-    user.displayName = req.body.displayName || user.displayName;
-    user.email = req.body.email || user.email;
-    user.save(function(err) {
-      res.status(200).end();
-    });
-  });
+	User.findById(req.user, function (err, user) {
+		if (!user) {
+			return res.status(400).send({
+				message: 'User not found'
+			});
+		}
+		user.displayName = req.body.displayName || user.displayName;
+		user.email = req.body.email || user.email;
+		user.save(function (err) {
+			res.status(200).end();
+		});
+	});
 };
 
 
@@ -106,90 +108,32 @@ module.exports.register = function (req, res) {
 	}, function (err, existingUser) {
 		if (existingUser && (existingUser.google || existingUser.facebook)) {
 			existingUser.password = req.body.password;
-			existingUser.save(function(err, existingUser){
+			existingUser.save(function (err, existingUser) {
 				if (err) {
 					res.status(500).send({
 						message: err.message
 					});
 				}
-				
+
 			})
 			return res.send({
-				token:  createJWT(existingUser),
-				existingUser : existingUser
+				token: createJWT(existingUser),
+				existingUser: existingUser
 			});
-		
+
 		}
-		if(existingUser && (!existingUser.google || !existingUser.facebook)){
+		if (existingUser && (!existingUser.google || !existingUser.facebook)) {
 			return res.status(409).send({
 				message: 'Email is already taken'
 			});
-		   
-		   }
+
+		}
 		var user = new User({
 			displayName: req.body.displayName,
 			email: req.body.email,
 			password: req.body.password
 		});
-		
-		  nev.createTempUser(newUser, function(err, existingPersistentUser, newTempUser) {
-      if (err) {
-        return res.status(404).send('ERROR: creating temp user FAILED');
-      }
 
-      // user already exists in persistent collection
-      if (existingPersistentUser) {
-        return res.json({
-          msg: 'You have already signed up and confirmed your account. Did you forget your password?'
-        });
-      }
-
-      // new user created
-      if (newTempUser) {
-        var URL = newTempUser[nev.options.URLFieldName];
-
-        nev.sendVerificationEmail(email, URL, function(err, info) {
-          if (err) {
-            return res.status(404).send('ERROR: sending verification email FAILED');
-          }
-          res.json({
-            msg: 'An email has been sent to you. Please check it to verify your account.',
-            info: info
-          });
-        });
-
-      // user already exists in temporary collection!
-      } else {
-        res.json({
-          msg: 'You have already signed up. Please check your email to verify your account.'
-        });
-      }
-    });
-
-  // resend verification button was clicked
-  } else {
-    nev.resendVerificationEmail(email, function(err, userFound) {
-      if (err) {
-        return res.status(404).send('ERROR: resending verification email FAILED');
-      }
-      if (userFound) {
-        res.json({
-          msg: 'An email has been sent to you, yet again. Please check it to verify your account.'
-        });
-      } else {
-        res.json({
-          msg: 'Your verification code has expired. Please sign up again.'
-        });
-      }
-    });
-  }
-		
-		
-		
-		
-		
-		
-		
 		user.save(function (err, result) {
 			if (err) {
 				res.status(500).send({
@@ -217,7 +161,7 @@ module.exports.login = function (req, res) {
 		user.comparePassword(req.body.password, function (err, isMatch) {
 			if (!isMatch) {
 				return res.status(401).send({
-					pwd : user.password,
+					pwd: user.password,
 					message: 'Invalid email and/or password pwd'
 				});
 			}
@@ -492,9 +436,9 @@ module.exports.changePassword = function (req, res, next) {
 						return next(err);
 					}
 					res.status(200);
-                    res.json({
-                        "token": createJWT(user)
-                    });
+					res.json({
+						"token": createJWT(user)
+					});
 
 				});
 			} else {
@@ -505,34 +449,34 @@ module.exports.changePassword = function (req, res, next) {
 		}
 	});
 }
-module.exports.emailVerification = function(req, res) {
-  var email = req.body.email;
+module.exports.emailVerification = function (req, res) {
+	var email = req.body.email;
 
-  // register button was clicked
-  if (req.body.type === 'register') {
-    var password = req.body.password;
-    var newUser = new User({
-      email: email,
-      password: password
-    });
+	// register button was clicked
+	if (req.body.type === 'register') {
+		var password = req.body.password;
+		var newUser = new User({
+			email: email,
+			password: password
+		});
 
 
 
-  // resend verification button was clicked
-  } else {
-    nev.resendVerificationEmail(email, function(err, userFound) {
-      if (err) {
-        return res.status(404).send('ERROR: resending verification email FAILED');
-      }
-      if (userFound) {
-        res.json({
-          msg: 'An email has been sent to you, yet again. Please check it to verify your account.'
-        });
-      } else {
-        res.json({
-          msg: 'Your verification code has expired. Please sign up again.'
-        });
-      }
-    });
-  }
+		// resend verification button was clicked
+	} else {
+		nev.resendVerificationEmail(email, function (err, userFound) {
+			if (err) {
+				return res.status(404).send('ERROR: resending verification email FAILED');
+			}
+			if (userFound) {
+				res.json({
+					msg: 'An email has been sent to you, yet again. Please check it to verify your account.'
+				});
+			} else {
+				res.json({
+					msg: 'Your verification code has expired. Please sign up again.'
+				});
+			}
+		});
+	}
 };
