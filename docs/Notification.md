@@ -55,7 +55,7 @@ There are several predefined toaster types:
 ```javascript
     toasterService.success("Success");
 ```
-![Info toaster image](https://github.com/nromanen/Ch-041/tree/development/docs/assets/toaster-success.jpg)
+![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-success.png)
 
 
 2. Info
@@ -64,11 +64,11 @@ There are several predefined toaster types:
     toasterService.info("Information");
 ```
 
-![Info toaster image](https://github.com/nromanen/Ch-041/tree/development/docs/assets/toaster-info.jpg)
+![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-info.png)
 
 3. Error
 ```javascript
     toasterService.error("Error");
 ```
 
-![Info toaster image](https://github.com/nromanen/Ch-041/tree/development/docs/assets/toaster-error.jpg)
+![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-error.png)
