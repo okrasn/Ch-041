@@ -44,6 +44,12 @@ nev.configure({
 			pass: 'mantru1985'
 		}
 	},
+	verifyMailOptions: {
+        from: 'Do Not Reply <myawesomeemail_do_not_reply@gmail.com>',
+        subject: 'Please confirm account',
+        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
+        text: 'Please confirm your account by clicking the following link: ${URL}'
+    },
 
 	hashingFunction: myHasher,
 	passwordFieldName: 'password',
