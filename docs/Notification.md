@@ -21,18 +21,18 @@ Options properties:
 toasterService.custom(scope, {
     message: "Lorem Ipsum",
     type: "toaster-info",
-    iconClass: "fa fa-info,
+    iconClass: "fa fa-info",
     delay: 3000
 });
 ```
-You can also pass callback function as third optional parameter:
+You can also pass scope and callback function as second and third optional parameter:
 ```javascript
 toasterService.custom(scope, {
     message: "Lorem Ipsum",
     type: "toaster-info",
-    iconClass: "fa fa-info,
+    iconClass: "fa fa-info",
     delay: 3000
-}, function(){
+}, $scope, function(){
     alert("Toster shown");
 });
 ```
