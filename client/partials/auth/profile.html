@@ -19,16 +19,16 @@
                         <img ngf-thumbnail="file || '/assets/images/profile.png'" class="img-size" name="image" alt="User Image">
                     </div>
                     <div class="col-xs-7">
-                        <input type="text" class="form-control" name="">
+                        <input type="text" class="form-control" value="{{file.name}}" name="" disabled>
                         <div class="file-upload">
                             <label>
-                                <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="20MB">
+                                <input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
                                 <span>Upload avatar</span>
                             </label>
                         </div>
-                        <button type="submit" ng-click="submit()">submit</button>
+                        <button type="submit" ng-click="submit()" class="btn btn-default btn-lg app-btn-blue capitalize cstm-btn">accept</button>
                         <i ng-show="upload_form.file.$error.required">*required</i><br>
-            <i ng-show="upload_form.file.$error.maxSize">File too large 
+            <i class="error-msg" ng-show="upload_form.file.$error.maxSize">File too large 
             {{file.size / 1000000|number:1}}MB: max 20M</i>
             <p>{{progress}}</p>
                     </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="row">
             <div class="col-xs-offset-5 col-xs-7">
-                <button class="btn btn-default btn-lg app-btn-blue capitalize pull-right profile-size" ng-click="showChangepwd = !showChangepwd">change password</button>
+                <button class="btn btn-default btn-lg app-btn-blue capitalize pull-right margin-bottom" ng-click="showChangepwd = !showChangepwd">change password</button>
             </div>
         </div>
         <form name="changePassForm" class="fade-in-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
@@ -77,9 +77,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-default btn-lg  app-btn-blue profile-size capitalize">save</button>
-                        <button type="reset" class="btn btn-default btn-lg  app-btn-blue profile-size capitalize">reset</button>
+                    <div class="save-reset">
+                        <button type="submit" class="btn btn-default btn-lg  app-btn-blue capitalize">save</button>
+                        <button type="reset" class="btn btn-default btn-lg  app-btn-blue capitalize">reset</button>
                     </div>
                 </div>
             </div>

@@ -57,6 +57,7 @@
             };
 
             $scope.upload = function(file) {
+                console.log($scope.file);
                 Upload.upload({
                     url: 'http://localhost:8080/upload', //webAPI exposed to upload the file
                     data: { file: file } //pass file as data, should be user ng-model
@@ -148,21 +149,5 @@
             $scope.layout = themeService.layout;
             $scope.layouts = themeService.layouts;
         }
-    ]).directive('pwCheck', [function() {
-        return {
-            require: 'ngModel',
-            link: function(scope, elem, attrs, ctrl) {
-                var firstPassword = '#' + attrs.pwCheck;
-                elem.add(firstPassword).on('keyup', function() {
-                    scope.$apply(function() {
-                        if (elem.val() === "") {
-                            return;
-                        }
-                        var v = elem.val() === $(firstPassword).val();
-                        ctrl.$setValidity('pwmatch', v);
-                    });
-                });
-            }
-        }
-    }]);
+    ]);
 })();
