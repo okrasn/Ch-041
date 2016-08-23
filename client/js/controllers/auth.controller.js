@@ -85,7 +85,7 @@
 					required: true,
 					email: true,
 					minlength: 9,
-					maxlength: 20,
+					maxlength: 40,
 				},
 				pwd: {
 					required: true,

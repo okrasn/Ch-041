@@ -34,7 +34,7 @@ myHasher = function (password, tempUserData, insertTempUser, callback) {
 // NEV configuration =====================
 nev.configure({
 	persistentUserModel: User,
-	expirationTime: 600, // 10 minutes
+	expirationTime: 600, 
 
 	verificationURL: 'http://localhost:8080/email-verification/${URL}',
 	transportOptions: {
@@ -453,13 +453,13 @@ module.exports.emailVerification = function (req, res) {
 	var email = req.body.email;
 
 	// register button was clicked
-	if (req.body.type === 'register') {
-		var password = req.body.password;
-		var newUser = new User({
-			email: email,
-			password: password
-		});
-
+//	if (req.body.type === 'register') {
+//		var password = req.body.password;
+//		var newUser = new User({
+//			email: email,
+//			password: password
+//		});
+//
 
 
 		// resend verification button was clicked

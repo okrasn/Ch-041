@@ -12,7 +12,6 @@ var express = require('express'),
 	multer = require('multer'),
 	cors = require('cors'),
 	logger = require('morgan');
-	//nodemailer = require('nodemailer');
 
 app.use(favicon(path.join(__dirname, 'client', 'assets', 'images', 'favicon.ico')));
 
