@@ -1,17 +1,17 @@
 var mongoose = require('mongoose'),
-    express = require('express'),
-    router = express.Router(),
-    passport = require('passport'),
-    jwt = require('jwt-simple'),
-    Article = mongoose.model('Article'),
-    Feed = mongoose.model('Feed'),
-    User = mongoose.model('User'),
+	express = require('express'),
+	router = express.Router(),
+	passport = require('passport'),
+	jwt = require('jwt-simple'),
+	Article = mongoose.model('Article'),
+	Feed = mongoose.model('Feed'),
+	User = mongoose.model('User'),
 	config = require('../config/config');
 
 var authCtrl = require('../controllers/authentication'),
-    articlesCtrl = require('../controllers/articles'),
-    feedsCtrl = require('../controllers/feeds'),
-    profCtrl = require('../controllers/profile');
+	articlesCtrl = require('../controllers/articles'),
+	feedsCtrl = require('../controllers/feeds'),
+	profCtrl = require('../controllers/profile');
 
 //router.get('/', auth, function (req, res) {
 ////    res.render('home', {

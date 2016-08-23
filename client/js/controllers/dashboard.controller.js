@@ -50,9 +50,7 @@
         $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())
                 .then(function (res) {
-                    toasterService.success($scope, {
-                        message: "Feed successfully deleted"
-                    });
+                    toasterService.info("Feed has been deleted");
                     $state.reload("dashboard");
                 }, function (err) {
                     console.log(err);

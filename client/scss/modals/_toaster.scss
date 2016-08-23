@@ -1,4 +1,3 @@
-$toaster-height: 70px;
 $default-background-color: #5f5f5f;
 $success-background-color: #33c23e;
 $warning-background-color: #e03f3f;
@@ -10,10 +9,17 @@ $fadeTime: 0.3s;
     z-index: 1000;
     position: fixed;
     width: 400px;
-    height: $toaster-height;
     right: 0px;
     color: white;
-    box-shadow: 0 3px 6px gba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.toaster>.toaster-window.left{
+    left: 0;
+}
+
+.toaster>.toaster-window.right{
+    right: 0;
 }
 
 .toaster-wrapper {
@@ -25,7 +31,7 @@ $fadeTime: 0.3s;
     }
 
     &.ng-leave > .toaster > .toaster-window {
-        top: -$navbar-height - $toaster-height;
+        top: -300px;
         animation: $fadeTime slideUp;
     }
 
@@ -61,7 +67,7 @@ $fadeTime: 0.3s;
     font-size: 1.5em;
     position: absolute;
     top: 50%;
-    left: 1em;
+    left: 15px;
     transform: translateY(-50%);
 }
 
@@ -76,7 +82,10 @@ $fadeTime: 0.3s;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
-    padding: $main-app-padding;
+    padding-top: $main-app-padding;
+    padding-left: $main-app-padding*3;
+    padding-bottom: $main-app-padding;
+    padding-right: $main-app-padding;
     text-align: left;
 }
 
@@ -110,7 +119,7 @@ $fadeTime: 0.3s;
         &.ng-leave > .toaster > .toaster-window {
             top: auto;
             animation: $fadeTime slideDownMobile;
-            bottom: -$toaster-height;
+            bottom: -300px;
         }
     }
 }

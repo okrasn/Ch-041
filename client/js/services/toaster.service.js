@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('rssreader').service('toasterService', ['$compile', '$animate', function ($compile, $animate) {
+    angular.module('rssreader').service('toasterService', ['$rootScope', '$compile', '$animate', function ($rootScope, $compile, $animate) {
         var domParent = angular.element('body');
 
         //********************************************************************************
@@ -9,17 +9,15 @@
         //  message: string
         //  overlay: boolean
         //  delay: value (ms)
+        //  position: [left, right, left-bottom, right-bottom]
         //  type: one of ['toaster-default', 'toaster-success', 'toaster-info', 'toaster-error']
         //  iconClass: string (name of glyph class, ex: fa fa-info)
         // 
         //********************************************************************************
 
-        var buildToaster = function (scope, options, onShow) {
-            var callback = arguments[2];
-            if (typeof arguments[0] !== "object") {
-                throw new Error("You are calling toaster with wrong parameters");
-            }
-            var elem = angular.element(document.createElement("toaster"));
+        var buildToaster = function (options, scope, onShow) {
+            var callback = arguments[2],
+                elem = angular.element(document.createElement("toaster"));
             elem.addClass('toaster-wrapper');
             elem.addClass(options.type);
             if (options.overlay) {
@@ -29,7 +27,6 @@
             if (options.delay) {
                 elem.attr("delay", options.delay);
             }
-
             var icon = angular.element(document.createElement("div"));
             icon.addClass('toaster-icon');
             icon.addClass(options.iconClass);
@@ -39,7 +36,13 @@
             if (options.htmlContent) {
                 elem.append("<span>" + options.htmlContent + "</span>");
             }
-            var appendHtml = $compile(elem, scope)(scope.$new());
+            var appendHtml;
+            if (typeof arguments[1] === 'object') {
+                appendHtml = $compile(elem, scope)(scope.$new());
+            }
+            else {
+                appendHtml = $compile(elem, scope)($rootScope.$new());
+            }
             $animate.enter(appendHtml, domParent).then(function () {
                 if (typeof callback === 'function') {
                     onShow();
@@ -61,7 +64,7 @@
             else {
                 options = defaultOptions;
             }
-            buildToaster(scope, options, onShow);
+            buildToaster(options, scope, onShow);
         }
         this.confirmFavArticleDelete = function (scope, customOptions, onShow) {
             var defaultOptions = {
@@ -78,11 +81,11 @@
             else {
                 options = defaultOptions;
             }
-            buildToaster(scope, options, onShow);
+            buildToaster(options, scope, onShow);
         }
-        this.success = function (scope, customOptions, onShow) {
+        this.success = function (message, customOptions, scope, onShow) {
             var defaultOptions = {
-                message: "Success!",
+                message: message,
                 type: 'toaster-success',
                 iconClass: 'fa fa-check',
                 delay: 3000
@@ -94,55 +97,55 @@
             else {
                 options = defaultOptions;
             }
-            buildToaster(scope, options, onShow);
+            buildToaster(options, scope, onShow);
         }
-        this.info = function (scope, options, onShow) {
+        this.info = function (message, customOptions, scope, onShow) {
             var defaultOptions = {
-                message: "Info",
+                message: message,
                 type: 'toaster-info',
                 iconClass: 'fa fa-info',
                 delay: 3000
             },
             options;
-            if (typeof customOptions === 'object') {
+            if (typeof arguments[1] === 'object') {
                 options = angular.extend({}, defaultOptions, customOptions);
             }
             else {
                 options = defaultOptions;
             }
-            buildToaster(scope, options, onShow);
+            buildToaster(options, scope, onShow);
         }
-        this.error = function (scope, options, onShow) {
+        this.error = function (message, customOptions, scope, onShow) {
             var defaultOptions = {
-                message: "Error!",
+                message: message,
                 type: 'toaster-error',
                 iconClass: 'fa fa-exclamation-triangle',
                 delay: 3000
             },
             options;
-            if (typeof customOptions === 'object') {
+            if (typeof arguments[1] === 'object') {
                 options = angular.extend({}, defaultOptions, customOptions);
             }
             else {
                 options = defaultOptions;
             }
-            buildToaster(scope, options, onShow);
+            buildToaster(options, scope, onShow);
         }
-        this.custom = function (scope, options, onShow) {
+        this.custom = function (customOptions, scope, onShow) {
             var defaultOptions = {
-                message: 'Description',
+                message: message,
                 type: 'toaster-default',
                 overlay: true,
                 iconClass: 'fa fa-info',
             },
             options;
-            if (typeof customOptions === 'object') {
+            if (typeof arguments[0] === 'object') {
                 options = angular.extend({}, defaultOptions, customOptions);
             }
             else {
                 options = defaultOptions;
             }
-            buildToaster(scope, options, onShow);
+            buildToaster(options, scope, onShow);
         }
         this.removeToaster = function (element) {
             $animate.leave(element, domParent).then(function () {

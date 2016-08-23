@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-    angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -17,7 +17,7 @@
 						if (authService.isLoggedIn()) {
 							$state.go('home');
 						}
-                	}]
+					}]
 				})
 				.state('register', {
 					url: '/register',
@@ -27,7 +27,7 @@
 						if (authService.isLoggedIn()) {
 							$state.go('home');
 						}
-                	}]
+					}]
 				})
 				.state('profile', {
 					url: '/profile',
@@ -38,7 +38,7 @@
 							authService.logOut();
 							$state.go('home');
 						}
-                	}]
+					}]
 				})
 				.state("dashboard", {
 					url: '/dashboard',
@@ -59,11 +59,11 @@
 					resolve: {
 						feedPromise: ['feedsService', function (feedsService) {
 							return feedsService.getAllFeeds();
-                   		}]
+						}]
 					},
 					onEnter: ['articlesService', 'dashboardService', 'feedsService', '$state', 'authService', function (articlesService, dashboardService, feedsService, $state, authService) {
 						articlesService.getAllArticles();
-                	}]
+					}]
 				})
 				.state("dashboard.list", {
 					url: '/list',
@@ -86,7 +86,7 @@
 					controller: 'FeedsController',
 					onEnter: ['dashboardService', function (dashboardService) {
 						dashboardService.setTitle("Add Feed");
-                	}]
+					}]
 				});
 			
 			$authProvider.facebook({

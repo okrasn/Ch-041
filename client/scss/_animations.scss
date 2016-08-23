@@ -39,7 +39,7 @@ $toaster-height: 70px;
 
 @keyframes slideDown {
     0% {
-        top: -$navbar-height + $toaster-height;
+        top: -300px;
         opacity: 0;
     }
 
@@ -56,7 +56,7 @@ $toaster-height: 70px;
     }
 
     100% {
-        top: -$navbar-height + $toaster-height;
+        top: -300px;
         opacity: 0;
     }
 }
@@ -68,14 +68,14 @@ $toaster-height: 70px;
     }
 
     100% {
-        bottom: -$toaster-height;
+        bottom: -300px;
         opacity: 0;
     }
 }
 
 @keyframes slideUpMobile {
     0% {
-        bottom: -$toaster-height;
+        bottom: -300px;
         opacity: 0;
     }
 

@@ -19,9 +19,7 @@
             $scope.favForAdd.category = $scope.obj.category;
             console.log($scope.obj.category);
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
-                toasterService.success($scope, {
-                    message: "Article marked as favourite",
-                });
+                toasterService.success("Article marked as favourite");
                 $state.reload("dashboard");
             }, function (err) {
                 console.log(err);
@@ -49,9 +47,7 @@
         }
         $scope.confirmRemoveFavourite = function () {
             articlesService.removeFavourite($scope.favForRemove).then(function (res) {
-                toasterService.success($scope, {
-                    message: "Article removed from favourites",
-                });
+                toasterService.info("Article removed from favourites");
                 $state.reload("dashboard");
             }, function (err) {
                 console.log(err);
