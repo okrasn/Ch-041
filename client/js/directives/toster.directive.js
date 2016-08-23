@@ -2,12 +2,18 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
     return {
         restrict: 'E',
         transclude: true,
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs) { 
             if (attrs.overlay) {
                 scope.overlay = true;
             }
             else {
                 scope.overlay = false;
+            }
+            if (attrs.delay) {
+                scope.delay = attrs.delay;
+            }
+            else {
+                scope.delay = 5000;
             }
             scope.toasterStyle = {};
             scope.confirmFeedDelete = function () {
@@ -25,7 +31,7 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
             };
             scope.timer = $timeout(function () {
                 scope.hideToaster();
-            }, 5000);
+            }, scope.delay);
         },
         templateUrl: '../partials/modals/toaster.html'
     };

@@ -92,6 +92,10 @@ p {
     margin-top: $main-app-padding;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 @media screen and (max-width: $phone-res) {
     .hide-mobile {
         display: none;

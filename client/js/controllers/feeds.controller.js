@@ -8,7 +8,9 @@
             $scope.error = '';
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
-                    toasterService.success("Feed successfully added", $scope);
+                    toasterService.success($scope, {
+                        message: "Feed successfully added",
+                    });
                     $state.reload("dashboard");
                 }, function (err) {
                     console.log(err);

@@ -45,12 +45,14 @@
         }
         var timer;
         $scope.onFeedDelete = function () {
-            toasterService.confirmFeedDelete("feed", $scope);
+            toasterService.confirmFeedDelete($scope);
         }
         $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())
                 .then(function (res) {
-                    toasterService.success("Feed successfully deleted", $scope);
+                    toasterService.success($scope, {
+                        message: "Feed successfully deleted"
+                    });
                     $state.reload("dashboard");
                 }, function (err) {
                     console.log(err);
