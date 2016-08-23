@@ -462,8 +462,7 @@ module.exports.emailVerification = function (req, res) {
 //
 
 
-		// resend verification button was clicked
-	} else {
+	
 		nev.resendVerificationEmail(email, function (err, userFound) {
 			if (err) {
 				return res.status(404).send('ERROR: resending verification email FAILED');
@@ -478,5 +477,5 @@ module.exports.emailVerification = function (req, res) {
 				});
 			}
 		});
-	}
+	
 };

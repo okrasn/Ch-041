@@ -23,6 +23,7 @@ var mongoose = require('mongoose'),
 ////        user: req.user
 ////    });
 //});
+
 router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);
