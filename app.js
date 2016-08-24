@@ -46,9 +46,9 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); // support encoded bodies
 app.use(session({
-    secret: 'MY_SECRET',
-    resave: false,
-    saveUninitialized: false
+	secret: 'MY_SECRET',
+	resave: false,
+	saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,14 +62,14 @@ app.use(morgan('dev'));
 // mongoose
 mongoose.connect('mongodb://localhost/feeds');
 mongoose.connection.on('error', function (err) {
-    console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // error handlers
@@ -96,13 +96,13 @@ if (app.get('env') === 'production') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+	res.status(err.status || 500);
+	res.render('error', {
+		message: err.message,
+		error: {}
+	});
 });
-app.listen(app.get('port'), app.get('host'), function () {
+app.listen(8080, function () {
 	console.log('Server running on port 8080!');
 });
 module.exports = app;

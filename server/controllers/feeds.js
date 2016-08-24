@@ -158,6 +158,8 @@ module.exports.setCategoryOrder = function (req, res, next) {
     req.user.categories = req.body.newCategories;
     req.user.save(function (err) {
         if (err) return next(err);
+        res.statusCode = 200;
+        return res.send();
     });
 }
 
@@ -165,5 +167,7 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
     req.user.favCategories = req.body.newCategories;
     req.user.save(function (err) {
         if (err) return next(err);
+        res.statusCode = 200;
+        return res.send();
     });
 }

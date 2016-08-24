@@ -8,17 +8,18 @@ toasterService.custom(scope[, options][, onShow]);
 ```
 
 
-You can pass custom options to toaster methods as second parameter
-Options properties:
+You can pass custom options to toaster methods as first parameter.
+
+##### Options properties:
 - __message__: string
 - __overlay__: boolean 
 - __delay__: value (ms)
 - __type__: one of ['__toaster-default__', '__toaster-success__', '__toaster-info__', '__toaster-error__']
-- __iconClass__: string (name of glyph class, ex: "fa fa-info")
+- __iconClass__: string (name of glyph class, e.g.: "fa fa-info")
 
 ##### Example:
 ```javascript
-toasterService.custom(scope, {
+toasterService.custom({
     message: "Lorem Ipsum",
     type: "toaster-info",
     iconClass: "fa fa-info",
@@ -27,7 +28,7 @@ toasterService.custom(scope, {
 ```
 You can also pass scope and callback function as second and third optional parameter:
 ```javascript
-toasterService.custom(scope, {
+toasterService.custom({
     message: "Lorem Ipsum",
     type: "toaster-info",
     iconClass: "fa fa-info",

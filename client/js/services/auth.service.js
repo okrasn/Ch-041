@@ -9,8 +9,6 @@
                 return $auth.getToken();
             },
             isLoggedIn: function () {
-                console.log($auth);
-                console.log($auth.isAuthenticated);
                 return $auth.isAuthenticated();
             },
             currentUser: function () {

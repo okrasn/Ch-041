@@ -11,10 +11,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             }
         }).then(function (res) {
             angular.copy(res.data, that.feedsDictionary);
-                that.getAllFavourites().then(function (res) {
-                    angular.copy(res.data, that.favouritesDictionary);
-                    console.log(that.favouritesDictionary);
+            that.getAllFavourites().then(function (res) {
+                angular.copy(res.data, that.favouritesDictionary);
+                console.log(that.favouritesDictionary);
             });
+            //dashboardService.loadingIcon = false;
         });
     }
     this.getAllFavourites = function () {
@@ -110,6 +111,8 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
+        }).then(function (resp) {
+            dashboardService.loadingIcon = false;
         });
     }
 }]);

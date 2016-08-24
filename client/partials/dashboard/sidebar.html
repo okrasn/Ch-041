@@ -1,11 +1,11 @@
 <div id="sidebar">
     <div class="sidebar-item" ng-show="checkIfEmpty()">
-        <div ng-click="getAll()"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
+        <div ng-click="getAll($event)"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
     </div>
     <div class="sidebar-item" ng-show="hideFavourites()">
         <span ng-click="toggle1 = !toggle1">
-            <a class="glyphFeeds" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites()">
-                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle1}"></span><span>Favourites</span>
+            <a class="glyphFeeds" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites($event)">
+                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right"></span><span>Favourites</span>
             </a>
         </span>
         <div class="collapse" id="favourites">
@@ -18,8 +18,8 @@
                     dnd-moved="onFavsDrag($index)"
                     dnd-effect-allowed="move">
                     <span ng-click="toggle = !toggle">
-                        <a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.key }}" ng-click="getFavArticlesByCat(category.key)" class="glyphFeeds">
-                            <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
+                        <a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.key }}" ng-click="getFavArticlesByCat($event, category.key)" class="glyphFeeds">
+                            <span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span>
                         </a>
                     </span>
                     <div class="collapse" id="{{ $index + 'fav' + category.key }}">
@@ -46,8 +46,8 @@
             dnd-moved="onFeedsDrag($index)"
             dnd-effect-allowed="move">
             <span ng-click="toggle = !toggle">
-                <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat(category.key, $index)" class="glyphFeeds">
-                    <span class="glyphicon glyphicon-chevron-right" ng-class="{'glyphicon-chevron-down' : toggle}"></span><span ng-bind="category.key"></span>
+                <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat($event, category.key, $index)" class="glyphFeeds">
+                    <span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span>
                 </a>
             </span>
             <div class="collapse" id="{{ $index + category.key }}">

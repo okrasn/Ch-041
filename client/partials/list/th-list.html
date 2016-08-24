@@ -47,9 +47,27 @@
            socialshare
            socialshare-provider="vk"
            socialshare-text="{{articleForShare.title}}"
-           socialshare-text="Bla bla bla"
+           socialshare-description=""
+           socialshare-hashtags="rssreader"
+           socialshare-url="{{articleForShare.link}}"></a>
+        <a class="app-btn-blue fa fa-linkedin"
+           socialshare
+           socialshare-provider="linkedin"
+           socialshare-text="{{articleForShare.title}}"
            socialshare-description="Some sharing text"
-           socialshare-hashtags="angularjs, angular-socialshare"
+           socialshare-hashtags="rssreader"
+           socialshare-url="{{articleForShare.link}}"></a>
+        <a class="app-btn-blue fa fa-facebook"
+           socialshare
+           socialshare-provider="facebook"
+           socialshare-text="{{articleForShare.title}}"
+           socialshare-hashtags="rssreader"
+           socialshare-url="{{articleForShare.link}}"></a>
+        <a class="app-btn-blue fa fa-twitter"
+           socialshare
+           socialshare-provider="twitter"
+           socialshare-text="{{articleForShare.title}}"
+           socialshare-hashtags="rssreader"
            socialshare-url="{{articleForShare.link}}"></a>
         <div class="alert alert-danger text-center fade-in-anim" role="alert" ng-show="error">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

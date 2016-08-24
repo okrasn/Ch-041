@@ -79,10 +79,13 @@
                     });
                 },
                 removeFavourite: function (article) {
+                    dashboardService.loadingIcon = true;
                     return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()
                         }
+                    }).then(function (res) {
+                        dashboardService.loadingIcon = false;
                     });
                 }
             },

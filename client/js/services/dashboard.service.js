@@ -5,7 +5,10 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
     if (!$window.localStorage.viewMode) {
         $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }
-
+    this.loadingIcon = false;
+    this.isLoading = function () {
+        return that.loadingIcon;
+    };
     this.sidebar = false;
     this.checkSidebar = function () {
         return that.sidebar;

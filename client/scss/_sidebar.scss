@@ -8,12 +8,22 @@ $sidebar-mobile-width: 270px;
     margin-left: 1em;
 }
 
+.chevron-down>span.glyphicon.glyphicon-chevron-right{
+    transform: rotate(90deg);
+}
+
+span.glyphicon{
+    transition: all 0.3s ease;
+}
+
 #dashboard {
     font-family: 'Roboto', sans-serif;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    height: 100%;
+    background-color: $main-background-color;
 
     #sidebar-wrapper {
         position: fixed;

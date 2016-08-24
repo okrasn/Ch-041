@@ -1,10 +1,14 @@
 var exec = require('child_process').exec,
     gulp = require('gulp'),
+    sourcemaps = require('gulp-sourcemaps'),
     sass = require('gulp-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
     useref = require('gulp-useref'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     watch = require('gulp-watch'),
+    cssmin = require("gulp-cssmin"),
+    rename = require("gulp-rename"),
     sourcemaps = require('gulp-sourcemaps'),
     ngHtml2Js = require("gulp-ng-html2js"),
     ngAnnotate = require('gulp-ng-annotate'),
@@ -33,12 +37,26 @@ gulp.task('main', ['scripts', 'sass'], function () {
 gulp.task('sass', function () {
     return gulp.src('client/scss/**/*.scss')
         .pipe(sass())
+        .pipe(autoprefixer({
+            browsers: ['> 1%', 'IE 7'],
+            cascade: true
+        }))
+        .pipe(gulp.dest('client/css'))
+        .pipe(sourcemaps.init())
+        .pipe(cssmin())
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('client/css'));
 });
 
 gulp.task('scripts', function () {
     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
         .pipe(concat('app.min.js'))
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
         .on('error', function (e) {
             console.log(e);
         })
@@ -56,7 +74,7 @@ gulp.task('useref', function () {
         .pipe(gulp.dest('min'))
 });
 
-gulp.task('build', function (){
+gulp.task('build', function () {
     gulp.src('client/scss/**/*.scss')
         .pipe(sass())
         .pipe(gulp.dest('dist/css/'));
@@ -64,7 +82,7 @@ gulp.task('build', function (){
     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
         .pipe(concat('app.min.js'))
         .pipe(uglify()).on('error', function (e) {
-    })
+        })
         .pipe(gulp.dest('dist/js/'));
 
     gulp.src(['client/partials/**/*.html'])
@@ -81,4 +99,4 @@ gulp.task('build', function (){
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('default', ['server', 'build', 'sass', 'scripts', 'main']); 
+gulp.task('default', ['server', 'build', 'sass', 'scripts', 'main']);

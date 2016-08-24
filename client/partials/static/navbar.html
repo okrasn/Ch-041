@@ -2,7 +2,7 @@
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" id="sidebar-toggle" class="navbar-toggle visible-sm visible-xs" ng-click="toggleSidebar()">
+                <button type="button" id="sidebar-toggle" class="navbar-toggle visible-sm visible-xs" ng-click="toggleSidebar()" ng-show="isLoggedIn()">
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
                 <button type="button" class="navbar-toggle collapsed visible-sm visible-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-show="isLoggedIn()">
@@ -36,7 +36,7 @@
                             </li>
                         </ul>
                     </li>
-                    <div class="profile-drop-down  hidden-md hidden-lg">
+                    <div class="profile-drop-down hidden-md hidden-lg">
                         <li class="user-header">
                             <div class="row">
                                 <div class="col-xs-offset-3 col-xs-6">

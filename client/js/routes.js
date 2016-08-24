@@ -61,7 +61,7 @@
 							return feedsService.getAllFeeds();
 						}]
 					},
-					onEnter: ['articlesService', 'dashboardService', 'feedsService', '$state', 'authService', function (articlesService, dashboardService, feedsService, $state, authService) {
+					onEnter: ['articlesService', function (articlesService) {
 						articlesService.getAllArticles();
 					}]
 				})
