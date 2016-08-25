@@ -34,7 +34,7 @@
         }
         $scope.share = function (article) {
             $scope.error = null;
-            $scope.modalShareShown = !$scope.modalShareShown;
+            //$scope.modalShareShown = !$scope.modalShareShown;
             $scope.articleForShare = article;
         }
         $scope.cancelSharing = function () {

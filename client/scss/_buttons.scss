@@ -176,6 +176,19 @@ span.extra-btns {
     color: #eb4e54;
 }
 
+a.sharing-btn{
+    font-size: 2em;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin: $main-app-padding/3;
+    &:hover{
+        transition: color 0.3s ease;
+        color: #3949ab;
+    }
+}
+
 @media only screen and (max-width: 768px) {
    .app-btn-blue {
        width: 70%;

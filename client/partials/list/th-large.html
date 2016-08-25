@@ -16,7 +16,7 @@
                             read
                         </a>
                         <span class="article-fav-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()"></span>
-                        <span class="article-fav-icon fa fa-share-alt onhover-green" ng-click="share(article)"></span>
+                        <span class="article-fav-item fa fa-share-alt onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
                     </span>
                     <span class="trash-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
                     <span class="article-date" ng-bind="getArticleDate(article.date)"></span>

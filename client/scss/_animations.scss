@@ -20,6 +20,17 @@ $toaster-height: 70px;
     }
 }
 
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 @keyframes animatetop {
     0% {
         top: -400px;

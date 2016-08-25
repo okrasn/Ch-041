@@ -34,6 +34,7 @@
     "satellizer": "^0.15.4",
     "angular-jwt": "^0.1.1",
     "angular-toastr": "^2.0.0",
-    "angular-socialshare": "angularjs-socialshare#^2.2.5"
+    "angular-socialshare": "angularjs-socialshare#^2.2.5",
+    "angular-bootstrap": "^2.1.2"
   }
 }
