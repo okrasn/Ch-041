@@ -6,27 +6,29 @@ angular.module('rssreader').directive('checkStrength', function() {
                 var strength = {
                     colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
                     mesureStrength: function(p) {
-                        var _force = 0,
-                         _regex = /[#@$-/:-?-~!"^_`]/g,
-                         _lowerLetters = /[a-z]+/.test(p),
-                         _upperLetters = /[A-Z]+/.test(p),
-                         _numbers = /[0-9]+/.test(p),
-                         _symbols = _regex.test(p),
-                         _flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
-                         _passedMatches = $.grep(_flags, function(el) {
-                            return el === true; }).length;
+                     	if(p){
+							 var _force = 0,
+							 _regex = /[#@$-/:-?-~!"^_`]/g,
+							 _lowerLetters = /[a-z]+/.test(p),
+							 _upperLetters = /[A-Z]+/.test(p),
+							 _numbers = /[0-9]+/.test(p),
+							 _symbols = _regex.test(p),
+							 _flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
+							 _passedMatches = $.grep(_flags, function(el) {
+								return el === true; }).length;
 
-                        _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
-                        _force += _passedMatches * 10;
+							_force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+							_force += _passedMatches * 10;
 
-                        // penality (short password)
-                        _force = (p.length <= 5) ? Math.min(_force, 10) : _force;
-                        // penality (poor variety of characters)
-                        _force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
-                        _force = (_passedMatches == 2) ? Math.min(_force, 20) : _force;
-                        _force = (_passedMatches == 3) ? Math.min(_force, 40) : _force;
+							// penality (short password)
+							_force = (p.length <= 5) ? Math.min(_force, 10) : _force;
+							// penality (poor variety of characters)
+							_force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
+							_force = (_passedMatches == 2) ? Math.min(_force, 20) : _force;
+							_force = (_passedMatches == 3) ? Math.min(_force, 40) : _force;
 
-                        return _force;
+							return _force;
+						}
                     },
                     getColor: function(s) {
                         var idx = 0;
