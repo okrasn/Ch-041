@@ -103,14 +103,10 @@ if (app.get('env') === 'production') {
 //});
 
 app.listen(app.get('port'), app.get('host'), function () {
-app.use(function (err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: {}
-	});
-});
-app.listen(8080, function () {
 	console.log('Server running on port 8080!');
 });
+
+//app.listen(8080, function () {
+//	console.log('Server running on port 8080!');
+//});
 module.exports = app;

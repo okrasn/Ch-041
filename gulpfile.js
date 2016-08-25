@@ -15,11 +15,6 @@ var exec = require('child_process').exec,
     nodemon = require('nodemon');
 
 gulp.task('server', function (cb) {
-	exec('node app.js', function (err, stdout, stderr) {
-		console.log(stdout);
-		console.log(stderr);
-		cb(err);
-	});
 	 //You must create folder 'data' in the root of project folder
 //	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
 //		console.log(stdout);
