@@ -1,5 +1,23 @@
 <div id="dashboard">
-    <div ui-view="sidebar"></div>
-    <div ui-view="feedHead"></div>
-    <div ui-view></div>
+    <div class="loading-icon" ng-show="loadingIcon()">
+        <div class="center-absolute sk-cube-grid">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+            <div class="sk-cube sk-cube3"></div>
+            <div class="sk-cube sk-cube4"></div>
+            <div class="sk-cube sk-cube5"></div>
+            <div class="sk-cube sk-cube6"></div>
+            <div class="sk-cube sk-cube7"></div>
+            <div class="sk-cube sk-cube8"></div>
+            <div class="sk-cube sk-cube9"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="sidebar-wrapper" class="col-md-3 col-lg-2 fade-in-anim" ui-view="sidebar" ng-class="{'sidebar-mobile' : !sidebar()}"></div>
+        <div class="sidebar-overlay visible-xs visible-sm" ng-click="toggleSidebar()" ng-show="sidebar()"></div>
+        <div id="content-wrapper" class="col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2">
+            <div ui-view="feedHead" class="row"></div>
+            <div ui-view class="row"></div>
+        </div>
+    </div>
 </div>

@@ -1,21 +1,38 @@
-angular.module('rssreader').directive('toaster', [function () {
+angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', function ($timeout, toasterService) {
     return {
         restrict: 'E',
-        scope: {
-            show: '='
-        },
-        replace: true, // Replace with the template below
-        transclude: true, // we want to insert custom content inside the directive
-        link: function (scope, element, attrs) {
-            scope.dialogStyle = {};
-            if (attrs.width)
-                scope.dialogStyle.width = attrs.width;
-            if (attrs.height)
-                scope.dialogStyle.height = attrs.height;
-            scope.hideModal = function () {
-                scope.show = false;
+        transclude: true,
+        link: function (scope, element, attrs) { 
+            if (attrs.overlay) {
+                scope.overlay = true;
+            }
+            else {
+                scope.overlay = false;
+            }
+            if (attrs.delay) {
+                scope.delay = attrs.delay;
+            }
+            else {
+                scope.delay = 5000;
+            }
+            scope.toasterStyle = {};
+            scope.confirmFeedDelete = function () {
+                scope.$parent.confirmFeedDelete();
+                scope.hideToaster();
+            }
+            scope.confirmRemoveFavourite = function () {
+                scope.$parent.confirmRemoveFavourite();
+                scope.hideToaster();
+            }
+            scope.hideToaster = function () {
+                $timeout.cancel(scope.timer);
+                scope.$destroy();
+                toasterService.removeToaster(element);
             };
+            scope.timer = $timeout(function () {
+                scope.hideToaster();
+            }, scope.delay);
         },
-        templateUrl: '../partials/others/toaster.html' 
+        templateUrl: '../partials/modals/toaster.html'
     };
 }]);

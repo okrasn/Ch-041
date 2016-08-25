@@ -45,18 +45,25 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true
 })); // support encoded bodies
-//app.use(session({
-//    secret: 'MY_SECRET',
-//    resave: false,
-//    saveUninitialized: false
-//})); 
+app.use(session({
+	secret: 'MY_SECRET',
+	resave: false,
+	saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(morgan('dev'));
+app.use(express.static('./client'));
+app.use(express.static('./server/uploads'));
 app.use('/', routes);
 app.use(morgan('dev'));
 
 
 // mongoose
+mongoose.connect('mongodb://localhost/feeds');
+mongoose.connection.on('error', function (err) {
+	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -95,8 +102,7 @@ app.use(function (err, req, res, next) {
 		error: {}
 	});
 });
-
-app.listen(app.get('port'), app.get('host'), function () {
+app.listen(8080, function () {
 	console.log('Server running on port 8080!');
 });
 module.exports = app;

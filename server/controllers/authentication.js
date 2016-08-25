@@ -5,7 +5,6 @@ var passport = require('passport'),
 	jwt = require('jwt-simple'),
 	config = require('../config/config'),
 	request = require('request'),
-	
 	ERRORS = {
 		fill_out_fields: 'Please fill out all fields',
 		user_not_found: 'User not found',
