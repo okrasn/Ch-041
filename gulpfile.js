@@ -17,12 +17,12 @@ gulp.task('server', function (cb) {
 		cb(err);
 	});
 	 //You must create folder 'data' in the root of project folder
-	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-		console.log(stdout);
-		console.log(stderr);
-		cb(err);
-	});
-	console.log("Server is running on port 8080");
+//	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+//		console.log(stdout);
+//		console.log(stderr);
+//		cb(err);
+//	});
+//	console.log("Server is running on port 8080");
 });
 
 gulp.task('main', ['scripts', 'sass'], function () {
@@ -44,12 +44,7 @@ gulp.task('scripts', function () {
 		})
 		.pipe(gulp.dest('./client/js/'))
 });
-// =====================working not correct========================
-// gulp.task('full_scripts', function () {
-//     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
-//         .pipe(concat('app.full.js'))
-//       	.pipe(gulp.dest('./client/js/full'))
-// });
+
 gulp.task('useref', function () {
 	return gulp.src('client/*.html')
 		.pipe(useref())
