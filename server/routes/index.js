@@ -17,7 +17,6 @@ var mongoose = require('mongoose'),
 //    userProperty: 'payload'
 //});
 
-
 //router.get('/', auth, function (req, res) {
 ////    res.render('home', {
 ////        user: req.user
@@ -46,6 +45,7 @@ router.get('/users/:user/favourites', articlesCtrl.allFavourites);
 // add new feed
 router.post('/users/:user/addFeed', feedsCtrl.add);
 router.post('/users/:user/setCategoryOrder', feedsCtrl.setCategoryOrder);
+router.post('/users/:user/setFavsCategoryOrder', feedsCtrl.setFavsCategoryOrder);
 router.post('/users/:user/addFavArticle', articlesCtrl.addFavArticle);
 
 // remove feed

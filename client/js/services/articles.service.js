@@ -44,7 +44,24 @@
                     obj.articles.length = 0;
                     dashboardService.setTitle("Favourites");
                     dashboardService.resetFeedId();
-                    angular.copy(feedsService.favourites, obj.articles);
+                    angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+                        angular.forEach(value.values, function (value, key) {
+                            obj.articles.push(value);
+                        });
+                    });
+                },
+                getFavArticlesByCat: function (cat) {
+                    obj.isFavourites = true;
+                    obj.articles.length = 0;
+                    dashboardService.setTitle("Favourites: " + cat);
+                    dashboardService.resetFeedId();
+                    angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+                        if (value.key === cat) {
+                            angular.forEach(value.values, function (value, key) {
+                                obj.articles.push(value);
+                            });
+                        }
+                    });
                 },
                 getFavArticle: function (article) {
                     obj.isFavourites = true;
@@ -54,6 +71,7 @@
                     obj.articles.push(article);
                 },
                 addFavourite: function (article) {
+                    console.log(article);
                     return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()
@@ -61,10 +79,13 @@
                     });
                 },
                 removeFavourite: function (article) {
+                    dashboardService.loadingIcon = true;
                     return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()
                         }
+                    }).then(function (res) {
+                        dashboardService.loadingIcon = false;
                     });
                 }
             },

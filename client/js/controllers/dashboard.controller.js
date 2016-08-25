@@ -1,13 +1,17 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', 'dashboardService', 'feedsService', function ($scope, $state, $timeout, dashboardService, feedsService) {
-        $scope.modalShown = false;
+    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', '$compile', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, $timeout, $compile, dashboardService, feedsService, toasterService) {
         if (feedsService.feedsDictionary.length) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
         } else {
             dashboardService.setTitle("Add Feed");
             $state.go('dashboard.addFeed');
+        }
+        $scope.loadingIcon = dashboardService.isLoading;
+        $scope.sidebar = dashboardService.checkSidebar;
+        $scope.toggleSidebar = function () {
+            dashboardService.sidebar = !dashboardService.sidebar;
         }
 
         $scope.headTitle = dashboardService.getTitle;
@@ -39,31 +43,18 @@
             }
             $state.go('dashboard.' + dashboardService.getViewMode());
         }
+        var timer;
         $scope.onFeedDelete = function () {
-            $scope.modalShown = !$scope.modalShown;
+            toasterService.confirmFeedDelete($scope);
         }
         $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())
                 .then(function (res) {
+                    toasterService.info("Feed has been deleted");
                     $state.reload("dashboard");
                 }, function (err) {
                     console.log(err);
                 });
         }
-
-        $scope.$watch('alertMsg', function (newVal) {
-            if (newVal && newVal.length) {
-                $timeout(function () {
-                    $scope.alertMsg = null;
-                }, 4000);
-            }
-        });
-        $scope.$watch('successMsg', function (newVal) {
-            if (newVal && newVal.length) {
-                $timeout(function () {
-                    $scope.successMsg = null;
-                }, 4000);
-            }
-        });
     }]);
 })();

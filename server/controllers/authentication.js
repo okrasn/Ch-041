@@ -572,17 +572,6 @@ module.exports.changePassword = function (req, res, next) {
 module.exports.emailVerification = function (req, res) {
 	var email = req.body.email;
 
-	// register button was clicked
-//	if (req.body.type === 'register') {
-//		var password = req.body.password;
-//		var newUser = new User({
-//			email: email,
-//			password: password
-//		});
-//
-
-
-	
 		nev.resendVerificationEmail(email, function (err, userFound) {
 			if (err) {
 				return res.status(404).send('ERROR: resending verification email FAILED');

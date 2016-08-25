@@ -3,13 +3,19 @@ $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
+$main-background-color: #f9f9fb;
+$main-app-padding: 1em;
+$phone-res: 768px;
+$tablet-res: 992px;
+$desktop-res: 1200px;
+
 html {
     font-family: 'Roboto', sans-serif;
 }
 
 body {
     overflow-x: hidden;
-    padding-top: 50px;
+    margin-top: 50px;
 }
 
 p {
@@ -19,11 +25,6 @@ p {
 
 .uppercase {
     text-transform: uppercase;
-}
-
-#app-wrapper>.container-fluid {
-    padding-right: 0px;
-    padding-left: 0px;
 }
 
 .shortened-text-block {
@@ -48,13 +49,17 @@ p {
     border: none;
     border-radius: $main-border-radius;
     transition: $app-transition;
-    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
-    &:visited {}
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    &:visited {
+    }
+
     &:hover {
         border: none;
         transition: $app-transition;
         box-shadow: 0 4px 15px 0 rgba(57, 73, 171, 1);
     }
+
     &:active {
         border: none;
         outline: none;
@@ -76,8 +81,64 @@ p {
     outline: none;
 }
 
+.center-children {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert{
+    margin-bottom: 0px;
+    margin-top: $main-app-padding;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.loading-icon{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+
+    &.ng-hide-add {
+        animation: 0.2s fadeIn ease;
+    }
+    &.ng-hide-remove {
+        animation: 0.2s fadeOut ease;
+    }
+}
+
+.center-absolute{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: $phone-res) {
+    .hide-mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: $tablet-res) {
+    .hide-tablet {
+        display: none;
+    }
+}
+
+@media screen and (max-width: $desktop-res) {
+    .hide-desktop {
+        display: none;
+    }
+}
+
 @import "navbar";
-@import "animations";
 @import "addFeed";
 @import "feedList";
 @import "sidebar";
@@ -85,8 +146,6 @@ p {
 @import "auth";
 @import "profileSettings";
 @import "buttons";
-@import "toaster";
-
-.capitalize {
-    text-transform: capitalize;
-}
+@import "modals/toaster";
+@import "modals/modal";
+@import "animations";

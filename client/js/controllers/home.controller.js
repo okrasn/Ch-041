@@ -3,7 +3,7 @@
     angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'authService', 'dashboardService', 'feedsService', function ($scope, $state, authService, dashboardService, feedsService) {
         $scope.isLoggedIn = authService.isLoggedIn;
         $scope.currentUser = authService.currentUser;
-         $scope.models = {
+        $scope.models = {
             selected: null,
             lists: {
                 A: []

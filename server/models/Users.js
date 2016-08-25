@@ -26,6 +26,7 @@ var mongoose = require('mongoose'),
 			default: ""
 		},
 		categories: [String],
+		favCategories: [String],
 		feeds: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Feed'

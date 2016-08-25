@@ -1,26 +1,38 @@
-angular.module('rssreader').service('dashboardService', [function () {
+angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
     var that = this;
-
     this.DEFAULT_VIEW = 2;
-    this.currentViewMode = that.DEFAULT_VIEW;
 
-    // We have three view modes
+    if (!$window.localStorage.viewMode) {
+        $window.localStorage.viewMode = this.DEFAULT_VIEW;
+    }
+    this.loadingIcon = false;
+    this.isLoading = function () {
+        return that.loadingIcon;
+    };
+    this.sidebar = false;
+    this.checkSidebar = function () {
+        return that.sidebar;
+    }
+    this.currentViewMode = $window.localStorage.viewMode;
+    this.modalShown = false;
     this.viewModes = [
         'list',
         'th-list',
         'th-large'
     ];
     this.resetViewMode = function () {
-        that.currentViewMode = that.DEFAULT_VIEW;
+        $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }
     this.setViewMode = function (index) {
+        $window.localStorage.viewMode = index;
         if (index > that.viewModes.length - 1) {
             throw new Error("View mode you are trying to set is not defined");
         } else {
-            that.currentViewMode = index;
+            that.currentViewMode = $window.localStorage.viewMode;
         }
     }
     this.getViewMode = function () {
+        that.currentViewMode = $window.localStorage.viewMode;
         return that.viewModes[that.currentViewMode];
     }
     this.title = "";
@@ -34,7 +46,6 @@ angular.module('rssreader').service('dashboardService', [function () {
         return that.title;
     }
 
-    this.currentView = this.DEFAULT_VIEW;
     this.currentFeed = '';
     this.getFeedId = function () {
         return that.currentFeed;
