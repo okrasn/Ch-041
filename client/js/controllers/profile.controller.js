@@ -5,9 +5,9 @@
             return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
         }, "Please specify the correct domain for your documents");
     }]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toastr',
+        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
         function (Upload, $http, $state, profileService, $scope,
-        authService, $window, themeService, dashboardService, $auth, accountInfo, toastr) {
+        authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
 
             $scope.getProfile = function () {
                 accountInfo.getProfile().then(function (response) {
@@ -26,7 +26,7 @@
 
             $scope.link = function(provider) {
                 $auth.link(provider).then(function() {
-                toastr.info('You have successfully linked a ' + provider + ' account');
+                toasterService.info('You have successfully linked a ' + provider + ' account');
                 $scope.getProfile();
                 });
             };
@@ -36,7 +36,7 @@
  					id : $scope.profile._id,
  					provider : provider
  				}).then(function(response){
- 					toastr.info('You have unlinked a ' + provider + ' account');
+ 					toasterService.info('You have unlinked a ' + provider + ' account');
  					$scope.getProfile();
  					console.log(response);
  				});

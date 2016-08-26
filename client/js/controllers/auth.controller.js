@@ -5,7 +5,7 @@
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Password must contain(a-z,A-Z,0-9,!@#)");
 	}]).
-	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toastr', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toastr) {
+	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
 		$scope.user = {};
 		$scope.session;
 
@@ -24,6 +24,7 @@
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
 				}).then(function (response) {
+					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
 					});
@@ -43,13 +44,13 @@
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
-						toastr.success('You have successfully login');
+						toasterService.success('You have successfully login');
 						$window.onbeforeunload = $scope.onExit;
 					} else {
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
-						toastr.success('You have successfully login');
+						toasterService.success('You have successfully login');
 					}
 				});
 			}
@@ -58,7 +59,7 @@
 		$scope.authenticate = function (provider) {
 			$auth.authenticate(provider).then(function (response) {
 				authService.saveToken(response.data.token);
-				toastr.success('You have successfully authenticated');
+				toasterService.success('You have successfully authenticated');
 				$state.go('dashboard.' + dashboardService.getViewMode(), {
 					id: authService.userID()
 				});
