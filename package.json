@@ -7,8 +7,9 @@
     "start": "gulp",
     "postinstall": "bower install",
     "prestart": "npm install",
-    "test": "karma start karma.conf.js",
-    "web-update": "webdriver-manager update",
+	"test": "karma start karma.conf.js",
+	"run": "karma run ",
+	"web-update": "webdriver-manager update",
     "web-start": "webdriver-manager start",
     "protractor": "conf.js"
   },
@@ -77,6 +78,7 @@
     "karma-junit-reporter": "^1.1.0",
     "karma-opera-launcher": "^1.0.0",
     "karma-spec-reporter": "0.0.26",
+    "mocha": "^3.0.2",
     "protractor": "^4.0.0",
     "watchify": "^3.7.0"
   }
