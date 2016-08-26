@@ -33,14 +33,14 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         } else if (xmlDoc.getElementsByTagName('feed').length) {
             return 'ATOM';
         }
-        return -1
+        return -1;
     }
     var generateFeed = function (doc, feed, format) {
         var feedObj = {};
         if (format === 'RSS') {
             var channel = doc.getElementsByTagName('channel')[0];
             feedObj.title = channel.getElementsByTagName('title')[0].childNodes[0].nodeValue;
-            feedObj.description = channel.getElementsByTagName('description')[0].childNodes[0].nodeValue;
+            feedObj.description = channel.getElementsByTagName('description')[0].childNodes[0] ? channel.getElementsByTagName('description')[0].childNodes[0].nodeValue : '';
             feedObj.link = channel.getElementsByTagName("link")[0].childNodes[0].nodeValue;
             feedObj.rsslink = feed.link;
             feedObj.category = feed.category;
@@ -54,28 +54,36 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         feedObj.format = format;
         return feedObj;
     }
+    this.getFeedGenerator = function () {
+        return generateFeed;
+    }
+    this.getRssChecker = function () {
+        return checkRssFormat;
+    }
     this.addFeed = function (feed) {
-        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml").then(function (response) {
-            if (feed.category === undefined) {
-                throw new Error("Choose category");
-            }
-            if (response.data.responseData === null) {
-                throw new Error("URL is incorrect or does not contain RSS Feed data");
-            }
-            var parser = new DOMParser();
-            xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
-            var format = checkRssFormat(xmlDoc, feed, format);
-            if (format === -1) {
-                throw new Error("URL is incorrect or does not contain RSS Feed data");
-            } else {
-                var feedObj = generateFeed(xmlDoc, feed, format);
-                return $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
-                    headers: {
-                        Authorization: 'Bearer ' + authService.getToken()
-                    }
-                });
-            }
-        });
+        return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
+            .then(function (response) {
+                if (feed.category === undefined) {
+                    throw new Error("Choose category");
+                }
+                if (response.data.responseData === null) {
+                    throw new Error("URL is incorrect or does not contain RSS Feed data");
+                }
+                var parser = new DOMParser();
+                xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
+                var format = checkRssFormat(xmlDoc);
+                if (format === -1) {
+                    throw new Error("URL is incorrect or does not contain RSS Feed data");
+                } else {
+                    var feedObj = generateFeed(xmlDoc, feed, format);
+                    return $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
+                        headers: {
+                            Authorization: 'Bearer ' + authService.getToken()
+                        }
+                    });
+                }
+                return response.data;
+            });
     }
 
     this.removeFeed = function (feedId) {
@@ -111,8 +119,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             headers: {
                 Authorization: 'Bearer ' + authService.getToken()
             }
-        }).then(function (resp) {
-            dashboardService.loadingIcon = false;
         });
     }
 }]);

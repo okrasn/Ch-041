@@ -12,8 +12,14 @@ $sidebar-mobile-width: 270px;
     transform: rotate(90deg);
 }
 
-span.glyphicon{
+span.glyphicon.glyphicon-chevron-right{
+    margin-right: $main-app-padding;
     transition: all 0.3s ease;
+}
+
+#sidebar span.glyphicon-star{
+    margin-right: $main-app-padding/2;
+    color: #ff9d00;
 }
 
 #dashboard {
@@ -167,13 +173,17 @@ ul[dnd-list] .dndPlaceholder {
     }
 }
 
+.sidebar-item.selected, .sidebar-sub-item .selected{
+    background-color: red/*$item-hover-color*/;
+}
+
 @media(max-width: $tablet-res) {
     #sidebar-wrapper {
         animation: 0.3s slideRight ease;
         width: $sidebar-mobile-width;
     }
 
-    ul {
+    #sidebar ul {
         width: 100%;
     }
 

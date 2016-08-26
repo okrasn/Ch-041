@@ -3,9 +3,9 @@
         <div ng-click="getAll($event)"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span><span class="all-text">  All</span></div>
     </div>
     <div class="sidebar-item" ng-show="hideFavourites()">
-        <span ng-click="toggle1 = !toggle1">
+        <span>
             <a class="glyphFeeds" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites($event)">
-                <span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-chevron-right"></span><span>Favourites</span>
+                <span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-star"></span><span>Favourites</span>
             </a>
         </span>
         <div class="collapse" id="favourites">
@@ -17,7 +17,7 @@
                     dnd-type="'favs'"
                     dnd-moved="onFavsDrag($index)"
                     dnd-effect-allowed="move">
-                    <span ng-click="toggle = !toggle">
+                    <span>
                         <a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.key }}" ng-click="getFavArticlesByCat($event, category.key)" class="glyphFeeds">
                             <span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span>
                         </a>
@@ -45,7 +45,7 @@
             dnd-type="'feeds'"
             dnd-moved="onFeedsDrag($index)"
             dnd-effect-allowed="move">
-            <span ng-click="toggle = !toggle">
+            <span ">
                 <a data-toggle="collapse" data-target="{{ '#' + $index + category.key }}" ng-click="getByCat($event, category.key, $index)" class="glyphFeeds">
                     <span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.key"></span>
                 </a>

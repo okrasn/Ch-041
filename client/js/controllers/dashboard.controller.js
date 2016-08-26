@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', '$compile', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, $timeout, $compile, dashboardService, feedsService, toasterService) {
+    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
         if (feedsService.feedsDictionary.length) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
@@ -45,7 +45,10 @@
         }
         var timer;
         $scope.onFeedDelete = function () {
-            toasterService.confirmFeedDelete($scope);
+            toasterService.confirm({
+                message: "Remove this feed?",
+                confirm: "confirmFeedDelete"
+            }, $scope);
         }
         $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())

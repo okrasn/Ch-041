@@ -4,7 +4,7 @@ While developing, you may want to show some notification to user. For convenienc
 
 #### Syntax
 ```javascript
-toasterService.custom(scope[, options][, onShow]);
+toasterService.custom(options [, scope][, onShow]);
 ```
 
 
@@ -16,6 +16,8 @@ You can pass custom options to toaster methods as first parameter.
 - __delay__: value (ms)
 - __type__: one of ['__toaster-default__', '__toaster-success__', '__toaster-info__', '__toaster-error__']
 - __iconClass__: string (name of glyph class, e.g.: "fa fa-info")
+- __confirm__: Function (callback that will ba called if user confirm toaster action)
+
 
 ##### Example:
 ```javascript

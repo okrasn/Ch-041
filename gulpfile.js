@@ -52,7 +52,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('scripts', function () {
-    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
+    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
         .pipe(concat('app.min.js'))
         .pipe(sourcemaps.init())
         .pipe(uglify())

@@ -2,7 +2,6 @@
 	'use strict';
 	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
-			$urlRouterProvider.otherwise('home');
 			$stateProvider
 				.state('home', {
 					url: '/home',
@@ -88,7 +87,7 @@
 						dashboardService.setTitle("Add Feed");
 					}]
 				});
-			
+			$urlRouterProvider.otherwise('home');
 			$authProvider.facebook({
 				clientId: '173686319709284',
 				name: 'facebook',

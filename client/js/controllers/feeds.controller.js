@@ -8,6 +8,10 @@
             $scope.error = '';
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
+                    console.log("res:");
+                    console.log(res);
+                    console.log("Data:");
+                    console.log(res.data);
                     toasterService.success("Feed successfully added");
                     $state.reload("dashboard");
                 }, function (err) {

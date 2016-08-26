@@ -43,7 +43,10 @@
         }
         $scope.removeFavourite = function (article) {
             $scope.favForRemove = article;
-            toasterService.confirmFavArticleDelete($scope);
+            toasterService.confirm({
+                message: "Remove this article?",
+                confirm: "confirmRemoveFavourite"
+            }, $scope);
         }
         $scope.confirmRemoveFavourite = function () {
             articlesService.removeFavourite($scope.favForRemove).then(function (res) {
