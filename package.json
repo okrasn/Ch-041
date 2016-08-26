@@ -7,7 +7,7 @@
     "start": "gulp",
     "postinstall": "bower install",
     "prestart": "npm install",
-    "test": "karma start conf.js",
+    "test": "karma start karma.conf.js",
     "web-update": "webdriver-manager update",
     "web-start": "webdriver-manager start",
     "protractor": "conf.js"

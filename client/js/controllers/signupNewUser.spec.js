@@ -1,6 +1,6 @@
 describe('Controller: AuthController', function() {
   var LoginCtrl, $httpBackend, $rootScope, $provide, $location, $cookieStore, scope;
-  beforeEach(module('rssreader'));
+  beforeEach(angular.mocks.module('rssreader'));
 
   beforeEach(inject(function($injector) {
     $httpBackend=$injector.get('$httpBackend');

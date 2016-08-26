@@ -19,8 +19,8 @@ module.exports = function(config) {
       "./client/bower_components/angular-ui-router/release/angular-ui-router.js",
       "./client/bower_components/angular-mocks/angular-mocks.js",
 	  //"server/**/*.js",
-      "*.js",
-      "client/js/*.js"
+      //"*.js",
+      "./client/js/controllers/signupNewUser.spec.js"
     ],
 
 
