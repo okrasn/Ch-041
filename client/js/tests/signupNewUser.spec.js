@@ -31,12 +31,12 @@
 
 //=======================================================
 
-describe('AuthController',function(){
-    beforeEach(module('AuthController'));
-
-    it('should be defined',function(){
-        expect(AuthController).toBeDefined();
-    });
-   
-
-});
+//describe('AuthController',function(){
+//    beforeEach(module('AuthController'));
+//
+//    it('should be defined',function(){
+//        expect(AuthController).toBeDefined();
+//    });
+//   
+//
+//});
