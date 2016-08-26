@@ -12,17 +12,6 @@ var mongoose = require('mongoose'),
     feedsCtrl = require('../controllers/feeds'),
     profCtrl = require('../controllers/profile');
 
-//var auth = jwt({
-//    secret: config.TOKEN_SECRET,
-//    userProperty: 'payload'
-//});
-
-//router.get('/', auth, function (req, res) {
-////    res.render('home', {
-////        user: req.user
-////    });
-//});
-
 router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);

@@ -40,9 +40,6 @@ module.exports = function (config) {
             "./client/js/app.min.js",
             "./client/js/controllers/auth.controller.js",
             "./client/js/services/auth.service.js",
-//            "./client/js/services/dashboard.service.spec.js",
-//            "./client/js/services/feeds.service.spec.js",
-//            "./client/js/services/articles.service.spec.js"
             "./client/js/controllers/registerNewUser.spec.js"
         ],
 

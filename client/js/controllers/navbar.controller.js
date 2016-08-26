@@ -7,6 +7,7 @@
             $scope.toggleSidebar = function () {
                 console.log();
                 dashboardService.sidebar = !dashboardService.sidebar;
+				$scope.getProfile();
             }
             $scope.logOut = function () {
                 authService.logOut();

@@ -16,61 +16,7 @@ ERRORS = {
 	user_exist: 'That user already exists',
 	invalid_data: 'Invalid email or password'
 };
-//	User = require('../models/Users');	
 
-var myHasher = function (password, tempUserData, insertTempUser, callback) {
-	var hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-	return insertTempUser(hash, tempUserData, callback);
-};
-
-myHasher = function (password, tempUserData, insertTempUser, callback) {
-	bcrypt.genSalt(10, function (err, salt) {
-		bcrypt.hash(password, salt, function (err, hash) {
-			return insertTempUser(hash, tempUserData, callback);
-		});
-	});
-};
-
-// NEV configuration =====================
-nev.configure({
-	persistentUserModel: User,
-	expirationTime: 600, 
-
-	verificationURL: 'http://localhost:8080/email-verification/${URL}',
-	transportOptions: {
-		service: 'Gmail',
-		auth: {
-			user: 'gemyni85@gmail.com',
-			pass: 'mantru1985'
-		}
-	},
-	verifyMailOptions: {
-        from: 'Do Not Reply <myawesomeemail_do_not_reply@gmail.com>',
-        subject: 'Please confirm account',
-        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
-        text: 'Please confirm your account by clicking the following link: ${URL}'
-    },
-
-	hashingFunction: myHasher,
-	passwordFieldName: 'password',
-}, function (err, options) {
-	if (err) {
-		console.log(err);
-		return;
-	}
-
-	console.log('configured: ' + (typeof options === 'object'));
-});
-
-nev.generateTempUserModel(User, function (err, tempUserModel) {
-	if (err) {
-		console.log(err);
-		return;
-	}
-
-	console.log('generated temp user model: ' + (typeof tempUserModel === 'function'));
-});
-//---------------------------------------------------------------------------------------
 function createJWT(user) {
 	var payload = {
 		sub: user._id,
@@ -392,7 +338,6 @@ module.exports.twitterAuth = function(req, res) {
   var accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
   var profileUrl = 'https://api.twitter.com/1.1/users/show.json?screen_name=';
 
-  // Part 1 of 2: Initial request from Satellizer.
   if (!req.body.oauth_token || !req.body.oauth_verifier) {
     var requestTokenOauth = {
       consumer_key: config.TWITTER_KEY,
@@ -400,23 +345,19 @@ module.exports.twitterAuth = function(req, res) {
       callback: req.body.redirectUri
     };
 
-    // Step 1. Obtain request token for the authorization popup.
     request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
       var oauthToken = qs.parse(body);
-
-      // Step 2. Send OAuth token back to open the authorization screen.
+		
       res.send(oauthToken);
     });
   } else {
-    // Part 2 of 2: Second request after Authorize app is clicked.
     var accessTokenOauth = {
       consumer_key: config.TWITTER_KEY,
       consumer_secret: config.TWITTER_SECRET,
       token: req.body.oauth_token,
       verifier: req.body.oauth_verifier
     };
-
-    // Step 3. Exchange oauth token and oauth verifier for access token.
+	  
     request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
 
       accessToken = qs.parse(accessToken);
@@ -427,14 +368,12 @@ module.exports.twitterAuth = function(req, res) {
         oauth_token: accessToken.oauth_token
       };
 
-      // Step 4. Retrieve profile information about the current user.
       request.get({
         url: profileUrl + accessToken.screen_name,
         oauth: profileOauth,
         json: true
       }, function(err, response, profile) {
 
-        // Step 5a. Link user accounts.
         if (req.header('Authorization')) {
           User.findOne({ twitter: profile.id }, function(err, existingUser) {
             if (existingUser) {
@@ -462,7 +401,6 @@ module.exports.twitterAuth = function(req, res) {
             });
           });
         } else {
-          // Step 5b. Create a new user account or return an existing one.
           User.findOne({ twitter: profile.sub }, function(err, existingUser) {
             if (existingUser) {
               return res.send({ 
@@ -489,16 +427,6 @@ module.exports.twitterAuth = function(req, res) {
   }
 };
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 module.exports.unlink = function (req, res) {
 	var provider = req.body.provider
 	providers = ['facebook', 'google'];
