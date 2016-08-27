@@ -13,7 +13,6 @@
         $scope.toggleSidebar = function () {
             dashboardService.sidebar = !dashboardService.sidebar;
         }
-
         $scope.headTitle = dashboardService.getTitle;
         $scope.feed = dashboardService.getFeedId;
         $scope.alertMsg = dashboardService.alertMsg;

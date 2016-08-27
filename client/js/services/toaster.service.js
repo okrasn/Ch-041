@@ -120,7 +120,7 @@
         }
         this.confirm = function (customOptions, scope, onShow) {
             var defaultOptions = {
-                message: 'Confirm this?',
+                message: 'Confirm?',
                 type: 'toaster-default',
                 overlay: true,
                 iconClass: 'fa fa-question',

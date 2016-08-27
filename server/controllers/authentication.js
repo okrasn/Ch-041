@@ -11,6 +11,7 @@ var passport = require('passport'),
 		pass_not_match: 'Passwords not match',
 		same_pass: 'Please enter new password',
 		pass_incorrect: 'Entered password is incorrect',
+		pass_not_match: 'Password not match requirements',
 		user_exist: 'That user already exists',
 		invalid_data: 'Invalid email or password'
 	};
@@ -18,7 +19,7 @@ var passport = require('passport'),
 function createJWT(user) {
 	var payload = {
 		sub: user._id,
-		email : user.email,
+		email: user.email,
 		iat: moment().unix(),
 		exp: moment().add(14, 'days').unix()
 	};
@@ -26,6 +27,7 @@ function createJWT(user) {
 }
 
 module.exports.register = function (req, res) {
+	var passAccepted = false;
 
 	if (!req.body.email || !req.body.password || !req.body.repPassword) {
 		return res.status(400).json({
@@ -37,34 +39,42 @@ module.exports.register = function (req, res) {
 			message: ERRORS.pass_not_match
 		});
 	}
-	User.findOne({
-		email: req.body.email
-	}, function (err, existingUser) {
-		if (existingUser) {
-			return res.status(409).send({
-				message: 'Email is already taken',
-				existingUser
-
-			});
-		}
-		var user = new User({
-			displayName: req.body.displayName,
-			email: req.body.email,
-			password: req.body.password
+	if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/.test(req.body.password)) {
+	    passAccepted = true;
+	}
+	else {
+		return res.status(400).json({
+			message: ERRORS.pass_not_match
 		});
-		user.save(function (err, result) {
-			if (err) {
-				res.status(500).send({
-					message: err.message
+	}
+	if (passAccepted) {
+		User.findOne({
+			email: req.body.email
+		}, function (err, existingUser) {
+			if (existingUser) {
+				return res.status(409).send({
+					message: 'Email is already taken',
+					existingUser
 				});
 			}
-			res.send({
-				token: createJWT(result),
-				user: user
+			var user = new User({
+				displayName: req.body.displayName,
+				email: req.body.email,
+				password: req.body.password
 			});
-			console.log(result);
+			user.save(function (err, result) {
+				if (err) {
+					res.status(500).send({
+						message: err.message
+					});
+				}
+				res.send({
+					token: createJWT(result),
+					user: user
+				});
+			});
 		});
-	});
+	}
 };
 
 module.exports.login = function (req, res) {
@@ -93,7 +103,7 @@ module.exports.login = function (req, res) {
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {
 		res.send({
-			user : user
+			user: user
 		});
 	});
 
@@ -124,7 +134,6 @@ module.exports.googleAuth = function (req, res) {
 			grant_type: 'authorization_code'
 		};
 
-
 	request.post(accessTokenUrl, {
 		json: true,
 		form: params
@@ -133,7 +142,6 @@ module.exports.googleAuth = function (req, res) {
 		headers = {
 			Authorization: 'Bearer ' + accessToken
 		};
-
 
 		request.get({
 			url: peopleApiUrl,
@@ -228,7 +236,6 @@ module.exports.facebookAuth = function (req, res) {
 			});
 		}
 
-
 		request.get({
 			url: graphApiUrl,
 			qs: accessToken,
@@ -296,22 +303,22 @@ module.exports.facebookAuth = function (req, res) {
 		});
 	});
 }
-module.exports.unlink = function(req, res) {
+module.exports.unlink = function (req, res) {
 	var provider = req.body.provider
-  		providers = ['facebook', 'google', 'linkedin',  'twitter'];
-			if (providers.indexOf(provider) === -1) {
-    			return res.status(400).send({ message: 'Unknown OAuth Provider' });
-  			}
+	providers = ['facebook', 'google', 'linkedin', 'twitter'];
+	if (providers.indexOf(provider) === -1) {
+		return res.status(400).send({ message: 'Unknown OAuth Provider' });
+	}
 
-  	User.findById(req.user.id, function(err, user) {
-    	if (!user) {
-      		return res.status(400).send({ message: 'User Not Found' });
-    	}
-    	user[provider] = undefined;
-    	user.save(function() {
-    		res.status(200).end();
-    	});
-  	});
+	User.findById(req.user.id, function (err, user) {
+		if (!user) {
+			return res.status(400).send({ message: 'User Not Found' });
+		}
+		user[provider] = undefined;
+		user.save(function () {
+			res.status(200).end();
+		});
+	});
 };
 
 

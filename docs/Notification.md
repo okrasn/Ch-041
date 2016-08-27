@@ -50,10 +50,9 @@ module.controller('SomeController', [$scope, 'toasterService', function ($scope,
     toasterService.success("Success!!");
 ```
 
-
 There are several predefined toaster types:
 
-1. Success
+##### Success
 
 ```javascript
     toasterService.success("Success");
@@ -61,7 +60,7 @@ There are several predefined toaster types:
 ![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-success.png)
 
 
-2. Info
+##### Info
 
 ```javascript
     toasterService.info("Information");
@@ -69,9 +68,19 @@ There are several predefined toaster types:
 
 ![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-info.png)
 
-3. Error
+##### Error
 ```javascript
     toasterService.error("Error");
 ```
 
 ![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-error.png)
+
+##### Confirm
+```javascript
+    toasterService.confirm({
+        message: "Confirm?",
+        confirm: "confirmFeedDelete"
+    }, $scope); 
+```
+
+![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-confirm.png)

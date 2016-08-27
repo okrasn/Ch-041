@@ -53,14 +53,18 @@ gulp.task('sass', function () {
 
 gulp.task('scripts', function () {
     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
-        .pipe(concat('app.min.js'))
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest('./client/js/'))
         .pipe(sourcemaps.init())
         .pipe(uglify())
+        .pipe(rename({
+            suffix: '.min'
+        }))
         .pipe(sourcemaps.write())
         .on('error', function (e) {
             console.log(e);
         })
-        .pipe(gulp.dest('./client/js/'))
+        .pipe(gulp.dest('./client/js/'));
 });
 // =====================working not correct========================
 // gulp.task('full_scripts', function () {
