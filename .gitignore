@@ -14,3 +14,4 @@ tmp
 /bower_components
 /.idea
 uploads/
+/client/coverage/

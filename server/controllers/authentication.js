@@ -66,19 +66,16 @@ module.exports.register = function (req, res) {
 						message: err.message
 					});
 				}
-
 			})
 			return res.send({
 				token: createJWT(existingUser),
 				existingUser: existingUser
 			});
-
 		}
 		if (existingUser && (!existingUser.google || !existingUser.facebook)) {
 			return res.status(409).send({
 				message: 'Email is already taken'
 			});
-
 		}
 		var user = new User({
 			displayName: req.body.displayName,
@@ -168,8 +165,6 @@ module.exports.googleAuth = function (req, res) {
 			headers = {
 				Authorization: 'Bearer ' + accessToken
 			};
-
-
 		request.get({
 			url: peopleApiUrl,
 			headers: headers,
@@ -212,7 +207,7 @@ module.exports.googleAuth = function (req, res) {
 					});
 				});
 			} else {
-				// Step 3b. Create a new user account or return an existing one.
+
 				User.findOne({
 					google: profile.sub
 				}, function (err, existingUser) {
@@ -262,7 +257,6 @@ module.exports.facebookAuth = function (req, res) {
 				message: accessToken.error.message
 			});
 		}
-
 
 		request.get({
 			url: graphApiUrl,
@@ -339,91 +333,91 @@ module.exports.twitterAuth = function(req, res) {
   var profileUrl = 'https://api.twitter.com/1.1/users/show.json?screen_name=';
 
   if (!req.body.oauth_token || !req.body.oauth_verifier) {
-    var requestTokenOauth = {
-      consumer_key: config.TWITTER_KEY,
-      consumer_secret: config.TWITTER_SECRET,
-      callback: req.body.redirectUri
-    };
+	var requestTokenOauth = {
+	  consumer_key: config.TWITTER_KEY,
+	  consumer_secret: config.TWITTER_SECRET,
+	  callback: req.body.redirectUri
+	};
 
-    request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
-      var oauthToken = qs.parse(body);
+	request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
+	  var oauthToken = qs.parse(body);
 		
-      res.send(oauthToken);
-    });
+	  res.send(oauthToken);
+	});
   } else {
-    var accessTokenOauth = {
-      consumer_key: config.TWITTER_KEY,
-      consumer_secret: config.TWITTER_SECRET,
-      token: req.body.oauth_token,
-      verifier: req.body.oauth_verifier
-    };
+	var accessTokenOauth = {
+	  consumer_key: config.TWITTER_KEY,
+	  consumer_secret: config.TWITTER_SECRET,
+	  token: req.body.oauth_token,
+	  verifier: req.body.oauth_verifier
+	};
 	  
-    request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
+	request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
 
-      accessToken = qs.parse(accessToken);
+	  accessToken = qs.parse(accessToken);
 
-      var profileOauth = {
-        consumer_key: config.TWITTER_KEY,
-        consumer_secret: config.TWITTER_SECRET,
-        oauth_token: accessToken.oauth_token
-      };
+	  var profileOauth = {
+		consumer_key: config.TWITTER_KEY,
+		consumer_secret: config.TWITTER_SECRET,
+		oauth_token: accessToken.oauth_token
+	  };
 
-      request.get({
-        url: profileUrl + accessToken.screen_name,
-        oauth: profileOauth,
-        json: true
-      }, function(err, response, profile) {
+	  request.get({
+		url: profileUrl + accessToken.screen_name,
+		oauth: profileOauth,
+		json: true
+	  }, function(err, response, profile) {
 
-        if (req.header('Authorization')) {
-          User.findOne({ twitter: profile.id }, function(err, existingUser) {
-            if (existingUser) {
-              return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
-            }
+		if (req.header('Authorization')) {
+		  User.findOne({ twitter: profile.id }, function(err, existingUser) {
+			if (existingUser) {
+			  return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
+			}
 
-            var token = req.header('Authorization').split(' ')[1];
-            var payload = jwt.decode(token, config.TOKEN_SECRET);
+			var token = req.header('Authorization').split(' ')[1];
+			var payload = jwt.decode(token, config.TOKEN_SECRET);
 
-            User.findById(payload.sub, function(err, user) {
-              if (!user) {
-                return res.status(400).send({ message: 'User not found' });
-              }
+			User.findById(payload.sub, function(err, user) {
+			  if (!user) {
+				return res.status(400).send({ message: 'User not found' });
+			  }
 
-              user.twitter = profile.sub;
+			  user.twitter = profile.sub;
 			  user.email = profile.email;		
-              user.displayName = user.displayName || profile.name;
-              user.picture = user.picture || profile.profile_image_url.replace('_normal', '');
-              user.save(function(err) {
-                res.send({ 
+			  user.displayName = user.displayName || profile.name;
+			  user.picture = user.picture || profile.profile_image_url.replace('_normal', '');
+			  user.save(function(err) {
+				res.send({ 
 					token: createJWT(user), 
 					profile : profile
 				});
-              });
-            });
-          });
-        } else {
-          User.findOne({ twitter: profile.sub }, function(err, existingUser) {
-            if (existingUser) {
-              return res.send({ 
+			  });
+			});
+		  });
+		} else {
+		  User.findOne({ twitter: profile.sub }, function(err, existingUser) {
+			if (existingUser) {
+			  return res.send({ 
 				  token: createJWT(existingUser), 
-			  	  profile : profile				
+				  profile : profile				
 			  });
-            }
+			}
 
-            var user = new User();
+			var user = new User();
 			user.email = profile.email;  
-            user.twitter = profile.sub;
-            user.displayName = profile.name;
-            user.picture = profile.profile_image_url.replace('_normal', '');
-            user.save(function() {
-              res.send({ 
+			user.twitter = profile.sub;
+			user.displayName = profile.name;
+			user.picture = profile.profile_image_url.replace('_normal', '');
+			user.save(function() {
+			  res.send({ 
 				  token: createJWT(user), 
-			  	  profile : profile	
+				  profile : profile	
 			  });
-            });
-          });
-        }
-      });
-    });
+			});
+		  });
+		}
+	  });
+	});
   }
 };
 
