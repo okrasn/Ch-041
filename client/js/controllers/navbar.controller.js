@@ -3,10 +3,16 @@
     angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
         function ($scope, $state, authService, dashboardService, transfer, accountInfo, $auth) {
             $scope.isLoggedIn = authService.isLoggedIn;
+            console.log($state.current);
+            $scope.isDashboard = function () {
+                return /dashboard/.test($state.current.name);
+            }
             $scope.currentUser = authService.currentUser;
             $scope.toggleSidebar = function () {
-                console.log();
                 dashboardService.sidebar = !dashboardService.sidebar;
+            }
+            $scope.hideSidebar = function () {
+                dashboardService.sidebar = false;
             }
             $scope.logOut = function () {
                 authService.logOut();

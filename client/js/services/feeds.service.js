@@ -13,7 +13,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             angular.copy(res.data, that.feedsDictionary);
             that.getAllFavourites().then(function (res) {
                 angular.copy(res.data, that.favouritesDictionary);
-                console.log(that.favouritesDictionary);
             });
             //dashboardService.loadingIcon = false;
         });

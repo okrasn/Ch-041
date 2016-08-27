@@ -1,7 +1,7 @@
 <!--Table feeds-->
 <div id="list" class="feeds">
     <div class="table-feed" ng-repeat="article in articles">
-        <div class="col-lg-11 col-xs-10">
+        <div class="col-lg-11 col-xs-10 col-same-height">
             <a ng-href="{{article.link}}">
                 <p class="shortened-text strong-text" ng-bind="article.title">
                 </p>
@@ -9,13 +9,15 @@
                 </p>
             </a>
         </div>
-        <div class="col-lg-1 col-xs-2">
-            <div class="share center-text">
-                <span>
-                    <span class="vertical-center star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()">
+        <div class="col-lg-1 col-xs-2 col-same-height">
+            <div class="list-share-wrap center-text">
+                <span class="list-item-btn-1 star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()">
+                </span>
+                <span class="list-item-btn-1 glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
+                <span class="list-item-btn-1">
+                    <span class="fa fa-share-alt onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right">
                     </span>
                 </span>
-                <span ng-show="isFavourites()"><span class="vertical-center read-icon glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)"></span></span>
             </div>
         </div>
     </div>

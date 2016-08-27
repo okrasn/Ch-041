@@ -14,6 +14,7 @@ var exec = require('child_process').exec,
     ngAnnotate = require('gulp-ng-annotate'),
     nodemon = require('nodemon');
 
+
 gulp.task('server', function (cb) {
     exec('node app.js', function (err, stdout, stderr) {
         console.log(stdout);
@@ -29,13 +30,13 @@ gulp.task('server', function (cb) {
     console.log("Server is running on port 8080");
 });
 
-gulp.task('main', ['scripts', 'sass'], function () {
-    gulp.watch('./client/scss/**/*.scss', ['sass']);
-    gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'], ['scripts']);
+gulp.task('main', function () {
+    gulp.watch('./client/scss/**/*.scss', {interval: 500}, ['sass']);
+    gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js'], { interval: 500 }, ['scripts']);
 });
 
 gulp.task('sass', function () {
-    return gulp.src('client/scss/**/*.scss')
+    return gulp.src('./client/scss/**/*.scss')
         .pipe(sass())
         .pipe(autoprefixer({
             browsers: ['> 1%', 'IE 7'],
@@ -48,11 +49,11 @@ gulp.task('sass', function () {
             suffix: '.min'
         }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('client/css'));
+        .pipe(gulp.dest('./client/css'));
 });
 
 gulp.task('scripts', function () {
-    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
+    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'])
         .pipe(concat('app.js'))
         .pipe(gulp.dest('./client/js/'))
         .pipe(sourcemaps.init())

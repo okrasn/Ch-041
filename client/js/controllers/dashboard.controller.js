@@ -8,6 +8,7 @@
             dashboardService.setTitle("Add Feed");
             $state.go('dashboard.addFeed');
         }
+        console.log($state.current.name);
         $scope.loadingIcon = dashboardService.isLoading;
         $scope.sidebar = dashboardService.checkSidebar;
         $scope.toggleSidebar = function () {
