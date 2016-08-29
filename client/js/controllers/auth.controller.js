@@ -1,12 +1,14 @@
 (function() {
-	'use strict';
+	
 	angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
 		$validatorProvider.addMethod("pattern", function(value, element) {
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Password must contain(a-z,A-Z,0-9,!@#)");
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$scope.user = {};
+		$scope.user = {
+		};
+		$scope.test = 5;
 		$scope.session;
 
 		var ERRORS = {
@@ -94,7 +96,7 @@
 					required: true,
 					email: true,
 					minlength: 9,
-					maxlength: 20,
+					maxlength: 40,
 				},
 				pwd: {
 					required: true,

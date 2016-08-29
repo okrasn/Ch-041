@@ -36,11 +36,8 @@ module.exports = function (config) {
             './client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
             "./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
             "./client/bower_components/angular-mocks/angular-mocks.js",
-
             "./client/js/app.min.js",
-            "./client/js/controllers/auth.controller.js",
-            "./client/js/services/auth.service.js",
-            "./client/js/controllers/registerNewUser.spec.js"
+            "./client/js/tests/registerNewUser.spec.js"
         ],
 
         // list of files to exclude
@@ -56,7 +53,7 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress', 'coverage'],
+        reporters: ['spec', 'coverage'],
 		coverageReporter: {
       		type : 'html',
       		dir : 'client/coverage'
