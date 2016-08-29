@@ -37,7 +37,9 @@ module.exports = function (config) {
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/js/app.min.js",
-			"./client/js/tests/registerNewUser.spec.js"
+			"./client/js/tests/registerNewUser.spec.js",
+			"./client/js/tests/profileController.spec.js"
+			
 		],
 
 		// list of files to exclude
