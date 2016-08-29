@@ -22,7 +22,6 @@
 
 		$scope.register = function (form) {
 			if (form.validate()) {
-				console.log($scope.user);
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
 				}).then(function (response) {

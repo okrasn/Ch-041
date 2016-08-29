@@ -147,8 +147,6 @@
 
 			$scope.updateTheme = function() {
 				themeService.layout = $scope.layout;
-				console.log("Theme update");
-				console.log("Theme:" + themeService.layout);
 			};
 
 			$scope.layout = themeService.layout;
