@@ -2,7 +2,8 @@
     'use strict';
     angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
         $scope.obj = {};
-        $scope.categories = feedsService.CATEGORIES;
+        $scope.newCatObj = {};
+        $scope.categories = feedsService.allFavsCategories;
         $scope.error = null;
         $scope.modalShown = false;
         $scope.articles = articlesService.articles;
@@ -10,14 +11,32 @@
         $scope.favForAdd = {};
         $scope.favForRemove = {};
         $scope.articleForShare = {};
+
+        $scope.addingNewFavCategory = false;
+        $scope.checkIfNew = function () {
+            if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+                $scope.addingNewFavCategory = true;
+            }
+            else {
+                $scope.addingNewFavCategory = false;
+                $scope.newCatObj.category = null;
+            }
+        }
+
         $scope.addFavourite = function (article) {
             $scope.error = null;
             $scope.modalShown = !$scope.modalShown;
             $scope.favForAdd = article;
         }
         $scope.confirmAddFavourite = function () {
+            console.log($scope.newCatObj.category);
+            console.log($scope.obj.category);
+            if ($scope.newCatObj.category) {
+                $scope.obj.category = $scope.newCatObj.category;
+            }
             $scope.favForAdd.category = $scope.obj.category;
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
+                $scope.addingNewCategory = false;
                 toasterService.success("Article marked as favourite");
                 $state.reload("dashboard");
             }, function (err) {

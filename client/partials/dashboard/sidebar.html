@@ -21,7 +21,7 @@
                     <div class="collapse" id="{{ $index + 'fav' + category.key }}">
                         <ul>
                             <li class="sidebar-sub-item" ng-repeat="article in category.values | orderBy: 'title'">
-                                <a class="shortened-text" ng-click="getFavArticle(article)">
+                                <a class="shortened-text" ng-click="getFavArticle($event, article)">
                                     <img ng-src="{{article.link|favicon}}">
                                     <span ng-bind="article.title"></span>
                                 </a>
@@ -35,7 +35,7 @@
     <ul dnd-list="feeds"
         dnd-allowed-types="feedsListDragableTypes"
         ng-show="checkIfEmpty()">
-        <li class="sidebar-item"
+        <li class="sidebar-item shortened-text"
             ng-repeat="category in feeds"
             dnd-draggable="category"
             dnd-type="'feeds'"

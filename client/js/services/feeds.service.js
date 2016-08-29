@@ -9,6 +9,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         res.push("Custom");
         return res;
     }
+    this.allFavsCategories = function () {
+        var res = that.CATEGORIES.concat(getFavsCustomCategories());
+        res.push("Custom");
+        return res;
+    }
     var getCustomCategories = function () {
         var currentFeedsCats = (function () {
             var res = [];
@@ -19,6 +24,19 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         })();
         return currentFeedsCats.filter(function (elem, i, array) {
             return that.CATEGORIES.indexOf(elem) == -1;
+        });
+    }
+
+    var getFavsCustomCategories = function () {
+        var currentFeedsCats = (function () {
+            var res = [];
+            for (var i = 0; i < that.favouritesDictionary.length; i++) {
+                res.push(that.favouritesDictionary[i].key);
+            }
+            return res;
+        })();
+        return currentFeedsCats.filter(function (elem, i, array) {
+            return (that.CATEGORIES.indexOf(elem) == -1 && elem != 'Unsorted');
         });
     }
     this.getAllFeeds = function () {

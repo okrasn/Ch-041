@@ -10,7 +10,6 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
     }
 
     if ($window.localStorage.category) {
-        console.log($window.localStorage.category);
         currentArticlesValue = $window.localStorage.category;
     }
 

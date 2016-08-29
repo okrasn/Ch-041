@@ -22,15 +22,18 @@
         </div>
     </div>
     <modal show='modalShown'>
-        <h4>ADD TO FAVOURITES</h4>
-        <div>
-            <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories">
-                <option value="" disabled selected hidden>Choose</option>
-            </select>
-        </div>
+        <h4 class="uppercase">add to favourites</h4>
+        <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" tooltip-trigger="'focus'" tooltip-placement="right">
+            <option value="" disabled selected hidden>Choose</option>
+        </select>
+
+        <input id="new-category" class="form-control form-input fade-in-anim" placeholder="Enter category name" ng-model="newCatObj.category" ng-show="addingNewFavCategory" maxlength="25">
+        </input>
+
         <div class="center-children">
             <button type="button" class="btn btn-lg app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
         </div>
+
         <div class="alert alert-danger text-center fade-in-anim" role="alert" ng-show="error">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span>

@@ -138,7 +138,8 @@
     'use strict';
     angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
         $scope.obj = {};
-        $scope.categories = feedsService.CATEGORIES;
+        $scope.newCatObj = {};
+        $scope.categories = feedsService.allFavsCategories;
         $scope.error = null;
         $scope.modalShown = false;
         $scope.articles = articlesService.articles;
@@ -146,14 +147,32 @@
         $scope.favForAdd = {};
         $scope.favForRemove = {};
         $scope.articleForShare = {};
+
+        $scope.addingNewFavCategory = false;
+        $scope.checkIfNew = function () {
+            if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+                $scope.addingNewFavCategory = true;
+            }
+            else {
+                $scope.addingNewFavCategory = false;
+                $scope.newCatObj.category = null;
+            }
+        }
+
         $scope.addFavourite = function (article) {
             $scope.error = null;
             $scope.modalShown = !$scope.modalShown;
             $scope.favForAdd = article;
         }
         $scope.confirmAddFavourite = function () {
+            console.log($scope.newCatObj.category);
+            console.log($scope.obj.category);
+            if ($scope.newCatObj.category) {
+                $scope.obj.category = $scope.newCatObj.category;
+            }
             $scope.favForAdd.category = $scope.obj.category;
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
+                $scope.addingNewCategory = false;
                 toasterService.success("Article marked as favourite");
                 $state.reload("dashboard");
             }, function (err) {
@@ -416,11 +435,10 @@
             if ($scope.newCategory) {
                 $scope.obj.category = $scope.newCategory;
             }
-            $scope.addingNewCategory = false;
             $scope.error = '';
-            console.log($scope.obj);
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
+                    $scope.addingNewCategory = false;
                     toasterService.success("Feed successfully added");
                     $state.reload("dashboard");
                 }, function (err) {
@@ -461,50 +479,48 @@
     }]);
 })();
 (function () {
-    'use strict';
-    angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
-        function ($scope, $state, authService, dashboardService, transfer, accountInfo, $auth) {
-            $scope.isLoggedIn = authService.isLoggedIn;
-            $scope.isDashboard = function () {
-                return /dashboard/.test($state.current.name);
-            }
-            $scope.currentUser = authService.currentUser;
-            $scope.toggleSidebar = function () {
-                dashboardService.sidebar = !dashboardService.sidebar;
+	'use strict';
+	angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
+		function ($scope, $state, authService, dashboardService, transfer, accountInfo, $auth) {
+			$scope.isLoggedIn = authService.isLoggedIn;
+			$scope.isDashboard = function () {
+				return /dashboard/.test($state.current.name);
+			}
+			$scope.currentUser = authService.currentUser;
+			$scope.toggleSidebar = function () {
+				dashboardService.sidebar = !dashboardService.sidebar;
 				$scope.getProfile();
-            }
-            $scope.hideSidebar = function () {
-                dashboardService.sidebar = false;
-            }
-            $scope.logOut = function () {
-                authService.logOut();
-                $state.go("home");
-            }
-            $scope.onEmblem = function () {
-                if (authService.isLoggedIn()) {
-                    $state.go('dashboard.' + dashboardService.getViewMode(), {
-                        id: authService.userID()
-                    });
-                } else {
-                    $state.go("home");
-                }
-            }
-            $scope.getProfile = function () {
-                accountInfo.getProfile().then(function (response) {
-                    if ($auth.isAuthenticated()) {
-                        var lenght = response.data.user.length;
-                        for (var i = 0; i < lenght; i++) {
-                            if (response.data.user[i].email === $auth.getPayload().email) {
+			}
+			$scope.hideSidebar = function () {
+				dashboardService.sidebar = false;
+			}
+			$scope.logOut = function () {
+				authService.logOut();
+				$state.go("home");
+			}
+			$scope.onEmblem = function () {
+				if (authService.isLoggedIn()) {
+					$state.reload('dashboard');
+				} else {
+					$state.go("home");
+				}
+			}
+			$scope.getProfile = function () {
+				accountInfo.getProfile().then(function (response) {
+					if ($auth.isAuthenticated()) {
+						var lenght = response.data.user.length;
+						for (var i = 0; i < lenght; i++) {
+							if (response.data.user[i].email === $auth.getPayload().email) {
 
-                                $scope.profile = response.data.user[i];
-                            }
-                        }
-                        console.log($scope.profile);
-                    }
-                })
-            };
-            $scope.getProfile();
-        }]);
+								$scope.profile = response.data.user[i];
+							}
+						}
+						console.log($scope.profile);
+					}
+				})
+			};
+			$scope.getProfile();
+		}]);
 })();
 (function() {
 	'use strict';
@@ -696,7 +712,7 @@
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getByFeed = function ($event, feed) {
-            setArticlesType(angular.element($event.currentTarget).parent(), "feed");
+            setArticlesType(angular.element($event.currentTarget).parent());
             articlesService.getArticlesByFeed(feed);
             $state.go("dashboard." + dashboardService.getViewMode());
         }
@@ -738,6 +754,7 @@
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getFavArticlesByCat = function ($event, cat) {
+            setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
             if ($event.currentTarget.attributes[4]) {
                 if ($event.currentTarget.attributes[4].value == 'true') {
                     angular.element($event.currentTarget).removeClass('chevron-down');
@@ -752,7 +769,8 @@
             articlesService.getFavArticlesByCat(arguments[1]);
             $state.go("dashboard." + dashboardService.getViewMode());
         }
-        $scope.getFavArticle = function (article) {
+        $scope.getFavArticle = function ($event, article) {
+            setArticlesType(angular.element($event.currentTarget).parent());
             articlesService.getFavArticle(article);
             $state.go("dashboard." + dashboardService.getViewMode());
         }
@@ -1156,7 +1174,6 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
     }
 
     if ($window.localStorage.category) {
-        console.log($window.localStorage.category);
         currentArticlesValue = $window.localStorage.category;
     }
 
@@ -1239,6 +1256,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         res.push("Custom");
         return res;
     }
+    this.allFavsCategories = function () {
+        var res = that.CATEGORIES.concat(getFavsCustomCategories());
+        res.push("Custom");
+        return res;
+    }
     var getCustomCategories = function () {
         var currentFeedsCats = (function () {
             var res = [];
@@ -1249,6 +1271,19 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
         })();
         return currentFeedsCats.filter(function (elem, i, array) {
             return that.CATEGORIES.indexOf(elem) == -1;
+        });
+    }
+
+    var getFavsCustomCategories = function () {
+        var currentFeedsCats = (function () {
+            var res = [];
+            for (var i = 0; i < that.favouritesDictionary.length; i++) {
+                res.push(that.favouritesDictionary[i].key);
+            }
+            return res;
+        })();
+        return currentFeedsCats.filter(function (elem, i, array) {
+            return (that.CATEGORIES.indexOf(elem) == -1 && elem != 'Unsorted');
         });
     }
     this.getAllFeeds = function () {

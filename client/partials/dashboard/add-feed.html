@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="category" class="col-sm-3 control-label">Category</label>
                 <div class="col-sm-7">
-                    <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()">
+                    <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" tooltip-trigger="'focus'" tooltip-placement="right">
                         <option value="" disabled selected hidden>Choose</option>
                     </select>
                 </div>
@@ -21,7 +21,7 @@
             <div id="add-new-category" class="form-group fade-in-anim" ng-show="addingNewCategory">
                 <label for="new-category" class="col-sm-3 control-label">New Category</label>
                 <div class="col-sm-7">
-                    <input id="new-category" class="form-control form-input" placeholder="Enter category name" ng-model="newCategory">
+                    <input id="new-category" class="form-control form-input" placeholder="Enter category name" ng-model="newCategory" maxlength="25">
                     </input>
                 </div>
             </div>

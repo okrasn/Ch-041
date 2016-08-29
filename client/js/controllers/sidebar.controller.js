@@ -32,7 +32,7 @@
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getByFeed = function ($event, feed) {
-            setArticlesType(angular.element($event.currentTarget).parent(), "feed");
+            setArticlesType(angular.element($event.currentTarget).parent());
             articlesService.getArticlesByFeed(feed);
             $state.go("dashboard." + dashboardService.getViewMode());
         }
@@ -74,6 +74,7 @@
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getFavArticlesByCat = function ($event, cat) {
+            setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
             if ($event.currentTarget.attributes[4]) {
                 if ($event.currentTarget.attributes[4].value == 'true') {
                     angular.element($event.currentTarget).removeClass('chevron-down');
@@ -88,7 +89,8 @@
             articlesService.getFavArticlesByCat(arguments[1]);
             $state.go("dashboard." + dashboardService.getViewMode());
         }
-        $scope.getFavArticle = function (article) {
+        $scope.getFavArticle = function ($event, article) {
+            setArticlesType(angular.element($event.currentTarget).parent());
             articlesService.getFavArticle(article);
             $state.go("dashboard." + dashboardService.getViewMode());
         }

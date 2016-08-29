@@ -19,11 +19,10 @@
             if ($scope.newCategory) {
                 $scope.obj.category = $scope.newCategory;
             }
-            $scope.addingNewCategory = false;
             $scope.error = '';
-            console.log($scope.obj);
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
+                    $scope.addingNewCategory = false;
                     toasterService.success("Feed successfully added");
                     $state.reload("dashboard");
                 }, function (err) {

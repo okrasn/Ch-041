@@ -26,8 +26,6 @@ mongoose.connect('mongodb://localhost/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
-app.set('port', process.env.NODE_PORT || 8080);
-app.set('host', process.env.NODE_IP || 'localhost');
 
 app.use(cors());
 app.use(logger('dev'));
