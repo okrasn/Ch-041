@@ -91,22 +91,22 @@
 			</div>
 		</form>
 		<div class="row">
-			<div class="col-cs-12">
-				<button ng-click='updateProfile()' class="btn btn-primary">Update info</button>
-				<p>User avatar</p>
-				<img class="img img-thumbnail" alt='user picture' src='{{profile.picture}}'>
-				<p ng-bind='profile.displayName'></p>
-				<button class="btn btn-sm btn-danger" ng-if="profile.facebook" ng-click="unlink('facebook')">
+			<div class="col-xs-12">
+				<button ng-click='updateProfile()' class="btn btn-md app-btn-blue ">Update info</button>
+				<p class="user_ava">User Avatar</p>
+				<img class="img img-thumbnail avatar_image" alt='user picture' src='{{profile.picture}}'>
+				<p class="user_name">User Name: {{profile.displayName}} </p>
+				<button class="btn btn-md btn-danger " ng-if="profile.facebook" ng-click="unlink('facebook')">
 					<i class="ion-social-facebook"></i> Unlink Facebook Account
 				</button>
-				<button class="btn btn-sm btn-primary" ng-if="!profile.facebook" ng-click="link('facebook')">
+				<button class="btn btn-md app-btn-blue " ng-if="!profile.facebook" ng-click="link('facebook')">
 					<i class="ion-social-facebook"></i> Link Facebook Account
 				</button>
 
-				<button class="btn btn-sm btn-danger" ng-if="profile.google" ng-click="unlink('google')">
+				<button class="btn btn-md btn-danger" ng-if="profile.google" ng-click="unlink('google')">
 					<i class="ion-social-googleplus"></i> Unlink Google Account
 				</button>
-				<button class="btn btn-sm btn-primary" ng-if="!profile.google" ng-click="link('google')">
+				<button class="btn btn-md app-btn-blue" ng-if="!profile.google" ng-click="link('google')">
 					<i class="ion-social-googleplus"></i> Link Google Account
 				</button>
 			</div>
