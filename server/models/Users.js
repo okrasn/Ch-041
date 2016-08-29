@@ -11,6 +11,10 @@ var mongoose = require('mongoose'),
 			required: true
 		},
 		password: { type: String, select: false },
+		local: {
+			email : String,
+			password : String
+		},
 		displayName: String,
 		picture : String,
 		facebook: String,
@@ -52,13 +56,18 @@ userSchema.methods.comparePassword = function(password, done) {
 	});
 };
 
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+};
+
 userSchema.methods.setPassword = function (password) {
-	this.salt = crypto.randomBytes(16).toString('hex');
-	this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+	this.salt = bcrypt.genSaltSync(10);
+	this.hash = bcrypt.hashSync(password, this.salt);
+	
 };
 
 userSchema.methods.validPassword = function (password) {
-	var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+	var hash = bcrypt.genSaltSync(10);
 	return this.hash === hash;
 };
 

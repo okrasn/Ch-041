@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -88,7 +88,7 @@
 						dashboardService.setTitle("Add Feed");
 					}]
 				});
-			
+
 			$authProvider.facebook({
 				clientId: '173686319709284',
 				name: 'facebook',
@@ -121,6 +121,16 @@
 				popupOptions: {
 					width: 452,
 					height: 633
+				}
+			});
+			$authProvider.twitter({
+				url: '/auth/twitter',
+				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+				redirectUri: window.location.origin,
+				oauthType: '1.0',
+				popupOptions: {
+					width: 495,
+					height: 645
 				}
 			});
 	}]);

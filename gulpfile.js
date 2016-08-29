@@ -15,18 +15,16 @@ var exec = require('child_process').exec,
     nodemon = require('nodemon');
 
 gulp.task('server', function (cb) {
+	 //You must create folder 'data' in the root of project folder
+	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+		console.log(stdout, stderr);
+		cb(err);
+	});
+	console.log("Server is running on port 8080");
     exec('node app.js', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
+        console.log(stdout, stderr);
         cb(err);
     });
-    // You must create folder 'data' in the root of project folder
-    exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
-    console.log("Server is running on port 8080");
 });
 
 gulp.task('main', ['scripts', 'sass'], function () {
@@ -52,22 +50,16 @@ gulp.task('sass', function () {
 });
 
 gulp.task('scripts', function () {
-    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
+    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
         .pipe(concat('app.min.js'))
         .pipe(sourcemaps.init())
-        .pipe(uglify())
         .pipe(sourcemaps.write())
         .on('error', function (e) {
             console.log(e);
         })
         .pipe(gulp.dest('./client/js/'))
 });
-// =====================working not correct========================
-// gulp.task('full_scripts', function () {
-//     gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
-//         .pipe(concat('app.full.js'))
-//       	.pipe(gulp.dest('./client/js/full'))
-// });
+
 gulp.task('useref', function () {
     return gulp.src('client/*.html')
         .pipe(useref())
@@ -79,7 +71,7 @@ gulp.task('build', function () {
         .pipe(sass())
         .pipe(gulp.dest('dist/css/'));
 
-    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.test.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
+    gulp.src(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
         .pipe(concat('app.min.js'))
         .pipe(uglify()).on('error', function (e) {
         })
