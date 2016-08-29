@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$http', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $http, feedsService, dashboardService, articlesService, authService) {
+    angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
         $scope.obj = {};
         $scope.feeds = feedsService.feedsDictionary;
         $scope.categories = feedsService.CATEGORIES;
@@ -8,6 +8,7 @@
             $scope.error = '';
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
+                    toasterService.success("Feed successfully added");
                     $state.reload("dashboard");
                 }, function (err) {
                     console.log(err);

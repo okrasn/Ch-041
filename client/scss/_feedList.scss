@@ -1,35 +1,46 @@
-$panels-gap: 0.5em;
-.change-view-btn{
-    padding-bottom: 5px;
+#feed-head {
+    height: 145px;
+    padding: 15px;
+    border-bottom: 1px solid #888888;
+    background-color: #fff;
+
+    & > h2 {
+        margin-top: 25px;
+    }
+
+    .article-title {
+        padding: 0;
+    }
 }
+
 .list-header {
     border-bottom: 1px solid #888888;
     border-shadow: 1px 2px 5px 1px #888888;
 }
 
-.strong-text{
+.strong-text {
     font-weight: 700;
 }
 
 .table-feed {
-    margin: 5px;
-    >div>a {
+    > div > a {
         color: black;
         text-decoration: none;
-        &:hover{
+
+        &:hover {
             text-decoration: none;
         }
     }
-    .vertical-center{
+
+    .vertical-center {
         line-height: 3em;
     }
+
+    padding: 1em 0 1em 0;
     overflow: hidden;
-    height: 3em;
-    cursor: pointer;
-    padding: 0px;
     border-bottom: 1px solid #888888;
     border-shadow: 1px 2px 5px 1px #888888;
-    transition: $app-transition;
+
     &:hover {
         transition: $app-transition;
         background-color: #e8e8e8;
@@ -44,68 +55,93 @@ $panels-gap: 0.5em;
 .btn a {
     color: #ffffff;
     text-decoration: none;
+
     &:hover {
         color: #ffffff;
     }
 }
 
-.head {
-    padding: 15px 15px 0 15px;
-    border-bottom: 1px solid #888888;
-    .article-title {
-        padding: 0;
+#list, #th-list, #th-large {
+    .popover {
+        border-radius: $main-border-radius;
     }
-}
 
-.read {
-    width: 5%;
-    float: left;
-}
+    img {
+        width: 185px;
+        height: 145px;
+        border-radius: $main-border-radius;
+        float: left;
+        margin-right: 1em;
+    }
 
-.read-icon {
-    float: right;
+    .app-btn-blue {
+        display: black;
+    }
 }
 
 #th-large {
-    padding: $panels-gap;
-    [class*=' col-']{
-        padding: $panels-gap;
+    background-color: $main-background-color;
+    padding: $main-app-padding/2;
+
+    [class*=' col-'] {
+        padding: $main-app-padding/2;
     }
-    .read-btn {
-        margin-left: 5px;
-        margin-top: -5px;
-    }
+
     .article-title {
+        > a {
+            color: black;
+        }
+
+        margin-bottom: 0.2em;
         font-weight: 700;
         height: 20px;
         overflow: hidden;
-        padding-left: 5px;
     }
+
     .article-content {
-        height: 90px;
+        height: 88px;
+        margin-bottom: 0.2em;
         overflow: hidden;
-        padding-left: 5px;
     }
-    .panel {
-        height: 152px;
+
+    .app-panel {
+        height: 175px;
         margin: 0;
+        padding: $main-app-padding;
     }
-    .footer {
-        padding: 5px 0 5px 0;
+
+    .article-footer-item {
+        padding-right: $main-app-padding;
+        vertical-align: middle;
     }
-    .read-icon,
-    .star-icon,
-    .share-icon {
-        padding: 3px;
+
+    .article-fav-icon {
+        @extend .article-footer-item;
     }
-    img {
-        width: 180px;
-        height: 142px;
-        float: left;
+
+    .article-time-icon {
+        @extend .article-footer-item;
+        margin-right: $main-app-padding/2;
+        float: right;
+        line-height: $main-app-padding*2;
+        color: #888;
+        padding: 0;
     }
-    .panel-body {
-        padding: 5px;
+
+    .article-date {
+        @extend .article-footer-item;
+        float: right;
+        line-height: $main-app-padding*2;
+        color: #888;
+        padding: 0;
     }
+
+    .trash-icon {
+        float: right;
+        line-height: $main-app-padding*2;
+        margin-left: 1em;
+    }
+
     .panel:hover {
         .my-hidden {
             display: inline;
@@ -118,22 +154,96 @@ $panels-gap: 0.5em;
 
 #th-list {
     @extend #th-large;
-    [class*='col-']{
-        padding: $panels-gap;
-    }
-    img {
-        width: 180px;
-        height: 142px;
+
+    [class*='col-'] {
+        padding: $main-app-padding/2;
     }
 }
 
-@media screen and (max-width: 768px){
-    .panel .my-hidden{
-        visibility: visible;
-        display: inline;
-        opacity: 1; 
+#list {
+    background-color: $main-background-color;
+}
+
+@media screen and (max-width: $phone-res) {
+    #th-list img, #th-large {
+        .article-title {
+            height: 110px;
+        }
     }
-    .btn-group > .th-large{
-        display: none;
+}
+
+@media screen and (max-width: $tablet-res) {
+    #th-list img, #th-large {
+        padding: 0;
+
+        // Must use !important, because even strong selector do not help.
+        // This class is from 3d party library where !important key word was specified.
+        &>div>.panel>.content>.footer>.my-hidden>div.popover {
+            display:flex !important;
+            justify-content: center;
+            align-content: center;
+            top: auto;
+            left: 50% !important;
+            width: 70%;
+            transform: translateX(-50%);
+        }
+
+        img {
+            width: 120px;
+            height: 95px;
+            border-radius: $main-border-radius;
+            float: left;
+            margin-right: 1em;
+        }
+
+        .btn-group > .th-large {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: $desktop-res) {
+    #th-list img, #th-large {
+        .article-fav-icon {
+            line-height: 2em;
+        }
+
+        .panel .my-hidden {
+            visibility: visible;
+            display: inline;
+            opacity: 1;
+        }
+    }
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1200px) {
+    #th-large {
+        .app-panel {
+            height: 225px;
+        }
+
+        .article-content {
+            height: 113px;
+            margin-bottom: 25px;
+        }
+
+        .read-btn {
+            width: 185px;
+        }
+    }
+
+    #th-list {
+        .app-panel {
+            height: 180px;
+        }
+
+        .article-content {
+            height: 88px;
+            margin-bottom: 0.2em;
+        }
+
+        .read-btn {
+            width: 7em;
+        }
     }
 }

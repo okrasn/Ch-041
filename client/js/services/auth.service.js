@@ -1,6 +1,6 @@
 (function () {
-'use strict';
-    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth','transfer', 'jwtHelper', function ($http, $window, $auth, transfer, jwtHelper) {
+    'use strict';
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($http, $window, $auth, transfer, jwtHelper, toasterService) {
         var auth = {
             saveToken: function (token) {
                 $auth.setToken(token);
@@ -13,14 +13,14 @@
             },
             currentUser: function () {
                 if (auth.isLoggedIn()) {
-                	return $auth.getPayload().email;
-				}
+                    return $auth.getPayload().email;
+                }
             },
             userID: function () {
                 if (auth.isLoggedIn()) {
-					var payload = $auth.getPayload();
-					console.log(payload);
-            		return payload.sub;
+                    var payload = $auth.getPayload();
+                    console.log(payload);
+                    return payload.sub;
                 }
             },
             register: function (user) {
@@ -38,10 +38,10 @@
                 });
             },
             logOut: function () {
-                $auth.removeToken();
+				$auth.removeToken();
         		$auth.logout();
             }
         }
         return auth;
-	}]);
+    }]);
 })();

@@ -1,6 +1,6 @@
 <div class="col-xs-12 col-md-offset-3 col-md-6">
-    <div class="cstmform-border profile">
-        <h2 class="header">
+	<div class="cstmform-border profile">
+		<h2 class="header">
             <span class="orange">Your</span>
         |Profile
         </h2>
@@ -71,43 +71,44 @@
                         <input name="repeatNewPassword" id="repeatNewPassword" class="form-control" type="password" ng-model="newUserData.newPassRepeat" ng-required pw-check="newPassword">
                         <span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
                         Passwords does't match.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="save-reset">
-                        <button type="submit" class="btn btn-default btn-lg  app-btn-blue capitalize">save</button>
-                        <button type="reset" class="btn btn-default btn-lg  app-btn-blue capitalize">reset</button>
-                    </div>
-                </div>
-            </div>
-            <div class="alert alert-danger text-center animate-error" role="alert" ng-show="err">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">Error:</span>
-                <span ng-bind="err.message"></span>
-            </div>
-        </form>
-        <div class="row">
-            <div class="col-cs-12">
-                <button ng-click='updateProfile()' class="btn btn-primary">Update info</button>
-                <p>User avatar</p>
-                <img class="img img-thumbnail" alt='user picture' src='{{profile.picture}}'>
-                <p ng-bind='profile.displayName'></p>
-                <button class="btn btn-sm btn-danger" ng-if="profile.facebook" ng-click="unlink('facebook')">
-                    <i class="ion-social-facebook"></i> Unlink Facebook Account
-                </button>
-                <button class="btn btn-sm btn-primary" ng-if="!profile.facebook" ng-click="link('facebook')">
-                    <i class="ion-social-facebook"></i> Link Facebook Account
-                </button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="save-reset">
+						<button type="submit" class="btn btn-default btn-lg  app-btn-blue capitalize">save</button>
+						<button type="reset" class="btn btn-default btn-lg  app-btn-blue capitalize">reset</button>
+					</div>
+				</div>
+			</div>
+			<div class="alert alert-danger text-center animate-error" role="alert" ng-show="err">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				<span ng-bind="err.message"></span>
+			</div>
+		</form>
+		<div class="row">
+			<div class="col-cs-12">
+				<button ng-click='updateProfile()' class="btn btn-primary">Update info</button>
+				<p>User avatar</p>
+				<img class="img img-thumbnail" alt='user picture' src='{{profile.picture}}'>
+				<p ng-bind='profile.displayName'></p>
+				<button class="btn btn-sm btn-danger" ng-if="profile.facebook" ng-click="unlink('facebook')">
+					<i class="ion-social-facebook"></i> Unlink Facebook Account
+				</button>
+				<button class="btn btn-sm btn-primary" ng-if="!profile.facebook" ng-click="link('facebook')">
+					<i class="ion-social-facebook"></i> Link Facebook Account
+				</button>
 
-                <button class="btn btn-sm btn-danger" ng-if="profile.google" ng-click="unlink('google')">
-                    <i class="ion-social-googleplus"></i> Unlink Google Account
-                </button>
-                <button class="btn btn-sm btn-primary" ng-if="!profile.google" ng-click="link('google')">
-                    <i class="ion-social-googleplus"></i> Link Google Account
-                </button>
-            </div>
-        </div>
-    </div>
+				<button class="btn btn-sm btn-danger" ng-if="profile.google" ng-click="unlink('google')">
+					<i class="ion-social-googleplus"></i> Unlink Google Account
+				</button>
+				<button class="btn btn-sm btn-primary" ng-if="!profile.google" ng-click="link('google')">
+					<i class="ion-social-googleplus"></i> Link Google Account
+				</button>
+			</div>
+		</div>
+
+	</div>
 </div>

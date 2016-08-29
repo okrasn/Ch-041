@@ -2,18 +2,16 @@ var passport = require('passport'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Feed = mongoose.model('Feed'),
-    Article = mongoose.model('Article');
-
-var ERRORS = {
-    choose_cat: 'Choose category',
-    cant_find_user: 'Can\'t find user',
-    feed_already_added: 'You have already added this feed ',
-    fav_article_already_added: 'You have already added this article to favourites',
-    feed_not_found: 'Feed not found',
-    article_not_found: 'Article not found',
-    server_error: 'Server error',
-    internal_error: 'Internal error(%d): %s'
-};
+    Article = mongoose.model('Article'),
+    ERRORS = {
+        choose_cat: 'Choose category',
+        cant_find_user: 'Can\'t find user',
+        feed_already_added: 'You have already added this feed ',
+        feed_not_found: 'Feed not found',
+        article_not_found: 'Article not found',
+        server_error: 'Server error',
+        internal_error: 'Internal error(%d): %s'
+    };
 
 module.exports.userParam = function (req, res, next, id) {
     var query = User.findById(id);
@@ -38,17 +36,17 @@ module.exports.allFeed = function (req, res, next) {
             return next(err);
         }
 
-        //Writing data to dictionary with category as keys and feeds as values
+        // Data will be storred in dictionary with categories as keys and feeds as values
         var feedsDictionary = [];
         var containsKey = function (key) {
-                for (var i = 0; i < feedsDictionary.length; i++) {
-                    if (feedsDictionary[i].key === key) {
-                        return i;
-                    }
+            for (var i = 0; i < feedsDictionary.length; i++) {
+                if (feedsDictionary[i].key === key) {
+                    return i;
                 }
-                return -1;
             }
-            // Push categories as keys
+            return -1;
+        }
+        // Push categories as keys
         for (var i = 0; i < user.categories.length; i++) {
             feedsDictionary.push({
                 key: user.categories[i],
@@ -75,7 +73,7 @@ module.exports.add = function (req, res, next) {
     req.user.populate("feeds", function (err, user) {
         if (!user.feeds.find(function (elem) {
                 return elem.rsslink == req.body.rsslink;
-            })) {
+        })) {
             var feed = new Feed(req.body);
             if (user.categories.indexOf(req.body.category) === -1) {
                 user.categories.push(req.body.category);
@@ -160,5 +158,16 @@ module.exports.setCategoryOrder = function (req, res, next) {
     req.user.categories = req.body.newCategories;
     req.user.save(function (err) {
         if (err) return next(err);
+        res.statusCode = 200;
+        return res.send();
+    });
+}
+
+module.exports.setFavsCategoryOrder = function (req, res, next) {
+    req.user.favCategories = req.body.newCategories;
+    req.user.save(function (err) {
+        if (err) return next(err);
+        res.statusCode = 200;
+        return res.send();
     });
 }

@@ -28,9 +28,6 @@
 				})
 			};
 			$scope.getImage = function(){
-				//$scope.getProfile();
-				//return $scope.profile.avatar;
-				//console.log("Image: " + profileService.image);
 				return profileService.getImage();
 			};
 			$scope.getProfile();

@@ -10,7 +10,6 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	multer = require('multer'),
-	//port = 8080,
 	cors = require('cors'),
 	logger = require('morgan');
 
@@ -44,20 +43,27 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true
 })); // support encoded bodies
-//app.use(session({
-//    secret: 'MY_SECRET',
-//    resave: false,
-//    saveUninitialized: false
-//})); 
+app.use(session({
+	secret: 'MY_SECRET',
+	resave: false,
+	saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(morgan('dev'));
+app.use(express.static('./client'));
+app.use(express.static('./server/uploads'));
 app.use('/', routes);
 app.use(morgan('dev'));
 
 
 // mongoose
+mongoose.connect('mongodb://localhost/feeds');
+mongoose.connection.on('error', function (err) {
+	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+});
 
-// catch 404 and forward to error handler
+ //catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
@@ -65,7 +71,6 @@ app.use(function (req, res, next) {
 });
 
 // error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -94,8 +99,12 @@ app.use(function (err, req, res, next) {
 		error: {}
 	});
 });
+//
+//app.listen(app.get('port'), app.get('host'), function () {
+//	console.log('Server running on port 8080!');
+//});
 
-app.listen(app.get('port'), app.get('host'), function () {
+app.listen(8080, function () {
 	console.log('Server running on port 8080!');
 });
 module.exports = app;
