@@ -9,7 +9,7 @@ var passport = require('passport'),
 	ERRORS = {
 		fill_out_fields: 'Please fill out all fields',
 		user_not_found: 'User not found',
-		pass_not_match: 'Passwords not match',
+		pass_not_match: 'Passwords does\'t match',
 		same_pass: 'Please enter new password',
 		pass_incorrect: 'Entered password is incorrect',
 		user_exist: 'That user already exists',

@@ -14,7 +14,7 @@
             email_example: 'Please, use example: jacksparrow@gmail.com',
             min_6symbl: 'Please, enter at least 6 characters',
             min_9symbl: 'Please, enter at least 9 characters',
-            max_20symbl: 'Please, enter no more then 20 characters',
+            max_20symbl: 'Please, enter no more then 40 characters',
             reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
         }
 
@@ -92,7 +92,7 @@
                     required: true,
                     email: true,
                     minlength: 9,
-                    maxlength: 20,
+                    maxlength: 40,
                 },
                 pwd: {
                     required: true,

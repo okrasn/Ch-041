@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'transfer', 'accountInfo', '$auth',
-	function ($scope, $state, authService, transfer, accountInfo, $auth) {
+	angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'profileService', 'authService', 'transfer', 'accountInfo', '$auth',
+	function ($scope, $state, profileService, authService, transfer, accountInfo, $auth) {
 			$scope.isLoggedIn = authService.isLoggedIn;
 			$scope.currentUser = authService.currentUser;
 			$scope.logOut = function () {
@@ -21,13 +21,17 @@
 						var lenght = response.data.user.length;
 						for (var i = 0; i < lenght; i++) {
 							if (response.data.user[i].email === $auth.getPayload().email) {
-
 								$scope.profile = response.data.user[i];
 							}
 						}
-						console.log($scope.profile);
 					}
 				})
+			};
+			$scope.getImage = function(){
+				//$scope.getProfile();
+				//return $scope.profile.avatar;
+				//console.log("Image: " + profileService.image);
+				return profileService.getImage();
 			};
 			$scope.getProfile();
 	}]);

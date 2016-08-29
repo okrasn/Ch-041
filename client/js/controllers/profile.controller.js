@@ -18,7 +18,6 @@
                                 $scope.profile = response.data.user[i];
                             }
                         }
-                        console.log($scope.profile);
                     }
                 })
             };
@@ -59,11 +58,12 @@
             $scope.upload = function(file) {
                 console.log($scope.file);
                 Upload.upload({
-                    url: 'http://localhost:8080/upload', //webAPI exposed to upload the file
-                    data: { file: file } //pass file as data, should be user ng-model
+                    url: '/upload', //webAPI exposed to upload the file
+                    data: { file: file, user: authService.userID() } //pass file as data, should be user ng-model
                 }).then(function(resp) { //upload function returns a promise
                     if (resp.data.error_code === 0) { //validate success
-                        $window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+                        $scope.getProfile();
+                            profileService.setImagePath();
                     } else {
                         $window.alert('an error occured');
                     }
