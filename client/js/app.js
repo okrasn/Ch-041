@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 		    $urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -58,29 +58,11 @@
 					},
 					resolve: {
 					    feedPromise: ['feedsService', function (feedsService) {
-					        console.log("Resolve");
-
 							return feedsService.getAllFeeds();
 						}]
 					},
 					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
-					    //articlesService.getFavourites();
 					    articlesService.getAllArticles();
-					    //var type = dashboardService.getCurrentArticlesType();
-					    //switch (type){
-					    //    case 'all': {
-					    //        articlesService.getAllArticles();
-					    //    } 
-					    //        break;
-					    //    case 'category': {
-					    //        articlesService.getArticlesByCat(dashboardService.currentArticlesValue);
-					    //    } 
-					    //        break;
-					    //    case 'favourites': {
-					    //        articlesService.getFavourites();
-					    //    } 
-					    //        break;
-					    //}
 					}]
 				})
 				.state("dashboard.list", {
@@ -138,6 +120,16 @@
 				popupOptions: {
 					width: 452,
 					height: 633
+				}
+			});
+			$authProvider.twitter({
+				url: '/auth/twitter',
+				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+				redirectUri: window.location.origin,
+				oauthType: '1.0',
+				popupOptions: {
+					width: 495,
+					height: 645
 				}
 			});
 	}]);
@@ -205,14 +197,16 @@
     }]);
 })();
 (function() {
-	'use strict';
+	
 	angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
 		$validatorProvider.addMethod("pattern", function(value, element) {
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Password must contain(a-z,A-Z,0-9,!@#)");
 	}]).
-	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toastr', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toastr) {
-		$scope.user = {};
+	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
+		$scope.user = {
+		};
+		$scope.test = 5;
 		$scope.session;
 
 		var ERRORS = {
@@ -229,6 +223,7 @@
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
 				}).then(function (response) {
+					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
 					});
@@ -248,13 +243,13 @@
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
-						toastr.success('You have successfully login');
+						toasterService.success('You have successfully login');
 						$window.onbeforeunload = $scope.onExit;
 					} else {
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
-						toastr.success('You have successfully login');
+						toasterService.success('You have successfully login');
 					}
 				});
 			}
@@ -263,7 +258,7 @@
 		$scope.authenticate = function (provider) {
 			$auth.authenticate(provider).then(function (response) {
 				authService.saveToken(response.data.token);
-				toastr.success('You have successfully authenticated');
+				toasterService.success('You have successfully authenticated');
 				$state.go('dashboard.' + dashboardService.getViewMode(), {
 					id: authService.userID()
 				});
@@ -298,7 +293,7 @@
 					required: true,
 					email: true,
 					minlength: 9,
-					maxlength: 20,
+					maxlength: 40,
 				},
 				pwd: {
 					required: true,
@@ -476,6 +471,7 @@
             $scope.currentUser = authService.currentUser;
             $scope.toggleSidebar = function () {
                 dashboardService.sidebar = !dashboardService.sidebar;
+				$scope.getProfile();
             }
             $scope.hideSidebar = function () {
                 dashboardService.sidebar = false;
@@ -511,157 +507,160 @@
         }]);
 })();
 (function() {
-    'use strict';
-    angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
-        $validatorProvider.addMethod("pattern", function(value, element) {
-            return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
-        }, "Please specify the correct domain for your documents");
-    }]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toastr',
-        function (Upload, $http, $state, profileService, $scope,
-        authService, $window, themeService, dashboardService, $auth, accountInfo, toastr) {
+	'use strict';
+	angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
+		$validatorProvider.addMethod("pattern", function(value, element) {
+			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
+		}, "Please specify the correct domain for your documents");
+	}]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
+		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
+		function (Upload, $http, $state, profileService, $scope,
+		authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
 
-            $scope.getProfile = function () {
-                accountInfo.getProfile().then(function (response) {
-                    if($auth.isAuthenticated()){
-                        var lenght = response.data.user.length;
-                        for(var i = 0;i < lenght;i++){
-                            if(response.data.user[i].email === $auth.getPayload().email){
-                                $scope.profile = response.data.user[i];
-                            }
-                        }
-                        console.log($scope.profile);
-                    }
-                })
-            };
-            $scope.getProfile();
+			$scope.getProfile = function () {
+				accountInfo.getProfile().then(function (response) {
+					if($auth.isAuthenticated()){
+						var lenght = response.data.user.length;
+						for(var i = 0;i < lenght;i++){
+							if(response.data.user[i].email === $auth.getPayload().email){
+								$scope.profile = response.data.user[i];
+							}
+						}
+						console.log($scope.profile);
+					}
+				})
+			};
+			$scope.getProfile();
 
-            $scope.link = function(provider) {
-                $auth.link(provider).then(function() {
-                toastr.info('You have successfully linked a ' + provider + ' account');
-                $scope.getProfile();
-                });
-            };
-            
-            $scope.unlink = function(provider) {
-                $auth.unlink(provider).then(function() {
-                    toastr.info('You have unlinked a ' + provider + ' account');
-                    $scope.getProfile();
-                })
- 
-            };
-            $scope.updateProfile = function(){
-                $scope.getProfile();    
-            };
+			$scope.link = function(provider) {
+				$auth.link(provider).then(function() {
+				toasterService.info('You have successfully linked a ' + provider + ' account');
+				$scope.getProfile();
+				});
+			};
+			
+			$scope.unlink = function(provider) {
+				$http.post('/auth/unlink',{
+					id : $scope.profile._id,
+					provider : provider
+				}).then(function(response){
+					toasterService.info('You have unlinked a ' + provider + ' account');
+					$scope.getProfile();
+					console.log(response);
+				});
+			};
+			
+			$scope.updateProfile = function(){
+				$scope.getProfile();    
+			};
+			$scope.getProfile();
 
-            $scope.currentUser = authService.currentUser();
-            $scope.newUserData = {
-                email: authService.currentUser(),
-                currentPass: "",
-                newPass: "",
-                newPassRepeat: ""
-            }
+			$scope.currentUser = authService.currentUser();
+			$scope.newUserData = {
+				email: authService.currentUser(),
+				currentPass: "",
+				newPass: "",
+				newPassRepeat: ""
+			}
 
-            $scope.submit = function() { //function to call on form submit
-                if ($scope.upload_form.file.$valid && $scope.file) { //check if from is valid
-                    $scope.upload($scope.file); //call upload function
-                }
-            };
+			$scope.submit = function() { //function to call on form submit
+				if ($scope.upload_form.file.$valid && $scope.file) { //check if from is valid
+					$scope.upload($scope.file); //call upload function
+				}
+			};
 
-            $scope.upload = function(file) {
-                console.log($scope.file);
-                Upload.upload({
-                    url: 'http://localhost:8080/upload', //webAPI exposed to upload the file
-                    data: { file: file } //pass file as data, should be user ng-model
-                }).then(function(resp) { //upload function returns a promise
-                    if (resp.data.error_code === 0) { //validate success
-                        $window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-                    } else {
-                        $window.alert('an error occured');
-                    }
-                }, function(resp) { //catch error
-                    console.log('Error status: ' + resp.status);
-                    $window.alert('Error status: ' + resp.status);
-                }, function(evt) {
-                    console.log(evt);
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                    $scope.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
-                });
-            };
+			$scope.upload = function(file) {
+				console.log($scope.file);
+				Upload.upload({
+					url: 'http://localhost:8080/upload', //webAPI exposed to upload the file
+					data: { file: file } //pass file as data, should be user ng-model
+				}).then(function(resp) { //upload function returns a promise
+					if (resp.data.error_code === 0) { //validate success
+						$window.alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+					} else {
+						$window.alert('an error occured');
+					}
+				}, function(resp) { //catch error
+					console.log('Error status: ' + resp.status);
+					$window.alert('Error status: ' + resp.status);
+				}, function(evt) {
+					console.log(evt);
+					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+					console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+					$scope.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
+				});
+			};
 
-            var PROFILE_ERRORS = {
-                field_required: 'This field is required',
-                email_example: 'Please, use example: jacksparrow@gmail.com',
-                min_6symbl: 'Please,enter at least 6 characters',
-                min_9symbl: 'Please,enter at least 9 characters',
-                max_20symbl: 'Please,no more then 20 characters',
-                reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
-            };
+			var PROFILE_ERRORS = {
+				field_required: 'This field is required',
+				email_example: 'Please, use example: jacksparrow@gmail.com',
+				min_6symbl: 'Please,enter at least 6 characters',
+				min_9symbl: 'Please,enter at least 9 characters',
+				max_20symbl: 'Please,no more then 20 characters',
+				reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
+			};
 
-            $scope.changePass = function(form) {
-                if (form.validate()) {
-                    console.log("Submit change password");
-                    return $http.post('/changePassword', $scope.newUserData, {
-                        headers: {
-                            Authorization: 'Bearer ' + authService.getToken()
-                        }
-                    }).success(function(data) {
-                        authService.saveToken(data.token);
-                        $state.go('dashboard.' + dashboardService.getViewMode(), {
-                            id: authService.userID()
-                        });
-                    }).error(function(err) {
-                        $scope.err = err;
-                        console.log(err.message);
-                    });
-                }
-            };
+			$scope.changePass = function(form) {
+				if (form.validate()) {
+					console.log("Submit change password");
+					return $http.post('/changePassword', $scope.newUserData, {
+						headers: {
+							Authorization: 'Bearer ' + authService.getToken()
+						}
+					}).success(function(data) {
+						authService.saveToken(data.token);
+						$state.go('dashboard.' + dashboardService.getViewMode(), {
+							id: authService.userID()
+						});
+					}).error(function(err) {
+						$scope.err = err;
+						console.log(err.message);
+					});
+				}
+			};
 
-            $scope.changePassValidation = {
-                rules: {
-                    currentPassword: {
-                        required: true
-                    },
-                    newPassword: {
-                        required: true,
-                        minlength: 6,
-                        maxlength: 20,
-                        pattern: true
-                    },
-                    repeatNewPassword: {
-                        required: true
-                    }
-                },
-                messages: {
-                    currentPassword: {
-                        required: PROFILE_ERRORS.field_required,
-                        email: PROFILE_ERRORS.email_example,
-                        minlength: PROFILE_ERRORS.min_9symbl,
-                        maxlength: PROFILE_ERRORS.max_20symbl
-                    },
-                    newPassword: {
-                        required: PROFILE_ERRORS.field_required,
-                        minlength: PROFILE_ERRORS.min_6symbl,
-                        maxlength: PROFILE_ERRORS.max_20symbl,
-                        pattern: PROFILE_ERRORS.reg_exp
-                    },
-                    repeatNewPassword: {
-                        required: PROFILE_ERRORS.field_required
-                    }
-                }
-            };
+			$scope.changePassValidation = {
+				rules: {
+					currentPassword: {
+						required: true
+					},
+					newPassword: {
+						required: true,
+						minlength: 6,
+						maxlength: 40,
+						pattern: true
+					},
+					repeatNewPassword: {
+						required: true
+					}
+				},
+				messages: {
+					currentPassword: {
+						required: PROFILE_ERRORS.field_required,
+						email: PROFILE_ERRORS.email_example,
+						minlength: PROFILE_ERRORS.min_9symbl,
+						maxlength: PROFILE_ERRORS.max_20symbl
+					},
+					newPassword: {
+						required: PROFILE_ERRORS.field_required,
+						minlength: PROFILE_ERRORS.min_6symbl,
+						maxlength: PROFILE_ERRORS.max_20symbl,
+						pattern: PROFILE_ERRORS.reg_exp
+					},
+					repeatNewPassword: {
+						required: PROFILE_ERRORS.field_required
+					}
+				}
+			};
 
-            $scope.updateTheme = function() {
-                themeService.layout = $scope.layout;
-                console.log("Theme update");
-                console.log("Theme:" + themeService.layout);
-            };
+			$scope.updateTheme = function() {
+				themeService.layout = $scope.layout;
+			};
 
-            $scope.layout = themeService.layout;
-            $scope.layouts = themeService.layouts;
-        }
-    ]);
+			$scope.layout = themeService.layout;
+			$scope.layouts = themeService.layouts;
+		}
+	]);
 })();
 (function () {
     'use strict';
@@ -823,27 +822,29 @@ angular.module('rssreader').directive('checkStrength', function() {
                 var strength = {
                     colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
                     mesureStrength: function(p) {
-                        var _force = 0,
-                         _regex = /[#@$-/:-?-~!"^_`]/g,
-                         _lowerLetters = /[a-z]+/.test(p),
-                         _upperLetters = /[A-Z]+/.test(p),
-                         _numbers = /[0-9]+/.test(p),
-                         _symbols = _regex.test(p),
-                         _flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
-                         _passedMatches = $.grep(_flags, function(el) {
-                            return el === true; }).length;
+                        if(p){
+							var _force = 0,
+							_regex = /[#@$-/:-?-~!"^_`]/g,
+							_lowerLetters = /[a-z]+/.test(p),
+							_upperLetters = /[A-Z]+/.test(p),
+							_numbers = /[0-9]+/.test(p),
+							_symbols = _regex.test(p),
+							_flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
+							_passedMatches = $.grep(_flags, function(el) {
+							 return el === true; }).length;
 
-                        _force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
-                        _force += _passedMatches * 10;
+							_force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+							_force += _passedMatches * 10;
 
-                        // penality (short password)
-                        _force = (p.length <= 5) ? Math.min(_force, 10) : _force;
-                        // penality (poor variety of characters)
-                        _force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
-                        _force = (_passedMatches == 2) ? Math.min(_force, 20) : _force;
-                        _force = (_passedMatches == 3) ? Math.min(_force, 40) : _force;
+							// penality (short password)
+							_force = (p.length <= 5) ? Math.min(_force, 10) : _force;
+							// penality (poor variety of characters)
+							_force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
+							_force = (_passedMatches == 2) ? Math.min(_force, 20) : _force;
+							_force = (_passedMatches == 3) ? Math.min(_force, 40) : _force;
 
-                        return _force;
+							return _force;
+						}
                     },
                     getColor: function(s) {
                         var idx = 0;
@@ -1098,7 +1099,7 @@ angular.module('rssreader')
 })();
 (function () {
     'use strict';
-    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', function ($http, $window, $auth, transfer, jwtHelper) {
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($http, $window, $auth, transfer, jwtHelper, toasterService) {
         var auth = {
             saveToken: function (token) {
                 $auth.setToken(token);
@@ -1136,8 +1137,8 @@ angular.module('rssreader')
                 });
             },
             logOut: function () {
-                $auth.removeToken();
-                $auth.logout();
+				$auth.removeToken();
+        		$auth.logout();
             }
         }
         return auth;
