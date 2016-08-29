@@ -9,6 +9,7 @@
             $scope.currentUser = authService.currentUser;
             $scope.toggleSidebar = function () {
                 dashboardService.sidebar = !dashboardService.sidebar;
+				$scope.getProfile();
             }
             $scope.hideSidebar = function () {
                 dashboardService.sidebar = false;

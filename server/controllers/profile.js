@@ -1,6 +1,3 @@
-/**
- * Created by olga on 05.08.16.
- */
 var multer = require('multer');
 var mongoose = require('mongoose');
 
@@ -29,17 +26,4 @@ module.exports.upload = function (req, res) {
              res.json({error_code:0,err_desc:null});
         })
 };
-        // @TODO: need to create req.user object using jwt token 
-        /*  mongoose.model('User').findOneAndUpdate({_id: req.user.id}, {avatar: req.file.path}, {new: true}, function (err, user) {
-
-            err
-                ? res.json({
-                  error_code: 1,
-                  err_desc: err
-                  })
-                : res.json({
-                  error_code: 0,
-                  err_desc: null,
-                  user: user
-                  });
-          });*/
+      

@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', function ($http, $window, $auth, transfer, jwtHelper) {
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($http, $window, $auth, transfer, jwtHelper, toasterService) {
         var auth = {
             saveToken: function (token) {
                 $auth.setToken(token);
@@ -38,8 +38,8 @@
                 });
             },
             logOut: function () {
-                $auth.removeToken();
-                $auth.logout();
+				$auth.removeToken();
+        		$auth.logout();
             }
         }
         return auth;

@@ -1,23 +1,16 @@
 var mongoose = require('mongoose'),
-	express = require('express'),
-	router = express.Router(),
-	passport = require('passport'),
-	jwt = require('jwt-simple'),
-	Article = mongoose.model('Article'),
-	Feed = mongoose.model('Feed'),
-	User = mongoose.model('User'),
-	config = require('../config/config');
-
-var authCtrl = require('../controllers/authentication'),
-	articlesCtrl = require('../controllers/articles'),
-	feedsCtrl = require('../controllers/feeds'),
-	profCtrl = require('../controllers/profile');
-
-//router.get('/', auth, function (req, res) {
-////    res.render('home', {
-////        user: req.user
-////    });
-//});
+    express = require('express'),
+    router = express.Router(),
+    passport = require('passport'),
+    jwt = require('jwt-simple'),
+    Article = mongoose.model('Article'),
+    Feed = mongoose.model('Feed'),
+    User = mongoose.model('User'),
+	config = require('../config/config'),
+	authCtrl = require('../controllers/authentication'),
+    articlesCtrl = require('../controllers/articles'),
+    feedsCtrl = require('../controllers/feeds'),
+    profCtrl = require('../controllers/profile');
 
 router.post('/upload', profCtrl.upload);
 
@@ -27,6 +20,7 @@ router.post('/changePassword', authCtrl.changePassword);
 //Auth
 router.post('/auth/google', authCtrl.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
+router.post('/auth/twitter', authCtrl.twitterAuth);
 router.post('/auth/unlink', authCtrl.unlink);
 router.get('/api/me', authCtrl.getUserInfo);
 router.put('/api/me', authCtrl.putUserInfo);

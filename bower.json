@@ -36,6 +36,7 @@
     "angular-toastr": "^2.0.0",
     "angular-socialshare": "angularjs-socialshare#^2.2.5",
     "angular-bootstrap": "^2.1.2",
-    "angular-touch": "^1.5.8"
+    "angular-touch": "^1.5.8",
+    "angular-mocks": "^1.5.8"
   }
 }

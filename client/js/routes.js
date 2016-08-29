@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 		    $urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -58,29 +58,11 @@
 					},
 					resolve: {
 					    feedPromise: ['feedsService', function (feedsService) {
-					        console.log("Resolve");
-
 							return feedsService.getAllFeeds();
 						}]
 					},
 					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
-					    //articlesService.getFavourites();
 					    articlesService.getAllArticles();
-					    //var type = dashboardService.getCurrentArticlesType();
-					    //switch (type){
-					    //    case 'all': {
-					    //        articlesService.getAllArticles();
-					    //    } 
-					    //        break;
-					    //    case 'category': {
-					    //        articlesService.getArticlesByCat(dashboardService.currentArticlesValue);
-					    //    } 
-					    //        break;
-					    //    case 'favourites': {
-					    //        articlesService.getFavourites();
-					    //    } 
-					    //        break;
-					    //}
 					}]
 				})
 				.state("dashboard.list", {
@@ -138,6 +120,16 @@
 				popupOptions: {
 					width: 452,
 					height: 633
+				}
+			});
+			$authProvider.twitter({
+				url: '/auth/twitter',
+				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+				redirectUri: window.location.origin,
+				oauthType: '1.0',
+				popupOptions: {
+					width: 495,
+					height: 645
 				}
 			});
 	}]);

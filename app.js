@@ -10,7 +10,6 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	multer = require('multer'),
-	//port = 8080,
 	cors = require('cors'),
 	logger = require('morgan');
 
@@ -63,7 +62,7 @@ mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
-// catch 404 and forward to error handler
+ //catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
@@ -71,7 +70,6 @@ app.use(function (req, res, next) {
 });
 
 // error handlers
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
