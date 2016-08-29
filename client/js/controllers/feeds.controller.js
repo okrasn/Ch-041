@@ -3,7 +3,7 @@
     angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
         $scope.obj = {};
         $scope.feeds = feedsService.feedsDictionary;
-        $scope.categories = feedsService.CATEGORIES;
+        $scope.categories = feedsService.allCategories;
         $scope.addingNewCategory = false;
         $scope.newCategory = null;
         $scope.checkIfNew = function () {

@@ -12,14 +12,12 @@ var passport = require('passport'),
         article_not_found: 'Article not found',
         server_error: 'Server error',
         internal_error: 'Internal error(%d): %s'
-    };
-
+    }
 module.exports.userParam = function (req, res, next, id) {
     var query = User.findById(id);
 
     query.exec(function (err, user) {
         if (err) {
-            console.log("ERROR: " + err);
             return next(err);
         }
         if (!user) {

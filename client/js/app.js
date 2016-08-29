@@ -400,7 +400,7 @@
     angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
         $scope.obj = {};
         $scope.feeds = feedsService.feedsDictionary;
-        $scope.categories = feedsService.CATEGORIES;
+        $scope.categories = feedsService.allCategories;
         $scope.addingNewCategory = false;
         $scope.newCategory = null;
         $scope.checkIfNew = function () {
@@ -1233,7 +1233,24 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     this.feedsDictionary = [];
     this.favouritesDictionary = [];
     this.allArticles = [];
-    this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science", "Custom"];
+    this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"];
+    this.allCategories = function(){
+        var res = that.CATEGORIES.concat(getCustomCategories());
+        res.push("Custom");
+        return res;
+    }
+    var getCustomCategories = function () {
+        var currentFeedsCats = (function () {
+            var res = [];
+            for (var i = 0; i < that.feedsDictionary.length; i++) {
+                res.push(that.feedsDictionary[i].key);
+            }
+            return res;
+        })();
+        return currentFeedsCats.filter(function (elem, i, array) {
+            return that.CATEGORIES.indexOf(elem) == -1;
+        });
+    }
     this.getAllFeeds = function () {
         return $http.get('/users/' + authService.userID(), {
             headers: {
