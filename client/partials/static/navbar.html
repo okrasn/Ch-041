@@ -2,29 +2,32 @@
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-show="isLoggedIn()">
+                <button type="button" id="sidebar-toggle" class="navbar-toggle visible-sm visible-xs" ng-click="toggleSidebar()" ng-show="isLoggedIn()">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+                <button type="button" class="navbar-toggle collapsed visible-sm visible-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ng-show="isLoggedIn()">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
-                <a class="navbar-brand rss" ui-sref="home"><span class="orange">RSS</span>|READER</a>
+                <div class="logo_wrapper">
+                    <a class="navbar-brand rss" ui-sref="home"><span class="orange">RSS</span>|READER</a>
+                </div>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right " ng-show="isLoggedIn()">
-                    <li class="dropdown user user-menu hidden-xs">
+                <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
+                    <li class="dropdown user user-menu hidden-sm hidden-xs">
                         <a class="dropdown-toggle" data-toggle="dropdown">
                             <!-- Image must be square -->
                             <img ng-if='!profile.avatar' src="/assets/images/profile.png" class="user-image" alt="User Image">
-                            <img ng-show="profile.avatar" ng-src="{{getImage()}}" class="user-image" alt="User Image">
+                                <img ng-show="profile.avatar" ng-src="{{getImage()}}" class="user-image" alt="User Image">
                             <span class="hidden-xs" ng-bind="currentUser()"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
                             <li class="user-header">
                                 <!-- Image must be square -->
                                 <img ng-if='!profile.avatar' src="/assets/images/profile.png" class="img-circle" alt="User Image">
-                                <img ng-show="profile.avatar" ng-src="{{getImage()}}" class="img-circle" alt="User Image">
+                                <img ng-show="profile.avatar"  ng-src="{{getImage()}}" class="img-circle" alt="User Image">
                             </li>
-                            <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
                                     <button href="#" class="btn btn-default btn-flat app-btn-blue" ui-sref="profile">Profile</button>
@@ -35,17 +38,16 @@
                             </li>
                         </ul>
                     </li>
-                    <div class="grey hidden-sm hidden-md hidden-lg">
-                        <li class="user-header ">
+                    <div class="profile-drop-down hidden-md hidden-lg">
+                        <li class="user-header">
                             <div class="row">
                                 <div class="col-xs-offset-3 col-xs-6">
-                                    <!-- Image must be square -->
                                     <div class="text-center">
-                                        <img src="/assets/images/profile.png" width="125" height="125" class="img-circle" alt="User Image"></div>
+                                        <img src="/assets/images/profile.png" width="125" height="125" class="img-circle" alt="User Image">
+                                    </div>
                                 </div>
                             </div>
                         </li>
-                        <!-- Menu Footer-->
                         <li class="user-footer ">
                             <div class="row">
                                 <div class="col-xs-6">
@@ -63,8 +65,6 @@
                     </div>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container-fluid -->
     </nav>
 </div>
