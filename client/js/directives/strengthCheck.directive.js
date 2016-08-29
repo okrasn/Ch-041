@@ -6,16 +6,16 @@ angular.module('rssreader').directive('checkStrength', function() {
                 var strength = {
                     colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
                     mesureStrength: function(p) {
-                     	if(p){
-							 var _force = 0,
-							 _regex = /[#@$-/:-?-~!"^_`]/g,
-							 _lowerLetters = /[a-z]+/.test(p),
-							 _upperLetters = /[A-Z]+/.test(p),
-							 _numbers = /[0-9]+/.test(p),
-							 _symbols = _regex.test(p),
-							 _flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
-							 _passedMatches = $.grep(_flags, function(el) {
-								return el === true; }).length;
+                        if(p){
+							var _force = 0,
+							_regex = /[#@$-/:-?-~!"^_`]/g,
+							_lowerLetters = /[a-z]+/.test(p),
+							_upperLetters = /[A-Z]+/.test(p),
+							_numbers = /[0-9]+/.test(p),
+							_symbols = _regex.test(p),
+							_flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
+							_passedMatches = $.grep(_flags, function(el) {
+							 return el === true; }).length;
 
 							_force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
 							_force += _passedMatches * 10;

@@ -5,8 +5,9 @@ describe('authService and AuthController', function () {
 			password: "123456789aA!",
 			repPassword: "123456789aA!"
 		},
-		response_success =
+		token = 
 		"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2MzM2YzOWMxMTE1MjA0MTJmMGJlZWUiLCJlbWFpbCI6InRlc3QyMjJAZ21haWwuY3BtIiwiaWF0IjoxNDcyNDEzNDk4LCJleHAiOjE0NzMyNzc0OTh9.AJv8vuhoO5I1XFwX821PyBDfgKxxYIO3LBn3Z638lnY";
+		
 
 
 	beforeEach(angular.mock.module('rssreader'));
@@ -19,27 +20,27 @@ describe('authService and AuthController', function () {
 		$httpBackend = _$httpBackend_;
 	}));
 
-	describe('authService', function () {
 
-		var res = {};
-		it('should create a new user', function () {
-			$httpBackend.when('POST', '/register', user).respond(response_success);
-			authService.register(user).then(function (response) {
-				res = response;
-			});
+
+		
+		it('should exist register and user', function () {
 			expect(authService.register()).toBeDefined();
 			expect(user.email).toBe('test222@gmail.com');
 
 		});
-	});
+	
 
-	describe('AuthController', function () {
+	
 
-		it('should be defined and create a new user', inject(function ($http) {
+		it('should be create a new user in AuthController', inject(function ($http) {
 			var $scope = {};
 			var controller = $controller('AuthController', {
 				$scope: $scope
 			});
+			$scope.res;
+			beforeEach('init res', function(){
+				$scope.res = {};		
+			})
 			$scope.user = {
 				email: "test222@gmail.com",
 				password: "123456789aA!",
@@ -50,6 +51,7 @@ describe('authService and AuthController', function () {
 					return true;
 				}
 			};
+<<<<<<< HEAD
 			$http.post('/register', $scope.user)
 				.success(function (data, status, headers, config) {
 					$scope.user = data;
@@ -69,12 +71,27 @@ describe('authService and AuthController', function () {
 
 
 			expect($scope.user.email).toBeDefined('test222@gmail.com');
+=======
+			
+			expect(authService.register()).toBeDefined();
+			expect($scope.user.email).toBe('test222@gmail.com');
+>>>>>>> 9bb7f43099390eb6772eb380f604e64f86193af4
 			expect(authService).toBeDefined();
 			expect(authService.register()).toBeDefined();
 			expect($scope.user).toBeDefined();
 
 		}));
+<<<<<<< HEAD
 	});
+=======
+		it('should exist and change password in ProfileController', function(){
+			var $scope = {};
+			var controller = $controller('ProfileController', {
+				$scope: $scope
+			});	
+			expect(ProfileController).toBeDefined();
+		});
+>>>>>>> 9bb7f43099390eb6772eb380f604e64f86193af4
 	
 
 

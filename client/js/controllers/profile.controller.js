@@ -8,7 +8,7 @@
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
 		function (Upload, $http, $state, profileService, $scope,
 		authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
-
+			$scope.test = 5;	
 			$scope.getProfile = function () {
 				accountInfo.getProfile().then(function (response) {
 					if($auth.isAuthenticated()){
@@ -119,7 +119,7 @@
 					newPassword: {
 						required: true,
 						minlength: 6,
-						maxlength: 20,
+						maxlength: 40,
 						pattern: true
 					},
 					repeatNewPassword: {
@@ -147,8 +147,6 @@
 
 			$scope.updateTheme = function() {
 				themeService.layout = $scope.layout;
-				console.log("Theme update");
-				console.log("Theme:" + themeService.layout);
 			};
 
 			$scope.layout = themeService.layout;

@@ -6,8 +6,7 @@
 		}, "Password must contain(a-z,A-Z,0-9,!@#)");
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$scope.user = {
-		};
+		$scope.user = {};
 		$scope.test = 5;
 		$scope.session;
 
@@ -22,10 +21,10 @@
 
 		$scope.register = function (form) {
 			if (form.validate()) {
-				console.log($scope.user);
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
 				}).then(function (response) {
+					console.log(response);
 					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
