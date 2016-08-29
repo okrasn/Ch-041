@@ -50,29 +50,21 @@ describe('authService and AuthController', function () {
 					return true;
 				}
 			};
-			$http.post('http://localhost/auth', {
-					username: 'hardcoded_user',
-					password: 'hardcoded_password'
-				})
+			$http.post('/register', $scope.user)
 				.success(function (data, status, headers, config) {
 					$scope.user = data;
 				});
 
-			$httpBackend
-				.when('POST', 'http://localhost/auth', '{"username":"hardcoded_user","password":"hardcoded_password"}')
+			$httpBackend.when('POST', '/register', '{"email": "test222@gmail.com","password":"123456789aA!",
+				"repPassword": "123456789aA!"}')
 				.respond({
-					username: 'hardcoded_user'
+					token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2MzM2YzOWMxMTE1MjA0MTJmMGJlZWUiLCJlbWFpbCI6InRlc3QyMjJAZ21haWwuY3BtIiwiaWF0IjoxNDcyNDEzNDk4LCJleHAiOjE0NzMyNzc0OTh9.AJv8vuhoO5I1XFwX821PyBDfgKxxYIO3LBn3Z638lnY"
 				});
-			afterEach(function () {
-				$httpBackend.verifyNoOutstandingExpectation();
-				$httpBackend.verifyNoOutstandingRequest();
-			});
+		
 
 			$httpBackend.flush();
 
-			expect($scope.user).toEqual({
-				username: 'hardcoded_user'
-			});
+			expect($scope.user).toEqual({});
 
 
 
@@ -83,6 +75,7 @@ describe('authService and AuthController', function () {
 
 		}));
 	});
+	
 
 
 });
