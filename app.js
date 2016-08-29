@@ -56,8 +56,6 @@ app.use(morgan('dev'));
 app.use(express.static('./client'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
-app.use(morgan('dev'));
-
 
 // mongoose
 mongoose.connect('mongodb://localhost/feeds');
@@ -102,6 +100,7 @@ app.use(function (err, req, res, next) {
 		error: {}
 	});
 });
+
 app.listen(8080, function () {
 	console.log('Server running on port 8080!');
 });

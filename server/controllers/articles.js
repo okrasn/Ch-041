@@ -22,7 +22,6 @@ module.exports.addFavArticle = function (req, res, next) {
             if (!article.category) {
                 article.category = 'Unsorted';
             }
-            console.log(article);
             if (user.favCategories.indexOf(article.category) === -1) {
                 user.favCategories.push(article.category);
             }
@@ -57,10 +56,15 @@ module.exports.removeFavArticle = function (req, res, next) {
         // Delete article from database
         Article.findById(req.params.id, function (err, article) {
             var catExist = false;
-            for (var i = 0; i < user.favourites.length; i++) {
-                if (user.favourites[i].category === article.category && user.favourites[i].link !== article.link) {
-                    catExist = true;
+            try{
+                for (var i = 0; i < user.favourites.length; i++) {
+                    if (user.favourites[i].category === article.category && user.favourites[i].link !== article.link) {
+                        catExist = true;
+                    }
                 }
+            }
+            catch (e) {
+                return next(e);
             }
             if (!catExist) {
                 for (var i = 0; i < user.favCategories.length; i++) {

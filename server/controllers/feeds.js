@@ -6,8 +6,9 @@ var passport = require('passport'),
     ERRORS = {
         choose_cat: 'Choose category',
         cant_find_user: 'Can\'t find user',
-        feed_already_added: 'You have already added this feed ',
+        feed_already_added: 'You have already added this feed',
         feed_not_found: 'Feed not found',
+        enter_feed_url: 'Enter feed url',
         article_not_found: 'Article not found',
         server_error: 'Server error',
         internal_error: 'Internal error(%d): %s'
@@ -65,6 +66,11 @@ module.exports.allFeed = function (req, res, next) {
 }
 
 module.exports.add = function (req, res, next) {
+    if (req.body.rsslink === undefined) {
+        return res.status(400).json({
+            message: ERRORS.enter_feed_url
+        });
+    }
     if (req.body.category === undefined) {
         return res.status(400).json({
             message: ERRORS.choose_cat

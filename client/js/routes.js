@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 		    $urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -57,12 +57,30 @@
 						}
 					},
 					resolve: {
-						feedPromise: ['feedsService', function (feedsService) {
+					    feedPromise: ['feedsService', function (feedsService) {
+					        console.log("Resolve");
+
 							return feedsService.getAllFeeds();
 						}]
 					},
-					onEnter: ['articlesService', function (articlesService) {
-						articlesService.getAllArticles();
+					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
+					    //articlesService.getFavourites();
+					    articlesService.getAllArticles();
+					    //var type = dashboardService.getCurrentArticlesType();
+					    //switch (type){
+					    //    case 'all': {
+					    //        articlesService.getAllArticles();
+					    //    } 
+					    //        break;
+					    //    case 'category': {
+					    //        articlesService.getArticlesByCat(dashboardService.currentArticlesValue);
+					    //    } 
+					    //        break;
+					    //    case 'favourites': {
+					    //        articlesService.getFavourites();
+					    //    } 
+					    //        break;
+					    //}
 					}]
 				})
 				.state("dashboard.list", {

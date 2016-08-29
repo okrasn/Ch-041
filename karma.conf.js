@@ -38,6 +38,8 @@ module.exports = function (config) {
             "./client/bower_components/angular-mocks/angular-mocks.js",
 
             "./client/js/app.min.js",
+            //"./client/js/routes.js",
+            //"./client/js/services/dashboard.service.js",
             "./client/js/services/dashboard.service.spec.js",
             "./client/js/services/feeds.service.spec.js",
             "./client/js/services/articles.service.spec.js"

@@ -7,6 +7,7 @@
     }));
 
     it("dashboardService should exist", function () {
+        expect(2 + 2).toEqual(4);
         expect(dashboardService).toBeDefined();
     });
 

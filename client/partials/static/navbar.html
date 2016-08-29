@@ -17,7 +17,7 @@
                     <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
                 <div class="logo_wrapper">
-                    <a class="navbar-brand rss" ui-sref="home"><span class="orange">RSS</span>|READER</a>
+                    <a class="navbar-brand rss" ng-click="onEmblem()" style="cursor: pointer"><span class="orange">RSS</span>|READER</a>
                 </div>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,8 +46,8 @@
                     <div class="profile-drop-down visible-xs">
                         <li class="user-header">
                             <div class="row">
-                                <div class="col-xs-offset-3 col-xs-6">
-                                    <div class="text-center">
+                                <div class="col-xs-12">
+                                    <div class="text-center mobile-profile-image">
                                         <img src="/assets/images/profile.png" width="125" height="125" class="img-circle" alt="User Image">
                                     </div>
                                 </div>

@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngMaterial', 'ngFileUpload', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', 'toastr', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 		    $urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -57,12 +57,30 @@
 						}
 					},
 					resolve: {
-						feedPromise: ['feedsService', function (feedsService) {
+					    feedPromise: ['feedsService', function (feedsService) {
+					        console.log("Resolve");
+
 							return feedsService.getAllFeeds();
 						}]
 					},
-					onEnter: ['articlesService', function (articlesService) {
-						articlesService.getAllArticles();
+					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
+					    //articlesService.getFavourites();
+					    articlesService.getAllArticles();
+					    //var type = dashboardService.getCurrentArticlesType();
+					    //switch (type){
+					    //    case 'all': {
+					    //        articlesService.getAllArticles();
+					    //    } 
+					    //        break;
+					    //    case 'category': {
+					    //        articlesService.getArticlesByCat(dashboardService.currentArticlesValue);
+					    //    } 
+					    //        break;
+					    //    case 'favourites': {
+					    //        articlesService.getFavourites();
+					    //    } 
+					    //        break;
+					    //}
 					}]
 				})
 				.state("dashboard.list", {
@@ -143,7 +161,6 @@
         }
         $scope.confirmAddFavourite = function () {
             $scope.favForAdd.category = $scope.obj.category;
-            console.log($scope.obj.category);
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
                 toasterService.success("Article marked as favourite");
                 $state.reload("dashboard");
@@ -318,18 +335,23 @@
 (function () {
     'use strict';
     angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
-        if (feedsService.feedsDictionary.length) {
+        if (feedsService.feedsDictionary.length > 0) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
         } else {
             dashboardService.setTitle("Add Feed");
             $state.go('dashboard.addFeed');
         }
-        console.log($state.current.name);
         $scope.loadingIcon = dashboardService.isLoading;
         $scope.sidebar = dashboardService.checkSidebar;
         $scope.toggleSidebar = function () {
             dashboardService.sidebar = !dashboardService.sidebar;
+        }
+        $scope.hideSidebar = function () {
+            dashboardService.sidebar = false;
+        }
+        $scope.showSidebar = function () {
+            dashboardService.sidebar = true;
         }
         $scope.headTitle = dashboardService.getTitle;
         $scope.feed = dashboardService.getFeedId;
@@ -384,18 +406,29 @@
         $scope.obj = {};
         $scope.feeds = feedsService.feedsDictionary;
         $scope.categories = feedsService.CATEGORIES;
+        $scope.addingNewCategory = false;
+        $scope.newCategory = null;
+        $scope.checkIfNew = function () {
+            if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+                $scope.addingNewCategory = true;
+            }
+            else {
+                $scope.addingNewCategory = false;
+                $scope.newCategory = null;
+            }
+        }
         $scope.addFeed = function () {
+            if ($scope.newCategory) {
+                $scope.obj.category = $scope.newCategory;
+            }
+            $scope.addingNewCategory = false;
             $scope.error = '';
+            console.log($scope.obj);
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
-                    console.log("res:");
-                    console.log(res);
-                    console.log("Data:");
-                    console.log(res.data);
                     toasterService.success("Feed successfully added");
                     $state.reload("dashboard");
                 }, function (err) {
-                    console.log(err);
                     if (!err.data)
                         $scope.error = err.message;
                     else $scope.error = err.data.message;
@@ -408,27 +441,16 @@
     angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'authService', 'dashboardService', 'feedsService', function ($scope, $state, authService, dashboardService, feedsService) {
         $scope.isLoggedIn = authService.isLoggedIn;
         $scope.currentUser = authService.currentUser;
-        $scope.models = {
-            selected: null,
-            lists: {
-                A: []
-            }
-        };
-        // Generate initial model
-        for (var i = 1; i <= 3; ++i) {
-            $scope.models.lists.A.push({
-                label: "Item A" + i
-            });
-        }
         $scope.onFeeds = function () {
             if (authService.isLoggedIn()) {
                 $state.go('dashboard.' + dashboardService.getViewMode(), {
                     id: authService.userID()
                 });
             } else {
-                alert('Unauthtorized');
+                $state.go('home');
             }
         }
+        $scope.onFeeds();
         $scope.onRegister = function () {
             $state.go('register');
         }
@@ -448,7 +470,6 @@
     angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
         function ($scope, $state, authService, dashboardService, transfer, accountInfo, $auth) {
             $scope.isLoggedIn = authService.isLoggedIn;
-            console.log($state.current);
             $scope.isDashboard = function () {
                 return /dashboard/.test($state.current.name);
             }
@@ -463,9 +484,11 @@
                 authService.logOut();
                 $state.go("home");
             }
-            $scope.goHome = function () {
-                if ($scope.isLoggedIn()) {
-                    $state.go("dashboard");
+            $scope.onEmblem = function () {
+                if (authService.isLoggedIn()) {
+                    $state.go('dashboard.' + dashboardService.getViewMode(), {
+                        id: authService.userID()
+                    });
                 } else {
                     $state.go("home");
                 }
@@ -645,7 +668,9 @@
     angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
         $scope.feedsListDragableTypes = ['feeds'];
         $scope.favsListDragableTypes = ['favs'];
-        $scope.feeds = feedsService.feedsDictionary
+        $scope.currentArticlesType = dashboardService.currentArticlesType;
+        $scope.currentSelectedItem;
+        $scope.feeds = feedsService.feedsDictionary;
         $scope.favs = feedsService.favouritesDictionary;
         $scope.onFeedsDrag = function (index) {
             dashboardService.loadingIcon = true;
@@ -662,21 +687,22 @@
             });
         }
         $scope.getAll = function ($event) {
-            console.log($event.target);
-            console.log($event.currentTarget);
+            setArticlesType(angular.element($event.currentTarget).parent(), 'all');
             // if there is only one category and feed, return this feed articles
             if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
-                $scope.getByFeed($scope.feeds[0].values[0]);
+                articlesService.getArticlesByFeed($scope.feeds[0].values[0]);
             } else {
                 articlesService.getAllArticles();
             }
             $state.go("dashboard." + dashboardService.getViewMode());
         }
-        $scope.getByFeed = function (feed) {
+        $scope.getByFeed = function ($event, feed) {
+            setArticlesType(angular.element($event.currentTarget).parent(), "feed");
             articlesService.getArticlesByFeed(feed);
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getByCat = function ($event, cat, index) {
+            setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
             if ($event.currentTarget.attributes[4]) {
                 if ($event.currentTarget.attributes[4].value == 'true') {
                     angular.element($event.currentTarget).removeClass('chevron-down');
@@ -690,13 +716,14 @@
             }
             // if there is only one feed within selected category, return its articles
             if ($scope.feeds[arguments[2]].values.length == 1) {
-                $scope.getByFeed($scope.feeds[arguments[2]].values[0]);
+                articlesService.getArticlesByFeed($scope.feeds[arguments[2]].values[0]);
             } else {
                 articlesService.getArticlesByCat(arguments[1]);
             }
             $state.go("dashboard." + dashboardService.getViewMode());
         }
         $scope.getFavourites = function ($event) {
+            setArticlesType(angular.element($event.currentTarget).parent(), 'favourites');
             if ($event.currentTarget.attributes[4]) {
                 if ($event.currentTarget.attributes[4].value == 'true') {
                     angular.element($event.currentTarget).removeClass('chevron-down');
@@ -740,6 +767,17 @@
             } else return true;
         }
         $scope.toggle = false;
+        
+        var setArticlesType = function (element, type, value) {
+            if (type && value) {
+                dashboardService.setCurrentArticlesType(type, value);
+            }
+            if ($scope.currentSelectedItem) {
+                $scope.currentSelectedItem.removeClass('selected');
+            }
+            $scope.currentSelectedItem = element;
+            $scope.currentSelectedItem.addClass('selected');
+        }
     }]);
 })();
 angular.module('rssreader').directive('modal', [function () {
@@ -952,7 +990,6 @@ angular.module('rssreader')
                     obj.articles.push(article);
                 },
                 addFavourite: function (article) {
-                    console.log(article);
                     return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()
@@ -1110,6 +1147,31 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
     var that = this;
     this.DEFAULT_VIEW = 2;
 
+    this.currentArticlesType = 'all';
+    this.currentArticlesValue = $window.localStorage.category;
+
+    if (!$window.localStorage.articlesType) {
+        $window.localStorage.articlesType = that.currentArticlesType;
+    }
+
+    if ($window.localStorage.category) {
+        console.log($window.localStorage.category);
+        currentArticlesValue = $window.localStorage.category;
+    }
+
+    this.setCurrentArticlesType = function (type, value) {
+        that.currentArticlesValue = null;
+        that.currentArticlesType = type;
+        $window.localStorage.articlesType = that.currentArticlesType;
+        if (value) {
+            that.currentArticlesValue = value;
+            $window.localStorage.category = that.currentArticlesValue;
+        }
+    }
+    this.getCurrentArticlesType = function () {
+        that.currentArticlesType = $window.localStorage.articlesType;
+        return that.currentArticlesType;
+    }
     if (!$window.localStorage.viewMode) {
         $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }
@@ -1170,7 +1232,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     this.feedsDictionary = [];
     this.favouritesDictionary = [];
     this.allArticles = [];
-    this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"];
+    this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science", "Custom"];
     this.getAllFeeds = function () {
         return $http.get('/users/' + authService.userID(), {
             headers: {
@@ -1181,7 +1243,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
             that.getAllFavourites().then(function (res) {
                 angular.copy(res.data, that.favouritesDictionary);
             });
-            //dashboardService.loadingIcon = false;
         });
     }
     this.getAllFavourites = function () {
@@ -1229,6 +1290,9 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
     this.addFeed = function (feed) {
         return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
             .then(function (response) {
+                if (feed.link === undefined) {
+                    throw new Error("Enter Rss feed link");
+                }
                 if (feed.category === undefined) {
                     throw new Error("Choose category");
                 }

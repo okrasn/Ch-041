@@ -3,7 +3,6 @@
     angular.module('rssreader').controller('NavbarController', ['$scope', '$state', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
         function ($scope, $state, authService, dashboardService, transfer, accountInfo, $auth) {
             $scope.isLoggedIn = authService.isLoggedIn;
-            console.log($state.current);
             $scope.isDashboard = function () {
                 return /dashboard/.test($state.current.name);
             }
@@ -18,9 +17,11 @@
                 authService.logOut();
                 $state.go("home");
             }
-            $scope.goHome = function () {
-                if ($scope.isLoggedIn()) {
-                    $state.go("dashboard");
+            $scope.onEmblem = function () {
+                if (authService.isLoggedIn()) {
+                    $state.go('dashboard.' + dashboardService.getViewMode(), {
+                        id: authService.userID()
+                    });
                 } else {
                     $state.go("home");
                 }

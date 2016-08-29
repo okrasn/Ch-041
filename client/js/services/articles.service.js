@@ -71,7 +71,6 @@
                     obj.articles.push(article);
                 },
                 addFavourite: function (article) {
-                    console.log(article);
                     return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()

@@ -2,6 +2,31 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
     var that = this;
     this.DEFAULT_VIEW = 2;
 
+    this.currentArticlesType = 'all';
+    this.currentArticlesValue = $window.localStorage.category;
+
+    if (!$window.localStorage.articlesType) {
+        $window.localStorage.articlesType = that.currentArticlesType;
+    }
+
+    if ($window.localStorage.category) {
+        console.log($window.localStorage.category);
+        currentArticlesValue = $window.localStorage.category;
+    }
+
+    this.setCurrentArticlesType = function (type, value) {
+        that.currentArticlesValue = null;
+        that.currentArticlesType = type;
+        $window.localStorage.articlesType = that.currentArticlesType;
+        if (value) {
+            that.currentArticlesValue = value;
+            $window.localStorage.category = that.currentArticlesValue;
+        }
+    }
+    this.getCurrentArticlesType = function () {
+        that.currentArticlesType = $window.localStorage.articlesType;
+        return that.currentArticlesType;
+    }
     if (!$window.localStorage.viewMode) {
         $window.localStorage.viewMode = this.DEFAULT_VIEW;
     }

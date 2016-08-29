@@ -17,7 +17,6 @@
         }
         $scope.confirmAddFavourite = function () {
             $scope.favForAdd.category = $scope.obj.category;
-            console.log($scope.obj.category);
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
                 toasterService.success("Article marked as favourite");
                 $state.reload("dashboard");
