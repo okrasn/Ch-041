@@ -4,7 +4,14 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 
     this.currentArticlesType = 'all';
     this.currentArticlesValue = $window.localStorage.category;
+    this.sortParam = {};
 
+    this.setSortParam = function (type, order) {
+        console.log(type);
+        console.log(order);
+        this.sortParam.type = type;
+        this.sortParam.order = order;
+    }
     if (!$window.localStorage.articlesType) {
         $window.localStorage.articlesType = that.currentArticlesType;
     }

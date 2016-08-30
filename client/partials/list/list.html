@@ -1,6 +1,6 @@
 <!--Table feeds-->
 <div id="list" class="feeds">
-    <div class="table-feed" ng-repeat="article in articles">
+    <div class="table-feed" ng-repeat="article in articles | orderBy:getSortParam().type:getSortParam().order">
         <div class="col-lg-11 col-xs-10 col-same-height">
             <a ng-href="{{article.link}}">
                 <p class="shortened-text strong-text" ng-bind="article.title">

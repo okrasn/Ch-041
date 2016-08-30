@@ -10,6 +10,11 @@
         }
         $scope.loadingIcon = dashboardService.isLoading;
         $scope.sidebar = dashboardService.checkSidebar;
+        $scope.headTitle = dashboardService.getTitle;
+        $scope.feed = dashboardService.getFeedId;
+        $scope.alertMsg = dashboardService.alertMsg;
+        $scope.successMsg = dashboardService.successMsg;
+
         $scope.toggleSidebar = function () {
             dashboardService.sidebar = !dashboardService.sidebar;
         }
@@ -19,10 +24,6 @@
         $scope.showSidebar = function () {
             dashboardService.sidebar = true;
         }
-        $scope.headTitle = dashboardService.getTitle;
-        $scope.feed = dashboardService.getFeedId;
-        $scope.alertMsg = dashboardService.alertMsg;
-        $scope.successMsg = dashboardService.successMsg;
 
         $scope.hideViewBtns = function () {
             if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
@@ -63,6 +64,11 @@
                 }, function (err) {
                     console.log(err);
                 });
+        }
+        $scope.setSortParam = function (type, order) {
+            console.log(type);
+            console.log(order);
+            dashboardService.setSortParam(type, order);
         }
     }]);
 })();

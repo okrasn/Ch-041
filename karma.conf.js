@@ -19,6 +19,7 @@ module.exports = function (config) {
 			"./client/bower_components/angular-animate/angular-animate.min.js",
 			"./client/bower_components/angular-aria/angular-aria.min.js",
 			"./client/bower_components/angular-messages/angular-messages.min.js",
+			"./client/bower_components/angular-touch/angular-touch.min.js",
 
 			"./client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
 

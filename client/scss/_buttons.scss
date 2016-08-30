@@ -52,6 +52,8 @@
 .app-btn-feed-list {
     font-size: 1em;
     padding: 10px;
+    top: 0;
+    margin-bottom: 0;
     border: none;
     border-radius: $main-border-radius;
     transition: $app-transition;
@@ -213,6 +215,16 @@ a.sharing-btn {
         transition: color 0.3s ease;
         color: #3949ab;
     }
+}
+
+.sort-btn{
+    @extend .app-btn-feed-list;
+    border-radius: $main-border-radius;
+    margin-left: $main-app-padding;
+}
+
+.sort-item{
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {

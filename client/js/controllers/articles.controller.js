@@ -11,8 +11,13 @@
         $scope.favForAdd = {};
         $scope.favForRemove = {};
         $scope.articleForShare = {};
-
+        $scope.sortParam = dashboardService.sortParam;
         $scope.addingNewFavCategory = false;
+
+        $scope.getSortParam = function () {
+            $scope.sortParam = dashboardService.sortParam;
+            return $scope.sortParam;
+        }
         $scope.checkIfNew = function () {
             if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
                 $scope.addingNewFavCategory = true;

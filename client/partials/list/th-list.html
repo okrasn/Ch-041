@@ -1,6 +1,6 @@
 <!--Detailed table feeds-->
 <div id="th-list" class="clearfix feeds">
-    <div class="col-xs-12" ng-repeat="article in articles">
+    <div class="col-xs-12" ng-repeat="article in articles | orderBy:getSortParam().type:getSortParam().order">
         <div class="panel panel-default app-panel fade-in-anim">
             <img ng-show="article.img" ng-src="{{article.img}}" class="img-responsive" alt="Article image">
             <div class="content">
