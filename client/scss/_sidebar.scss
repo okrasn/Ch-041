@@ -12,8 +12,14 @@ $sidebar-mobile-width: 270px;
     transform: rotate(90deg);
 }
 
-span.glyphicon{
+span.glyphicon.glyphicon-chevron-right{
+    margin-right: $main-app-padding;
     transition: all 0.3s ease;
+}
+
+#sidebar span.glyphicon-star{
+    margin-right: $main-app-padding/2;
+    color: #ff9d00;
 }
 
 #dashboard {
@@ -34,7 +40,7 @@ span.glyphicon{
         top: 51px;
         bottom: 0;
         left: 0;
-        z-index: 100;
+        z-index: 9998;
         display: block;
         padding: 0px;
         overflow-x: hidden;
@@ -48,7 +54,7 @@ span.glyphicon{
 
     .sidebar-overlay {
         position: fixed;
-        z-index: 99;
+        z-index: 9997;
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0.6);
@@ -167,19 +173,30 @@ ul[dnd-list] .dndPlaceholder {
     }
 }
 
+.sidebar-item.selected, .sidebar-sub-item .selected{
+    background-color: red/*$item-hover-color*/;
+}
+
+#sidebar .selected{
+    border-right: 0.7em solid $blue-btn-active-color;
+    background-color: $item-hover-color;
+}
+
 @media(max-width: $tablet-res) {
     #sidebar-wrapper {
         animation: 0.3s slideRight ease;
         width: $sidebar-mobile-width;
+        box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+
     }
 
-    ul {
+    #sidebar ul {
         width: 100%;
     }
 
     #dashboard #sidebar-wrapper.sidebar-mobile {
         transition: all 0.3s ease;
-        left: -$sidebar-mobile-width;
+        left: -$sidebar-mobile-width - 5px;
         animation: 0.3s slideLeft ease;
     }
 }

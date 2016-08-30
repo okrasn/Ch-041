@@ -1,7 +1,7 @@
 ﻿$modal-background-color: white;
 
 .modal-window {
-    z-index: 1000;
+    z-index: 10000;
     position: fixed;
     width: 400px;
     top: 50%;
@@ -34,12 +34,12 @@
     top: $main-app-padding;
     right: $main-app-padding;
     color: black;
-    z-index: 999;
+    z-index: 1001;
 }
 
 .modal-overlay {
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: 100%;

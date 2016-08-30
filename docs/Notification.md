@@ -4,7 +4,7 @@ While developing, you may want to show some notification to user. For convenienc
 
 #### Syntax
 ```javascript
-toasterService.custom(scope[, options][, onShow]);
+toasterService.custom(options [, scope][, onShow]);
 ```
 
 
@@ -16,6 +16,8 @@ You can pass custom options to toaster methods as first parameter.
 - __delay__: value (ms)
 - __type__: one of ['__toaster-default__', '__toaster-success__', '__toaster-info__', '__toaster-error__']
 - __iconClass__: string (name of glyph class, e.g.: "fa fa-info")
+- __confirm__: Function (callback that will ba called if user confirm toaster action)
+
 
 ##### Example:
 ```javascript
@@ -48,10 +50,9 @@ module.controller('SomeController', [$scope, 'toasterService', function ($scope,
     toasterService.success("Success!!");
 ```
 
-
 There are several predefined toaster types:
 
-1. Success
+##### Success
 
 ```javascript
     toasterService.success("Success");
@@ -59,7 +60,7 @@ There are several predefined toaster types:
 ![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-success.png)
 
 
-2. Info
+##### Info
 
 ```javascript
     toasterService.info("Information");
@@ -67,9 +68,19 @@ There are several predefined toaster types:
 
 ![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-info.png)
 
-3. Error
+##### Error
 ```javascript
     toasterService.error("Error");
 ```
 
 ![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-error.png)
+
+##### Confirm
+```javascript
+    toasterService.confirm({
+        message: "Confirm?",
+        confirm: "confirmFeedDelete"
+    }, $scope); 
+```
+
+![Info toaster image](https://github.com/VALIKCOOL/Ch-041/blob/development/docs/assets/toaster-confirm.png)
