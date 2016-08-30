@@ -37,7 +37,6 @@ app.use(function (req, res, next) { //allow cross origin requests
 	next();
 });
 app.use(express.static('./client'));
-app.use(express.static('./server/uploads'));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true

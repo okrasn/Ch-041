@@ -21,10 +21,7 @@ var mongoose = require('mongoose'),
 		google: String,
 		hash: String,
 		salt: String,
-		avatar: {
-			type: String,
-			default: ""
-		},
+		avatar: String,
 		categories: [String],
 		favCategories: [String],
 		feeds: [{
