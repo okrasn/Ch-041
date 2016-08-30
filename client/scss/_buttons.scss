@@ -20,6 +20,9 @@
         outline: none;
     }
 }
+.social_btn {
+	margin: 5px 10px 5px 0;
+}
 
 .app-btn-blue {
     @extend .app-btn;
@@ -225,4 +228,16 @@ a.sharing-btn {
 
 .sort-item{
     cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .app-btn-blue {
+    }
+
+    .navbar .app-btn-blue {
+    }
+
+    .margin {
+        margin-bottom: 20px;
+    }
 }

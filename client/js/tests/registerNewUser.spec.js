@@ -1,88 +1,46 @@
-describe('authService and AuthController', function () {
-	var $controller, authService, $q, $httpBackend,
-		user = {
-			email: "test222@gmail.com",
-			password: "123456789aA!",
-			repPassword: "123456789aA!"
-		},
-		response_success =
-		"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2MzM2YzOWMxMTE1MjA0MTJmMGJlZWUiLCJlbWFpbCI6InRlc3QyMjJAZ21haWwuY3BtIiwiaWF0IjoxNDcyNDEzNDk4LCJleHAiOjE0NzMyNzc0OTh9.AJv8vuhoO5I1XFwX821PyBDfgKxxYIO3LBn3Z638lnY";
-
+describe('authService', function () {
 
 	beforeEach(angular.mock.module('rssreader'));
-	beforeEach(angular.mock.inject(function (_$controller_) {
-		$controller = _$controller_;
-	}));
-	beforeEach(inject(function (_authService_, _$q_, _$httpBackend_) {
+	beforeEach(angular.mock.inject(function (_authService_, _$q_, _$httpBackend_) {
 		authService = _authService_;
 		$q = _$q_;
 		$httpBackend = _$httpBackend_;
 	}));
+	it('should create a new user and return token', inject(function ($http) {
 
-	describe('authService', function () {
+		var $scope = {};
+		$scope.user = {
+			email: "test222@gmail.com",
+			password: "123456789aA!",
+			repPassword: "123456789aA!"
+		};
 
-		var res = {};
-		it('should create a new user', function () {
-			$httpBackend.when('POST', '/register', user).respond(response_success);
-			authService.register(user).then(function (response) {
-				res = response;
-			});
-			expect(authService.register()).toBeDefined();
-			expect(user.email).toBe('test222@gmail.com');
-
-		});
-	});
-
-	describe('AuthController', function () {
-
-		it('should be defined and create a new user', inject(function ($http) {
-			var $scope = {};
-			var controller = $controller('AuthController', {
-				$scope: $scope
-			});
-			$scope.user = {
-				email: "test222@gmail.com",
-				password: "123456789aA!",
-				repPassword: "123456789aA!"
-			};
-			var form = {
-				validate: function () {
-					return true;
-				}
-			};
-			$http.post('http://localhost/auth', {
-				username: 'hardcoded_user',
-				password: 'hardcoded_password'
-			})
+		
+		$http.post('/register', $scope.user)
 			.success(function (data, status, headers, config) {
-					$scope.user = data;
+				if (status === 200) {
+					$scope.data = data;
+					$scope.tokenValue = headers('token');
+				}
+			})
+			.error(function (data, status, headers, config) {
+				$scope.valid = false;
 			});
+		
+		$httpBackend.expect('GET', './partials/home.html').respond(200);
+		$httpBackend.when('POST', '/register', $scope.user).respond(200, {
+			data: $scope.user
+		}, {
+			token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2MzM2YzOWMxMTE1MjA0MTJmMGJlZWUiLCJlbWFpbCI6InRlc3QyMjJAZ21haWwuY3BtIiwiaWF0IjoxNDcyNDEzNDk4LCJleHAiOjE0NzMyNzc0OTh9.AJv8vuhoO5I1XFwX821PyBDfgKxxYIO3LBn3Z638lnY"
+		});
 
-//			$httpBackend
-//				.when('POST', 'http://localhost/auth', '{"username":"hardcoded_user","password":"hardcoded_password"}')
-//				.respond({
-//					username: 'hardcoded_user'
-//				});
-//			afterEach(function () {
-//				$httpBackend.verifyNoOutstandingExpectation();
-//				$httpBackend.verifyNoOutstandingRequest();
-//			});
-//
-//			$httpBackend.flush();
-//
-//			expect($scope.user).toEqual({
-//				username: 'hardcoded_user'
-//			});
+		$httpBackend.flush();
+		expect($scope.data.data).toEqual({
+			email: "test222@gmail.com",
+			password: "123456789aA!",
+			repPassword: "123456789aA!"
+		});
+		expect($scope.tokenValue).toEqual("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2MzM2YzOWMxMTE1MjA0MTJmMGJlZWUiLCJlbWFpbCI6InRlc3QyMjJAZ21haWwuY3BtIiwiaWF0IjoxNDcyNDEzNDk4LCJleHAiOjE0NzMyNzc0OTh9.AJv8vuhoO5I1XFwX821PyBDfgKxxYIO3LBn3Z638lnY");
 
-
-
-			expect($scope.user.email).toBeDefined('test222@gmail.com');
-			expect(authService).toBeDefined();
-			expect(authService.register()).toBeDefined();
-			expect($scope.user).toBeDefined();
-
-		}));
-	});
-
-
+	}));
 });
