@@ -19,7 +19,6 @@
             userID: function () {
                 if (auth.isLoggedIn()) {
                     var payload = $auth.getPayload();
-                    console.log(payload);
                     return payload.sub;
                 }
             },
@@ -38,8 +37,8 @@
                 });
             },
             logOut: function () {
-				$auth.removeToken();
-        		$auth.logout();
+		$auth.removeToken();
+        	$auth.logout();
             }
         }
         return auth;
