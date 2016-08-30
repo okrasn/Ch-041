@@ -94,7 +94,7 @@
 			<div class="col-xs-12">
 				<button ng-click='updateProfile()' class="btn btn-md app-btn-blue social_btn ">Update info</button>
 				<p class="user_ava">User Avatar: </p>
-				<img class="img img-thumbnail avatar_image" alt='user picture' src='{{profile.picture}}'>
+				<img ng-show="!profile.avatar" class="img img-thumbnail avatar_image" alt='user picture' src='{{profile.picture}}'>
 				<p class="user_name">User Name: {{profile.displayName}} </p>
 				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="profile.facebook" ng-click="unlink('facebook')">
 					<i class="ion-social-facebook"></i> Unlink Facebook Account
