@@ -43,9 +43,9 @@
 					}
 				})
 			};
+			$scope.getProfile();
 			$scope.getImage = function(){
 				return profileService.getImage();
 			};
-			$scope.getProfile();
 	}]);
 })();

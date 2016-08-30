@@ -44,7 +44,6 @@
 			$scope.updateProfile = function () {
 				$scope.getProfile();
 			};
-			$scope.getProfile();
 
 			$scope.currentUser = authService.currentUser();
 			$scope.newUserData = {
