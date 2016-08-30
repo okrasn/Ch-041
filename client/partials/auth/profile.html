@@ -20,13 +20,14 @@
 					</div>
 					<div class="col-xs-7">
 						<input type="text" class="form-control" value="{{file.name}}" name="" disabled>
-						<div class="file-upload btn btn-md app-btn-blue .cstm-btn text-uppercase">
+						<div class="file-upload btn btn-md app-btn-blue text-uppercase upload">
 							<label>
 								<input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
 								<span class="text-uppercase">Upload avatar</span>
 							</label>
 						</div>
-						<button type="submit" ng-click="submit()" class="btn btn-md app-btn-blue .cstm-btn text-uppercase ">accept</button>
+						<br>
+						<button type="submit" ng-click="submit()" class="btn btn-md app-btn-blue text-uppercase ">accept</button>
 						<i ng-show="upload_form.file.$error.required">*required</i>
 						<br>
 						<i class="error-msg" ng-show="upload_form.file.$error.maxSize">File too large 
