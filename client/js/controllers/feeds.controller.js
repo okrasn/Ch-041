@@ -16,10 +16,14 @@
             }
         }
         $scope.addFeed = function () {
+            $scope.error = '';
             if ($scope.newCategory) {
                 $scope.obj.category = $scope.newCategory;
             }
-            $scope.error = '';
+            if (!$scope.newCategory && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+                $scope.error = "Enter new category name";
+                return;
+            }
             feedsService.addFeed($scope.obj)
                 .then(function (res) {
                     $scope.addingNewCategory = false;

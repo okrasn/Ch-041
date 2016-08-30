@@ -11,9 +11,16 @@ var exec = require('child_process').exec,
 	rename = require("gulp-rename"),
 	sourcemaps = require('gulp-sourcemaps'),
 	ngHtml2Js = require("gulp-ng-html2js"),
-	ngAnnotate = require('gulp-ng-annotate');
-	
+	ngAnnotate = require('gulp-ng-annotate'),
+    mkdirp = require('mkdirp');
 
+mkdirp.sync('./data', function (err) {
+    if (err) console.error(err);
+});
+
+mkdirp.sync('./client/uploads', function (err) {
+    if (err) console.error(err);
+});
 
 gulp.task('server', function (cb) {
 	 //You must create folder 'data' in the root of project folder
@@ -51,7 +58,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('scripts', function () {
-	gulp.src(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'])
+	return gulp.src(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'])
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest('./client/js/'))
 		.pipe(sourcemaps.init())
@@ -69,7 +76,7 @@ gulp.task('scripts', function () {
 gulp.task('useref', function () {
 	return gulp.src('client/*.html')
 		.pipe(useref())
-		.pipe(gulp.dest('min'))
+		.pipe(gulp.dest('min'));
 });
 
 gulp.task('build', function () {

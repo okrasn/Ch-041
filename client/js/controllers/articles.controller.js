@@ -34,11 +34,16 @@
             $scope.favForAdd = article;
         }
         $scope.confirmAddFavourite = function () {
-            console.log($scope.newCatObj.category);
-            console.log($scope.obj.category);
+            $scope.error = '';
             if ($scope.newCatObj.category) {
                 $scope.obj.category = $scope.newCatObj.category;
             }
+
+            if (!$scope.newCatObj.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+                $scope.error = "Enter new category name";
+                return;
+            }
+
             $scope.favForAdd.category = $scope.obj.category;
             articlesService.addFavourite($scope.favForAdd).then(function (res) {
                 $scope.addingNewCategory = false;
