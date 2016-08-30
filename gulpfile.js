@@ -11,8 +11,8 @@ var exec = require('child_process').exec,
 	rename = require("gulp-rename"),
 	sourcemaps = require('gulp-sourcemaps'),
 	ngHtml2Js = require("gulp-ng-html2js"),
-	ngAnnotate = require('gulp-ng-annotate'),
-	nodemon = require('nodemon');
+	ngAnnotate = require('gulp-ng-annotate');
+	
 
 
 gulp.task('server', function (cb) {
