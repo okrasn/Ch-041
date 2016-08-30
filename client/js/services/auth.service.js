@@ -19,7 +19,6 @@
             userID: function () {
                 if (auth.isLoggedIn()) {
                     var payload = $auth.getPayload();
-                    console.log(payload);
                     return payload.sub;
                 }
             },

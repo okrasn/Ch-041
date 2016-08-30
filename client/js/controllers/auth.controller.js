@@ -7,7 +7,6 @@
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
 		$scope.user = {};
-		$scope.test = 5;
 		$scope.session;
 
         var ERRORS = {

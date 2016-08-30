@@ -38,10 +38,9 @@ module.exports = function (config) {
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/js/app.min.js",
 			"./client/js/tests/registerNewUser.spec.js",
-			"./client/js/tests/profileController.spec.js"
 			"./client/js/services/dashboard.service.spec.js",
 			"./client/js/services/feeds.service.spec.js",
-			"./client/js/services/articles.service.spec.js"
+			"./client/js/services/articles.service.spec.js",
 		],
 
 		// list of files to exclude
