@@ -16,7 +16,7 @@ var exec = require('child_process').exec,
 
 
 gulp.task('server', function (cb) {
-	 You must create folder 'data' in the root of project folder
+	 //You must create folder 'data' in the root of project folder
 	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
 		cb(err);
