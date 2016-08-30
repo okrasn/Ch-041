@@ -8,7 +8,7 @@
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
 		function (Upload, $http, $state, profileService, $scope,
 		authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
-			$scope.test = 5;	
+		
 			$scope.getProfile = function () {
 				accountInfo.getProfile().then(function (response) {
 					if($auth.isAuthenticated()){

@@ -382,7 +382,7 @@ module.exports.twitterAuth = function(req, res) {
 				return res.status(400).send({ message: 'User not found' });
 			  }
 
-			  user.twitter = profile.sub;
+			  user.twitter = profile.id;
 			  user.email = profile.email;		
 			  user.displayName = user.displayName || profile.name;
 			  user.picture = user.picture || profile.profile_image_url.replace('_normal', '');
