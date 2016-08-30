@@ -16,3 +16,4 @@ tmp
 /.idea
 uploads/
 /client/coverage/
+coverage/
