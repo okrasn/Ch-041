@@ -50,7 +50,8 @@ ul#strength {
 }
 
 .cstmform-border {
-    margin-top: 25px;
+    margin-top: $main-app-padding;
+    margin-bottom: $main-app-padding;
     padding: 20px 10% 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 4px;

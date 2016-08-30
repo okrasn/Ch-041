@@ -38,10 +38,11 @@ $navbar-height: 50px;
 
 .navbar-header>.navbar-toggle{
     margin-left: $main-app-padding;
+    border: none;
 }
 
 .profile-drop-down {
-    background: #f0f0f0;
+    background: #e8e8e8;
     padding: $main-app-padding;
 }
 
@@ -92,6 +93,10 @@ $navbar-height: 50px;
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer {
     background-color: #f9f9f9;
     padding: 10px;
+}
+
+div.navbar-collapse{
+    border: none;
 }
 
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer:before,
@@ -146,6 +151,10 @@ li.dropdown > a.dropdown-toggle {
 
 .user-menu {
     color: white;
+}
+
+.mobile-profile-image>img{
+    margin:auto;
 }
 
 .orange {
