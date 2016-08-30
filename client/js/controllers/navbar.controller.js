@@ -8,6 +8,7 @@
 			}
 			$scope.currentUser = authService.currentUser;
 			$scope.toggleSidebar = function () {
+			    angular.element(document.querySelector("#bs-example-navbar-collapse-1")).removeClass('in');
 				dashboardService.sidebar = !dashboardService.sidebar;
 				$scope.getProfile();
 			}
@@ -19,8 +20,11 @@
 				$state.go("home");
 			}
 			$scope.onEmblem = function () {
-				if (authService.isLoggedIn()) {
-					$state.reload('dashboard');
+			    if (authService.isLoggedIn()) {
+			        if ($scope.isDashboard()) {
+			            $state.reload('dashboard');
+			        }
+			        else $state.go("dashboard." + dashboardService.getViewMode());
 				} else {
 					$state.go("home");
 				}

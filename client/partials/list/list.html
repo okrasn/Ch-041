@@ -23,7 +23,13 @@
     </div>
     <modal show='modalShown'>
         <h4 class="uppercase">add to favourites</h4>
-        <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" tooltip-trigger="'focus'" tooltip-placement="right">
+        <select id="category" class="form-control form-input" 
+                ng-model="obj.category" 
+                ng-options="category for category in categories()" 
+                ng-change="checkIfNew()" 
+                uib-tooltip="To enter custom category choose 'custom'" 
+                tooltip-trigger="'focus'" 
+                tooltip-placement="right">
             <option value="" disabled selected hidden>Choose</option>
         </select>
 
