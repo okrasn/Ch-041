@@ -10,14 +10,14 @@
 		$scope.test = 5;
 		$scope.session;
 
-		var ERRORS = {
-			field_required: 'This field is required',
-			email_example: 'Please, use example: jacksparrow@gmail.com',
-			min_6symbl: 'Please, enter at least 6 characters',
-			min_9symbl: 'Please, enter at least 9 characters',
-			max_20symbl: 'Please, enter no more then 20 characters',
-			reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
-		}
+        var ERRORS = {
+            field_required: 'This field is required',
+            email_example: 'Please, use example: jacksparrow@gmail.com',
+            min_6symbl: 'Please, enter at least 6 characters',
+            min_9symbl: 'Please, enter at least 9 characters',
+            max_20symbl: 'Please, enter no more then 40 characters',
+            reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
+        }
 
 		$scope.register = function (form) {
 			if (form.validate()) {
@@ -89,31 +89,31 @@
 			}
 		};
 
-		$scope.validationRegistrOptions = {
-			rules: {
-				mail: {
-					required: true,
-					email: true,
-					minlength: 9,
-					maxlength: 40,
-				},
-				pwd: {
-					required: true,
-					minlength: 6,
-					maxlength: 20,
-					pattern: true
-				},
-				reppwd: {
-					required: true
-				}
-			},
-			messages: {
-				mail: {
-					required: ERRORS.field_required,
-					email: ERRORS.email_example,
-					minlength: ERRORS.min_9symbl,
-					maxlength: ERRORS.max_20symbl
-				},
+        $scope.validationRegistrOptions = {
+            rules: {
+                mail: {
+                    required: true,
+                    email: true,
+                    minlength: 9,
+                    maxlength: 40,
+                },
+                pwd: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 20,
+                    pattern: true
+                },
+                reppwd: {
+                    required: true
+                }
+            },
+            messages: {
+                mail: {
+                    required: ERRORS.field_required,
+                    email: ERRORS.email_example,
+                    minlength: ERRORS.min_9symbl,
+                    maxlength: ERRORS.max_20symbl
+                },
 
 				pwd: {
 					required: ERRORS.field_required,

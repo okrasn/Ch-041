@@ -5,18 +5,18 @@ var passport = require('passport'),
 	jwt = require('jwt-simple'),
 	config = require('../config/config'),
 	request = require('request'),
-    qs = require('querystring'),
+	qs = require('querystring'),
 	nev = require('email-verification')(mongoose),
-	ERRORS = {
-		fill_out_fields: 'Please fill out all fields',
-		user_not_found: 'User not found',
-		pass_not_match: 'Passwords not match',
-		same_pass: 'Please enter new password',
-		pass_incorrect: 'Entered password is incorrect',
-		pass_not_match: 'Password not match requirements',
-		user_exist: 'That user already exists',
-		invalid_data: 'Invalid email or password'
-	};
+
+ERRORS = {
+	fill_out_fields: 'Please fill out all fields',
+	user_not_found: 'User not found',
+	pass_not_match: 'Passwords does\'t match',
+	same_pass: 'Please enter new password',
+	pass_incorrect: 'Entered password is incorrect',
+	user_exist: 'That user already exists',
+	invalid_data: 'Invalid email or password'
+};
 
 function createJWT(user) {
     var payload = {
