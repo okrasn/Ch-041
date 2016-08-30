@@ -12,6 +12,7 @@
         //  position: [left, right, left-bottom, right-bottom]
         //  type: one of ['toaster-default', 'toaster-success', 'toaster-info', 'toaster-error']
         //  iconClass: string (name of glyph class, ex: fa fa-info)
+        //  confirm: Function (callback that will ba called if user confirm toaster action)
         // 
         //********************************************************************************
 
@@ -26,6 +27,10 @@
 
             if (options.delay) {
                 elem.attr("delay", options.delay);
+            }
+
+            if (options.confirm) {
+                elem.attr("confirm", options.confirm);
             }
             var icon = angular.element(document.createElement("div"));
             icon.addClass('toaster-icon');
@@ -48,40 +53,6 @@
                     onShow();
                 }
             });
-        }
-        this.confirmFeedDelete = function (scope, customOptions, onShow) {
-            var defaultOptions = {
-                message: 'Remove this feed?',
-                type: 'toaster-default',
-                overlay: true,
-                iconClass: 'fa fa-question',
-                htmlContent: "<button class='app-btn-toaster-red' aria-label='Justify' ng-click='confirmFeedDelete()'>yes</button><button class='app-btn-toaster' aria-label='Justify' ng-click='hideToaster()'>no</button>"
-            },
-            options;
-            if (typeof customOptions === 'object') {
-                options = angular.extend({}, defaultOptions, customOptions);
-            }
-            else {
-                options = defaultOptions;
-            }
-            buildToaster(options, scope, onShow);
-        }
-        this.confirmFavArticleDelete = function (scope, customOptions, onShow) {
-            var defaultOptions = {
-                message: 'Remove article?',
-                type: 'toaster-default',
-                overlay: true,
-                iconClass: 'fa fa-question',
-                htmlContent: "<button class='app-btn-toaster-red' aria-label='Justify' ng-click='confirmRemoveFavourite()'>yes</button><button class='app-btn-toaster' aria-label='Justify' ng-click='hideToaster()'>no</button>"
-            },
-            options;
-            if (typeof customOptions === 'object') {
-                options = angular.extend({}, defaultOptions, customOptions);
-            }
-            else {
-                options = defaultOptions;
-            }
-            buildToaster(options, scope, onShow);
         }
         this.success = function (message, customOptions, scope, onShow) {
             var defaultOptions = {
@@ -140,6 +111,23 @@
             },
             options;
             if (typeof arguments[0] === 'object') {
+                options = angular.extend({}, defaultOptions, customOptions);
+            }
+            else {
+                options = defaultOptions;
+            }
+            buildToaster(options, scope, onShow);
+        }
+        this.confirm = function (customOptions, scope, onShow) {
+            var defaultOptions = {
+                message: 'Confirm?',
+                type: 'toaster-default',
+                overlay: true,
+                iconClass: 'fa fa-question',
+                htmlContent: "<button class='app-btn-toaster-red' aria-label='Justify' ng-click='confirm()'>yes</button><button class='app-btn-toaster' aria-label='Justify' ng-click='reject()'>no</button>"
+            },
+            options;
+            if (typeof customOptions === 'object') {
                 options = angular.extend({}, defaultOptions, customOptions);
             }
             else {

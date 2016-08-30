@@ -1,7 +1,7 @@
 (function () {
     'use strict';
-    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', '$timeout', '$compile', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, $timeout, $compile, dashboardService, feedsService, toasterService) {
-        if (feedsService.feedsDictionary.length) {
+    angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+        if (feedsService.feedsDictionary.length > 0) {
             dashboardService.setTitle("All");
             $state.go('dashboard.' + dashboardService.getViewMode());
         } else {
@@ -10,14 +10,20 @@
         }
         $scope.loadingIcon = dashboardService.isLoading;
         $scope.sidebar = dashboardService.checkSidebar;
-        $scope.toggleSidebar = function () {
-            dashboardService.sidebar = !dashboardService.sidebar;
-        }
-
         $scope.headTitle = dashboardService.getTitle;
         $scope.feed = dashboardService.getFeedId;
         $scope.alertMsg = dashboardService.alertMsg;
         $scope.successMsg = dashboardService.successMsg;
+
+        $scope.toggleSidebar = function () {
+            dashboardService.sidebar = !dashboardService.sidebar;
+        }
+        $scope.hideSidebar = function () {
+            dashboardService.sidebar = false;
+        }
+        $scope.showSidebar = function () {
+            dashboardService.sidebar = true;
+        }
 
         $scope.hideViewBtns = function () {
             if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
@@ -45,7 +51,10 @@
         }
         var timer;
         $scope.onFeedDelete = function () {
-            toasterService.confirmFeedDelete($scope);
+            toasterService.confirm({
+                message: "Remove this feed?",
+                confirm: "confirmFeedDelete"
+            }, $scope);
         }
         $scope.confirmFeedDelete = function () {
             feedsService.removeFeed(dashboardService.getFeedId())
@@ -55,6 +64,11 @@
                 }, function (err) {
                     console.log(err);
                 });
+        }
+        $scope.setSortParam = function (type, order) {
+            console.log(type);
+            console.log(order);
+            dashboardService.setSortParam(type, order);
         }
     }]);
 })();

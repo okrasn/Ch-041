@@ -16,12 +16,11 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
                 scope.delay = 5000;
             }
             scope.toasterStyle = {};
-            scope.confirmFeedDelete = function () {
-                scope.$parent.confirmFeedDelete();
+            scope.confirm = function () {
+                scope.$parent[attrs.confirm]();
                 scope.hideToaster();
             }
-            scope.confirmRemoveFavourite = function () {
-                scope.$parent.confirmRemoveFavourite();
+            scope.reject = function () {
                 scope.hideToaster();
             }
             scope.hideToaster = function () {

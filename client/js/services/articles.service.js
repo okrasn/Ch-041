@@ -71,7 +71,6 @@
                     obj.articles.push(article);
                 },
                 addFavourite: function (article) {
-                    console.log(article);
                     return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
                         headers: {
                             Authorization: 'Bearer ' + authService.getToken()
@@ -87,6 +86,9 @@
                     }).then(function (res) {
                         dashboardService.loadingIcon = false;
                     });
+                },
+                getArticlesFetcher: function () {
+                    return fetchArticles;
                 }
             },
             getImage = function (item, format) {
@@ -130,46 +132,48 @@
                         content = document.createElement('div');
                         content.innerHTML = item.getElementsByTagName('description')[0].textContent;
                         content = $(content).text();
-                    } catch (err) {}
+                    } catch (err) { }
                 } else if (format === "ATOM") {
                     content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
                 }
                 return content;
             },
             fetchArticles = function (feed) {
-                return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + ARTICLES_NUM + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml").then(function (response) {
-                    var parser = new DOMParser(),
-                        xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml"),
-                        items = [];
-                    if (feed.format === "RSS") {
-                        items = xmlDoc.getElementsByTagName('item');
-                        for (var i = 0; i < items.length; i++) {
-                            var articleObj = {
-                                title: items[i].getElementsByTagName('title')[0].innerHTML,
-                                link: items[i].getElementsByTagName('link')[0].textContent,
-                                img: getImage(items[i], feed.format),
-                                content: getContent(items[i], feed.format),
-                                date: items[i].getElementsByTagName('pubDate')[0].textContent
-                            };
-                            articleObj.content = articleObj.content || articleObj.title;
-                            obj.articles.push(articleObj);
+                return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + ARTICLES_NUM + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml")
+                    .then(function (response) {
+                        var parser = new DOMParser(),
+                            xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml"),
+                            items = [];
+                        if (feed.format === "RSS") {
+                            items = xmlDoc.getElementsByTagName('item');
+                            for (var i = 0; i < items.length; i++) {
+                                var articleObj = {
+                                    title: items[i].getElementsByTagName('title')[0].innerHTML,
+                                    link: items[i].getElementsByTagName('link')[0].textContent,
+                                    img: getImage(items[i], feed.format),
+                                    content: getContent(items[i], feed.format),
+                                    date: items[i].getElementsByTagName('pubDate')[0].textContent
+                                };
+                                articleObj.content = articleObj.content || articleObj.title;
+                                obj.articles.push(articleObj);
+                            }
+                        } else if (feed.format === "ATOM") {
+                            items = xmlDoc.getElementsByTagName('entry');
+                            for (var i = 0; i < items.length; i++) {
+                                var articleObj = {
+                                    title: items[i].getElementsByTagName('title')[0].textContent,
+                                    link: items[i].getElementsByTagName('id')[0].textContent,
+                                    img: getImage(items[i], feed.format),
+                                    content: getContent(items[i], feed.format),
+                                    date: items[i].getElementsByTagName('published')[0].textContent
+                                };
+                                articleObj.content = articleObj.content || articleObj.title;
+                                obj.articles.push(articleObj);
+                            }
                         }
-                    } else if (feed.format === "ATOM") {
-                        items = xmlDoc.getElementsByTagName('entry');
-                        for (var i = 0; i < items.length; i++) {
-                            var articleObj = {
-                                title: items[i].getElementsByTagName('title')[0].textContent,
-                                link: items[i].getElementsByTagName('id')[0].textContent,
-                                img: getImage(items[i], feed.format),
-                                content: getContent(items[i], feed.format),
-                                date: items[i].getElementsByTagName('published')[0].textContent
-                            };
-                            articleObj.content = articleObj.content || articleObj.title;
-                            obj.articles.push(articleObj);
-                        }
-                    }
-                });
+                        return response.data;
+                    });
             }
         return obj;
-}]);
+    }]);
 })();

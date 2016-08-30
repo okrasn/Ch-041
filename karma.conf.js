@@ -19,8 +19,8 @@ module.exports = function (config) {
 			"./client/bower_components/angular-animate/angular-animate.min.js",
 			"./client/bower_components/angular-aria/angular-aria.min.js",
 			"./client/bower_components/angular-messages/angular-messages.min.js",
+			"./client/bower_components/angular-touch/angular-touch.min.js",
 
-			"./client/bower_components/angular-material/angular-material.min.js",
 			"./client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
 
 			"./client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
@@ -37,7 +37,10 @@ module.exports = function (config) {
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/js/app.min.js",
-			"./client/js/tests/registerNewUser.spec.js"
+			"./client/js/tests/registerNewUser.spec.js",
+			"./client/js/services/dashboard.service.spec.js",
+			"./client/js/services/feeds.service.spec.js",
+			"./client/js/services/articles.service.spec.js",
 		],
 
 		// list of files to exclude

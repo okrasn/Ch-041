@@ -3,8 +3,8 @@
         <div class="slide-down-anim">
             <h1 class="welcometo">Welcome to <span class="orange">RSS</span>|READER</h1>
             <button class="btn btn-primary btn-lg app-btn-blue" ng-click="onFeeds()" ng-hide='!isLoggedIn()'>Show Feeds</button>
-            <button class="btn btn-primary btn-lg app-btn-blue margin-btm" ng-click="onLogin()" ng-hide="isLoggedIn()">Sign In</button>
-            <button class="btn btn-primary btn-lg app-btn-blue" ng-click="onRegister()" ng-hide="isLoggedIn()">Sign Up</button>
+            <button id="login-btn" class="btn btn-primary btn-lg app-btn-blue" ng-click="onLogin()" ng-hide="isLoggedIn()">Sign In</button>
+            <button id="register-btn" class="btn btn-primary btn-lg app-btn-blue" ng-click="onRegister()" ng-hide="isLoggedIn()">Sign Up</button>
         </div>
     </div>
 </div>
