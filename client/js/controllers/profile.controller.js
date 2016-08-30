@@ -18,7 +18,6 @@
 								$scope.profile = response.data.user[i];
 							}
 						}
-						console.log($scope.profile);
 					}
 				})
 			};
@@ -37,7 +36,6 @@
 				}).then(function (response) {
 					toasterService.info('You have unlinked a ' + provider + ' account');
 					$scope.getProfile();
-					console.log(response);
 				});
 			};
 
