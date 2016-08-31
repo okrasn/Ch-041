@@ -151,6 +151,6 @@
 
 			$scope.layout = themeService.layout;
 			$scope.layouts = themeService.layouts;
-        }
-    ]);
+		}
+	]);
 })();
