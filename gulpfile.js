@@ -40,7 +40,7 @@ gulp.task('sass', function () {
 			browsers: ['> 1%', 'IE 7'],
 			cascade: true
 		}))
-		.pipe(gulp.dest('client/css'))
+		.pipe(gulp.dest('dist/css'))
 		.pipe(sourcemaps.init())
 		.pipe(cssmin())
 		.pipe(rename({

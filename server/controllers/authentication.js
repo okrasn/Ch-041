@@ -434,6 +434,11 @@ module.exports.twitterAuth = function(req, res) {
     }
 };
 
+module.exports.linkedIdAuth = function(req, res){
+    
+
+};
+
 module.exports.unlink = function (req, res) {
     var provider = req.body.provider
     providers = ['facebook', 'google'];
