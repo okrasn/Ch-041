@@ -34,6 +34,11 @@
 					templateUrl: './partials/auth/forgot.html',
 					controller: 'AuthController'
 				})
+				.state('reset', {
+					url: '/reset',
+					templateUrl: './partials/auth/reset.html',
+					controller: 'AuthController'
+				})
 				.state('profile', {
 					url: '/profile',
 					templateUrl: './partials/auth/profile.html',

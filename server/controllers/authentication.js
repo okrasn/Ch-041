@@ -12,6 +12,7 @@ var passport = require('passport'),
 	flash = require('express-flash'),
 	nodemailer = require('nodemailer');
 
+
 ERRORS = {
 	fill_out_fields: 'Please fill out all fields',
 	user_not_found: 'User not found',
@@ -151,7 +152,7 @@ module.exports.forgotPass = function(req, res, next) {
 	  		User.findOne({ email: req.body.email }, function(err, user) {
 				if (!user) {
 		  			req.flash('error', 'No account with that email address exists.');
-		  			// return res.redirect('/forgot');
+		  				return res.sent('/forgot');
 				}
 
 			user.resetPasswordToken = token;
@@ -172,7 +173,7 @@ module.exports.forgotPass = function(req, res, next) {
 	  	});
 	  	var mailOptions = {
 			to: user.email,
-			from: 'passwordreset@demo.com',
+			from: 'rss.reader.app.ch.041@gmail.com',
 			subject: 'Node.js Password Reset',
 			text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -185,10 +186,22 @@ module.exports.forgotPass = function(req, res, next) {
 	  	});
 	}
   	], function(err) {
-		if (err) return next(err);
-			res.redirect('/forgot');
-  		});
+    	if (err) return next(err);
+    	res.send('OK');
+  	});
 };
+
+module.exports.reset = function(req, res) {
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+      	req.flash('error', 'Password reset token is invalid or has expired.');
+      	return res.redirect('/forgot');
+    }
+    res.render('reset', {
+      	user: req.user
+    });
+  });
+}
 
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {

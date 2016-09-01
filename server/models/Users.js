@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 	crypto = require('crypto'),
 	jwt = require('jwt-simple'),
 	bcrypt = require('bcryptjs'),
-	config = require('../config/config'),
+	config = require('../config/config');
 	
 	userSchema = new mongoose.Schema({
 		email: {
@@ -38,18 +38,15 @@ var mongoose = require('mongoose'),
 
 userSchema.pre('save', function(next) {
 	var user = this;
-	var SALT_FACTOR = 5;
-
-	if (!user.isModified('password')) return next();
-
-  	bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-    	if (err) return next(err);
-		bcrypt.hash(user.password, salt, null, function(err, hash) {
-	    	if (err) return next(err);
-	    	user.password = hash;
-	     	next();
-	    });
-  	});
+		if (!user.isModified('password')) {
+			return next();
+		}
+	bcrypt.genSalt(10, function(err, salt) {
+		bcrypt.hash(user.password, salt, function(err, hash) {
+			user.password = hash;
+			next();
+		});
+	});
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {

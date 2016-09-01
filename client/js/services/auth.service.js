@@ -29,11 +29,6 @@
 					console.log(err.message);
 				});
 			},
-			forgot: function(email){
-				return $http.post('/forgot', email).success(function(response){
-					console.log(response);		
-				});
-			},
 			logIn: function (user) {
 				return $http.post('/login', user).success(function (data) {
 					auth.saveToken(data.token);

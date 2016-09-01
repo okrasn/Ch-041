@@ -14,8 +14,7 @@ var express = require('express'),
 	nodemailer = require('nodemailer'),
 	User = require('./server/models/Users'),
 	mongoose = require('mongoose'),
-	flash = require('express-flash'),
-	nev = require('email-verification')(mongoose);
+	flash = require('express-flash');
 
 // nev.configure({
 // 	verificationURL: 'localhost/email-verification/${URL}',
@@ -82,6 +81,8 @@ mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 app.use(cors());
 app.use(logger('dev'));
 

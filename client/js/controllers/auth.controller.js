@@ -55,12 +55,7 @@
 				});
 			}
 		};
-		$scope.forgot = function(){
-			authService.forgot($scope.user.email).then(function(){
-					$state.go('forgot');	
-			});	
-		};
-
+	
 		$scope.authenticate = function (provider) {
 			$auth.authenticate(provider).then(function (response) {
 				authService.saveToken(response.data.token);
