@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
 router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);
+router.post('/forgot', authCtrl.forgotPass);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
 //Auth

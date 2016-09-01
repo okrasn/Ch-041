@@ -29,6 +29,11 @@
 						}
 					}]
 				})
+				.state('forgot', {
+					url: '/forgot',
+					templateUrl: './partials/auth/forgot.html',
+					controller: 'AuthController'
+				})
 				.state('profile', {
 					url: '/profile',
 					templateUrl: './partials/auth/profile.html',

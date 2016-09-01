@@ -15,6 +15,8 @@ var mongoose = require('mongoose'),
 			email : String,
 			password : String
 		},
+		resetPasswordToken: String,
+		resetPasswordExpires: Date,
 		displayName: String,
 		picture : String,
 		facebook: String,
@@ -36,23 +38,26 @@ var mongoose = require('mongoose'),
 
 userSchema.pre('save', function(next) {
 	var user = this;
-		if (!user.isModified('password')) {
-			return next();
-		}
-	bcrypt.genSalt(10, function(err, salt) {
-		bcrypt.hash(user.password, salt, function(err, hash) {
-			user.password = hash;
-			next();
-		});
-	});
+	var SALT_FACTOR = 5;
+
+	if (!user.isModified('password')) return next();
+
+  	bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+    	if (err) return next(err);
+		bcrypt.hash(user.password, salt, null, function(err, hash) {
+	    	if (err) return next(err);
+	    	user.password = hash;
+	     	next();
+	    });
+  	});
 });
 
-userSchema.methods.comparePassword = function(password, done) {
-	bcrypt.compare(password, this.password, function(err, isMatch) {
-		done(err, isMatch);
-	});
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+	bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    	if (err) return cb(err);
+    	cb(null, isMatch);
+  	});
 };
-
 userSchema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
