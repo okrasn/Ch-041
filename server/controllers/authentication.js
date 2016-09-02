@@ -10,8 +10,8 @@ var passport = require('passport'),
 	async = require('async'),
 	crypto = require('crypto'),
 	flash = require('express-flash'),
+	path = require('path'),
 	nodemailer = require('nodemailer');
-
 
 ERRORS = {
 	fill_out_fields: 'Please fill out all fields',
@@ -140,7 +140,7 @@ module.exports.login = function (req, res) {
 	});
 };
 
-module.exports.forgotPass = function(req, res, next) {
+module.exports.forgotPass = function(req, res) {
   	async.waterfall([
 		function(done) {
 	  		crypto.randomBytes(10, function(err, buf) {
@@ -148,13 +148,8 @@ module.exports.forgotPass = function(req, res, next) {
 				done(err, token);
 	  		});
 		},
-	function(token, done) {
-	  		User.findOne({ email: req.body.email }, function(err, user) {
-				if (!user) {
-		  			req.flash('error', 'No account with that email address exists.');
-		  				return res.sent('/forgot');
-				}
-
+	function(token, done) { 
+	  		User.findOne({email: req.body.email }, function(err, user) {
 			user.resetPasswordToken = token;
 			user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
@@ -173,7 +168,7 @@ module.exports.forgotPass = function(req, res, next) {
 	  	});
 	  	var mailOptions = {
 			to: user.email,
-			from: 'rss.reader.app.ch.041@gmail.com',
+			from: 'passwordreset@demo.com',
 			subject: 'Node.js Password Reset',
 			text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -186,9 +181,12 @@ module.exports.forgotPass = function(req, res, next) {
 	  	});
 	}
   	], function(err) {
-    	if (err) return next(err);
-    	res.send('OK');
-  	});
+		if (err) return next(err);
+			res.status(200);
+			return res.redirect('/#/forgot');
+
+	});
+  	
 };
 
 module.exports.reset = function(req, res) {
@@ -197,11 +195,9 @@ module.exports.reset = function(req, res) {
       	req.flash('error', 'Password reset token is invalid or has expired.');
       	return res.redirect('/forgot');
     }
-    res.render('reset', {
-      	user: req.user
-    });
+    res.sendFile(path.join(__dirname+'/reset.html'));
   });
-}
+};
 
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {

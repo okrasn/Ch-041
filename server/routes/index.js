@@ -16,7 +16,7 @@ router.post('/upload', profCtrl.upload);
 
 router.post('/register', authCtrl.register);
 router.post('/forgot', authCtrl.forgotPass);
-router.get('/reset:token', authCtrl.reset);
+router.get('/reset/:token', authCtrl.reset);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
 //Auth

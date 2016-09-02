@@ -1,11 +1,13 @@
 <div class='row'>
-	<div class='col-xs-12'>
+	<div class='col-md-12'>
+		<h1>Forgot password</h1>
+		<hr>
 		<div class="col-xs-6">
-			<form method="POST" action='/forgot'>
-				<br>
-				<input class='form-control' type="email" name="email" placeholder="enter your email" required>
-				<br>
-				<input class="btn btn-info" type="submit" value="Reset Password">
+			<form method="POST" action="/forgot">
+				<label> Enter email:
+					<input class='form-control' type="email" name="email" placeholder="enter your email" required>
+				</label>
+				<input class="btn btn-primary" type="submit" value="Reset Password">
 			</form>
 		</div>
 	</div>
