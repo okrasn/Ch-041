@@ -8,28 +8,39 @@
 			}
 			$scope.currentUser = authService.currentUser;
 			$scope.toggleSidebar = function () {
-			    angular.element(document.querySelector("#bs-example-navbar-collapse-1")).removeClass('in');
+			    $scope.hideMobileNavbar();
 				dashboardService.sidebar = !dashboardService.sidebar;
 				$scope.getProfile();
 			}
+
 			$scope.hideSidebar = function () {
 				dashboardService.sidebar = false;
 			}
 
+			$scope.hideMobileNavbar = function () {
+			    angular.element(document.querySelector("#bs-example-navbar-collapse-1")).removeClass('in');
+			}
+
 			$scope.logOut = function () {
+			    $scope.hideMobileNavbar();
 				authService.logOut();
 				$state.go("home");
 			}
 
 			$scope.onEmblem = function () {
-			    if (authService.isLoggedIn()) {
-			        if ($scope.isDashboard()) {
-			            $state.reload('dashboard');
-			        }
-			        else $state.go("dashboard." + dashboardService.getViewMode());
+			    $scope.hideMobileNavbar();
+				if (authService.isLoggedIn()) {
+					if ($scope.isDashboard()) {
+						$state.reload('dashboard');
+					}
+					else $state.go("dashboard." + dashboardService.getViewMode());
 				} else {
 					$state.go("home");
 				}
+			}
+			$scope.goToProgile = function () {
+			    $state.go("profile");
+			    $scope.hideMobileNavbar();
 			}
 			$scope.getProfile = function () {
 				accountInfo.getProfile().then(function (response) {

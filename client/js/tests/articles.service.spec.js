@@ -13,7 +13,7 @@
         assert_article = {
             title: "Новый экран ноутбуков HP не дает другим людям видеть изображение на дисплее",
             link: "http://itc.ua/blogs/novyiy-ekran-noutbukov-hp-ne-daet-drugim-lyudyam-videt-izobrazhenie-na-displee/",
-            date: "Fri, 26 Aug 2016 07:49:00 +0000",
+            date: 1472197740000,
             img: "http://i1.wp.com/itc.ua/wp-content/uploads/2016/08/hp-sure-view-3m-screen-0001-1500x1000.jpg?resize=268%2C190"
         }
         article = {},

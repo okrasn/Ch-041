@@ -63,6 +63,16 @@ module.exports.allFeed = function (req, res, next) {
     });
 }
 
+module.exports.getFeedData = function (req, res, next) {
+    Feed.findById(req.body.id, function (err, feed) {
+        if (err) {
+            console.log("ERROR: " + err);
+            return next(err);
+        }
+        res.json(feed);
+    });
+}
+
 module.exports.add = function (req, res, next) {
     if (req.body.rsslink === undefined) {
         return res.status(400).json({

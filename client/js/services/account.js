@@ -1,5 +1,6 @@
-
-angular.module('rssreader')
+(function () {
+	'use strict';
+	angular.module('rssreader')
 	.factory('accountInfo', ['$http', function ($http) {
 		return {
 			getProfile: function () {
@@ -10,3 +11,4 @@ angular.module('rssreader')
 			}
 		};
 	}]);
+})();

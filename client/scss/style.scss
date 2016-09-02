@@ -1,141 +1,136 @@
-$main-border-radius: 3px;
+$main-border-radius: 4px;
 $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
 $app-transition: all 0.2s ease;
 $main-background-color: #f9f9fb;
-$main-app-padding: 1em;
-$phone-res: 768px;
-$tablet-res: 992px;
-$desktop-res: 1200px;
+$main-app-offset: 1em;
+$navbar-color: #3949ab;
+$user-dropdown-color: #f0f0f0;
+$navbar-height: 50px;
 
 html {
-    font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
 body {
-    overflow-x: hidden;
-    margin-top: 50px;
+	font-size: 16px;
+	overflow-x: hidden;
+	margin-top: $navbar-height;
+	color: #000;
+	min-width: 240px;
 }
 
 p {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .uppercase {
-    text-transform: uppercase;
+	text-transform: uppercase;
+}
+
+.card {
+	background-color: #fff;
+	padding: 1em;
+	box-shadow: 1px 2px 5px 1px #888888;
 }
 
 .shortened-text-block {
-    display: inline-block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	display: inline-block;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .shortened-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .cswidth {
-    width: 40%;
+	width: 40%;
 }
 
 .app-panel {
-    border: none;
-    border-radius: $main-border-radius;
-    transition: $app-transition;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	border: none;
+	border-radius: $main-border-radius;
+	transition: $app-transition;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
-    &:visited {
-    }
+	&:visited {
+	}
 
-    &:hover {
-        border: none;
-        transition: $app-transition;
-        box-shadow: 0 4px 15px 0 rgba(57, 73, 171, 1);
-    }
+	&:hover {
+		border: none;
+		transition: $app-transition;
+		box-shadow: 0 4px 15px 0 rgba(57, 73, 171, 1);
+	}
 
-    &:active {
-        border: none;
-        outline: none;
-    }
+	&:active {
+		border: none;
+		outline: none;
+	}
 }
 
 .my-hidden {
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.2s ease;
 }
 
 .center-text {
-    text-align: center;
+	text-align: center;
 }
 
 * {
-    outline: none;
+	outline: none;
 }
 
 .center-children {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .alert{
-    margin-bottom: 0px;
-    margin-top: $main-app-padding;
+	margin-bottom: 0px;
+	margin-top: $main-app-offset;
 }
 
 .capitalize {
-    text-transform: capitalize;
+	text-transform: capitalize;
 }
 
 .loading-icon{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9000;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9000;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.5);
 
-    &.ng-hide-add {
-        animation: 0.2s fadeIn ease;
-    }
-    &.ng-hide-remove {
-        animation: 0.2s fadeOut ease;
-    }
+	&.ng-hide-add {
+		animation: 0.2s fadeIn ease;
+	}
+	&.ng-hide-remove {
+		animation: 0.2s fadeOut ease;
+	}
 }
 
 .center-absolute{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width: $phone-res) {
-    .hide-mobile {
-        display: none;
-    }
-}
-
-@media screen and (max-width: $tablet-res) {
-    .hide-tablet {
-        display: none;
-    }
-}
-
-@media screen and (max-width: $desktop-res) {
-    .hide-desktop {
-        display: none;
-    }
+.selected {
+	background-color: #cecece;
 }
 
 @import "navbar";
@@ -149,3 +144,5 @@ p {
 @import "modals/toaster";
 @import "modals/modal";
 @import "animations";
+@import "article.scss";
+@import "MediaQueries";

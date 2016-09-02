@@ -28,8 +28,6 @@ mongoose.connection.on('error', function (err) {
 });
 
 app.use(cors());
-app.use(logger('dev'));
-
 app.use(function (req, res, next) { //allow cross origin requests
 	res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
 	res.header("Access-Control-Allow-Origin", "http://localhost");
@@ -41,23 +39,18 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true
 })); // support encoded bodies
+
 app.use(session({
 	secret: 'MY_SECRET',
 	resave: false,
 	saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(morgan('dev'));
 app.use(express.static('./client'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
-
-// mongoose
-mongoose.connect('mongodb://localhost/feeds');
-mongoose.connection.on('error', function (err) {
-	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
-});
 
  //catch 404 and forward to error handler
 app.use(function (req, res, next) {

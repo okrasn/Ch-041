@@ -1,53 +1,25 @@
-.view-article {
-    box-shadow: 1px 2px 5px 1px #888888;
-    h2 {
-        margin-top: 10px;
-    }
-    .center-block {
-        padding: 15px;
-    }
-    .content {
-        img {
-            width: 100%;
-        }
-    }
+#article-page {
+    padding: $main-app-offset;
 }
 
-.social-icon {
-    img {
-        width: 50px;
-        padding: 5px;
-    }
+.article-image {
+    width: 100%;
+    max-width: 500px;
 }
 
-.view-site-btn {
-    color: #fff;
-    background-color: #42a5f5;
-    border-radius: 3px;
-    height: 45px;
-    line-height: 16px;
-    border: 0px solid transparent;
+.article-row{
+    margin-top: $main-app-offset;
 }
 
-.view-site-btn:hover {
-    background-color: #42a5f5;
-    color: #fff;
+.article-page-time-icon {
+    line-height: $main-app-offset*2;
+    color: #888;
+    padding: 0;
 }
 
-.view-site-btn:focus {
-    background-color: #42a5f5;
-    color: #fff;
-}
-
-.go-back {
-    float: right;
-    padding: 15px 0 10px 0;
-    color: #42a5f5;
-    font-weight: bold;
-}
-
-@media (max-width: 992px) {
-    .go-back {
-        float: left;
-    }
+.article-page-date {
+    margin-left: $main-app-offset/2;
+    line-height: $main-app-offset*2;
+    color: #888;
+    padding: 0;
 }

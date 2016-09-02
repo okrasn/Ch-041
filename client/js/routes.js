@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
-		    $urlRouterProvider.otherwise('home');
+			$urlRouterProvider.otherwise('home');
 			$stateProvider
 				.state('home', {
 					url: '/home',
@@ -57,12 +57,12 @@
 						}
 					},
 					resolve: {
-					    feedPromise: ['feedsService', function (feedsService) {
+						feedPromise: ['feedsService', function (feedsService) {
 							return feedsService.getAllFeeds();
 						}]
 					},
 					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
-					    articlesService.getAllArticles();
+						articlesService.getAllArticles();
 					}]
 				})
 				.state("dashboard.list", {
@@ -87,6 +87,11 @@
 					onEnter: ['dashboardService', function (dashboardService) {
 						dashboardService.setTitle("Add Feed");
 					}]
+				})
+				.state("dashboard.article", {
+					url: '/article/:feed/:link',
+					templateUrl: './partials/dashboard/article.html',
+					controller: 'ArticlesController'
 				});
 			$authProvider.facebook({
 				clientId: '173686319709284',
@@ -122,6 +127,7 @@
 					height: 633
 				}
 			});
+
 			$authProvider.twitter({
 				url: '/auth/twitter',
 				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
@@ -132,6 +138,6 @@
 					height: 645
 				}
 			});
-			
-	}]);
+
+		}]);
 })();
