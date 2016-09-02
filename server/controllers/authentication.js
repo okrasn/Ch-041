@@ -190,14 +190,10 @@ module.exports.forgotPass = function(req, res) {
 };
 
 module.exports.reset = function(req, res) {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    if (!user) {
-      	req.flash('error', 'Password reset token is invalid or has expired.');
-      	return res.redirect('/forgot');
-    }
-    res.sendFile(path.join(__dirname+'/reset.html'));
-  });
-};
+  	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    	res.redirect('/#/reset:token');
+  	});
+}
 
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {
