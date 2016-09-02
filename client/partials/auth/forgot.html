@@ -3,11 +3,11 @@
 		<h1>Forgot password</h1>
 		<hr>
 		<div class="col-xs-6">
-			<form method="POST" action="/forgot">
-				<label> Enter email:
-					<input class='form-control' type="email" name="email" placeholder="enter your email" required>
+			<form>
+				<label> Enter your email to confirm reset password:
+					<input class='form-control forgot' type="email" name="email" ng-model='confirm_email.email' placeholder="enter your email" required>
 				</label>
-				<input class="btn btn-primary" type="submit" value="Reset Password">
+				<input class="btn btn-primary app-btn-blue" type="button" ng-click='forgot()' value="Reset Password">
 			</form>
 		</div>
 	</div>

@@ -27,7 +27,20 @@
 					auth.saveToken(data.token);
 				}).error(function (err) {
 					console.log(err.message);
-				});
+				})
+			},
+			forgot: function(confirm_email) {
+				return $http.post('/forgot', confirm_email).success(function (data){
+				}).error(function (err) {
+					console.log(err.message);		
+				})
+
+			}, 
+			reset: function(password) {
+				return $http.post('/reset/:token', password).success(function (data){
+			}).error(function (err) {
+				console.log(err.message);	
+				})
 			},
 			logIn: function (user) {
 				return $http.post('/login', user).success(function (data) {
@@ -37,8 +50,8 @@
 				});
 			},
 			logOut: function () {
-		$auth.removeToken();
-			$auth.logout();
+				$auth.removeToken();
+				$auth.logout();
 			}
 		}
 		return auth;

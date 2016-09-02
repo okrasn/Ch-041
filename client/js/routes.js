@@ -35,7 +35,7 @@
 					controller: 'AuthController'
 				})
 				.state('reset', {
-					url: '/reset:token',
+					url: '/reset/:token',
 					templateUrl: './partials/auth/reset.html',
 					controller: 'AuthController'
 				})

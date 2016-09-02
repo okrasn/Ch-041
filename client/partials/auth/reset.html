@@ -2,13 +2,19 @@
 	<div class="col-xs-12">
 		<h1>Reset Password</h1>
 		<hr>
-		<form>
-			<label for="password"> New Password
-				<input type="password" name="password" autofocus="true">
-			</label>
-			<label for='confirm'> Confirm Password
-				<input type="password" name="confirm" >
-			</label>
-		</form>
+		<div class='col-xs-6'>
+			<form>
+				<label for="password"> New Password
+					<input class="form-control" type="password" ng-model="password.pas" name="password" autofocus="true">
+				</label>
+				<label for='confirm'> Confirm Password
+					<input class='form-control' type="password" ng-model="password.confirm" name="confirm" >
+				</label>
+				<label> Copy token from url:
+					<input class="form-control" type="text" placeholder="paste a token" ng-model='password.token'>
+				</label>
+				<input type="button" ng-click='reset()' class="btn btn-primary app-btn-blue" value="Update Password">
+			</form>
+		</div>
 	</div>
-</div>
+</div>	

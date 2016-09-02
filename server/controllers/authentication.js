@@ -191,9 +191,53 @@ module.exports.forgotPass = function(req, res) {
 
 module.exports.reset = function(req, res) {
   	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    	res.redirect('/#/reset:token');
+    	res.redirect('/#/reset/'+ req.params.token);
   	});
 }
+
+module.exports.resetPost = function(req, res) {
+  	async.waterfall([
+    	function(done) {
+      		User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        		// if (!user) {
+          // 			req.flash('error', 'Password reset token is invalid or has expired.');
+          // 			return res.redirect('back');
+        		// }
+				user.password = req.body.pas;
+        		user.resetPasswordToken = undefined;
+        		user.resetPasswordExpires = undefined;
+
+        		user.save(function(err) {
+          			req.logIn(user, function(err) {
+            			done(err, user);
+          			});
+        		});
+      		});
+    	},
+    	function(user, done) {
+      		var smtpTransport = nodemailer.createTransport('SMTP', {
+        	service: 'Gmail',
+	        	auth: {
+					user: 'rss.reader.app.ch.041@gmail.com',
+					pass: 'rssreader'
+				}
+      		});
+      		var mailOptions = {
+        		to: user.email,
+		        from: 'rss.reader.app.ch.041@gmail.com',
+		        subject: 'Your password has been changed',
+        		text: 'Hello,\n\n' +
+          		'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+       		};
+      		smtpTransport.sendMail(mailOptions, function(err) {
+        		req.flash('success', 'Success! Your password has been changed.');
+        		done(err);
+      		});
+    	}
+  	], function(err) {
+    	res.redirect('/#/home');
+  	});
+};
 
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {
