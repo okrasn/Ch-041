@@ -20,7 +20,9 @@ ERRORS = {
 	same_pass: 'Please enter new password',
 	pass_incorrect: 'Entered password is incorrect',
 	user_exist: 'That user already exists',
-	invalid_data: 'Invalid email or password'
+	invalid_data: 'Invalid email or password',
+	email_not_found: 'User with this email not found',
+	not_local_user: 'User with this email not a local created'
 };
 
 function createJWT(user) {
@@ -150,6 +152,16 @@ module.exports.forgotPass = function(req, res) {
 		},
 	function(token, done) { 
 	  		User.findOne({email: req.body.email }, function(err, user) {
+	  			if(!user){
+	  				return res.status(404).send({
+	  					message: ERRORS.email_not_found
+	  				});
+	  			}
+	  			// if(!user.password){
+	  			// 	return res.status(404).send({
+	  			// 		message: ERRORS.not_local_user
+	  			// 	});
+	  			// }
 			user.resetPasswordToken = token;
 			user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
@@ -176,7 +188,6 @@ module.exports.forgotPass = function(req, res) {
 			  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 	  	};
 	  	smtpTransport.sendMail(mailOptions, function(err) {
-			req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
 			done(err, 'done');
 	  	});
 	}
@@ -199,10 +210,11 @@ module.exports.resetPost = function(req, res) {
   	async.waterfall([
     	function(done) {
       		User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        		// if (!user) {
-          // 			req.flash('error', 'Password reset token is invalid or has expired.');
-          // 			return res.redirect('back');
-        		// }
+        		if(req.body.pas !== req.body.confirm){
+        			return res.status(400).send({
+        				message: ERRORS.pass_not_match
+        			})	
+        		}
 				user.password = req.body.pas;
         		user.resetPasswordToken = undefined;
         		user.resetPasswordExpires = undefined;
@@ -230,7 +242,6 @@ module.exports.resetPost = function(req, res) {
           		'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
        		};
       		smtpTransport.sendMail(mailOptions, function(err) {
-        		req.flash('success', 'Success! Your password has been changed.');
         		done(err);
       		});
     	}

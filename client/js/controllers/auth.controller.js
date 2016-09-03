@@ -8,10 +8,11 @@
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
 		$scope.user = {};
-		$scope.password = {};
+		$scope.password = {
+			token : transfer.getObj()
+		};
 		$scope.confirm_email = {};
 		$scope.session;
-
 		var ERRORS = {
 			field_required: 'This field is required',
 			email_example: 'Please, use example: jacksparrow@gmail.com',
@@ -61,7 +62,8 @@
 		
 		$scope.forgot = function(form){
 			authService.forgot($scope.confirm_email).error(function (error) {
-				$scope.error = error;		
+				$scope.error = error;	
+				toasterService.error(error.message);
 			}).then(function () {
 				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
 			})
@@ -70,6 +72,7 @@
 		$scope.reset = function(form){
 			authService.reset($scope.password).error(function (error) {
 				$scope.error = error;
+				toasterService.error(error.message);
 			}).then(function () {
 				toasterService.success('You have successfully changed password');
 				$state.go('login');	

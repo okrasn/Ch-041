@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 
+		'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 		    $urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -37,7 +38,10 @@
 				.state('reset', {
 					url: '/reset/:token',
 					templateUrl: './partials/auth/reset.html',
-					controller: 'AuthController'
+					controller: 'AuthController',
+					onEnter : ['$stateParams', 'transfer', function ($stateParams, transfer) {
+						transfer.setObj($stateParams.token);	
+					}]
 				})
 				.state('profile', {
 					url: '/profile',
