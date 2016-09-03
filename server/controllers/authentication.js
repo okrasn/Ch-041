@@ -207,6 +207,7 @@ module.exports.reset = function(req, res) {
 }
 
 module.exports.resetPost = function(req, res) {
+	var passRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/;
   	async.waterfall([
     	function(done) {
       		User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
@@ -215,16 +216,22 @@ module.exports.resetPost = function(req, res) {
         				message: ERRORS.pass_not_match
         			})	
         		}
-				user.password = req.body.pas;
-        		user.resetPasswordToken = undefined;
-        		user.resetPasswordExpires = undefined;
+        		if (passRequiremants.test(req.body.pas)) {
+					user.password = req.body.pas;
+	        		user.resetPasswordToken = undefined;
+	        		user.resetPasswordExpires = undefined;
 
-        		user.save(function(err) {
-          			req.logIn(user, function(err) {
-            			done(err, user);
-          			});
-        		});
-      		});
+	        		user.save(function(err) {
+	          			req.logIn(user, function(err) {
+	            			done(err, user);
+	          			});
+	        		});
+        		} else {
+					return res.status(400).json({
+						message: ERRORS.pass_not_match
+					});
+				}
+			});
     	},
     	function(user, done) {
       		var smtpTransport = nodemailer.createTransport('SMTP', {
