@@ -1,22 +1,17 @@
 cstmform-border{
 	padding : 0 1% 0 1%;
 }
-a.cstmblock {
-    display: block;
-    cursor: pointer;
-    padding: 10px 15px;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
+
+.profile .capitalize{
+    margin-top: 5px;
 }
 
-.profile label {
-    line-height: 30px;
-    font-size: 17px;
+.form-group.profile {
+    height: 58px;
+    margin-bottom: 0;
 }
-
 .change-pass {
-    height: 64px;
+    height: 58px;
     margin-bottom: 0;
 }
 .error-msg {
@@ -25,14 +20,15 @@ a.cstmblock {
     position: absolute;
     top: 88px;
     right: 20px;
-    margin-bottom: 0;
-    font-size: 13px;
 }
 .change-pass .error {
     color: #af5050;
     float: right;
-    margin-bottom: 0;
+}
+
+.change-pass .msg-error,.change-pass .error,.error-msg {
     font-size: 13px;
+    margin-bottom: 0;
 }
 
 img.img-size {
@@ -47,7 +43,7 @@ img.img-size {
      position: relative;
      overflow: hidden;
      width: 52%; 
-     height: 35px; 
+     height: 32px; 
      float: right;
      background: $navbar-color;
      border-radius: 4px;
@@ -56,6 +52,7 @@ img.img-size {
      color: #fff;
      text-align: center;
      box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+     font-weight: 400;
 }
 
 .file-upload:hover {
@@ -65,33 +62,11 @@ img.img-size {
     transition: $app-transition;
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
 }
-.upload_btn {
-	margin: 5px 20px 5px 0;
-}
 .upload{
-	margin: 20px 0 0 0;
-	font-weight: 600;
+	margin: 22px 0 0 0;
 }
 .no-margin{
 	margin-left: 0;
-}
-.cstm-btn {
-    height: 35px; 
-    background: $navbar-color;
-    border-radius: 4px;
-    margin-top: 15px;
-    color: #fff;
-    text-align: center;
-    line-height: 10px;
-    font-weight: 700;
-}
-
-.cstm-btn:hover {
-    background-color: #fcf8e3;
-    color: black;
-    border: none;
-    transition: $app-transition;
-    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
 }
 
 .file-upload input[type="file"] {
@@ -107,10 +82,9 @@ img.img-size {
      height: 100%;
      cursor: pointer;
      font-size: 14px;
-}
-
-.file-upload span {
-    line-height: 36px; 
+     padding: 6px 12px;
+     margin-bottom: 0;
+     font-weight: 400;
 }
 
 .margin-bottom {

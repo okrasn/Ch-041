@@ -19,7 +19,7 @@ var upload = multer({ //multer settings
 /** API path that will upload the files */
 module.exports.upload = function(req, res) {
     upload(req, res, function(err) {
-    var fileName = req.file.filename;
+        var fileName = req.file.filename;
         User.findById(req.body.user, function(err, user) {
             if (err) {
                 return next(err);

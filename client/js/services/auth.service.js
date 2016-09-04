@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($http, $window, $auth, transfer, jwtHelper, toasterService) {
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService) {
         var auth = {
             saveToken: function (token) {
                 $auth.setToken(token);
@@ -12,9 +12,7 @@
                 return $auth.isAuthenticated();
             },
             currentUser: function () {
-                if (auth.isLoggedIn()) {
-                    return $auth.getPayload().email;
-                }
+                return  profileService.refreshProfileData().email;
             },
             userID: function () {
                 if (auth.isLoggedIn()) {

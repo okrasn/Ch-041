@@ -5,7 +5,7 @@
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Password must contain(a-z,A-Z,0-9,!@#)");
 	}]).
-	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
+	controller('AuthController', ['$scope', '$state', 'authService', 'profileService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, profileService, $window,  dashboardService, $auth, transfer, jwtHelper, toasterService) {
 		$scope.user = {};
 		$scope.test = 5;
 		$scope.session;
