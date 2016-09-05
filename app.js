@@ -29,9 +29,10 @@ mongoose.connection.on('error', function (err) {
 
 app.use(cors());
 app.use(function (req, res, next) { //allow cross origin requests
-	res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-	res.header("Access-Control-Allow-Origin", "http://localhost");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header('Access-Control-Allow-Origin', process.env.allowOrigin || 'http://localhost');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
 	next();
 });
 
