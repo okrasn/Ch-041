@@ -43,6 +43,16 @@
 						transfer.setObj($stateParams.token);	
 					}]
 				})
+				.state('verify', {
+					url: '/verify/:token',
+					templateUrl: './partials/auth/register.html',
+					controller: 'AuthController',
+					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
+						transfer.setString($stateParams.token);
+						toasterService.info('You have successfuly approved you email. Please reenter you fields');
+
+					}]
+				})
 				.state('profile', {
 					url: '/profile',
 					templateUrl: './partials/auth/profile.html',

@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 	crypto = require('crypto'),
 	jwt = require('jwt-simple'),
 	bcrypt = require('bcryptjs'),
-	config = require('../config/config');
+	config = require('../config/config'),
 	
 	userSchema = new mongoose.Schema({
 		email: {
@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
 			email : String,
 			password : String
 		},
+		emailVerification: { type : Boolean },
 		resetPasswordToken: String,
 		resetPasswordExpires: Date,
 		displayName: String,

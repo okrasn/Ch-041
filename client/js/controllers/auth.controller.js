@@ -7,7 +7,10 @@
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$scope.user = {};
+		$scope.user = {
+			verifyEmail : transfer.getString()
+		};
+		transfer.setString("");
 		$scope.password = {
 			token : transfer.getObj()
 		};
@@ -26,6 +29,7 @@
 			if (form.validate()) {
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
+					toasterService.error(error.message);
 				}).then(function (response) {
 					console.log(response);
 					toasterService.success('You have successfully registered');

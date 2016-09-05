@@ -9,9 +9,19 @@ var passport = require('passport'),
 	nev = require('email-verification')(mongoose),
 	async = require('async'),
 	crypto = require('crypto'),
+	randomtoken = require('rand-token'),
+	bcrypt = require('bcryptjs'),
 	flash = require('express-flash'),
 	path = require('path'),
-	nodemailer = require('nodemailer');
+	nodemailer = require('nodemailer'),
+	emailToken,mailOptions,host,link,
+	smtpTransport = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+	    auth: {
+	        user: 'rss.reader.app.ch.041@gmail.com',
+	        pass: 'rssreader'
+	    }
+	}),
 
 ERRORS = {
 	fill_out_fields: 'Please fill out all fields',
@@ -22,7 +32,8 @@ ERRORS = {
 	user_exist: 'That user already exists',
 	invalid_data: 'Invalid email or password',
 	email_not_found: 'User with this email not found',
-	not_local_user: 'User with this email not a local created'
+	not_local_user: 'User with this email not a local created',
+	email_verification: 'First you have to approve you email. We are send verification link to your email'
 };
 
 function createJWT(user) {
@@ -34,7 +45,6 @@ function createJWT(user) {
 	};
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
-
 function ensureAuth(req, res) {
 	User.findById(req.user, function (err, user) {
 		if (!user) {
@@ -49,7 +59,6 @@ function ensureAuth(req, res) {
 		});
 	});
 };
-
 
 module.exports.register = function (req, res) {
 
@@ -74,7 +83,27 @@ module.exports.register = function (req, res) {
 		});
 	}
 	if (passAccepted) {
-		User.findOne({
+		
+		emailToken = randomtoken.generate(16);
+		host = req.get('host');
+		link = "http://" + req.get('host') + "/#/verify/" + emailToken;
+		mailOptions = {
+			to : req.body.email,
+			subject : "Please confirm your Email account",
+			html : "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"	
+		}
+		console.log(mailOptions);
+		smtpTransport.sendMail(mailOptions, function(error, response){
+	   	 	if(error){
+	        	console.log(error);
+				res.end("error");
+		 	} else {
+	        	console.log("Message sent: " + response.message);
+				res.end("sent");
+	    	}
+		});
+
+	User.findOne({
 			email: req.body.email
 		}, function (err, existingUser) {
 			if (existingUser && (existingUser.google || existingUser.facebook)) {
@@ -96,11 +125,22 @@ module.exports.register = function (req, res) {
 					message: 'Email is already taken'
 				});
 			}
+
 			var user = new User({
+				emailVerification: false,
 				displayName: req.body.displayName,
 				email: req.body.email,
 				password: req.body.password
 			});
+			if(req.body.verifyEmail){
+				user.emailVerification = true;
+			}
+
+			if (user.emailVerification === false) {
+				return res.status(400).json({
+					message: ERRORS.email_verification
+				});
+			}
 
 			user.save(function (err, result) {
 				if (err) {
@@ -195,7 +235,6 @@ module.exports.forgotPass = function(req, res) {
 		if (err) return next(err);
 			res.status(200);
 			return res.redirect('/#/forgot');
-
 	});
   	
 };
@@ -216,7 +255,7 @@ module.exports.resetPost = function(req, res) {
         				message: ERRORS.pass_not_match
         			})	
         		}
-        		if (passRequiremants.test(req.body.pas)) {
+        		if (passRequirements.test(req.body.pas)) {
 					user.password = req.body.pas;
 	        		user.resetPasswordToken = undefined;
 	        		user.resetPasswordExpires = undefined;

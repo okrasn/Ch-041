@@ -1,15 +1,24 @@
 angular.module('rssreader')
-	.factory('transfer', [function() {
+	.factory('transfer', [function () {
 		var obj = {};
-		function setObj(data){
+		var str = '';
+		function setString (data) {
+			str = data;
+		}
+		function getString () {
+			return str;
+		}
+		function setObj (data) {
 			obj = data;
 		}
-		function getObj(){
+		function getObj () {
 			return obj;
 		}
 		return {
 		  
 			setObj : setObj,
-			getObj : getObj
+			getObj : getObj,
+			setString : setString,
+			getString : getString
 		}
 	}]);

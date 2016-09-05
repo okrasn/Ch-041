@@ -30,14 +30,14 @@
 				})
 			},
 			forgot: function(confirm_email) {
-				return $http.post('/forgot', confirm_email).success(function (data){
+				return $http.post('/forgot', confirm_email).success(function (data) {
 				}).error(function (err) {
 					console.log(err.message);		
 				})
 
 			}, 
 			reset: function(password) {
-				return $http.post('/reset/:token', password).success(function (data){
+				return $http.post('/reset/:token', password).success(function (data) {
 			}).error(function (err) {
 				console.log(err.message);	
 				})
