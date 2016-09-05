@@ -7,6 +7,7 @@
     "start": "node app.js",
     "postinstall": "bower install",
     "prestart": "npm install",
+    "main": "app.js",
     "test": "karma start karma.conf.js",
     "run": "karma run ",
     "web-update": "webdriver-manager update",

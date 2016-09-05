@@ -27,6 +27,9 @@ mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
 
+app.set('port', process.env.PORT || 8080);
+app.set('base url', process.env.URL || 'http://localhost');
+
 app.use(cors());
 app.use(function (req, res, next) { //allow cross origin requests
 	res.header('Access-Control-Allow-Origin', process.env.allowOrigin || 'http://localhost');
@@ -49,7 +52,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static('./dist'));
+app.use(express.static(__dirname + '/dist'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
 
@@ -91,9 +94,6 @@ app.use(function (err, req, res, next) {
 		error: {}
 	});
 });
-
-app.set('port', process.env.PORT || 8080);
-app.set('base url', process.env.URL || 'http://localhost');
 
 app.listen(app.get('port'));
 
