@@ -4,7 +4,7 @@
   "description": "Rss reader aplication.",
   "main": "app.js",
   "scripts": {
-    "start": "gulp",
+    "start": "SET NODE_ENV=production & node app.js",
     "postinstall": "bower install",
     "prestart": "npm install",
     "test": "karma start karma.conf.js",
