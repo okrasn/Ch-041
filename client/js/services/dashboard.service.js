@@ -1,10 +1,11 @@
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
 	var that = this;
-    
+	
 	this.DEFAULT_VIEW = 2;
 	this.loadingIcon = false;
 	this.currentArticlesType = 'all';
 	this.currentArticlesValue = $window.localStorage.category;
+	this.isReadingArticle = false;
 
 	this.sortParam = {
 		type: 'date',

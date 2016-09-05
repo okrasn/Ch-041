@@ -5,22 +5,22 @@
 			<img class="img-responsive article-img" ng-show="article.img" ng-src="{{article.img}}" alt="Article image">
 			<div class="content">
 				<div class="article-title">
-					<a ng-href="{{article.link}}" target="_blank"><img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span></a>
+					<div class="list-item" ng-click="readArticle(article)"><img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span></div>
 				</div>
-				<div class="article-content hide-mobile">
+				<div class="article-content hidden-xs">
 					<span ng-bind="article.content"></span>
 				</div>
 				<div class="footer">
 					<span class="my-hidden">
-						<button type="button" class="app-btn app-btn-blue read-btn hide-desktop" ng-click="readArticle(article)" target="_blank">
+						<button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)">
 							read
 						</button>
-						<span class="article-fav-icon glyphicon glyphicon-star extra-btn onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()"></span>
+						<span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()"></span>
 						<span class="article-footer-item fa fa-share-alt extra-btn onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
 					</span>
 					<span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
-					<span class="article-date" ng-bind="getArticleDate(article.date)"></span>
-					<span class="article-time-icon glyphicon glyphicon-time"></span>
+					<span class="article-footer-item article-date" ng-bind="getArticleDate(article.date)"></span>
+					<span class="article-footer-item article-time-icon glyphicon glyphicon-time"></span>
 				</div>
 			</div>
 		</div>

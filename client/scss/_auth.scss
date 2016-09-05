@@ -1,6 +1,6 @@
 /*================================Loginform=============================*/
 
-h2.header {
+.header {
 	margin-bottom: 30px;
 	font-weight: 700;
 	text-align: center;
@@ -14,44 +14,41 @@ h2.header {
 }
 
 input.ng-pristine + #strength {
-	display:none;
+	display: none;
 }
 
-ul#strength {
-	display:inline;
-	list-style:none;
-	margin:0;
+#strength {
+	display: inline;
+	list-style: none;
+	margin: 0;
 	margin-top: 10px;
-	padding:0;
-	vertical-align:2px;
+	padding: 0;
+	vertical-align: 2px;
 }
 
 .point {
-	background:#DDD;
-	border-radius:2px;
-	display:inline-block;
-	height:5px;
-	margin-right:1px;
-	width:20px;
+	background: #DDD;
+	border-radius: 2px;
+	display: inline-block;
+	height: 5px;
+	margin-right: 1px;
+	width: 20px;
+
 	&:last {
-		margin:0 !important;
+		margin: 0 !important;
 	}
 }
 
 #footer {
-	position:fixed;
-	bottom:5px;
+	position: fixed;
+	bottom: 5px;
 }
 
 .cstmform-border {
 	margin-top: $main-app-offset;
 	margin-bottom: $main-app-offset;
 	padding: 20px 10% 15px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	border-radius: 4px;
-	@media screen and (max-width: 768px){
-		padding: 1em;
-	}
 }
 
 .form-group.login {
@@ -72,9 +69,8 @@ ul#strength {
 	font-size: 14px;
 }
 
-.checkbox.margin {
-	margin-top: 4px;
-	margin-bottom: 20px;
+.checkbox {
+	margin: 0;
 }
 
 a.pass {
@@ -82,7 +78,7 @@ a.pass {
 }
 
 .msg-error {
- margin-top: 3px;
+	margin-top: 3px;
 	color: #af5050;
 	float: right;
 	margin-bottom: 0;
@@ -90,36 +86,22 @@ a.pass {
 	font-weight: bold;
 }
 
-.signup>p {
-	text-align: center;
-	margin-top: 5px;
-}
-
-.register {
-	text-align: center;
-	margin-top: 20px;
-}
-
-
 /*==================================Links============================*/
 
-.links a {
-	float: right;
-}
-
 .links img {
+	padding: 0;
 	width: 50px;
 	margin-bottom: 15px;
 }
 
-.divder {
+.divider {
 	height: 113px;
 	margin: 0;
 	border-right: 1px solid #42a5f5;
 	padding: 0;
 }
 
-.divder+span {
+.divider + span {
 	font-weight: bold;
 	margin-left: 4px;
 }

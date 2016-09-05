@@ -2,12 +2,12 @@
 <div id="list" class="feeds">
     <div class="table-feed" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order">
         <div class="col-lg-11 col-xs-10 col-same-height">
-            <a ng-href="{{article.link}}">
+            <div class="list-item" ng-click="readArticle(article)">
                 <p class="shortened-text strong-text" ng-bind="article.title">
                 </p>
                 <p class="shortened-text" ng-bind="article.content">
                 </p>
-            </a>
+            </div>
         </div>
         <div class="col-lg-1 col-xs-2 col-same-height">
             <div class="list-share-wrap center-text">
@@ -15,7 +15,7 @@
                 </span>
                 <span class="list-item-btn-top glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
                 <span class="list-item-btn">
-                    <span class="fa fa-share-alt onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right">
+                    <span class="fa fa-share-alt onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right" popover-elem>
                     </span>
                 </span>
             </div>

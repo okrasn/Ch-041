@@ -9,6 +9,7 @@
 	background-color: white;
 	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
 	outline: none;
+	text-decoration: none;
 
 	&:hover {
 		background-color: black;
@@ -16,6 +17,7 @@
 		border: none;
 		transition: $app-transition;
 		box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
+	    text-decoration: none;
 	}
 
 	&:active {
@@ -48,6 +50,20 @@
 		outline: none;
 		color: white;
 		background-color: $blue-btn-active-color;
+	}
+}
+
+.submit-btn {
+	margin: 1em 0 1em 0;
+}
+
+button[disabled] {
+	opacity: 0.5;
+
+	&:hover {
+		box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+		background-color: $blue-btn-active-color;
+		color: white;
 	}
 }
 
@@ -97,7 +113,8 @@
 		border: none;
 	}
 }
-.delete-btn-wrap{
+
+.delete-btn-wrap {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -213,12 +230,12 @@ a.sharing-btn {
 	}
 }
 
-.sort-btn{
+.sort-btn {
 	@extend .app-btn-feed-list;
 	border-radius: $main-border-radius;
 	margin-left: $main-app-offset;
 }
 
-.sort-item{
+.sort-item {
 	cursor: pointer;
 }

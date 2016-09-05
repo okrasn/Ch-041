@@ -1,13 +1,15 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'articlesService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, articlesService, feedsService, toasterService) {
+	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
 		$scope.loadingIcon = dashboardService.isLoading;
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.headTitle = dashboardService.getTitle;
 		$scope.feed = dashboardService.getFeedId;
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
-		$scope.articleReading = articlesService.articleReading;
+		$scope.checkIfReading = function () {
+		    return dashboardService.isReadingArticle;
+		};
 
 		$scope.toggleSidebar = function () {
 			dashboardService.sidebar = !dashboardService.sidebar;

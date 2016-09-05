@@ -1,25 +1,25 @@
 #article-page {
-    padding: $main-app-offset;
+	padding: $main-app-offset;
 }
 
 .article-image {
-    width: 100%;
-    max-width: 500px;
+	width: 100%;
+	max-width: 500px;
 }
 
 .article-row{
-    margin-top: $main-app-offset;
+	margin-top: $main-app-offset;
 }
 
 .article-page-time-icon {
-    line-height: $main-app-offset*2;
-    color: #888;
-    padding: 0;
+	line-height: $main-app-offset*2;
+	color: #888;
+	padding: 0;
 }
 
 .article-page-date {
-    margin-left: $main-app-offset/2;
-    line-height: $main-app-offset*2;
-    color: #888;
-    padding: 0;
+	left: $main-app-offset/2;
+	line-height: $main-app-offset*2;
+	color:#888;
+	padding: 0;
 }

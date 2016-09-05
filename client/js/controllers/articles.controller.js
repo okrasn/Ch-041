@@ -15,7 +15,11 @@
 		$scope.addingNewFavCategory = false;
 
 		if ($stateParams.feed !== undefined && $stateParams.link !== undefined) {
+		    dashboardService.isReadingArticle = true;
 		    articlesService.setReadArticle($scope, $stateParams.feed, $stateParams.link);
+		}
+		else {
+		    dashboardService.isReadingArticle = false;
 		}
 
 		$scope.getArticles = function () {
@@ -111,6 +115,7 @@
 		}
 
 		$scope.readArticle = function (article) {
+		    dashboardService.isReadingArticle = true;
 			$state.go("dashboard.article", {feed: article.feed, link: article.link});
 		}
 	}]);

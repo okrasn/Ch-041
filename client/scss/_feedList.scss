@@ -53,6 +53,10 @@
 	}
 }
 
+.list-item{
+	cursor: pointer;
+}
+
 .feed-content {
 	float: left;
 	width: 95%;
@@ -148,12 +152,7 @@
 	line-height: $main-app-offset*2;
 }
 
-.article-fav-icon {
-	@extend .article-footer-item;
-}
-
 .article-time-icon {
-	@extend .article-footer-item;
 	margin-right: $main-app-offset/2;
 	float: right;
 	color: #888;
@@ -161,7 +160,6 @@
 }
 
 .article-date {
-	@extend .article-footer-item;
 	float: right;
 	color: #888;
 	padding: 0;

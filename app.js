@@ -22,7 +22,7 @@ require('./server/config/passport');
 
 var routes = require('./server/routes/index');
 
-mongoose.connect('mongodb://localhost/feeds');
+mongoose.connect(process.env.DB_URL || 'mongodb://localhost/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });

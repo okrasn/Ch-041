@@ -14,7 +14,7 @@
                     <p ng-bind="articleForRead.content"></p>
                 </div>
                 <div class="article-row">
-                    <span class="article-fav-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="isFavourites()"></span>
+                    <span class="article-footer-item glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="isFavourites()"></span>
                     <span class="article-footer-item fa fa-share-alt onhover-green" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
                 </div>
                 <div class="center-children">
@@ -47,7 +47,7 @@
     </div>
     <div class="modal-row">
         <div class="center-children">
-            <button type="button" class="btn btn-lg app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+            <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
         </div>
     </div>
     <div class="modal-row">

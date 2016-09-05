@@ -20,7 +20,7 @@
 					//	}
 					//}
 					return getFeedDataById(feed).success(function (res) {
-					    obj.resetArticles();
+						obj.resetArticles();
 						var feedObj = res;
 						return fetchArticles(feedObj).then(function (res) {
 							for (var i = 0; i < temp_articles.length; i++) {
@@ -41,9 +41,9 @@
 					});
 					$q.all(promises).then(function () {
 						obj.articles = temp_articles;
-                        dashboardService.loadingIcon = false;
+						dashboardService.loadingIcon = false;
 					});
-                    
+					
 				},
 				getArticlesByFeed: function (feed) {
 					obj.resetArticles();

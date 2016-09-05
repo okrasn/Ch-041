@@ -1,6 +1,6 @@
 <div class="row">
 	<div id="login" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-3 col-md-6">
-		<div class="cstmform-border">
+		<div class="cstmform-border card">
 			<h2 class="header uppercase">
 				<span class="orange">rss</span>|login
 			</h2>
@@ -21,20 +21,17 @@
 							</label>
 							<a class="pass text-right" href="">Forget password?</a>
 						</div>
-						<div class="center-children">
+						<div class="submit-btn center-children">
 							<button id="submit-btn" type="submit" class="centered-block app-btn app-btn-blue">sign in</button>
 						</div>
-						<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
-							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							<span class="sr-only">Error:</span>
-							<span ng-bind="error.message"></span>
-						</div>
+
 					</form>
 				</div>
+
 				<!-- /.col-xs-12 col-md-9 -->
 				<div class="hidden-xs hidden-sm col-md-1 ">
-					<div class="divder"></div>
-					<div class="divder"></div>
+					<div class="divider"></div>
+					<div class="divider"></div>
 				</div>
 				<div class="col-xs-12 col-md-2 links">
 					<a href ng-click="authenticate('facebook')"><img class="app-btn" src="../assets/images/facebook.png" alt="facebook"></a>
@@ -45,11 +42,15 @@
 				<!-- /.col-xs-12 col-md-2 -->
 			</div>
 			<!-- /.row -->
+			<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				<span ng-bind="error.message"></span>
+			</div>
 			<div class="row">
-				<div class=" col-xs-12 col-md-9 signup">
-					<p>Do not have account?<a href="/#/register"> Sign up</a></p>
+				<div class="col-xs-12 col-md-9 text-center">
+					<p>Do not have account? <a ui-sref="register">Sign up</a></p>
 				</div>
-				<div class=" col-xs-12 col-md-3"></div>
 			</div>
 			<!-- /.row -->
 		</div>

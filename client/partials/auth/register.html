@@ -1,6 +1,6 @@
 <div class="row">
 	<div id="register" class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-3 col-md-6">
-		<div class="cstmform-border">
+		<div class="cstmform-border card">
 			<h2 class="header uppercase">
 				<span class="orange">rss</span><span>|registration</span>
 			</h2>
@@ -20,14 +20,16 @@
 							<label class="capitalize" for="repeatPassword">repeat passowrd</label>
 							<input type="password" name="reppwd" class="form-control" id="repeatPassword" placeholder="Repeat your Password" ng-model="user.repPassword" ng-required pw-check="enterPassword">
 							<span class="msg-error" ng-show="registerform.reppwd.$error.pwmatch">
-						Passwords does't match.</span>
+								Passwords does't match.
+							</span>
 						</div>
 						<div class="checkbox margin">
 							<label>
-								<input type="checkbox" ng-model="agreeWith">I Agree with</label>
+								<input type="checkbox" ng-model="agreeWith">I Agree with
+							</label>
 							<a href="">terms & conditions</a>
 						</div>
-						<div class="center-children">
+						<div class="submit-btn center-children">
 							<button type="submit" class="app-btn app-btn-blue" ng-disabled="!agreeWith">sign up</button>
 						</div>
 						<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
@@ -36,8 +38,8 @@
 							<span ng-bind="error.message"></span>
 						</div>
 						<div class="row">
-							<div class=" col-xs-12 register">
-								<p>Already have an account?<a href="/#/login"> Sign In</a></p>
+							<div class="col-xs-12 center-text">
+								<p>Already have an account? <a ui-sref="login"> Sign In</a></p>
 							</div>
 						</div>
 					</form>
