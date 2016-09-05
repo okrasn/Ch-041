@@ -91,7 +91,9 @@ app.use(function (err, req, res, next) {
 	});
 });
 
-app.listen(8080, function () {
-	console.log('Server running on port 8080!');
-});
+app.set('port', process.env.PORT || 8080);
+app.set('base url', process.env.URL || 'http://localhost');
+
+app.listen(app.get('port'));
+
 module.exports = app;
