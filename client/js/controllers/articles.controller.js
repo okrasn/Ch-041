@@ -8,10 +8,10 @@
 		$scope.modalShown = false;
 		$scope.articles = articlesService.articles;
 		$scope.isFavourites = articlesService.checkIfFavourites;
-		$scope.favForAdd = {};
-		$scope.favForRemove = {};
-		$scope.articleForShare = {};
-		$scope.articleForRead = {};
+		$scope.favForAdd = null;
+		$scope.favForRemove = null;
+		$scope.articleForShare = null;
+		$scope.articleForRead = null;
 		$scope.addingNewFavCategory = false;
 
 		if ($stateParams.feed !== undefined && $stateParams.link !== undefined) {
@@ -20,6 +20,9 @@
 		}
 		else {
 		    dashboardService.isReadingArticle = false;
+		    if (feedsService.feedsDictionary.length < 1 && !$scope.isFavourites()) {
+		        $state.go("dashboard.addFeed");
+		    }
 		}
 
 		$scope.getArticles = function () {

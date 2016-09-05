@@ -36,8 +36,8 @@ router.post('/users/:user/addFeed', feedsCtrl.add);
 router.post('/users/:user/setCategoryOrder', feedsCtrl.setCategoryOrder);
 router.post('/users/:user/setFavsCategoryOrder', feedsCtrl.setFavsCategoryOrder);
 router.post('/users/:user/addFavArticle', articlesCtrl.addFavArticle);
+router.post('/users/:user/getFavArticle', articlesCtrl.getFavArticle);
 router.post('/users/:user/getFeedData', feedsCtrl.getFeedData);
-
 // remove feed
 router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);
 router.delete('/users/:user/deleteFavFeed/:id', articlesCtrl.removeFavArticle);

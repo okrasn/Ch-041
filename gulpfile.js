@@ -12,22 +12,22 @@ var exec = require('child_process').exec,
 	sourcemaps = require('gulp-sourcemaps'),
 	ngHtml2Js = require("gulp-ng-html2js"),
 	ngAnnotate = require('gulp-ng-annotate'),
-    mkdirp = require('mkdirp');
+	mkdirp = require('mkdirp');
 
-mkdirp.sync('./data', function (err) {
-    if (err) console.error(err);
-});
+//mkdirp.sync('./data', function (err) {
+//	if (err) console.error(err);
+//});
 
 mkdirp.sync('./client/uploads', function (err) {
-    if (err) console.error(err);
+	if (err) console.error(err);
 });
 
 gulp.task('server', function (cb) {
-	 //You must create folder 'data' in the root of project folder
-	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-		console.log(stdout, stderr);
-		cb(err);
-	});
+	//You must create folder 'data' in the root of project folder
+	//exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+	//	console.log(stdout, stderr);
+	//	cb(err);
+	//});
 	console.log("Server is running on port 8080");
 	exec('node app.js', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
@@ -35,9 +35,11 @@ gulp.task('server', function (cb) {
 	});
 });
 
-gulp.task('main', ['sass', 'scripts'], function () {
-	gulp.watch('./client/scss/**/*.scss', {interval: 500}, ['sass']);
-	gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'], { interval: 500 }, ['scripts']);
+gulp.task('main', ['sass', 'scripts', 'build'], function () {
+	gulp.watch('./client/index.html', { interval: 500 }, ['build']);
+	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['build']);
+	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['sass', 'build']);
+	gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'], { interval: 500 }, ['scripts', 'build']);
 });
 
 gulp.task('sass', function () {
@@ -76,7 +78,7 @@ gulp.task('scripts', function () {
 gulp.task('useref', function () {
 	return gulp.src('client/*.html')
 		.pipe(useref())
-		.pipe(gulp.dest('min'));
+		.pipe(gulp.dest('./dist/'))
 });
 
 gulp.task('build', function () {
@@ -84,10 +86,7 @@ gulp.task('build', function () {
 		.pipe(sass())
 		.pipe(gulp.dest('dist/css/'));
 
-	gulp.src(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/jqscripts/*.js', '!./client/js/old/*.js'])
-		.pipe(concat('app.min.js'))
-		.pipe(uglify()).on('error', function (e) {
-		})
+	gulp.src(['./client/js/**/*.js'])
 		.pipe(gulp.dest('dist/js/'));
 
 	gulp.src(['client/partials/**/*.html'])
@@ -96,12 +95,23 @@ gulp.task('build', function () {
 	gulp.src(['client/assets/**'])
 		.pipe(gulp.dest('dist/assets/'));
 
-	gulp.src(['client/css/**'])
-		.pipe(gulp.dest('dist/css/'));
+	gulp.src(['client/fonts/**'])
+	.pipe(gulp.dest('dist/fonts/'));
 
+	gulp.src(['client/css/**'])
+		.pipe(gulp.dest('./dist/css/'));
+
+	gulp.src(['client/scripts/**/*.js'])
+		.pipe(ngAnnotate({
+			// true helps add where @ngInject is not used. It infers.
+			// Doesn't work with resolve, so we must be explicit there
+			add: true
+		}))
 	gulp.src(['client/index.html'])
+		.pipe(sourcemaps.init())
 		.pipe(useref())
-		.pipe(gulp.dest('dist/'))
+		.pipe(gulp.dest('./dist/'))
+		.pipe(sourcemaps.write())
 });
 
 gulp.task('default', ['server', 'build', 'sass', 'scripts', 'main']);

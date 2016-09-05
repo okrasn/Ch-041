@@ -3,6 +3,7 @@
 	angular.module('rssreader').controller('HomeController', ['$scope', '$state', 'authService', 'dashboardService', 'feedsService', function ($scope, $state, authService, dashboardService, feedsService) {
 		$scope.isLoggedIn = authService.isLoggedIn;
 		$scope.currentUser = authService.currentUser;
+		console.log($state.current);
 		$scope.onFeeds = function () {
 			if (authService.isLoggedIn()) {
 				$state.go('dashboard.' + dashboardService.getViewMode(), {

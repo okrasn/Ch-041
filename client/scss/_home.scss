@@ -1,12 +1,5 @@
-#all {
-	background-color: #e8e8e8;
-}
-
-#items {
-	padding-left: 30px;
-}
-
 #home_container {
+	font-family: 'Roboto', sans-serif;
 	background: url('../assets/images/rss-header.jpg');
 	background-size: cover;
 	color: white;
@@ -16,6 +9,7 @@
 	height: 100%;
 	position: relative;
 	.welcometo {
+		font-weight: 300;
 		font-size: 63px;
 		margin-bottom: 50px;
 		@media screen and (max-width: 768px) {

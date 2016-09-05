@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').factory('articlesService', ['$http', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $q, authService, $timeout, dashboardService, feedsService) {
+	angular.module('rssreader').factory('articlesService', ['$http', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $state, $q, authService, $timeout, dashboardService, feedsService) {
 		var ARTICLES_NUM = 50,
 			temp_articles = [],
 			defer = $q.defer(),
@@ -13,12 +13,12 @@
 					return obj.isFavourites;
 				},
 				setReadArticle: function ($scope, feed, link) {
-					//for (var i = 0; i < obj.articles.length; i++) {
-					//	if (obj.articles[i].link === link) {
-					//		$scope.articleForRead = obj.articles[i];
-					//		return;
-					//	}
-					//}
+					for (var i = 0; i < obj.articles.length; i++) {
+						if (obj.articles[i].link === link) {
+							$scope.articleForRead = obj.articles[i];
+							return;
+						}
+					}
 					return getFeedDataById(feed).success(function (res) {
 						obj.resetArticles();
 						var feedObj = res;
@@ -28,7 +28,25 @@
 									$scope.articleForRead = temp_articles[i];
 								}
 							}
+							if (!$scope.articleForRead) {
+								$state.go("404");
+							}
 						});
+					}).catch(function (err) {
+						obj.resetArticles();
+						return getArticleDataByLink(link).then(function (res) {
+							dashboardService.loadingIcon = false;
+							$scope.articleForRead = res.data;
+						}).catch(function (err) {
+							dashboardService.loadingIcon = false;
+							if (err.status === 404) {
+								$state.go("404");
+							}
+						});
+						if (err.status === 404) {
+							$state.go("404");
+						}
+						else $state.go("dashboard." + dashboardService.getViewMode());
 					});
 				},
 				getAllArticles: function () {
@@ -43,7 +61,7 @@
 						obj.articles = temp_articles;
 						dashboardService.loadingIcon = false;
 					});
-					
+
 				},
 				getArticlesByFeed: function (feed) {
 					obj.resetArticles();
@@ -219,6 +237,13 @@
 			},
 			getFeedDataById = function (id) {
 				return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id }, {
+					headers: {
+						Authorization: 'Bearer ' + authService.getToken()
+					}
+				});
+			},
+			getArticleDataByLink = function (link) {
+				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link }, {
 					headers: {
 						Authorization: 'Bearer ' + authService.getToken()
 					}

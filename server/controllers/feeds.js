@@ -64,13 +64,24 @@ module.exports.allFeed = function (req, res, next) {
 }
 
 module.exports.getFeedData = function (req, res, next) {
+    if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
+        res.status(404).send('Not found');
+        return;
+    }
     Feed.findById(req.body.id, function (err, feed) {
         if (err) {
             console.log("ERROR: " + err);
             return next(err);
         }
-        res.json(feed);
+        if (!feed) {
+            res.status(404).send('Not found');
+            return;
+        }
+        else {
+            res.json(feed);
+        }
     });
+
 }
 
 module.exports.add = function (req, res, next) {

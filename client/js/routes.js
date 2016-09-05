@@ -9,6 +9,12 @@
 					templateUrl: './partials/home.html',
 					controller: 'HomeController'
 				})
+				.state('404', {
+					url: '/not-found',
+					templateUrl: './partials/static/404_page.html',
+					controller: ['$scope', function ($state) {
+					}]
+				})
 				.state('login', {
 					url: '/login',
 					templateUrl: './partials/auth/login.html',

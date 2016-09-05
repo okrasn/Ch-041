@@ -22,7 +22,7 @@ require('./server/config/passport');
 
 var routes = require('./server/routes/index');
 
-mongoose.connect(process.env.DB_URL || 'mongodb://localhost/feeds');
+mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
@@ -34,7 +34,7 @@ app.use(function (req, res, next) { //allow cross origin requests
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
-app.use(express.static('./client'));
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -48,7 +48,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static('./client'));
+app.use(express.static('./dist'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
 
@@ -63,6 +63,7 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+	console.log("development");
 	app.use(function (err, req, res, next) {
 		res.status(err.status || 500);
 		res.render('error', {
@@ -73,6 +74,7 @@ if (app.get('env') === 'development') {
 }
 
 if (app.get('env') === 'production') {
+	console.log("production");
 	app.use(function (req, res, next) {
 		var protocol = req.get('x-forwarded-proto');
 		protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
