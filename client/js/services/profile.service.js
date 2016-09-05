@@ -5,7 +5,7 @@
             function($window, Upload, accountInfo, $auth) {
                 var obj = {
                     profile: {},
-                    getProfile: function(){
+                    getProfile: function() {
                         if ($auth.isAuthenticated()) {
                             return accountInfo.getProfile().then(function(response) {
                                 var length = response.data.user.length;
@@ -17,7 +17,7 @@
                             });
                         }
                     },
-                    refreshProfileData: function(){
+                    refreshProfileData: function() {
                         console.log(obj.profile);
                         return obj.profile;
                     }

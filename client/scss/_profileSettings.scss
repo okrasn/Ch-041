@@ -3,32 +3,32 @@ cstmform-border{
 }
 
 .profile .capitalize{
-    margin-top: 5px;
+	margin-top: 5px;
 }
 
 .form-group.profile {
-    height: 58px;
-    margin-bottom: 0;
+	height: 58px;
+	margin-bottom: 0;
 }
 .change-pass {
-    height: 58px;
-    margin-bottom: 0;
+	height: 58px;
+	margin-bottom: 0;
 }
 .error-msg {
-    margin-top: 5px;
-    color: #af5050;
-    position: absolute;
-    top: 88px;
-    right: 20px;
+	margin-top: 5px;
+	color: #af5050;
+	position: absolute;
+	top: 88px;
+	right: 20px;
 }
 .change-pass .error {
-    color: #af5050;
-    float: right;
+	color: #af5050;
+	float: right;
 }
 
 .change-pass .msg-error,.change-pass .error,.error-msg {
-    font-size: 13px;
-    margin-bottom: 0;
+	font-size: 13px;
+	margin-bottom: 0;
 }
 
 img.img-size {
@@ -37,30 +37,30 @@ img.img-size {
 }
 
 .save-reset {
-    float: right;
+	float: right;
 }
 .file-upload {
-     position: relative;
-     overflow: hidden;
-     width: 52%; 
-     height: 32px; 
-     float: right;
-     background: $navbar-color;
-     border-radius: 4px;
-     margin-top: 15px;
-     padding: 8px 4px;
-     color: #fff;
-     text-align: center;
-     box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
-     font-weight: 400;
+	 position: relative;
+	 overflow: hidden;
+	 width: 52%; 
+	 height: 32px; 
+	 float: right;
+	 background: $navbar-color;
+	 border-radius: 4px;
+	 margin-top: 15px;
+	 padding: 8px 4px;
+	 color: #fff;
+	 text-align: center;
+	 box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+	 font-weight: 400;
 }
 
 .file-upload:hover {
-    background-color: #fcf8e3;
-    color: black;
-    border: none;
-    transition: $app-transition;
-    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
+	background-color: #fcf8e3;
+	color: black;
+	border: none;
+	transition: $app-transition;
+	box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
 }
 .upload{
 	margin: 22px 0 0 0;
@@ -70,25 +70,25 @@ img.img-size {
 }
 
 .file-upload input[type="file"] {
-    display: none;
+	display: none;
 }
 
 .file-upload>label {
-     display: block;
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     cursor: pointer;
-     font-size: 14px;
-     padding: 6px 12px;
-     margin-bottom: 0;
-     font-weight: 400;
+	 display: block;
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 cursor: pointer;
+	 font-size: 14px;
+	 padding: 6px 12px;
+	 margin-bottom: 0;
+	 font-weight: 400;
 }
 
 .margin-bottom {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 .user_ava, .user_name{
 	padding: 0.5% 0 0.5% 0;

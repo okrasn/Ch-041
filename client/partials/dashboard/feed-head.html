@@ -1,25 +1,25 @@
 <div id="feed-head">
-    <h2>
-        <span class="title shortened-text-block" ng-bind="headTitle()"></span>
-    </h2>
-    <div class='clearfix' ng-hide="hideViewBtns()">
-        <div class="btn-group change-view-btn pull-left">
-            <button class="btn btn-default app-btn-feed-list glyphicon glyphicon-list" aria-label="Left Align" ng-class="{'selected' : checkIfToggled('list')}" ng-click="onViewChange('view-mode1')"><span aria-hidden="true"></span></button>
-            <button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-list" aria-label="Center Align" ng-class="{'selected' : checkIfToggled('th-list')}" ng-click="onViewChange('view-mode2')"><span></span></button>
-            <button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-large visible-lg" aria-label="Justify" ng-class="{'selected' : checkIfToggled('th-large')}" ng-click="onViewChange('view-mode3')"><span aria-hidden="true"></span></button>
-        </div>
-        <div class="btn-group" uib-dropdown is-open="status.isopen">
-            <button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled">
-                sort <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                <li class="sort-item" role="menuitem" ng-click="setSortParam('article.date', false)"><a>Newest first</a></li>
-                <li class="sort-item" role="menuitem" ng-click="setSortParam('article.date', true)"><a>Oldest first</a></li>
-            </ul>
-        </div>
+	<h2>
+		<span class="title shortened-text-block" ng-bind="headTitle()"></span>
+	</h2>
+	<div class='clearfix' ng-hide="hideViewBtns()">
+		<div class="btn-group change-view-btn pull-left">
+			<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-list" aria-label="Left Align" ng-class="{'selected' : checkIfToggled('list')}" ng-click="onViewChange('view-mode1')"><span aria-hidden="true"></span></button>
+			<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-list" aria-label="Center Align" ng-class="{'selected' : checkIfToggled('th-list')}" ng-click="onViewChange('view-mode2')"><span></span></button>
+			<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-large visible-lg" aria-label="Justify" ng-class="{'selected' : checkIfToggled('th-large')}" ng-click="onViewChange('view-mode3')"><span aria-hidden="true"></span></button>
+		</div>
+		<div class="btn-group" uib-dropdown is-open="status.isopen">
+			<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled">
+				sort <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+				<li class="sort-item" role="menuitem" ng-click="setSortParam('article.date', false)"><a>Newest first</a></li>
+				<li class="sort-item" role="menuitem" ng-click="setSortParam('article.date', true)"><a>Oldest first</a></li>
+			</ul>
+		</div>
 
-        <div class='pull-right' ng-show='feed()'>
-            <button type="button" class="btn btn-default app-btn-delete" aria-label="Justify" ng-click="onFeedDelete()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        </div>
-    </div>
+		<div class='pull-right' ng-show='feed()'>
+			<button type="button" class="btn btn-default app-btn-delete" aria-label="Justify" ng-click="onFeedDelete()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+		</div>
+	</div>
 </div>
