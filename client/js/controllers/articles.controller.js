@@ -34,8 +34,6 @@
 			$scope.favForAdd = article;
 		}
 		$scope.confirmAddFavourite = function () {
-			console.log($scope.newCatObj.category);
-			console.log($scope.obj.category);
 			if ($scope.newCatObj.category) {
 				$scope.obj.category = $scope.newCatObj.category;
 			}
@@ -57,7 +55,6 @@
 		}
 		$scope.share = function (article) {
 			$scope.error = null;
-			//$scope.modalShareShown = !$scope.modalShareShown;
 			$scope.articleForShare = article;
 		}
 		$scope.cancelSharing = function () {

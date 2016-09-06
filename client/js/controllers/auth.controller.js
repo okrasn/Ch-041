@@ -35,6 +35,7 @@
 
 		$scope.logIn = function (form) {
 			if (form.validate()) {
+				console.log($scope.user);
 				authService.logIn($scope.user, $scope.session).error(function (error) {
 					$scope.error = error;
 				}).then(function () {

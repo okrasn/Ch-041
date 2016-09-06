@@ -54,7 +54,6 @@
 					} //pass file as data, should be user ng-model
 				}).then(function (resp) { //upload function returns a promise
 					if (resp.data.error_code === 0) { //validate success
-						// $scope.getProfile();
 						profileService.getProfile();
 					} else {
 						$window.alert('an error occured');
@@ -87,6 +86,7 @@
 							Authorization: 'Bearer ' + authService.getToken()
 						}
 					}).success(function (data) {
+						toasterService.success('You have successfully changed pswd');
 						authService.saveToken(data.token);
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
