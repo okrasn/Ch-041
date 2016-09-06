@@ -53,6 +53,7 @@
 	}
 }
 
+<<<<<<< HEAD
 .submit-btn {
 	margin: 1em 0 1em 0;
 }
@@ -140,7 +141,6 @@ button[disabled] {
 
 .onhover-orange {
 	color: black;
-
 	&:hover {
 		color: #ff9d00;
 	}
@@ -152,7 +152,6 @@ button[disabled] {
 
 .onhover-red {
 	color: black;
-
 	&:hover {
 		color: #ff6c00;
 	}
@@ -164,7 +163,6 @@ button[disabled] {
 
 .onhover-green {
 	color: black;
-
 	&:hover {
 		color: #00ffb1;
 	}
@@ -176,7 +174,6 @@ button[disabled] {
 
 .onhover-blue {
 	color: black;
-
 	&:hover {
 		color: $blue-btn-active-color;
 	}
@@ -223,7 +220,6 @@ a.sharing-btn {
 	cursor: pointer;
 	transition: color 0.3s ease;
 	margin: $main-app-offset/3;
-
 	&:hover {
 		transition: color 0.3s ease;
 		color: #3949ab;

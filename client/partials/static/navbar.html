@@ -25,22 +25,22 @@
 					<li class="dropdown user user-menu hidden-xs">
 						<a class="dropdown-toggle" data-toggle="dropdown">
 							<!-- Image must be square -->
-							<img ng-if='!profile.avatar' src="/assets/images/profile.png" class="user-image" alt="User Image">
-							<img ng-show="profile.avatar" ng-src="{{getImage()}}" class="user-image" alt="User Image">
-							<span class="hidden-xs" ng-bind="currentUser()"></span>
+							<img  ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="user-image" alt="User Image">
+							<img ng-show="!currentUser().avatar" ng-src="{{currentUser().picture}}" src="/assets/images/profile.png" class="user-image" alt="User Image">
+							<span class="hidden-xs" ng-bind="currentUser().email"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li class="user-header">
 								<!-- Image must be square -->
-								<img ng-if='!profile.avatar' src="/assets/images/profile.png" class="img-circle" alt="User Image">
-								<img ng-show="profile.avatar" ng-src="{{getImage()}}" class="img-circle" alt="User Image">
+								<img  ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img-circle" alt="User Image">
+								<img ng-show="!currentUser().avatar" ng-src="{{currentUser().picture}}" src="/assets/images/profile.png" class="img-circle" alt="User Image">
 							</li>
 							<li class="user-footer">
 								<div class="pull-left">
-									<button href="#" class="app-btn app-btn-blue" ui-sref="profile">Profile</button>
+									<button href="#" class="btn btn-default btn-flat app-btn-blue" ui-sref="profile">Profile</button>
 								</div>
 								<div class="pull-right">
-									<button href="#" class="app-btn app-btn-blue" ng-click="logOut()">Sign out</button>
+									<button href="#" class="btn btn-default btn-flat app-btn-blue" ng-click="logOut()">Sign out</button>
 								</div>
 							</li>
 						</ul>
@@ -50,7 +50,8 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="text-center mobile-profile-image">
-										<img src="/assets/images/profile.png" width="125" height="125" class="img-circle" alt="User Image">
+										<img  ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img-circle" alt="User Image">
+										<img ng-show="!currentUser().avatar" ng-src="{{currentUser().picture}}" src="/assets/images/profile.png" class="img-circle" alt="User Image">
 									</div>
 								</div>
 							</div>
@@ -59,12 +60,12 @@
 							<div class="row">
 								<div class="col-xs-6">
 									<div class="text-center">
-										<button href="#" class="app-btn app-btn-blue" ng-click="goToProgile()">Profile</button>
+										<button href="#" class="btn btn-default btn-flat app-btn-blue" ui-sref="profile">Profile</button>
 									</div>
 								</div>
 								<div class="col-xs-6">
 									<div class="text-center">
-										<button href="#" class="app-btn app-btn-blue" ng-click="logOut()">Sign out</button>
+										<button href="#" class="btn btn-default btn-flat app-btn-blue" ng-click="logOut()">Sign out</button>
 									</div>
 								</div>
 							</div>

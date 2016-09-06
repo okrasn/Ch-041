@@ -46,14 +46,14 @@
 				$scope.newCatObj.category = null;
 			}
 		}
-
+        
 		$scope.addFavourite = function (article) {
 			$scope.error = null;
 			$scope.modalShown = !$scope.modalShown;
 			$scope.favForAdd = article;
 		}
-
-		$scope.confirmAddFavourite = function () {
+		
+        $scope.confirmAddFavourite = function () {
 			$scope.error = '';
 			if ($scope.newCatObj.category) {
 				$scope.obj.category = $scope.newCatObj.category;
@@ -64,6 +64,7 @@
 					return;
 				}
 			}
+            
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
 				$scope.addingNewCategory = false;
@@ -77,7 +78,7 @@
 			});
 		}
 
-		$scope.cancelAddFavourite = function () {
+        $scope.cancelAddFavourite = function () {
 			$scope.modalShown = false;
 			$scope.favForAdd = {};
 		}
@@ -93,7 +94,7 @@
 			$scope.articleForShare = {};
 		}
 
-		$scope.removeFavourite = function (article) {
+        $scope.removeFavourite = function (article) {
 			$scope.favForRemove = article;
 			toasterService.confirm({
 				message: "Remove this article?",
@@ -101,7 +102,7 @@
 			}, $scope);
 		}
 
-		$scope.confirmRemoveFavourite = function () {
+        $scope.confirmRemoveFavourite = function () {
 			articlesService.removeFavourite($scope.favForRemove).then(function (res) {
 				toasterService.info("Article removed from favourites");
 				$state.reload("dashboard");
@@ -110,7 +111,7 @@
 			});
 		}
 
-		$scope.getArticleDate = function (date) {
+        $scope.getArticleDate = function (date) {
 		    if (!date) {
 		        return;
 		    };

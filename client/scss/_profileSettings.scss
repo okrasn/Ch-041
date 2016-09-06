@@ -15,7 +15,14 @@ a.cstmblock {
 	line-height: 30px;
 	font-size: 17px;
 }
+.profile .capitalize{
+	margin-top: 5px;
+}
 
+.form-group.profile {
+	height: 58px;
+	margin-bottom: 0;
+}
 .change-pass {
 	height: 64px;
 	margin-bottom: 0;
@@ -34,8 +41,11 @@ a.cstmblock {
 .change-pass .error {
 	color: #af5050;
 	float: right;
-	margin-bottom: 0;
+}
+
+.change-pass .msg-error,.change-pass .error,.error-msg {
 	font-size: 13px;
+	margin-bottom: 0;
 }
 
 img.img-size {
@@ -48,18 +58,19 @@ img.img-size {
 }
 
 .file-upload {
-	position: relative;
-	overflow: hidden;
-	width: 52%;
-	height: 35px;
-	float: right;
-	background: $navbar-color;
-	border-radius: 4px;
-	margin-top: 15px;
-	padding: 8px 4px;
-	color: #fff;
-	text-align: center;
-	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+	 position: relative;
+	 overflow: hidden;
+	 width: 52%; 
+	 height: 32px; 
+	 float: right;
+	 background: $navbar-color;
+	 border-radius: 4px;
+	 margin-top: 15px;
+	 padding: 8px 4px;
+	 color: #fff;
+	 text-align: center;
+	 box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+	 font-weight: 400;
 }
 
 .file-upload:hover {
@@ -77,7 +88,6 @@ img.img-size {
 .upload {
 	margin: 20px 0 0 0;
 	font-weight: 600;
-}
 
 .no-margin {
 	margin-left: 0;
@@ -106,19 +116,18 @@ img.img-size {
 	display: none;
 }
 
-.file-upload > label {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
-	font-size: 14px;
-}
-
-.file-upload span {
-	line-height: 36px;
+.file-upload>label {
+	 display: block;
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 cursor: pointer;
+	 font-size: 14px;
+	 padding: 6px 12px;
+	 margin-bottom: 0;
+	 font-weight: 400;
 }
 
 .margin-bottom {

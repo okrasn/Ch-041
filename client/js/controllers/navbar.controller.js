@@ -2,11 +2,12 @@
 	'use strict';
 	angular.module('rssreader').controller('NavbarController', ['$scope', '$state','profileService', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
 		function ($scope, $state,profileService, authService, dashboardService, transfer, accountInfo, $auth) {
+			// $scope.profile = profileService.profile;
 			$scope.isLoggedIn = authService.isLoggedIn;
 			$scope.isDashboard = function () {
 				return /dashboard/.test($state.current.name);
 			}
-			$scope.currentUser = authService.currentUser;
+			$scope.currentUser = profileService.refreshProfileData;
 			$scope.toggleSidebar = function () {
 			    $scope.hideMobileNavbar();
 				dashboardService.sidebar = !dashboardService.sidebar;

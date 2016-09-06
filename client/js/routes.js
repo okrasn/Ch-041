@@ -39,6 +39,11 @@
 					url: '/profile',
 					templateUrl: './partials/auth/profile.html',
 					controller: 'ProfileController',
+					resolve: {
+						profilePromise: ['profileService', function(profileService){
+							return profileService.getProfile();
+						}]
+					},
 					onEnter: ['$state', 'authService', function ($state, authService) {
 						if (!authService.isLoggedIn()) {
 							authService.logOut();
@@ -63,6 +68,9 @@
 						}
 					},
 					resolve: {
+						profilePromise: ['profileService', function(profileService){
+							return profileService.getProfile();
+						}],
 						feedPromise: ['feedsService', function (feedsService) {
 							return feedsService.getAllFeeds();
 						}]

@@ -1,6 +1,5 @@
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
 	var that = this;
-	
 	this.DEFAULT_VIEW = 2;
 	this.loadingIcon = false;
 	this.currentArticlesType = 'all';
@@ -31,7 +30,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		return that.sortParam;
 	}
 
-	if (!$window.localStorage.articlesType) {
+    if (!$window.localStorage.articlesType) {
 		$window.localStorage.articlesType = that.currentArticlesType;
 	}
 

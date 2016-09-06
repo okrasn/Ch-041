@@ -1,6 +1,13 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+		if (feedsService.feedsDictionary.length > 0) {
+			dashboardService.setTitle("All");
+			$state.go('dashboard.' + dashboardService.getViewMode());
+		} else {
+			dashboardService.setTitle("Add Feed");
+			$state.go('dashboard.addFeed');
+		}
 		$scope.loadingIcon = dashboardService.isLoading;
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.headTitle = dashboardService.getTitle;
@@ -31,6 +38,7 @@
 		$scope.checkIfToggled = function (mode) {
 			return dashboardService.getViewMode() === mode;
 		}
+        
 		$scope.checkSortType = function (type, order) {
 			var sortType = dashboardService.getSortParam();
 			if (type == sortType.type && order == sortType.order) {
@@ -38,6 +46,7 @@
 			}
 			else return false;
 		}
+        
 		$scope.onViewChange = function (view) {
 			switch (view) {
 				case 'view-mode1':
@@ -52,6 +61,7 @@
 			}
 			$state.go('dashboard.' + dashboardService.getViewMode());
 		}
+		var timer;
 		$scope.onFeedDelete = function () {
 			toasterService.confirm({
 				message: "Remove this feed?",
