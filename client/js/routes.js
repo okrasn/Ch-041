@@ -147,6 +147,7 @@
 				}
 			});
 			$authProvider.twitter({
+				clientId: '768721225971560448',
 				url: '/auth/twitter',
 				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
 				redirectUri: window.location.origin,
@@ -157,9 +158,10 @@
 				}
 			});
 			$authProvider.linkedin({
+				clientId: '78ffzenowt180q',
 				url: '/auth/linkedin',
 				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-				redirectUri: window.location.origin,
+				redirectUri: 'http://localhost:8080',
 				requiredUrlParams: ['state'],
 				scope: ['r_emailaddress'],
 				scopeDelimiter: ' ',

@@ -7,5 +7,6 @@ module.exports = {
 	GOOGLE_SECRET: process.env.GOOGLE_SECRET || 'pGT_4I5yjrhPGyohUyTEKsqe',
 
 	TWITTER_KEY: process.env.TWITTER_KEY || 'dMtO7Tp6iLeG1xI1cknfuwMQd',
-	TWITTER_SECRET: process.env.TWITTER_SECRET || '9ld2ELLenIzJCVYICQwhqFkAtALYijgypuAomgsDer1FzCX62E'
+	TWITTER_SECRET: process.env.TWITTER_SECRET || '9ld2ELLenIzJCVYICQwhqFkAtALYijgypuAomgsDer1FzCX62E',
+	LINKEDIN_SECRET: process.env.LINKEDIN_SECRET || '7pYAnN0nJf8ZiDVB'
 }

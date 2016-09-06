@@ -24,6 +24,7 @@ router.post('/changePassword', authCtrl.changePassword);
 router.post('/auth/google', authCtrl.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
 router.post('/auth/twitter', authCtrl.twitterAuth);
+router.post('/auth/linkedin', authCtrl.linkedIdAuth);
 router.post('/auth/unlink', authCtrl.unlink);
 router.get('/api/me', authCtrl.getUserInfo);
 router.put('/api/me', authCtrl.putUserInfo);
