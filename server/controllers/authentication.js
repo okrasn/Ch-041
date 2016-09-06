@@ -567,17 +567,20 @@ module.exports.twitterAuth = function(req, res) {
               }
 
               user.twitter = profile.id;
-              user.email = profile.email;
               user.displayName = user.displayName || profile.name;
               user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
               user.save(function(err) {
-                res.send({ token: createJWT(user) });
+              	var token = createJWT(user);
+                res.send({
+                 token: token,
+                 profile: profile  
+             });
               });
             });
           });
         } else {
           // Step 5b. Create a new user account or return an existing one.
-          User.findOne({ twitter: profile.sub }, function(err, existingUser) {
+          User.findOne({ twitter: profile.id }, function(err, existingUser) {
             if (existingUser) {
               return res.send({ token: createJWT(existingUser) });
             }
@@ -588,7 +591,11 @@ module.exports.twitterAuth = function(req, res) {
             user.displayName = profile.name;
             user.picture = profile.profile_image_url_https.replace('_normal', '');
             user.save(function() {
-              res.send({ token: createJWT(user) });
+            	var token = createJWT(user);
+              	res.send({ 
+              		token: token,
+              		profile: profile 
+              	});
             });
           });
         }
@@ -649,7 +656,7 @@ module.exports.linkedIdAuth = function(req, res) {
             return res.send({ token: createJWT(existingUser) });
           }
           var user = new User();
-          user.email = profile.email;
+          //user.email = profile.email;
           user.linkedin = profile.id;
           user.picture = profile.pictureUrl;
           user.displayName = profile.firstName + ' ' + profile.lastName;
@@ -665,7 +672,7 @@ module.exports.linkedIdAuth = function(req, res) {
 
 module.exports.unlink = function (req, res) {
 	var provider = req.body.provider
-	providers = ['facebook', 'google', 'linkedin'];
+	providers = ['facebook', 'google', 'linkedin','twitter'];
 	if (providers.indexOf(provider) === -1) {
 		return res.status(400).send({
 			message: 'Unknown OAuth Provider'
