@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', 
+		function ($scope, $state, dashboardService, feedsService, toasterService) {
 		if (feedsService.feedsDictionary.length > 0) {
 			dashboardService.setTitle("All");
 			$state.go('dashboard.' + dashboardService.getViewMode());

@@ -7,7 +7,7 @@
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$auth.setStorageType('sessionStorage');
+		$auth.setStorageType('localStorage');
 		$scope.user = {
 			verifyEmail : transfer.getString()
 		};
