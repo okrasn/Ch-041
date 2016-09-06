@@ -8,44 +8,31 @@
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
 		function (Upload, $http, $state, profileService, $scope,
 			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
-
-			$scope.getProfile = function () {
-				accountInfo.getProfile().then(function (response) {
-					if ($auth.isAuthenticated()) {
-						var lenght = response.data.user.length;
-						for (var i = 0; i < lenght; i++) {
-							if (response.data.user[i].email === $auth.getPayload().email) {
-								$scope.profile = response.data.user[i];
-							}
-						}
-					}
-				})
-			};
-			$scope.getProfile();
+			$scope.currentUser = profileService.refreshProfileData;
+			
 			$scope.link = function (provider) {
 				$auth.link(provider).then(function () {
 					toasterService.info('You have successfully linked a ' + provider + ' account');
-					$scope.getProfile();
+					profileService.getProfile();
 				});
 			};
 
 			$scope.unlink = function (provider) {
 				$http.post('/auth/unlink', {
-					id: $scope.profile._id,
+					id: profileService.refreshProfileData()._id,
 					provider: provider
 				}).then(function (response) {
 					toasterService.info('You have unlinked a ' + provider + ' account');
-					$scope.getProfile();
+					profileService.getProfile();
 				});
 			};
 
 			$scope.updateProfile = function () {
-				$scope.getProfile();
+				profileService.getProfile();
 			};
 
-			$scope.currentUser = authService.currentUser();
 			$scope.newUserData = {
-				email: authService.currentUser(),
+				email: profileService.refreshProfileData().email,
 				currentPass: "",
 				newPass: "",
 				newPassRepeat: ""
@@ -67,8 +54,7 @@
 					} //pass file as data, should be user ng-model
 				}).then(function (resp) { //upload function returns a promise
 					if (resp.data.error_code === 0) { //validate success
-						$scope.getProfile();
-						profileService.setImagePath();
+						profileService.getProfile();
 					} else {
 						$window.alert('an error occured');
 					}
@@ -100,6 +86,7 @@
 							Authorization: 'Bearer ' + authService.getToken()
 						}
 					}).success(function (data) {
+						toasterService.success('You have successfully changed pswd');
 						authService.saveToken(data.token);
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
@@ -151,6 +138,6 @@
 
 			$scope.layout = themeService.layout;
 			$scope.layouts = themeService.layouts;
-        }
-    ]);
+		}
+	]);
 })();

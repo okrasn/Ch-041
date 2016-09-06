@@ -5,18 +5,27 @@
 		|Profile
 		</h2>
 		<form name="upload_form">
-			<div class="form-group">
+			<div class="form-group profile" ng-show="currentUser().displayName">
+				<div class="row">
+					<label class="col-xs-5 capitalize">User Name:</label>
+					<div class="col-xs-7">
+						<input class="form-control" type="text" ng-model="currentUser().displayName" disabled>
+					</div>
+				</div>
+			</div>
+			<div class="form-group profile">
 				<div class="row">
 					<label class="col-xs-5 capitalize">your email:</label>
 					<div class="col-xs-7">
-						<input class="form-control" type="text" ng-model="currentUser" disabled>
+						<input class="form-control" type="text" ng-model="currentUser().email" disabled>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="row">
 					<div class="col-xs-5">
-						<img ng-src="{{profile.avatar}}" class="img-size" name="image" alt="User Image">
+						<img  ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img img-thumbnail img-size" name="image" alt="User Image">
+						<img ng-show="!currentUser().avatar" class="img img-thumbnail img-size" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
 					</div>
 					<div class="col-xs-7">
 						<input type="text" class="form-control" value="{{file.name}}" name="" disabled>
@@ -31,14 +40,15 @@
 						<i ng-show="upload_form.file.$error.required">*required</i>
 						<br>
 						<i class="error-msg" ng-show="upload_form.file.$error.maxSize">File too large 
-			                {{file.size / 1000000|number:1}}MB: max 1M</i>
+							{{file.size / 1000000|number:1}}MB: max 1M</i>
 					</div>
 				</div>
 			</div>
 		</form>
+		<hr>
 		<div class="row">
 			<div class="col-xs-12 no-margin">
-				<button class="btn btn-md app-btn-blue text-uppercase pull-left social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
+				<button class="btn btn-md app-btn-blue text-uppercase pull-right social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
 			</div>
 		</div>
 		<form name="changePassForm" class="fade-in-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
@@ -64,7 +74,7 @@
 					<div class="col-sm-7">
 						<input name="repeatNewPassword" id="repeatNewPassword" class="form-control" type="password" ng-model="newUserData.newPassRepeat" ng-required pw-check="newPassword">
 						<span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
-							Passwords does't match.</span>
+							Passwords does't match</span>
 					</div>
 				</div>
 			</div>
@@ -84,21 +94,16 @@
 		</form>
 		<div class="row">
 			<div class="col-xs-12">
-				<button ng-click='updateProfile()' class="btn btn-md app-btn-blue social_btn ">Update info</button>
-				<p class="user_ava">User Avatar: </p>
-				<img ng-show="!profile.avatar" class="img img-thumbnail avatar_image" alt='user picture' src='{{profile.picture}}'>
-				<p class="user_name">User Name: {{profile.displayName}} </p>
-				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="profile.facebook" ng-click="unlink('facebook')">
+				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
 					<i class="ion-social-facebook"></i> Unlink Facebook Account
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn " ng-if="!profile.facebook" ng-click="link('facebook')">
+				<button class="btn btn-md app-btn-blue social_btn " ng-if="!currentUser().facebook" ng-click="link('facebook')">
 					<i class="ion-social-facebook"></i> Link Facebook Account
 				</button>
-
-				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="profile.google" ng-click="unlink('google')">
+				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().google" ng-click="unlink('google')">
 					<i class="ion-social-googleplus"></i> Unlink Google Account
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn" ng-if="!profile.google" ng-click="link('google')">
+				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().google" ng-click="link('google')">
 					<i class="ion-social-googleplus"></i> Link Google Account
 				</button>
 			</div>
