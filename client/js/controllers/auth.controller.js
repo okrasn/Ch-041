@@ -17,6 +17,7 @@
 		};
 		$scope.confirm_email = {};
 		$scope.session;
+
 		var ERRORS = {
 			field_required: 'This field is required',
 			email_example: 'Please, use example: jacksparrow@gmail.com',
@@ -43,6 +44,7 @@
 
 		$scope.logIn = function (form) {
 			if (form.validate()) {
+				console.log($scope.user);
 				authService.logIn($scope.user, $scope.session).error(function (error) {
 					$scope.error = error;
 				}).then(function () {
