@@ -1,4 +1,3 @@
-
 angular.module('rssreader')
 	.factory('accountInfo', ['$http', function ($http) {
 		return {

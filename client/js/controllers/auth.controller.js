@@ -17,6 +17,7 @@
 		};
 		$scope.confirm_email = {};
 		$scope.session;
+
 		var ERRORS = {
 			field_required: 'This field is required',
 			email_example: 'Please, use example: jacksparrow@gmail.com',
@@ -30,6 +31,9 @@
 			if (form.validate()) {
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
+					if(error.message[0] === "F"){
+						toasterService.info(error.message);		
+					}
 					toasterService.error(error.message);
 				}).then(function (response) {
 					console.log(response);
@@ -43,6 +47,7 @@
 
 		$scope.logIn = function (form) {
 			if (form.validate()) {
+				console.log($scope.user);
 				authService.logIn($scope.user, $scope.session).error(function (error) {
 					$scope.error = error;
 				}).then(function () {
@@ -85,6 +90,7 @@
 		};	
 
 		$scope.authenticate = function (provider) {
+			transfer.setString(provider);
 			$auth.authenticate(provider).then(function (response) {
 				authService.saveToken(response.data.token);
 				toasterService.success('You have successfully authenticated');
