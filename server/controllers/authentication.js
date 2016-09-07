@@ -41,7 +41,7 @@ function createJWT(user) {
 		sub: user._id,
 		email: user.email,
 		iat: moment().unix(),
-		exp: moment().add(10, 'days').unix()
+		exp: moment().add(1, 'days').unix()
 	};
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
@@ -569,7 +569,7 @@ module.exports.twitterAuth = function(req, res) {
               user.twitter = profile.id;
               user.displayName = user.displayName || profile.name;
               user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
-              user.save(function(err) {
+              user.save(function () {
               	var token = createJWT(user);
                 res.send({
                  token: token,
@@ -580,22 +580,21 @@ module.exports.twitterAuth = function(req, res) {
           });
         } else {
           // Step 5b. Create a new user account or return an existing one.
-          User.findOne({ twitter: profile.id }, function(err, existingUser) {
+          User.findOne({ email: profile.id }, function(err, existingUser) {
             if (existingUser) {
               return res.send({ token: createJWT(existingUser) });
             }
 
             var user = new User();
+            user.email = profile.id;
             user.twitter = profile.id;
-            user.email = profile.email;
             user.displayName = profile.name;
             user.picture = profile.profile_image_url_https.replace('_normal', '');
-            user.save(function() {
+            user.save(function () {
             	var token = createJWT(user);
               	res.send({ 
               		token: token,
-              		profile: profile,
-              		user: user 
+              		profile : profile
               	});
             });
           });
@@ -644,7 +643,7 @@ module.exports.linkedIdAuth = function(req, res) {
             user.linkedin = profile.id;
             user.picture = user.picture || profile.pictureUrl;
             user.displayName = user.displayName || profile.firstName + ' ' + profile.lastName;
-            user.save(function() {
+            user.save(function () {
               var token = createJWT(user);
               res.send({ token: token });
             });
@@ -657,13 +656,16 @@ module.exports.linkedIdAuth = function(req, res) {
             return res.send({ token: createJWT(existingUser) });
           }
           var user = new User();
-          //user.email = profile.email;
+          user.email = profile.emailAddress;
           user.linkedin = profile.id;
           user.picture = profile.pictureUrl;
           user.displayName = profile.firstName + ' ' + profile.lastName;
-          user.save(function() {
+          user.save(function () {
             var token = createJWT(user);
-            res.send({ token: token });
+            res.send({ 
+            	token: token,
+            	profile : profile	
+            });
           });
         });
       }

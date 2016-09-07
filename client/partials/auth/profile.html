@@ -94,17 +94,23 @@
 		</form>
 		<div class="row">
 			<div class="col-xs-12">
-				<button hg-hide='currentUser().facebook === sameProvider' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
+				<button ng-hide='same' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
 					<i class="ion-social-facebook"></i> Unlink Facebook Account
 				</button>
 				<button class="btn btn-md app-btn-blue social_btn " ng-if="!currentUser().facebook" ng-click="link('facebook')">
 					<i class="ion-social-facebook"></i> Link Facebook Account
 				</button>
-				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().google" ng-click="unlink('google')">
+				<button ng-hide='same' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().google" ng-click="unlink('google')">
 					<i class="ion-social-googleplus"></i> Unlink Google Account
 				</button>
 				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().google" ng-click="link('google')">
 					<i class="ion-social-googleplus"></i> Link Google Account
+				</button>
+				<button ng-hide='same' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().twitter" ng-click="unlink('twitter')">
+					<i class="ion-social-twitter"></i> Unlink Twitter Account
+				</button>
+				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().twitter" ng-click="link('twitter')">
+					<i class="ion-social-twitter"></i> Link Twitter Account
 				</button>
 			</div>
 		</div>

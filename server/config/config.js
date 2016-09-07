@@ -6,7 +6,8 @@ module.exports = {
 	FACEBOOK_SECRET: process.env.FACEBOOK_SECRET || '413152de5ff6197790927d4052263ab1',
 	GOOGLE_SECRET: process.env.GOOGLE_SECRET || 'pGT_4I5yjrhPGyohUyTEKsqe',
 
+	LINKEDIN_SECRET: process.env.LINKEDIN_SECRET || '7pYAnN0nJf8ZiDVB',
+	// OAuth 1.0
 	TWITTER_KEY: process.env.TWITTER_KEY || 'dMtO7Tp6iLeG1xI1cknfuwMQd',
-	TWITTER_SECRET: process.env.TWITTER_SECRET || '9ld2ELLenIzJCVYICQwhqFkAtALYijgypuAomgsDer1FzCX62E',
-	LINKEDIN_SECRET: process.env.LINKEDIN_SECRET || '7pYAnN0nJf8ZiDVB'
+	TWITTER_SECRET: process.env.TWITTER_SECRET || '9ld2ELLenIzJCVYICQwhqFkAtALYijgypuAomgsDer1FzCX62E'
 }

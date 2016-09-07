@@ -9,12 +9,14 @@
 		function (Upload, $http, $state, profileService, $scope,
 			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
 			$scope.currentUser = profileService.refreshProfileData;
-			$scope.sameProvider = transfer.getString();
+			$scope.sameProvider = transfer.getProviderString();
 			console.log($scope.sameProvider);
 			$scope.link = function (provider) {
 				$auth.link(provider).then(function () {
 					toasterService.info('You have successfully linked a ' + provider + ' account');
 					profileService.getProfile();
+				}, function (response) {
+					toasterService.error(response.data.message);
 				});
 			};
 
@@ -30,6 +32,7 @@
 
 			$scope.updateProfile = function () {
 				profileService.getProfile();
+				console.log(profileService.getProfile());
 			};
 
 			$scope.newUserData = {
@@ -57,7 +60,7 @@
 					if (resp.data.error_code === 0) { //validate success
 						profileService.getProfile();
 					} else {
-						$window.alert('an error occured');
+						toasterService.error('an error occured');
 					}
 				}, function (resp) { //catch error
 					console.log('Error status: ' + resp.status);

@@ -7,7 +7,7 @@
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$auth.setStorageType('localStorage');
+		// $auth.setStorageType('localStorage');
 		$scope.user = {
 			verifyEmail : transfer.getString()
 		};
@@ -90,13 +90,14 @@
 		};	
 
 		$scope.authenticate = function (provider) {
-			transfer.setString(provider);
+			transfer.setProviderString(provider);
 			$auth.authenticate(provider).then(function (response) {
+				$auth.removeToken();
 				authService.saveToken(response.data.token);
 				toasterService.success('You have successfully authenticated');
-				$state.go('dashboard.' + dashboardService.getViewMode(), {
-					id: authService.userID()
-				});
+				$state.go('dashboard.' + dashboardService.getViewMode());
+			},function (response) {
+				toasterService.error(response.data.message);
 			})
 		};
 

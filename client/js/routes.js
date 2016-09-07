@@ -120,6 +120,29 @@
 						dashboardService.setTitle("Add Feed");
 					}]
 				});
+			
+			$authProvider.twitter({
+				clientId: '768721225971560448',
+				url: '/auth/twitter',
+				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+				redirectUri: 'http://localhost:8080',
+				oauthType: '1.0',
+				popupOptions: {
+					width: 495,
+					height: 645
+				}
+			});
+			$authProvider.linkedin({
+				clientId: '78ffzenowt180q',
+				url: '/auth/linkedin',
+				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
+				redirectUri: 'http://localhost:8080',
+				requiredUrlParams: ['state'],
+				scopeDelimiter: ' ',
+				state: 'STATE',
+				oauthType: '2.0',
+				popupOptions: { width: 527, height: 582 }
+			});
 			$authProvider.facebook({
 				clientId: '173686319709284',
 				name: 'facebook',
@@ -153,29 +176,6 @@
 					width: 452,
 					height: 633
 				}
-			});
-			$authProvider.twitter({
-				clientId: '768721225971560448',
-				url: '/auth/twitter',
-				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-				redirectUri: window.location.origin,
-				oauthType: '1.0',
-				popupOptions: {
-					width: 495,
-					height: 645
-				}
-			});
-			$authProvider.linkedin({
-				clientId: '78ffzenowt180q',
-				url: '/auth/linkedin',
-				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-				redirectUri: 'http://localhost:8080',
-				requiredUrlParams: ['state'],
-				scope: ['r_emailaddress'],
-				scopeDelimiter: ' ',
-				state: 'STATE',
-				oauthType: '2.0',
-				popupOptions: { width: 527, height: 582 }
 			});
 	}]);
 })();
