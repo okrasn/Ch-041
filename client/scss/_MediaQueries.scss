@@ -149,21 +149,22 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $phone-res) {
-	.add-feed-form{
+	.center-children-mobile {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.add-feed-form {
 		margin-top: $main-app-offset/2;
 	}
-	#add-feed [class*=' col-']{
-		padding: 0 $main-app-offset/2 0 $main-app-offset/2;
-	}
-	.cstmform-border{
+
+	.cstmform-border {
 		margin: $main-app-offset/2 0 $main-app-offset/2 0;
+		padding: 1em;
 	}
 
-	#login[class*=' col-'] {
-		padding: 0 $main-app-offset/2 0 $main-app-offset/2;
-	}
-
-	#register[class*=' col-'] {
+	.mobile-half-padding, {
 		padding: 0 $main-app-offset/2 0 $main-app-offset/2;
 	}
 
@@ -292,5 +293,10 @@ $desktop-res: 1200px;
 
 	.sidebar-item .sidebar-sub-item {
 		padding-left: 20px;
+	}
+
+	.profile-img-square {
+		width: 200px;
+		height: 200px;
 	}
 }

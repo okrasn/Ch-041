@@ -22,6 +22,11 @@
 			    angular.element(document.querySelector("#bs-example-navbar-collapse-1")).removeClass('in');
 			}
 
+			$scope.toProfile = function () {
+			    $scope.hideMobileNavbar();
+			    $state.go("profile");
+			}
+
 			$scope.logOut = function () {
 			    $scope.hideMobileNavbar();
 				authService.logOut();

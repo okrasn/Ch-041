@@ -21,8 +21,8 @@
 				$scope.obj.category = $scope.newCategory;
 			}
 			if (!$scope.obj.category) {
-			    $scope.error = "Choose category";
-			    return;
+				$scope.error = "Choose category";
+				return;
 			}
 			if (!$scope.newCategory && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 				$scope.error = "Enter new category name";
@@ -32,7 +32,7 @@
 				.then(function (res) {
 					$scope.addingNewCategory = false;
 					toasterService.success("Feed successfully added");
-                    $state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
+					$state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
 				}, function (err) {
 					if (!err.data)
 						$scope.error = err.message;

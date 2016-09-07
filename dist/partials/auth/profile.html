@@ -1,115 +1,121 @@
-<div class="col-xs-12 col-md-offset-3 col-md-6">
-	<div class="cstmform-border profile card">
-		<h2 class="header">
-			<span class="orange">Your</span>
-		|Profile
-		</h2>
-		<form name="upload_form">
-			<div class="form-group profile" ng-show="currentUser().displayName">
-				<div class="row">
-					<label class="col-xs-5 capitalize">User Name:</label>
-					<div class="col-xs-7">
-						<input class="form-control" type="text" ng-model="currentUser().displayName" disabled>
-					</div>
-				</div>
-			</div>
-			<div class="form-group profile">
-				<div class="row">
-					<label class="col-xs-5 capitalize">your email:</label>
-					<div class="col-xs-7">
-						<input class="form-control" type="text" ng-model="currentUser().email" disabled>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-5">
-						<img ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img img-thumbnail img-size" name="image" alt="User Image">
-						<img ng-show="!currentUser().avatar" class="img img-thumbnail img-size" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
-					</div>
-					<div class="col-xs-7">
-						<button class="app-btn app-btn-blue" ngf-select="upload($file, $invalidFiles)"
-								ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
-							<span class="fa fa-upload" style="margin-right: 0.5em;"></span>
-							Select File
-						</button>
-						<span ng-bind="f.name"></span>
-						<div class="alert alert-danger text-center fading-anim" role="alert" ng-show="errFile">
-							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-							<span class="sr-only">Error:</span>
-							<span ng-bind="errFile.$error"></span>
-							<span ng-bind="errFile.$errorParam"></span>
-						</div>
-						<span class="error-msg" ng-show="upload_form.file.$error.maxSize">
-							File too large
-							{{file.size / 1000000|number:1}}MB: max 1M
-						</span>
-					</div>
-				</div>
-			</div>
-		</form>
-		<hr>
-		<div class="row">
-			<div class="col-xs-12 no-margin">
-				<button class="app-btn app-btn-blue social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
-			</div>
-		</div>
-		<form name="changePassForm" class="fading-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
-			<div class="form-group change-pass">
-				<div class="row">
-					<label class="col-sm-5 capitalize" for="currentPassword">current password:</label>
-					<div class="col-sm-7">
-						<input name="currentPassword" id="currentPassword" class="form-control" type="password" ng-model="newUserData.currentPass">
-					</div>
-				</div>
-			</div>
-			<div class="form-group change-pass">
-				<div class="row">
-					<label class="col-sm-5 capitalize" for="newPassword">new password:</label>
-					<div class="col-sm-7">
-						<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.newPass" ng-required>
-					</div>
-				</div>
-			</div>
-			<div class="form-group change-pass">
-				<div class="row">
-					<label class="col-sm-5 capitalize" for="repeatNewPassword">confirm password:</label>
-					<div class="col-sm-7">
-						<input name="repeatNewPassword" id="repeatNewPassword" class="form-control" type="password" ng-model="newUserData.newPassRepeat" ng-required pw-check="newPassword">
-						<span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
-							Passwords does't match</span>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="save-reset">
-						<button type="submit" class="app-btn app-btn-blue">save</button>
-						<button type="reset" class="app-btn app-btn-blue">reset</button>
-					</div>
-				</div>
-			</div>
-			<div class="alert alert-danger text-center animate-error" role="alert" ng-show="err">
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				<span class="sr-only">Error:</span>
-				<span ng-bind="err.message"></span>
-			</div>
-		</form>
-		<div class="row">
-			<div class="col-xs-12">
-				<button class="app-btn app-btn-red" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
-					<i class="ion-social-facebook"></i> Unlink <span class="fa fa-facebook-official btn-social-icon"></span>
-				</button>
-				<button class="app-btn app-btn-blue" ng-if="!currentUser().facebook" ng-click="link('facebook')">
-					<i class="ion-social-facebook"></i> Link <span class="fa fa-facebook-official btn-social-icon"></span>
-				</button>
-				<button class="app-btn app-btn-red" ng-if="currentUser().google" ng-click="unlink('google')">
-					<i class="ion-social-googleplus"></i> Unlink <span class="fa fa-google-plus-square btn-social-icon"></span>
-				</button>
-				<button class="app-btn app-btn-blue" ng-if="!currentUser().google" ng-click="link('google')">
-					<i class="ion-social-googleplus"></i> Link <span class="fa fa-google-plus-square btn-social-icon"></span>
-				</button>
-			</div>
-		</div>
-	</div>
+<div id="profile">
+    <div class="row">
+        <div class="mobile-half-padding col-xs-12 col-md-offset-3 col-md-6">
+            <div class="cstmform-border card">
+                <h2 class="header">
+                    <span class="orange">Your</span>
+                    |Profile
+                </h2>
+                <form name="upload_form">
+                    <div class="form-group" ng-show="currentUser().displayName">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-5 capitalize">User Name:</label>
+                            <div class="col-xs-15 col-sm-7">
+                                <input class="form-control" type="text" ng-model="currentUser().displayName" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-xs-12 col-sm-5 capitalize">your email:</label>
+                            <div class="col-xs-12 col-sm-7">
+                                <input class="form-control" type="text" ng-model="currentUser().email" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-5 center-children">
+                                <img ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img-circle profile-img-square" name="image" alt="User Image">
+                                <img ng-show="!currentUser().avatar" class="img-circle profile-img-square" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
+                            </div>
+                            <div class="col-xs-12 col-sm-7">
+                                <div class="center-children">
+                                    <button class="app-btn app-btn-blue centered-block" ngf-select="upload($file, $invalidFiles)"
+                                            ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
+                                        <span class="fa fa-upload" style="margin-right: 0.5em;"></span>
+                                        Select File
+                                    </button>
+                                </div>
+                                <div class="text-center">
+                                    <span ng-bind="f.name"></span>
+                                </div>
+                                <div class="alert alert-danger text-center fading-anim" role="alert" ng-show="errFile">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span>
+                                    <span ng-bind="errFile.$error"></span>
+                                    <span ng-bind="errFile.$errorParam"></span>
+                                </div>
+                                <span class="error-msg" ng-show="upload_form.file.$error.maxSize">
+                                    File too large
+                                    {{file.size / 1000000|number:1}}MB: max 1M
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12 center-children-mobile">
+                        <button class="app-btn app-btn-blue social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
+                    </div>
+                </div>
+                <form name="changePassForm" class="fading-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-5 capitalize" for="currentPassword">current password:</label>
+                            <div class="col-sm-7">
+                                <input name="currentPassword" id="currentPassword" class="form-control" type="password" ng-model="newUserData.currentPass">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-5 capitalize" for="newPassword">new password:</label>
+                            <div class="col-sm-7">
+                                <input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.newPass" ng-required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-5 capitalize" for="repeatNewPassword">confirm password:</label>
+                            <div class="col-sm-7">
+                                <input name="repeatNewPassword" id="repeatNewPassword" class="form-control" type="password" ng-model="newUserData.newPassRepeat" ng-required pw-check="newPassword">
+                                <span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
+                                    Passwords does't match
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="center-children">
+                        <button class="app-btn app-btn-blue margin-right">save</button>
+                        <button class="app-btn app-btn-blue margin-left">reset</button>
+                    </div>
+                    <div class="alert alert-danger text-center animate-error" role="alert" ng-show="err">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <span ng-bind="err.message"></span>
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="app-btn app-btn-red" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
+                            <i class="ion-social-facebook"></i> Unlink <span class="fa fa-facebook-official btn-social-icon"></span>
+                        </button>
+                        <button class="app-btn app-btn-blue" ng-if="!currentUser().facebook" ng-click="link('facebook')">
+                            <i class="ion-social-facebook"></i> Link <span class="fa fa-facebook-official btn-social-icon"></span>
+                        </button>
+                        <button class="app-btn app-btn-red" ng-if="currentUser().google" ng-click="unlink('google')">
+                            <i class="ion-social-googleplus"></i> Unlink <span class="fa fa-google-plus-square btn-social-icon"></span>
+                        </button>
+                        <button class="app-btn app-btn-blue" ng-if="!currentUser().google" ng-click="link('google')">
+                            <i class="ion-social-googleplus"></i> Link <span class="fa fa-google-plus-square btn-social-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
