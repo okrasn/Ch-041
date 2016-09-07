@@ -1,60 +1,60 @@
 ﻿<div id="article-page">
-    <div class="row">
-        <div class="col-lg-9">
-            <div class="card clearfix">
-                <h2 ng-bind="articleForRead.title"></h2>
-                <div class="article-row">
-                    <span class="article-page-time-icon glyphicon glyphicon-time"></span>
-                    <span class="article-page-date" ng-bind="getArticleDate(articleForRead.date)"></span>
-                </div>
-                <div class="article-row">
-                    <img class="article-image" ng-src="{{articleForRead.img}}" alt="" />
-                </div>
-                <div class="article-row">
-                    <p ng-bind="articleForRead.content"></p>
-                </div>
-                <div class="article-row">
-                    <span class="article-footer-item glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="isFavourites()"></span>
-                    <span class="article-footer-item fa fa-share-alt onhover-green" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
-                </div>
-                <div class="center-children">
-                    <a class="app-btn app-btn-blue" href="{{articleForRead.link}}"><span>Continue reading</span></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <h4>Also read</h4>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-lg-9">
+			<div class="card clearfix">
+				<h2 ng-bind="articleForRead.title"></h2>
+				<div class="article-row">
+					<span class="article-page-time-icon glyphicon glyphicon-time"></span>
+					<span class="article-page-date" ng-bind="getArticleDate(articleForRead.date)"></span>
+				</div>
+				<div class="article-row">
+					<img class="article-image" ng-src="{{articleForRead.img}}" alt="" />
+				</div>
+				<div class="article-row">
+					<p ng-bind="articleForRead.content"></p>
+				</div>
+				<div class="article-row">
+					<span class="article-footer-item glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="isFavourites()"></span>
+					<span class="article-footer-item fa fa-share-alt onhover-green" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
+				</div>
+				<div class="center-children">
+					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}"><span>Continue reading</span></a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<h4>Also read</h4>
+		</div>
+	</div>
 </div>
 <modal show='modalShown'>
-    <h4 class="uppercase">add to favourites</h4>
-    <div class="modal-row">
-        <select id="category"
-                class="form-control form-input"
-                ng-model="obj.category"
-                ng-options="category for category in categories()"
-                ng-change="checkIfNew()"
-                uib-tooltip="To enter custom category choose 'custom'"
-                tooltip-trigger="'focus'"
-                tooltip-placement="right">
-            <option value="" disabled selected hidden>Choose</option>
-        </select>
-    </div>
-    <div class="modal-row">
-        <input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCatObj.category" ng-show="addingNewFavCategory" maxlength="25">
-        </input>
-    </div>
-    <div class="modal-row">
-        <div class="center-children">
-            <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
-        </div>
-    </div>
-    <div class="modal-row">
-        <div class="alert alert-danger text-center fading-anim" role="alert" ng-show="error">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            <span ng-bind="error"></span>
-        </div>
-    </div>
+	<h4 class="uppercase">add to favourites</h4>
+	<div class="modal-row">
+		<select id="category"
+				class="form-control form-input"
+				ng-model="obj.category"
+				ng-options="category for category in categories()"
+				ng-change="checkIfNew()"
+				uib-tooltip="To enter custom category choose 'custom'"
+				tooltip-trigger="'focus'"
+				tooltip-placement="right">
+			<option value="" disabled selected hidden>Choose</option>
+		</select>
+	</div>
+	<div class="modal-row">
+		<input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCatObj.category" ng-show="addingNewFavCategory" maxlength="25">
+		</input>
+	</div>
+	<div class="modal-row">
+		<div class="center-children">
+			<button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+		</div>
+	</div>
+	<div class="modal-row">
+		<div class="alert alert-danger text-center fading-anim" role="alert" ng-show="error">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+			<span class="sr-only">Error:</span>
+			<span ng-bind="error"></span>
+		</div>
+	</div>
 </modal>

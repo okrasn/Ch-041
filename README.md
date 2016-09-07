@@ -19,3 +19,70 @@ Application (server & client) deployed to [AZURE](https://azure.microsoft.com/ru
 $ npm start
 ```
 3. Visit __localhost:8080__ in your browser
+
+#### Development workflow
+
+Our application has folowing structure
+
+##### Folders sctructure
+```
++---client                // front-end
+|   +---assets
+|   |   \---images
+|   +---css
+|   +---e2e
+|   +---fonts
+|   +---js
+|   |   +---controllers
+|   |   +---directives
+|   |   +---services
+|   |   \---tests
+|   +---partials
+|   |   +---auth
+|   |   +---dashboard
+|   |   +---list
+|   |   +---modals
+|   |   \---static
+|   +---scss
+|   |   \---modals
+|   \---uploads
++---dist                   // optimized version of 'client' folder build with Gulp
+|   +---assets
+|   |   \---images
+|   +---css
+|   +---fonts
+|   +---partials
+|   |   +---auth
+|   |   +---dashboard
+|   |   +---list
+|   |   +---modals
+|   |   \---static
+|   +---scripts
+|   \---uploads
++---docs
+|   \---assets
+\---server                 // back-end
+    +---assets
+    |   \---images
+    +---config
+    +---controllers
+    +---models
+    \---routes
+```
+
+As you might noticed, server and client are separated into folders correspondingly.
+While we have __./client__ folder for front-end development. However, server exposes client from folder called __./dist__. This folder contains all used libraries, Angular scripts, styles and others in optimized (minificated) form.
+
+##### Building our front-end with GULP
+To generate optimized form of front-end part of our app we are using __Gulp__ task runner.
+Gulp tasks can be found in the following table:
+
+| Tasks        | Porpose           | Useage  |
+| ------------- |:-------------:| -----:|
+| sass| compile sass styles | gulp sass |
+| scripts      | concats and minifies all scripts in ./client/js |   gulp scripts |
+| main | watch for changes in *.sass and *.js files and performs above tasks|    gulp main |
+| build | concats all libraries from __bower_components__ and js files into one minified file, same for styles, optimizes our __index.html__ | gulp build |
+| server | runs server | gulp server |
+
+
