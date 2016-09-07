@@ -19,6 +19,7 @@
 			userID: function () {
 				if (auth.isLoggedIn()) {
 					var payload = $auth.getPayload();
+					console.log(payload.sub);
 					return payload.sub;
 				}
 			},
