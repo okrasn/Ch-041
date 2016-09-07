@@ -18,7 +18,7 @@ var exec = require('child_process').exec,
 //	if (err) console.error(err);
 //});
 
-mkdirp.sync('./client/uploads', function (err) {
+mkdirp.sync('./dist/uploads', function (err) {
 	if (err) console.error(err);
 });
 

@@ -4,7 +4,7 @@ var multer = require('multer'),
     User = mongoose.model('User'),
     storage = multer.diskStorage({ //multers disk storage settings
         destination: function (req, file, cb) {
-            cb(null, './client/uploads/');
+            cb(null, './dist/uploads/');
         },
         filename: function (req, file, cb) {
             var datetimestamp = Date.now();

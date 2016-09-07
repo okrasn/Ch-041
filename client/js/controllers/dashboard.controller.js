@@ -1,13 +1,6 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
-		if (feedsService.feedsDictionary.length > 0) {
-			dashboardService.setTitle("All");
-			$state.go('dashboard.' + dashboardService.getViewMode());
-		} else {
-			dashboardService.setTitle("Add Feed");
-			$state.go('dashboard.addFeed');
-		}
 		$scope.loadingIcon = dashboardService.isLoading;
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.headTitle = dashboardService.getTitle;
