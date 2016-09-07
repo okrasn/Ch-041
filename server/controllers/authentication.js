@@ -115,14 +115,14 @@ module.exports.login = function (req, res) {
 	}, '+password', function (err, user) {
 		if (!user) {
 			return res.status(401).send({
-				message: 'Invalid email and/or password email'
+				message: ERRORS.invalid_data
 			});
 		}
 		user.comparePassword(req.body.password, function (err, isMatch) {
 			if (!isMatch) {
 				return res.status(401).send({
 					pwd: user.password,
-					message: 'Invalid email and/or password pwd'
+					message: ERRORS.invalid_data
 				});
 			}
 			res.send({

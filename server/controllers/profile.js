@@ -19,19 +19,23 @@ var upload = multer({ //multer settings
 /** API path that will upload the files */
 module.exports.upload = function (req, res) {
     upload(req, res, function (err) {
-        var fileName = req.file.filename;
-        User.findById(req.body.user, function (err, user) {
-            if (err) {
-                return next(err);
-            }
-            user.avatar = "uploads/" + fileName;
-            user.save(function (err, user) {
-                res.json({ error_code: 0, err_desc: null });
+        if (req.file) {
+            var fileName = req.file.filename;
+            User.findById(req.body.user, function (err, user) {
+                if (err) {
+                    return next(err);
+                }
+                user.avatar = "uploads/" + fileName;
+                user.save(function (err, user) {
+                    res.json({ error_code: 0, err_desc: null });
+                });
             });
-        });
-        if (err) {
-            res.json({ error_code: 1, err_desc: err });
-            return;
+            if (err) {
+                res.json({ error_code: 1, err_desc: err });
+                return;
+            }
+
         }
-    })
+        else return res.status(500).json("File is wrong");
+    });
 };

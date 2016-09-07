@@ -26,6 +26,11 @@
 						</div>
 
 					</form>
+					<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Error:</span>
+						<span ng-bind="error.message"></span>
+					</div>
 				</div>
 
 				<!-- /.col-xs-12 col-md-9 -->
@@ -40,13 +45,10 @@
 					<a href><img class="app-btn" src="/assets/images/linkedin.png" alt="linkedin"></a>
 				</div>
 				<!-- /.col-xs-12 col-md-2 -->
+				
 			</div>
 			<!-- /.row -->
-			<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				<span class="sr-only">Error:</span>
-				<span ng-bind="error.message"></span>
-			</div>
+			
 			<div class="row">
 				<div class="col-xs-12 col-md-9 text-center">
 					<p>Do not have account? <a ui-sref="register">Sign up</a></p>

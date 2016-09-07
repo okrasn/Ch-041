@@ -24,23 +24,26 @@
 			<div class="form-group">
 				<div class="row">
 					<div class="col-xs-5">
-						<img  ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img img-thumbnail img-size" name="image" alt="User Image">
+						<img ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img img-thumbnail img-size" name="image" alt="User Image">
 						<img ng-show="!currentUser().avatar" class="img img-thumbnail img-size" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
 					</div>
 					<div class="col-xs-7">
-						<input type="text" class="form-control" value="{{file.name}}" name="" disabled>
-						<div class="file-upload btn btn-md app-btn-blue text-uppercase upload">
-							<label>
-								<input type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
-								<span class="text-uppercase">Upload avatar</span>
-							</label>
+						<button class="app-btn app-btn-blue" ngf-select="upload($file, $invalidFiles)"
+								ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
+							<span class="fa fa-upload" style="margin-right: 0.5em;"></span>
+							Select File
+						</button>
+						<span ng-bind="f.name"></span>
+						<div class="alert alert-danger text-center fading-anim" role="alert" ng-show="errFile">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span>
+							<span ng-bind="errFile.$error"></span>
+							<span ng-bind="errFile.$errorParam"></span>
 						</div>
-						<br>
-						<button type="submit" ng-click="submit()" class="btn btn-md app-btn-blue text-uppercase ">accept</button>
-						<i ng-show="upload_form.file.$error.required">*required</i>
-						<br>
-						<i class="error-msg" ng-show="upload_form.file.$error.maxSize">File too large 
-							{{file.size / 1000000|number:1}}MB: max 1M</i>
+						<span class="error-msg" ng-show="upload_form.file.$error.maxSize">
+							File too large
+							{{file.size / 1000000|number:1}}MB: max 1M
+						</span>
 					</div>
 				</div>
 			</div>
@@ -48,10 +51,10 @@
 		<hr>
 		<div class="row">
 			<div class="col-xs-12 no-margin">
-				<button class="btn btn-md app-btn-blue text-uppercase pull-right social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
+				<button class="app-btn app-btn-blue social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
 			</div>
 		</div>
-		<form name="changePassForm" class="fade-in-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
+		<form name="changePassForm" class="fading-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
 			<div class="form-group change-pass">
 				<div class="row">
 					<label class="col-sm-5 capitalize" for="currentPassword">current password:</label>
@@ -81,8 +84,8 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="save-reset">
-						<button type="submit" class="btn btn-default btn-md  app-btn-blue text-uppercase">save</button>
-						<button type="reset" class="btn btn-default btn-md  app-btn-blue text-uppercase">reset</button>
+						<button type="submit" class="app-btn app-btn-blue">save</button>
+						<button type="reset" class="app-btn app-btn-blue">reset</button>
 					</div>
 				</div>
 			</div>
@@ -94,17 +97,17 @@
 		</form>
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
-					<i class="ion-social-facebook"></i> Unlink Facebook Account
+				<button class="app-btn app-btn-red" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
+					<i class="ion-social-facebook"></i> Unlink <span class="fa fa-facebook-official btn-social-icon"></span>
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn " ng-if="!currentUser().facebook" ng-click="link('facebook')">
-					<i class="ion-social-facebook"></i> Link Facebook Account
+				<button class="app-btn app-btn-blue" ng-if="!currentUser().facebook" ng-click="link('facebook')">
+					<i class="ion-social-facebook"></i> Link <span class="fa fa-facebook-official btn-social-icon"></span>
 				</button>
-				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().google" ng-click="unlink('google')">
-					<i class="ion-social-googleplus"></i> Unlink Google Account
+				<button class="app-btn app-btn-red" ng-if="currentUser().google" ng-click="unlink('google')">
+					<i class="ion-social-googleplus"></i> Unlink <span class="fa fa-google-plus-square btn-social-icon"></span>
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().google" ng-click="link('google')">
-					<i class="ion-social-googleplus"></i> Link Google Account
+				<button class="app-btn app-btn-blue" ng-if="!currentUser().google" ng-click="link('google')">
+					<i class="ion-social-googleplus"></i> Link <span class="fa fa-google-plus-square btn-social-icon"></span>
 				</button>
 			</div>
 		</div>

@@ -7,7 +7,7 @@
 	text-transform: uppercase;
 	color: black;
 	background-color: white;
-	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 	outline: none;
 	text-decoration: none;
 
@@ -50,6 +50,32 @@
 		outline: none;
 		color: white;
 		background-color: $blue-btn-active-color;
+	}
+}
+
+.app-btn-red {
+	color: white;
+	background-color: $delete-btn-color;
+
+	&:visited {
+		color: white;
+		background-color: $delete-btn-color;
+	}
+
+	&:hover {
+		color: black;
+		background-color: white;
+		transition: $app-transition;
+
+		a {
+			color: black;
+		}
+	}
+
+	&:active {
+		outline: none;
+		color: white;
+		background-color: $delete-btn-color;
 	}
 }
 

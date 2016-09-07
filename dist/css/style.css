@@ -614,6 +614,12 @@ a.cstmblock {
 .profile .capitalize {
   margin-top: 5px; }
 
+.file-alert {
+  color: red; }
+
+.btn-social-icon {
+  margin-left: 0.5em; }
+
 .form-group.profile {
   height: 58px;
   margin-bottom: 0; }
@@ -727,7 +733,7 @@ img.img-size {
   text-transform: uppercase;
   color: black;
   background-color: white;
-  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   outline: none;
   text-decoration: none; }
   .app-btn:hover {
@@ -758,6 +764,23 @@ img.img-size {
     outline: none;
     color: white;
     background-color: #3949ab; }
+
+.app-btn-red {
+  color: white;
+  background-color: #eb4e54; }
+  .app-btn-red:visited {
+    color: white;
+    background-color: #eb4e54; }
+  .app-btn-red:hover {
+    color: black;
+    background-color: white;
+    transition: all 0.2s ease; }
+    .app-btn-red:hover a {
+      color: black; }
+  .app-btn-red:active {
+    outline: none;
+    color: white;
+    background-color: #eb4e54; }
 
 .submit-btn {
   margin: 1em 0 1em 0; }

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 var express = require('express'),
 	fs = require("fs"),
 	app = express(),
@@ -13,7 +13,7 @@ var express = require('express'),
 	cors = require('cors'),
 	logger = require('morgan');
 
-app.use(favicon(path.join(__dirname, 'client', 'assets', 'images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico')));
 
 require('./server/models/Feeds');
 require('./server/models/Articles');
@@ -80,7 +80,7 @@ if (app.get('env') === 'production') {
 	console.log("production");
 	app.use(function (req, res, next) {
 		var protocol = req.get('x-forwarded-proto');
-		protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
+		protocol === 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
 	});
 }
 

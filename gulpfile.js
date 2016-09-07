@@ -14,21 +14,11 @@ var exec = require('child_process').exec,
 	ngAnnotate = require('gulp-ng-annotate'),
 	mkdirp = require('mkdirp');
 
-
-//mkdirp.sync('./data', function (err) {
-//	if (err) console.error(err);
-//});
-
 mkdirp.sync('./dist/uploads', function (err) {
 	if (err) console.error(err);
 });
 
 gulp.task('server', function (cb) {
-	//You must create folder 'data' in the root of project folder
-	//exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-	//	console.log(stdout, stderr);
-	//	cb(err);
-	//});
 	console.log("Server is running on port 8080");
 	exec('npm start', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
@@ -36,11 +26,10 @@ gulp.task('server', function (cb) {
 	});
 });
 
-gulp.task('main', ['sass', 'scripts', 'build'], function () {
-	gulp.watch('./client/index.html', { interval: 500 }, ['build']);
-	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['build']);
-	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['sass', 'build']);
-	gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'], { interval: 500 }, ['scripts', 'build']);
+gulp.task('main', ['sass', 'scripts'], function () {
+	gulp.watch('./client/partials/**/*.html', { interval: 500 }, ['build']);
+	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['sass']);
+	gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'], { interval: 500 }, ['scripts']);
 });
 
 gulp.task('sass', function () {
@@ -87,9 +76,6 @@ gulp.task('build', function () {
 		.pipe(sass())
 		.pipe(gulp.dest('dist/css/'));
 
-	gulp.src(['./client/js/**/*.js'])
-		.pipe(gulp.dest('dist/js/'));
-
 	gulp.src(['client/partials/**/*.html'])
 		.pipe(gulp.dest('dist/partials/'));
 
@@ -115,4 +101,4 @@ gulp.task('build', function () {
 		.pipe(sourcemaps.write());
 });
 
-gulp.task('default', ['server', 'build', 'sass', 'scripts', 'main']);
+gulp.task('default', ['server', 'sass', 'scripts', 'main', 'build']);
