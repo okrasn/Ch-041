@@ -29,7 +29,7 @@ gulp.task('server', function (cb) {
 	//	cb(err);
 	//});
 	console.log("Server is running on port 8080");
-	exec('node app.js', function (err, stdout, stderr) {
+	exec('npm start', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
 		cb(err);
 	});
@@ -78,7 +78,7 @@ gulp.task('scripts', function () {
 gulp.task('useref', function () {
 	return gulp.src('client/*.html')
 		.pipe(useref())
-		.pipe(gulp.dest('./dist/'))
+		.pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('build', function () {
@@ -106,12 +106,12 @@ gulp.task('build', function () {
 			// true helps add where @ngInject is not used. It infers.
 			// Doesn't work with resolve, so we must be explicit there
 			add: true
-		}))
+		}));
 	gulp.src(['client/index.html'])
 		.pipe(sourcemaps.init())
 		.pipe(useref())
 		.pipe(gulp.dest('./dist/'))
-		.pipe(sourcemaps.write())
+		.pipe(sourcemaps.write());
 });
 
 gulp.task('default', ['server', 'build', 'sass', 'scripts', 'main']);

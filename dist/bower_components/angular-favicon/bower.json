@@ -1,0 +1,21 @@
+{
+  "name": "angular-favicon",
+  "version": "0.3.2",
+  "main": "angular-favicon.js",
+  "description": "angular-favicon is an AngularJS module that let you easily get and display the favicon of any website",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AdirAmsalem/angular-favicon.git"
+  },
+  "dependencies": {
+    "angular": "*"
+  },
+  "keywords": [
+    "angular",
+    "favicon"
+  ],
+  "authors": [
+    "Adir Amsalem <adiramsalem@hotmail.com>"
+  ],
+  "license": "MIT"
+}
