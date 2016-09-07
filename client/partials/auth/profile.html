@@ -45,7 +45,14 @@
 				</div>
 			</div>
 		</form>
-		<hr>
+		<div class="form-group">
+            <div class="row">
+                <label class="col-xs-5">Change Theme:</label>
+                <div class="col-xs-7">
+                    <select class="form-control" ng-model="layout" ng-options="layout.url as layout.name for layout in layouts" ng-change="updateTheme()"></select>
+                </div>
+            </div>
+        </div>
 		<div class="row">
 			<div class="col-xs-12 no-margin">
 				<button class="btn btn-md app-btn-blue text-uppercase pull-right social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
