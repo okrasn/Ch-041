@@ -31,6 +31,9 @@
 			if (form.validate()) {
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
+					if(error.message[0] === "F"){
+						toasterService.info(error.message);		
+					}
 					toasterService.error(error.message);
 				}).then(function (response) {
 					console.log(response);
@@ -87,6 +90,7 @@
 		};	
 
 		$scope.authenticate = function (provider) {
+			transfer.setString(provider);
 			$auth.authenticate(provider).then(function (response) {
 				authService.saveToken(response.data.token);
 				toasterService.success('You have successfully authenticated');

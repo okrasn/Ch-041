@@ -594,7 +594,8 @@ module.exports.twitterAuth = function(req, res) {
             	var token = createJWT(user);
               	res.send({ 
               		token: token,
-              		profile: profile 
+              		profile: profile,
+              		user: user 
               	});
             });
           });

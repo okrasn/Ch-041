@@ -5,11 +5,12 @@
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Please specify the correct domain for your documents");
 	}]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
+		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer',
 		function (Upload, $http, $state, profileService, $scope,
-			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
+			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
 			$scope.currentUser = profileService.refreshProfileData;
-			
+			$scope.sameProvider = transfer.getString();
+			console.log($scope.sameProvider);
 			$scope.link = function (provider) {
 				$auth.link(provider).then(function () {
 					toasterService.info('You have successfully linked a ' + provider + ' account');

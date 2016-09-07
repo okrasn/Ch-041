@@ -94,7 +94,7 @@
 		</form>
 		<div class="row">
 			<div class="col-xs-12">
-				<button class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
+				<button hg-hide='currentUser().facebook === sameProvider' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
 					<i class="ion-social-facebook"></i> Unlink Facebook Account
 				</button>
 				<button class="btn btn-md app-btn-blue social_btn " ng-if="!currentUser().facebook" ng-click="link('facebook')">
