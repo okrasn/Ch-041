@@ -1,16 +1,15 @@
 <div class="row">
-	<div class="col-xs-12">
-		<h1>Reset Password</h1>
-		<hr>
-		<div class='col-offset-8 col-xs-4'>
-			<span ng-bind='confirm_email.email'></span>
-			<form>
-				<label class="forgot-label" for="password"> New Password </label>
-				<input class="form-control forgot" type="password" ng-model="password.pas" name="password" autofocus="true">
-				<label for='confirm forgot-label'> Confirm Password </label>
-				<input class='form-control forgot' type="password" ng-model="password.confirm" name="confirm" >
-				<input type="button" ng-click='reset()' class="btn btn-primary app-btn-blue" value="Update Password">
-			</form>
-		</div>
-	</div>
+	<h1>Reset Password</h1>
+	<hr>
+		
+<form ng-validate="validationRegistrOptions">
+
+		<label class="forgot-label" for="password"> New Password </label>
+		<input class="form-control forgot" type="password" ng-model="password.pas" name="password" autofocus="true">
+		<label for='confirm forgot-label'> Confirm Password </label>
+		<input class='form-control forgot' type="password" ng-model="password.confirm" name="confirm" >
+		<input type="button" ng-click='reset()' class="btn btn-primary app-btn-blue" value="Update Password">
+</form>
+		
+	
 </div>	
