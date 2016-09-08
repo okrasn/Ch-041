@@ -12,8 +12,6 @@ var mongoose = require('mongoose'),
 	feedsCtrl = require('../controllers/feeds'),
 	profCtrl = require('../controllers/profile');
 
-router.post('/upload', profCtrl.upload);
-
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
@@ -38,6 +36,8 @@ router.post('/users/:user/setFavsCategoryOrder', feedsCtrl.setFavsCategoryOrder)
 router.post('/users/:user/addFavArticle', articlesCtrl.addFavArticle);
 router.post('/users/:user/getFavArticle', articlesCtrl.getFavArticle);
 router.post('/users/:user/getFeedData', feedsCtrl.getFeedData);
+router.post('/users/:user/upload', profCtrl.upload);
+
 // remove feed
 router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);
 router.delete('/users/:user/deleteFavFeed/:id', articlesCtrl.removeFavArticle);

@@ -244,9 +244,9 @@
 			},
 			getArticleDataByLink = function (link) {
 				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link }, {
-					headers: {
-						Authorization: 'Bearer ' + authService.getToken()
-					}
+				    headers: {
+				        Authorization: 'Bearer ' + authService.getToken()
+				    }
 				});
 			}
 		return obj;

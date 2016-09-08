@@ -54,11 +54,14 @@
 			    }
 			    if (file) {
 			        Upload.upload({
-			            url: '/upload', //webAPI exposed to upload the file
+			            url: '/users/' + authService.userID() + '/upload', //webAPI exposed to upload the file
 			            data: {
 			                file: file,
 			                user: authService.userID()
-			            } //pass file as data, should be user ng-model
+			            }, //pass file as data, should be user ng-model
+			            headers: {
+			                Authorization: 'Bearer ' + authService.getToken()
+			            }
 			        }).then(function (res) { //upload function returns a promise
 			            if (res.data.error_code === 0) { //validate success
 			                profileService.getProfile();
