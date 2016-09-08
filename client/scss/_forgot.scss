@@ -1,6 +1,23 @@
-.forgot {
-	margin-bottom: 10px;
+
+.forgot_from {
+	.forgot {
+		margin-top: 5px;
+		margin-bottom: 10px;
+		color: #000000;
+	}
+	.forgot_label{
+		margin-bottom: 0;
+	}
+	.form-group {
+		margin-bottom: 0;
+	}
+	.aapp-btn-blue {
+		width: 100px;
+	}
+
 }
-.forgot_label{
-	margin-bottom: 5px;
+.error {
+	color: #af5050;
+	font-size: 14px;
+	margin-top: 3px;
 }

@@ -567,6 +567,7 @@ module.exports.twitterAuth = function(req, res) {
               }
 
               user.twitter = profile.id;
+              user.email = profile.id;
               user.displayName = user.displayName || profile.name;
               user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
               user.save(function () {
@@ -645,7 +646,9 @@ module.exports.linkedIdAuth = function(req, res) {
             user.displayName = user.displayName || profile.firstName + ' ' + profile.lastName;
             user.save(function () {
               var token = createJWT(user);
-              res.send({ token: token });
+              res.send({ 
+              	token: token 
+              });
             });
           });
         });
@@ -656,8 +659,8 @@ module.exports.linkedIdAuth = function(req, res) {
             return res.send({ token: createJWT(existingUser) });
           }
           var user = new User();
-          user.email = profile.emailAddress;
           user.linkedin = profile.id;
+          user.email = profile.emailAddress;
           user.picture = profile.pictureUrl;
           user.displayName = profile.firstName + ' ' + profile.lastName;
           user.save(function () {

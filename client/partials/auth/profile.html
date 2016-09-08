@@ -94,23 +94,21 @@
 		</form>
 		<div class="row">
 			<div class="col-xs-12">
-				<button ng-hide='same' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
-					<i class="ion-social-facebook"></i> Unlink Facebook Account
+				<button  class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')"> Unlink Facebook
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn " ng-if="!currentUser().facebook" ng-click="link('facebook')">
-					<i class="ion-social-facebook"></i> Link Facebook Account
+				<button class="btn btn-md app-btn-blue social_btn " ng-if="!currentUser().facebook" ng-click="link('facebook')"> Link Facebook
 				</button>
-				<button ng-hide='same' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().google" ng-click="unlink('google')">
-					<i class="ion-social-googleplus"></i> Unlink Google Account
+				<button  class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().google" ng-click="unlink('google')"> Unlink Google
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().google" ng-click="link('google')">
-					<i class="ion-social-googleplus"></i> Link Google Account
+				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().google" ng-click="link('google')"> Link Google
 				</button>
-				<button ng-hide='same' class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().twitter" ng-click="unlink('twitter')">
-					<i class="ion-social-twitter"></i> Unlink Twitter Account
+				<button  class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().twitter" ng-click="unlink('twitter')"> Unlink Twitter
 				</button>
-				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().twitter" ng-click="link('twitter')">
-					<i class="ion-social-twitter"></i> Link Twitter Account
+				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().twitter" ng-click="link('twitter')"> Link Twitter
+				</button>
+				<button  class="btn btn-md btn-danger text-uppercase social_btn" ng-if="currentUser().linkedin" ng-click="unlink('linkedin')"> Unlink Linkedin
+				</button>
+				<button class="btn btn-md app-btn-blue social_btn" ng-if="!currentUser().linkedin" ng-click="link('linkedin')"> Link Linkedin
 				</button>
 			</div>
 		</div>
