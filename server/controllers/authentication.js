@@ -45,20 +45,6 @@ function createJWT(user) {
 	};
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
-function ensureAuth(req, res) {
-	User.findById(req.user, function (err, user) {
-		if (!user) {
-			return res.status(400).send({
-				message: 'User not found'
-			});
-		}
-		user.displayName = req.body.displayName || user.displayName;
-		user.email = req.body.email || user.email;
-		user.save(function (err) {
-			res.status(200).end();
-		});
-	});
-};
 
 module.exports.register = function (req, res) {
 
@@ -106,7 +92,7 @@ module.exports.register = function (req, res) {
 	User.findOne({
 			email: req.body.email
 		}, function (err, existingUser) {
-			if (existingUser && (existingUser.google || existingUser.facebook)) {
+			if (existingUser && (existingUser.google || existingUser.facebook || existingUser.twitter || existingUser.linkedin )) {
 				existingUser.password = req.body.password;
 				existingUser.save(function (err, existingUser) {
 					if (err) {
@@ -120,7 +106,7 @@ module.exports.register = function (req, res) {
 					existingUser: existingUser
 				});
 			}
-			if (existingUser && (!existingUser.google || !existingUser.facebook)) {
+			if (existingUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
 				return res.status(409).send({
 					message: 'Email is already taken'
 				});
@@ -502,89 +488,78 @@ module.exports.facebookAuth = function (req, res) {
 
 
 module.exports.twitterAuth = function(req, res) {
-  var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
-  var accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
-  var profileUrl = 'https://api.twitter.com/1.1/account/verify_credentials.json';
+	var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
+	var accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
+	var profileUrl = 'https://api.twitter.com/1.1/account/verify_credentials.json';
 
-  // Part 1 of 2: Initial request from Satellizer.
-  if (!req.body.oauth_token || !req.body.oauth_verifier) {
-    var requestTokenOauth = {
-      consumer_key: config.TWITTER_KEY,
-      client_id: req.body.clientId,
-      consumer_secret: config.TWITTER_SECRET,
-      callback: req.body.redirectUri
-    };
+ 	if (!req.body.oauth_token || !req.body.oauth_verifier) {
+    	var requestTokenOauth = {
+      		consumer_key: config.TWITTER_KEY,
+      		client_id: req.body.clientId,
+      		consumer_secret: config.TWITTER_SECRET,
+      		callback: req.body.redirectUri
+    	};
+		request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
+      		var oauthToken = qs.parse(body);
+      		res.send(oauthToken);
+    	});
+  	} else {
+    	var accessTokenOauth = {
+      		consumer_key: config.TWITTER_KEY,
+      		consumer_secret: config.TWITTER_SECRET,
+      		token: req.body.oauth_token,
+      		verifier: req.body.oauth_verifier
+    	};
+    	request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
+			accessToken = qs.parse(accessToken);
+			var profileOauth = {
+        		consumer_key: config.TWITTER_KEY,
+        		consumer_secret: config.TWITTER_SECRET,
+        		token: accessToken.oauth_token,
+        		token_secret: accessToken.oauth_token_secret,
+      		};
 
-    // Step 1. Obtain request token for the authorization popup.
-    request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
-      var oauthToken = qs.parse(body);
-
-      // Step 2. Send OAuth token back to open the authorization screen.
-      res.send(oauthToken);
-    });
-  } else {
-    // Part 2 of 2: Second request after Authorize app is clicked.
-    var accessTokenOauth = {
-      consumer_key: config.TWITTER_KEY,
-      consumer_secret: config.TWITTER_SECRET,
-      token: req.body.oauth_token,
-      verifier: req.body.oauth_verifier
-    };
-
-    // Step 3. Exchange oauth token and oauth verifier for access token.
-    request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
-
-      accessToken = qs.parse(accessToken);
-
-      var profileOauth = {
-        consumer_key: config.TWITTER_KEY,
-        consumer_secret: config.TWITTER_SECRET,
-        token: accessToken.oauth_token,
-        token_secret: accessToken.oauth_token_secret,
-      };
-
-      // Step 4. Retrieve user's profile information and email address.
-      request.get({
-        url: profileUrl,
-        qs: { include_email: true },
-        oauth: profileOauth,
-        json: true
-      }, function(err, response, profile) {
+      	request.get({
+        	url: profileUrl,
+        	qs: { include_email: true },
+        	oauth: profileOauth,
+        	json: true
+      	}, function(err, response, profile) {
 
         // Step 5a. Link user accounts.
-        if (req.header('Authorization')) {
-          User.findOne({ twitter: profile.id }, function(err, existingUser) {
-            if (existingUser) {
-              return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
-            }
+        	if (req.header('Authorization')) {
+          		User.findOne({ twitter: profile.id }, function(err, existingUser) {
+            		if (existingUser) {
+              			return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
+            		}
 
-            var token = req.header('Authorization').split(' ')[1];
-            var payload = jwt.decode(token, config.TOKEN_SECRET);
+            		var token = req.header('Authorization').split(' ')[1];
+            		var payload = jwt.decode(token, config.TOKEN_SECRET);
 
-            User.findById(payload.sub, function(err, user) {
-              if (!user) {
-                return res.status(400).send({ message: 'User not found' });
-              }
+            		User.findById(payload.sub, function(err, user) {
+              			if (!user) {
+                			return res.status(400).send({ message: 'User not found' });
+              			}
 
-              user.twitter = profile.id;
-              user.email = profile.id;
-              user.displayName = user.displayName || profile.name;
-              user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
-              user.save(function () {
-              	var token = createJWT(user);
-                res.send({
-                 token: token,
-                 profile: profile  
-             });
-              });
-            });
-          });
-        } else {
-          // Step 5b. Create a new user account or return an existing one.
-          User.findOne({ email: profile.id }, function(err, existingUser) {
-            if (existingUser) {
-              return res.send({ token: createJWT(existingUser) });
-            }
+              			user.twitter = profile.id;
+              			// user.email = profile.id;
+              			user.displayName = user.displayName || profile.name;
+              			user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
+              			user.save(function () {
+              				var token = createJWT(user);
+                			res.send({
+                 				token: token,
+                 				profile: profile  
+             				});
+              			});
+            		});
+          		});
+        	} else {
+          	// Step 5b. Create a new user account or return an existing one.
+          		User.findOne({ twitter: profile.id }, function(err, existingUser) {
+            		if (existingUser) {
+              			return res.send({ token: createJWT(existingUser) });
+            		}
 
             var user = new User();
             user.email = profile.id;
@@ -745,23 +720,4 @@ module.exports.changePassword = function (req, res, next) {
 			}
 		}
 	});
-}
-module.exports.emailVerification = function (req, res) {
-	var email = req.body.email;
-
-	nev.resendVerificationEmail(email, function (err, userFound) {
-		if (err) {
-			return res.status(404).send('ERROR: resending verification email FAILED');
-		}
-		if (userFound) {
-			res.json({
-				msg: 'An email has been sent to you, yet again. Please check it to verify your account.'
-			});
-		} else {
-			res.json({
-				msg: 'Your verification code has expired. Please sign up again.'
-			});
-		}
-	});
-	
 };

@@ -2,34 +2,28 @@
 <div class="container-fluid">
 	<h1>Reset Password</h1>
 	<hr>
-	<form name='reset-form' class="forgot_from" ng-submit='reset(reset-form)' ng-validate="validationRegistrOptions"">
+	<form name='resetform' class="forgot_from" ng-submit='reset(resetform)' ng-validate="validationRegistrOptions"">
 		<div class="form-group">
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-				<label class="control-label" for="password"> New Password: </label>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<label class="control-label" for="enter-pwd"> New Password: </label>
 			</div>
 			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-				<input class="form-control reset" type="password" ng-model="password.pas" name="pwd" autofocus="true" placeholder="Enter your Password" ng-required>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<input class="form-control reset" type="password" id='enter-pwd' ng-model="password.pas" name="pwd" autofocus="true" placeholder="Enter your Password">
 			</div>
 			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-				<label for='control-label'> Confirm Password: </label>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<label for='Reppwd'> Confirm Password: </label>
 			</div>
 			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-				<input class='form-control reset' type="password" ng-model="password.confirm" name="reppwd" placeholder="Repeat your Password" ng-required pw-check="enterPassword">
-				<span class="msg-error" ng-show="reset-form.reppwd.$error.pwmatch">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<input class='form-control reset' type="password" id='Reppwd' ng-model="password.confirm" name="reppwd" placeholder="Repeat your Password" ng-required pw-check="enter-pwd">
+				<span class="msg-error" ng-show="resetform.reppwd.$error.pwmatch">
 			</div>
 			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 				<input type="submit" class="btn btn-primary app-btn-blue" value="Update Password">
-				<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
-					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-					<span class="sr-only">Error:</span>
-					<span ng-bind="error.message"></span>
-				</div>
 			</div>
-
 		</div>
 	</form>
 </div>	

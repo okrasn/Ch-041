@@ -80,7 +80,6 @@
 		}
 
 		$scope.reset = function(form){
-			if(form.validate()){
 				authService.reset($scope.password).error(function (error) {
 					$scope.error = error;
 					toasterService.error(error.message);
@@ -88,7 +87,6 @@
 					toasterService.success('You have successfully changed password');
 					$state.go('login');	
 				})
-			}
 		};	
 
 		$scope.authenticate = function (provider) {
