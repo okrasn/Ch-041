@@ -1,8 +1,7 @@
 describe('ProfileController', function () {
-	var $controller;
-	beforeEach(angular.mock.module('rssreader'));
-	beforeEach(angular.mock.inject(function (_$controller_) {
-		$controller = _$controller_;
-	}));
+	beforeEach(module('rssreader.ProfileController'));
+	it('should have a ProfileController', function() {
+    	expect(rssreader.ProfileController).not.to.equal(null);
+  	});
 
 });

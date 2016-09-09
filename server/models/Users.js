@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 			unique: true,
 			required: true
 		},
-		password: { type: String, select: false },
+		password: { type: String, select: true },
 		local: {
 			email : String,
 			password : String
