@@ -8,7 +8,7 @@
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
 		$scope.checkIfReading = function () {
-		    return dashboardService.isReadingArticle;
+			return dashboardService.isReadingArticle;
 		};
 
 		$scope.toggleSidebar = function () {
@@ -22,24 +22,24 @@
 		}
 
 		$scope.hideViewBtns = function () {
-			if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
-				return true;
-			} else {
-				return false;
-			}
+		    if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
+		        return true;
+		    }
+			return false;
+			
 		}
 		$scope.checkIfToggled = function (mode) {
 			return dashboardService.getViewMode() === mode;
 		}
-        
+		
 		$scope.checkSortType = function (type, order) {
 			var sortType = dashboardService.getSortParam();
 			if (type == sortType.type && order == sortType.order) {
 				return true;
 			}
-			else return false;
+			return false;
 		}
-        
+		
 		$scope.onViewChange = function (view) {
 			switch (view) {
 				case 'view-mode1':
@@ -73,19 +73,15 @@
 		$scope.currentSortTitle = function () {
 			var sortParam = dashboardService.getSortParam();
 			switch (sortParam.type) {
-			    case 'date': {
-			        if (sortParam.order == 1){
-			            return "Newest";
-			        }
-			        else {
-			            return "Oldest";
-			        }
-			    }
-			        break;
-			    case 'feed': {
-			        return "By Feed";            
-			    }
-			        break;
+				case 'date': {
+					if (sortParam.order == 1){
+						return "Newest";
+					}
+					return "Oldest";
+				}
+				case 'feed': {
+					return "By Feed";            
+				}
 			}
 		}
 		var sortTypeElement;

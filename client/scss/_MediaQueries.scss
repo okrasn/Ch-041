@@ -62,7 +62,7 @@ $desktop-res: 1200px;
 	#sidebar-wrapper {
 		animation: 0.3s slideRight ease;
 		width: $sidebar-mobile-width;
-		box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+		box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.76);
 	}
 
 	#sidebar ul {
@@ -134,7 +134,7 @@ $desktop-res: 1200px;
 	#sidebar-wrapper {
 		animation: 0.3s slideRight ease;
 		width: $sidebar-mobile-width;
-		box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+		box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.76);
 	}
 
 	#sidebar ul {
@@ -211,8 +211,8 @@ $desktop-res: 1200px;
 	.toaster-window {
 		width: 100%;
 		top: auto;
-		bottom: 0px;
-		left: 0px;
+		bottom: 0;
+		left: 0;
 	}
 
 	.toaster-wrapper {
