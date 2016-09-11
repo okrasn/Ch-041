@@ -30,7 +30,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		return that.sortParam;
 	}
 
-    if (!$window.localStorage.articlesType) {
+	if (!$window.localStorage.articlesType) {
 		$window.localStorage.articlesType = that.currentArticlesType;
 	}
 
@@ -94,7 +94,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		return that.title;
 	}
 
-	this.currentFeed = '';
+	this.currentFeed = null;
 	this.getFeedId = function () {
 		return that.currentFeed;
 	}

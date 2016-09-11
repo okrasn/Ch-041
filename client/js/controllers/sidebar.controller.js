@@ -50,8 +50,8 @@
 				angular.element($event.currentTarget).addClass('chevron-down');
 			}
 			// if there is only one feed within selected category, return its articles
-			if ($scope.feeds[arguments[2]].values.length == 1) {
-				articlesService.getArticlesByFeed($scope.feeds[arguments[2]].values[0]);
+			if ($scope.feeds[arguments[2]].feeds.length == 1) {
+				articlesService.getArticlesByFeed($scope.feeds[arguments[2]].feeds[0]);
 			} else {
 				articlesService.getArticlesByCat(arguments[1]);
 			}

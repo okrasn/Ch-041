@@ -5,7 +5,7 @@ var feedSchema = new mongoose.Schema({
 	description: String,
 	link: String,
 	rsslink: String,
-	category: String,
+	//category: String,
 	format: {
 		type: String,
 		enum: ["RSS", "ATOM"],

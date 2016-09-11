@@ -40,11 +40,13 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 		});
 	}
 	this.getAllFeeds = function () {
+	    console.log("Try to get");
 		return $http.get('/users/' + authService.userID(), {
 			headers: {
 				Authorization: 'Bearer ' + authService.getToken()
 			}
 		}).then(function (res) {
+		    console.log(res.data);
 			angular.copy(res.data, that.feedsDictionary);
 			that.getAllFavourites().then(function (res) {
 				angular.copy(res.data, that.favouritesDictionary);

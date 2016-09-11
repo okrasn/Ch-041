@@ -53,7 +53,7 @@
 					obj.resetArticles();
 					dashboardService.setTitle("All");
 					angular.forEach(feedsService.feedsDictionary, function (value, key) {
-						angular.forEach(value.values, function (value, key) {
+						angular.forEach(value.feeds, function (value, key) {
 							promises.push(fetchArticles(value));
 						});
 					});
@@ -76,7 +76,7 @@
 					dashboardService.setTitle(cat);
 					angular.forEach(feedsService.feedsDictionary, function (value, key) {
 						if (value.key === cat) {
-							angular.forEach(value.values, function (value, key) {
+							angular.forEach(value.feeds, function (value, key) {
 								promises.push(fetchArticles(value));
 							});
 						}
@@ -90,7 +90,7 @@
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						angular.forEach(value.values, function (value, key) {
+						angular.forEach(value.feeds, function (value, key) {
 							obj.articles.push(value);
 						});
 					});

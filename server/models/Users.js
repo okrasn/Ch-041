@@ -24,7 +24,7 @@ var mongoose = require('mongoose'),
 		avatar: String,
 		categories: [String],
 		favCategories: [String],
-		feedsDictionary: [{categories: String, feeds: [{
+		feedsDictionary: [{category: String, feeds: [{
 		        type: mongoose.Schema.Types.ObjectId,
 		        ref: 'Feed'
 		    }]
