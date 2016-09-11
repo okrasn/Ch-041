@@ -22,7 +22,10 @@ var mongoose = require('mongoose'),
 		hash: String,
 		salt: String,
 		avatar: String,
-		colorTheme: String,
+		colorTheme: {
+			type: String,
+			default: "theme1"
+		},
 		categories: [String],
 		favCategories: [String],
 		feeds: [{

@@ -18,6 +18,7 @@
 						}
 					},
 					refreshProfileData: function() {
+						// console.log(obj.profile);
 						return obj.profile;
 					}
 				}

@@ -137,7 +137,8 @@
 				themeService.changeTheme($scope.layout).error(function (error) {
 					console.log("theme not changed" + error);
 				}).then(function(response) {
-					console.log(response);
+					profileService.getProfile();
+					// console.log(response);
 				});
 			};
 

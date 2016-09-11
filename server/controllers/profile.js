@@ -26,31 +26,39 @@ module.exports.upload = function(req, res) {
             }
             user.avatar = "uploads/" + fileName;
             user.save(function(err, user) {
-              console.log(user);
-              res.json({ error_code: 0, err_desc: null });     
+                console.log(user);
+                res.json({
+                    error_code: 0,
+                    err_desc: null
+                });     
             });
-        });      
-        if (err) {          
-          res.json({ error_code: 1, err_desc: err });         
-            return;        
-          }         
+        });     
+        if (err) {         
+            res.json({
+                error_code: 1,
+                err_desc: err
+            });         
+            return;       
+        }         
     })
 };
 
 module.exports.changeColorTheme = function(req, res) {
-        console.log(req.body.changeTheme);
-        // User.findById(req.body.user, function(err, user) {
-        //     if (err) {
-        //         return next(err);
-        //     }
-        //     user.colorTheme = req.body.changeTheme;
-        //     user.save(function(err, user) {
-        //       console.log(user);
-        //       res.json({ error_code: 0, err_desc: null });     
-        //     });
-        // });      
-        // if (err) {          
-        //   res.json({ error_code: 1, err_desc: err });         
-        //     return;        
-        //   }         
+    console.log(req.body.colorTheme);
+    req.user.colorTheme = req.body.colorTheme;
+    req.user.save(function(err, user) {
+        if (err) {         
+            res.json({
+                error_code: 1,
+                err_desc: err
+            });         
+            return;       
+        }           
+        console.log(user);
+        res.json({
+            error_code: 0,
+            err_desc: null
+        }); 
+
+    });      
 };
