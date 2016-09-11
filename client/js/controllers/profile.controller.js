@@ -9,6 +9,7 @@
 		function (Upload, $http, $state, profileService, $scope,
 			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
 			$scope.currentUser = profileService.refreshProfileData;
+			$scope.test = 5;
 			$scope.sameProvider = transfer.getProviderString();
 			console.log($scope.sameProvider);
 			$scope.link = function (provider) {

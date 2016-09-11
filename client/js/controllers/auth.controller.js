@@ -17,6 +17,7 @@
 		};
 		$scope.confirm_email = {};
 		$scope.session;
+		$scope.test = 5;
 
 		var ERRORS = {
 			field_required: 'This field is required',
@@ -74,7 +75,8 @@
 			authService.forgot($scope.confirm_email).error(function (error) {
 				$scope.error = error;	
 				toasterService.error(error.message);
-			}).then(function () {
+			}).then(function (response) {
+				console.log(response.data);
 				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
 			})
 		}
@@ -83,7 +85,8 @@
 				authService.reset($scope.password).error(function (error) {
 					$scope.error = error;
 					toasterService.error(error.message);
-				}).then(function () {
+				}).then(function (response) {
+					console.log(response.data);
 					toasterService.success('You have successfully changed password');
 					$state.go('login');	
 				})
