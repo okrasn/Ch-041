@@ -11,7 +11,7 @@
     "run": "karma run ",
     "web-update": "webdriver-manager update",
     "web-start": "webdriver-manager start",
-    "protractor": "conf.js"
+    "protractor": "./client/e2e/conf.js"
   },
   "author": "",
   "license": "ISC",
