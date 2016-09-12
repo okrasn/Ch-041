@@ -45,7 +45,7 @@
 				})
 				.state('verify', {
 					url: '/verify/:token',
-					templateUrl: './partials/auth/register.html',
+					templateUrl: './partials/auth/verify.html',
 					controller: 'AuthController',
 					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
 						transfer.setString($stateParams.token);

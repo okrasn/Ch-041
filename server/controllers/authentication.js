@@ -22,6 +22,7 @@ var passport = require('passport'),
 	        pass: 'rssreader'
 	    }
 	}),
+	arrayOfEmails = [],
 
 ERRORS = {
 	fill_out_fields: 'Please fill out all fields',
@@ -47,8 +48,11 @@ function createJWT(user) {
 }
 
 module.exports.register = function (req, res) {
-
 	var passAccepted = false;
+
+	if(req.body.verifyEmail){
+		req.body.repPassword = req.body.password
+	}
 
 	if (!req.body.email || !req.body.password || !req.body.repPassword) {
 		return res.status(400).json({
@@ -79,15 +83,19 @@ module.exports.register = function (req, res) {
 			html : "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"	
 		}
 		console.log(mailOptions);
-		smtpTransport.sendMail(mailOptions, function(error, response){
-	   	 	if(error){
-	        	console.log(error);
-				res.end("error");
-		 	} else {
-	        	console.log("Message sent: " + response.message);
-				res.end("sent");
-	    	}
-		});
+
+		if(req.body.email !== arrayOfEmails[0]){
+			smtpTransport.sendMail(mailOptions, function(error, response){
+		   	 	if(error){
+		        	console.log(error);
+					res.end("error");
+			 	} else {
+		        	console.log("Message sent: " + response.message);
+		    		arrayOfEmails.push(req.body.email);
+					res.end("sent");
+		    	}
+			});
+		}
 
 	User.findOne({
 			email: req.body.email

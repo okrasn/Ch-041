@@ -18,12 +18,5 @@ describe('Sign up a new user account', function () {
     		element(by.id('sub_btn')).click();
     	});
     	expect(browser.get('http://localhost:8080/#/dashboard/add'));
-    	element(by.id('logout')).click();
     });
- //    it('should go to forgot or reset view', function () {
-	// 	browser.get('http://localhost:8080/#/forgot');
-	// 	element(by.model('confirm_email.email')).sendKeys('gemyni85@gmail.com');
-	// 	var input = element(by.model('confirm_email.email')).getText();
-	// 	expect(element(by.css('.toaster-content')).getText()).toEqual('An e-mail has been sent to ' + input.getText()  + ' with further instructions.');
-	// });
 });
