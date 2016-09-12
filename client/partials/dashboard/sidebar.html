@@ -15,12 +15,12 @@
 					dnd-type="'favs'"
 					dnd-moved="onFavsDrag($index)"
 					dnd-effect-allowed="move">
-					<a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category }}" ng-click="getFavArticlesByCat($event, category.category)" class="glyphFeeds">
+					<a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" ng-click="getFavArticlesByCat($event, category.category)" class="glyphFeeds">
 						<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 					</a>
-					<div class="collapse" id="{{ $index + 'fav' + category.category }}">
+					<div class="collapse" id="{{ $index + 'fav' + category.category.split(' ').join('')}}">
 						<ul>
-							<li class="sidebar-sub-item" ng-repeat="article in category.values | orderBy: 'title'">
+							<li class="sidebar-sub-item" ng-repeat="article in category.articles | orderBy: 'title'">
 								<a class="shortened-text" ng-click="getFavArticle($event, article)">
 									<img ng-src="{{article.link|favicon}}">
 									<span ng-bind="article.title"></span>

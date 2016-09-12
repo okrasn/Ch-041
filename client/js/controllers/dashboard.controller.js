@@ -1,7 +1,6 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
-		$scope.loadingIcon = dashboardService.isLoading;
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.headTitle = dashboardService.getTitle;
 		$scope.feed = dashboardService.getFeedId;
@@ -64,7 +63,8 @@
 		$scope.confirmFeedDelete = function () {
 			feedsService.removeFeed(dashboardService.getFeedId())
 				.then(function (res) {
-					toasterService.info("Feed has been deleted");
+				    toasterService.info("Feed has been deleted");
+				    console.log("reload");
 					$state.reload("dashboard");
 				}, function (err) {
 					console.log(err);

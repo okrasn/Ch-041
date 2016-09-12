@@ -43,8 +43,8 @@
 				<button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
 			</div>
 		</div>
-		<div class="modal-row">
-			<div class="alert alert-danger text-center fading-anim" role="alert" ng-show="error">
+		<div class="modal-row" ng-show="error">
+			<div class="alert alert-danger text-center fading-anim" role="alert">
 				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				<span class="sr-only">Error:</span>
 				<span ng-bind="error"></span>

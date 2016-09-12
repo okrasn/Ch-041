@@ -18,10 +18,7 @@ var passport = require('passport'),
 
 module.exports.userParam = function (req, res, next, id) {
 	var query = User.findById(id);
-
 	query.exec(function (err, user) {
-		console.log("User param");
-		console.log(user);
 		if (err) {
 			return next(err);
 		}
@@ -34,60 +31,15 @@ module.exports.userParam = function (req, res, next, id) {
 };
 
 module.exports.allFeed = function (req, res, next) {
+	console.log(req.user);
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		res.json(user.feedsDictionary);
 	});
-
-	//for (var i = 0; i < req.user.feedsDictionary.length; i++){
-	//	req.user.feedsDictionary[i].populate("feeds", function (err, feeds) {
-	//		console.log("feeds");
-	//		console.log(feeds);
-	//	});
-	//};
-
-	//req.user.populate("feedsDictionary", function (err, feeds) {
-	//    console.log("dfadsfas");
-	//	console.log(feeds);
-	//});
-
-
-	//req.user.populate('feeds', function (err, user) {
-	//	if (err) {
-	//		console.log("ERROR: " + err);
-	//		return next(err);
-	//	}
-
-	//	// Data will be storred in dictionary with categories as keys and feeds as values
-	//	var feedsDictionary = [];
-	//	var containsKey = function (key) {
-	//		for (var i = 0; i < feedsDictionary.length; i++) {
-	//			if (feedsDictionary[i].key === key) {
-	//				return i;
-	//			}
-	//		}
-	//		return -1;
-	//	}
-	//	// Push categories as keys
-	//	for (var i = 0; i < user.categories.length; i++) {
-	//		feedsDictionary.push({
-	//			key: user.categories[i],
-	//			values: []
-	//		});
-	//	}
-	//	// Push feeds as values
-	//	for (var i = 0; i < user.feeds.length; i++) {
-	//		var j = containsKey(user.feeds[i].category);
-	//		if (j >= 0) {
-	//			feedsDictionary[j].values.push(user.feeds[i]);
-	//		}
-	//	}
-	//	res.json(feedsDictionary);
-	//});
 }
 
 module.exports.getFeedData = function (req, res, next) {
 	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-		res.status(404).send('Not found');
+		res.status(404).send('Invalid feed');
 		return;
 	}
 	Feed.findById(req.body.id, function (err, feed) {
@@ -120,7 +72,6 @@ module.exports.add = function (req, res, next) {
 
 	Feed.findOne({ rsslink: req.body.rsslink }, function (err, feed) {
 		if (err) {
-			console.log("ERR");
 			return next(err);
 		}
 
@@ -147,7 +98,6 @@ module.exports.add = function (req, res, next) {
 				}); 
 			}
 			else {
-				console.log(foundCategory[0]);
 				if (err) {
 					return next(err);
 				}
@@ -158,16 +108,11 @@ module.exports.add = function (req, res, next) {
 					}
 					res.json(feed);
 				});
-				// add to existing category
 			}
-			// alredy have such feed in database
-			console.log("feed exist in database");
 		}
 		if (!feed) {
-			// no such feed in database
 			var feed = new Feed(req.body);
 			if (!foundCategory.length) {
-				console.log("cat not exist");
 				feed.save(function (err, feed) {
 					if (err) {
 						return next(err);
@@ -187,7 +132,6 @@ module.exports.add = function (req, res, next) {
 				});
 			}
 			else {
-				console.log(foundCategory[0]);
 				feed.save(function (err, feed) {
 					if (err) {
 						return next(err);
@@ -200,117 +144,66 @@ module.exports.add = function (req, res, next) {
 						res.json(feed);
 					});
 				});
-				// add to existing category
 			}
-			console.log("feed doesnt exist in database");
 		}
 	});
 };
 
 module.exports.remove = function (req, res, next) {
-	var foundCategoryIndex;
-	var foundCategory = req.user.feedsDictionary.filter(function (elem, i) {
-		foundCategoryIndex = i;
-		return elem.category === req.params.category;
+	req.user.populate("feedsDictionary.feeds", function (err, user) {
+		var foundCategoryIndex,
+			foundCategory,
+			foundFeedIndex,
+			foundFeed;
+
+		foundCategory = req.user.feedsDictionary.filter(function (elem, i) {
+			foundCategoryIndex = i;
+			return elem.category === req.params.category;
+		});
+
+		if (!foundCategory.length) {
+			return res.send({
+				error: ERRORS.cant_delete_feed_no_such_cat
+			});
+		}
+
+		foundFeed = foundCategory[0].feeds.filter(function (elem, i) {
+			foundFeedIndex = i;
+			return elem._id == req.params.id;
+		});
+
+		if (!foundFeed.length) {
+			return res.send({
+				error: ERRORS.cant_delete_feed_no_such_feed
+			});
+		}
+
+		if (foundCategory[0].feeds.length === 1) {
+			req.user.feedsDictionary.splice(foundCategoryIndex, 1);
+		}
+		else {
+			foundCategory[0].feeds.splice(foundFeedIndex, 1);
+		}
+
+		req.user.save(function (err) {
+			if (err) return next(err);
+			res.statusCode = 200;
+			return res.send();
+		});
 	});
-
-	if(!foundCategory.length){
-		return res.send({
-			error: ERRORS.cant_delete_feed_no_such_cat
-		}); 
-	}
-
-	var foundFeedIndex;
-	var foundFeed = foundCategory[0].feeds.filter(function (elem, i) {
-		foundFeedIndex = i;
-		return elem.$oid == req.params.id;
-	});
-
-	if(!foundFeed.length){
-		return res.send({
-			error: ERRORS.cant_delete_feed_no_such_feed
-		}); 
-	}
-
-	if (foundCategory[0].feeds.length === 1) {
-		req.user.feedsDictionary.splice(foundCategoryIndex, 1);
-	}
-	else {
-		foundCategory[0].feeds.splice(foundFeedIndex, 1);
-	}
-
-	req.user.save(function (err) {
-		if (err) return next(err);
-	});
-
-	//for (var i = 0; i < user.feeds.length; i++) {
-	//	if (foundCategory[0].feeds[i].$oid === req.params.id) {
-	//		foundCategory[0].feeds.splice(i, 1);
-	//		if (!foundCategory[0].feeds.length) {
-
-	//		}
-	//		req.user.save(function (err) {
-	//			if (err) return next(err);
-	//		});
-	//	}
-	//}
-
-	//req.user.populate('feeds', function (err, user) {
-	//	// First, delete feed record from user feedsDictionary array 
-	//	for (var i = 0; i < user.feeds.length; i++) {
-	//		if (user.feeds[i] === req.params.id) {
-	//			user.feeds.splice(i, 1);
-	//			user.save(function (err) {
-	//				if (err) return next(err);
-	//			});
-	//		}
-	//	}
-
-	//	// Delete feed from database
-	//	Feed.findById(req.params.id, function (err, feed) {
-	//		var catExist = false;
-	//		for (var i = 0; i < user.feeds.length; i++) {
-	//			if (user.feeds[i].category === feed.category && user.feeds[i].rsslink !== feed.rsslink) {
-	//				catExist = true;
-	//			}
-	//		}
-	//		if (!catExist) {
-	//			for (var i = 0; i < user.categories.length; i++) {
-	//				if (feed.category === user.categories[i]) {
-	//					user.categories.splice(i, 1);
-	//					user.save(function (err) {
-	//						if (err) return next(err);
-	//					});
-	//				}
-	//			}
-	//		}
-	//		if (!feed) {
-	//			res.statusCode = 404;
-	//			return res.send({
-	//				error: ERRORS.feed_not_found
-	//			});
-	//		}
-	//		return feed.remove(function (err) {
-	//			if (user.categories.indexOf(req.body.category) === -1) {
-	//				user.categories.push(req.body.category);
-	//			}
-	//			if (!err) {
-	//				return res.send({
-	//					status: 'OK'
-	//				});
-	//			} 
-	//			res.statusCode = 500;
-	//			log.error(ERRORS.internal_error, res.statusCode, err.message);
-	//			return res.send({
-	//				error: ERRORS.feed_not_found
-	//			});
-	//		});
-	//	});
-	//});
 }
 
 module.exports.setCategoryOrder = function (req, res, next) {
-	req.user.categories = req.body.newCategories;
+	var newFeedsDictionary = [],
+		lookup = {};
+	for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
+		lookup[array[i].category] = array[i];
+	}
+	
+	for (var i = 0; i < req.body.newCategories.length; i++) {
+		newFeedsDictionary.push(lookup[req.body.newCategories[i]]);
+	}
+	req.user.feedsDictionary = newFeedsDictionary;
 	req.user.save(function (err) {
 		if (err) return next(err);
 		res.statusCode = 200;
@@ -319,7 +212,16 @@ module.exports.setCategoryOrder = function (req, res, next) {
 }
 
 module.exports.setFavsCategoryOrder = function (req, res, next) {
-	req.user.favCategories = req.body.newCategories;
+	var newFavsDictionary = [],
+		lookup = {};
+	for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
+		lookup[array[i].category] = array[i];
+	}
+
+	for (var i = 0; i < req.body.newCategories.length; i++) {
+		newFavsDictionary.push(lookup[req.body.newCategories[i]]);
+	}
+	req.user.favouritesDictionary = newFavsDictionary;
 	req.user.save(function (err) {
 		if (err) return next(err);
 		res.statusCode = 200;

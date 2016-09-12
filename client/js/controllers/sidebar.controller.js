@@ -8,8 +8,8 @@
 		$scope.feeds = feedsService.feedsDictionary;
 		$scope.favs = feedsService.favouritesDictionary;
 		$scope.onFeedsDrag = function (index) {
-			dashboardService.loadingIcon = true;
-			$scope.feeds.splice(index, 1);
+		    dashboardService.loadingIcon = true;
+		    $scope.feeds.splice(index, 1);
 			feedsService.setFeedsOrder().then(function (resp) {
 				dashboardService.loadingIcon = false;
 			});
@@ -24,8 +24,8 @@
 		$scope.getAll = function ($event) {
 			setArticlesType(angular.element($event.currentTarget).parent(), 'all');
 			// if there is only one category and feed, return this feed articles
-			if ($scope.feeds.length === 1 && $scope.feeds[0].values.length === 1) {
-				articlesService.getArticlesByFeed($scope.feeds[0].values[0]);
+			if ($scope.feeds.length === 1 && $scope.feeds[0].feeds.length === 1) {
+				articlesService.getArticlesByFeed($scope.feeds[0].feeds[0]);
 			} else {
 				articlesService.getAllArticles();
 			}
@@ -49,7 +49,7 @@
 			else {
 				angular.element($event.currentTarget).addClass('chevron-down');
 			}
-			// if there is only one feed within selected category, return its articles
+		    // if there is only one feed within selected category, return its articles
 			if ($scope.feeds[arguments[2]].feeds.length == 1) {
 				articlesService.getArticlesByFeed($scope.feeds[arguments[2]].feeds[0]);
 			} else {
@@ -104,7 +104,6 @@
 			} else return true;
 		}
 		$scope.toggle = false;
-		
 		var setArticlesType = function (element, type, value) {
 			if (type && value) {
 				dashboardService.setCurrentArticlesType(type, value);

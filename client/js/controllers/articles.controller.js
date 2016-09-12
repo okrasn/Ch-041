@@ -64,7 +64,6 @@
 					return;
 				}
 			}
-			
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
 				$scope.addingNewCategory = false;

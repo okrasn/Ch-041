@@ -9,8 +9,7 @@ var articleSchema = new mongoose.Schema({
 	feed: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Feed'
-	},
-	category: String
+	}
 });
 
 mongoose.model('Article', articleSchema);

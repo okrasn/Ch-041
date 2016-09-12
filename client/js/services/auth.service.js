@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService) {
+	angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', 'dashboardService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService, dashboardService) {
 		var auth = {
 			saveToken: function (token) {
 				$auth.setToken(token);
@@ -12,7 +12,7 @@
 				return $auth.isAuthenticated();
 			},
 			currentUser: function () {
-				return  profileService.refreshProfileData().email;
+				return profileService.refreshProfileData().email;
 			},
 			userID: function () {
 				if (auth.isLoggedIn()) {
@@ -22,21 +22,21 @@
 			},
 			register: function (user) {
 				return $http.post('/register', user).success(function (data) {
-					auth.saveToken(data.token);
+				    auth.saveToken(data.token);
 				}).error(function (err) {
 					console.log(err.message);
 				});
 			},
 			logIn: function (user) {
 				return $http.post('/login', user).success(function (data) {
-					auth.saveToken(data.token);
+				    auth.saveToken(data.token);
 				}).error(function (err) {
 					console.log(err.message);
 				});
 			},
 			logOut: function () {
-		$auth.removeToken();
-			$auth.logout();
+				$auth.removeToken();
+				$auth.logout();
 			}
 		}
 		return auth;

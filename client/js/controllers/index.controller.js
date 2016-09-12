@@ -1,6 +1,7 @@
 (function () {
-	angular.module('rssreader').controller('IndexController', ['$scope', 'authService', '$window', 'themeService', function ($scope, authService, $window, themeService) {
+	angular.module('rssreader').controller('IndexController', ['$scope', 'authService', '$window', 'themeService', 'dashboardService', function ($scope, authService, $window, themeService, dashboardService) {
 		$scope.layout = themeService.getTheme;
-		$scope.text = "some text";
+		$scope.temp = "some text";
+		$scope.loadingIcon = dashboardService.isLoading;
 	}]);
 })();

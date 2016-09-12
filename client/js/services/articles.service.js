@@ -61,12 +61,11 @@
 						obj.articles = temp_articles;
 						dashboardService.loadingIcon = false;
 					});
-
 				},
 				getArticlesByFeed: function (feed) {
 					obj.resetArticles();
 					dashboardService.setTitle(feed.title);
-					dashboardService.setFeedId(feed._id);
+					dashboardService.setFeedId(feed);
 					fetchArticles(feed).then(function () {
 						obj.articles = temp_articles;
 					});
@@ -75,7 +74,7 @@
 					obj.resetArticles();
 					dashboardService.setTitle(cat);
 					angular.forEach(feedsService.feedsDictionary, function (value, key) {
-						if (value.key === cat) {
+						if (value.category === cat) {
 							angular.forEach(value.feeds, function (value, key) {
 								promises.push(fetchArticles(value));
 							});
@@ -90,7 +89,7 @@
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						angular.forEach(value.feeds, function (value, key) {
+						angular.forEach(value.articles, function (value, key) {
 							obj.articles.push(value);
 						});
 					});
@@ -101,8 +100,8 @@
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites: " + cat);
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						if (value.key === cat) {
-							angular.forEach(value.values, function (value, key) {
+						if (value.category === cat) {
+							angular.forEach(value.articles, function (value, key) {
 								obj.articles.push(value);
 							});
 						}
@@ -128,7 +127,7 @@
 				},
 				removeFavourite: function (article) {
 					dashboardService.loadingIcon = true;
-					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id, {
+					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id + '/' + article.category, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
 						}
