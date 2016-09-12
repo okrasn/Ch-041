@@ -1,274 +1,172 @@
 #feed-head {
-    height: 145px;
-    padding: 15px;
-    border-bottom: 1px solid #888888;
-    background-color: #fff;
+	height: 145px;
+	padding: 15px;
+	border-bottom: 1px solid #888888;
+	background-color: #fff;
 
-    & > h2 {
-        margin-top: 25px;
-    }
+	& > h2 {
+		margin-top: 25px;
+	}
 
-    .article-title {
-        padding: 0;
-    }
+	.article-title {
+		padding: 0;
+	}
+}
+
+.favicon {
+	margin-right: 1em;
+	width: 16px;
+	height: 16px;
 }
 
 .list-header {
-    border-bottom: 1px solid #888888;
-    border-shadow: 1px 2px 5px 1px #888888;
+	border-bottom: 1px solid #888888;
+	border-shadow: 1px 2px 5px 1px #888888;
 }
 
 .strong-text {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .table-feed {
-    > div > a {
-        color: black;
-        text-decoration: none;
+	> div > a {
+		color: black;
+		text-decoration: none;
 
-        &:hover {
-            text-decoration: none;
-        }
-    }
+		&:hover {
+			text-decoration: none;
+		}
+	}
 
-    .vertical-center {
-        line-height: 3em;
-    }
+	.vertical-center {
+		line-height: 3em;
+	}
 
-    padding: 1em 0 1em 0;
-    height: 80px;
-    border-bottom: 1px solid #888888;
-    border-shadow: 1px 2px 5px 1px #888888;
+	padding: 1em 0 1em 0;
+	height: 80px;
+	border-bottom: 1px solid #888888;
+	border-shadow: 1px 2px 5px 1px #888888;
 
-    &:hover {
-        transition: $app-transition;
-        background-color: #e8e8e8;
-    }
+	&:hover {
+		transition: $app-transition;
+		background-color: #e8e8e8;
+	}
+}
+
+.list-item{
+	cursor: pointer;
 }
 
 .feed-content {
-    float: left;
-    width: 95%;
+	float: left;
+	width: 95%;
 }
 
 .btn a {
-    color: #ffffff;
-    text-decoration: none;
+	color: #ffffff;
+	text-decoration: none;
 
-    &:hover {
-        color: #ffffff;
-    }
+	&:hover {
+		color: #ffffff;
+	}
 }
 
-#list, #th-list, #th-large {
-    .popover {
-        z-index: 500;
-        border-radius: $main-border-radius;
-    }
-
-    img {
-        width: 185px;
-        height: 145px;
-        border-radius: $main-border-radius;
-        float: left;
-        margin-right: 1em;
-    }
-
-    .app-btn-blue {
-        display: black;
-    }
+.popover {
+	z-index: 500;
+	border-radius: $main-border-radius;
 }
 
-#th-large {
-    background-color: $main-background-color;
-    padding: $main-app-padding/2;
-
-    [class*=' col-'] {
-        padding: $main-app-padding/2;
-    }
-
-    .article-title {
-        > a {
-            color: black;
-        }
-
-        margin-bottom: 0.2em;
-        font-weight: 700;
-        height: 20px;
-        overflow: hidden;
-    }
-
-    .article-content {
-        height: 88px;
-        margin-bottom: 0.2em;
-        overflow: hidden;
-    }
-
-    .app-panel {
-        height: 175px;
-        margin: 0;
-        padding: $main-app-padding;
-    }
-
-    .article-footer-item {
-        line-height: 2em;
-        padding-right: $main-app-padding;
-        vertical-align: middle;
-    }
-
-    .article-fav-icon {
-        @extend .article-footer-item;
-    }
-
-    .article-time-icon {
-        @extend .article-footer-item;
-        margin-right: $main-app-padding/2;
-        float: right;
-        line-height: $main-app-padding*2;
-        color: #888;
-        padding: 0;
-    }
-
-    .article-date {
-        @extend .article-footer-item;
-        float: right;
-        line-height: $main-app-padding*2;
-        color: #888;
-        padding: 0;
-    }
-
-    .trash-icon {
-        float: right;
-        line-height: $main-app-padding*2;
-        margin-left: 1em;
-    }
-
-    .panel:hover {
-        .my-hidden {
-            display: inline;
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 0.2s ease;
-        }
-    }
+.article-img {
+	width: 185px;
+	height: 145px;
+	border-radius: $main-border-radius;
+	float: left;
+	margin-right: 1em;
 }
 
-#th-list {
-    @extend #th-large;
+#cards-wrapper {
+	background-color: $main-background-color;
+	padding: $main-app-offset/2;
 
-    [class*='col-'] {
-        padding: $main-app-padding/2;
-    }
+	.app-panel:hover {
+		.my-hidden {
+			display: inline;
+			visibility: visible;
+			opacity: 1;
+			transition: opacity 0.2s ease;
+		}
+	}
+	[class*=' col-'] {
+		padding: $main-app-offset/2;
+	}
 }
 
 #list {
-    background-color: $main-background-color;
-    .list-share-wrap{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-    }
-    .col-same-height{
-        height: 3em;
-    }
-    .list-item-btn-top{
-        margin-bottom: 10px;
-    }
+	background-color: $main-background-color;
+
+	.list-share-wrap {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+	}
+
+	.col-same-height {
+		height: 3em;
+	}
+
+	.list-item-btn-top {
+		margin-bottom: 10px;
+	}
 }
 
-@media screen and (max-width: $phone-res) {
-    #th-list img, #th-large {
-        .article-title {
-            height: 110px;
-        }
-    }
+.article-title {
+	> a {
+		color: black;
+	}
+
+	margin-bottom: 0.2em;
+	font-weight: 700;
+	height: 20px;
+	overflow: hidden;
 }
 
-@media screen and (max-width: $tablet-res) {
-    #th-list, #th-large{
-        padding: 0;
-        // Must use !important, because even strong selector do not help.
-        // This class is from 3d party library where !important key word was specified.
-        div.popover {
-            display:flex !important;
-            justify-content: center;
-            align-content: center;
-            top: auto;
-            left: 50% !important;
-            width: 250px;
-            transform: translateX(-50%);
-        }
-        img {
-            width: 120px;
-            height: 95px;
-            border-radius: $main-border-radius;
-            float: left;
-            margin-right: 1em;
-        }
-
-        .btn-group > .th-large {
-            display: none;
-        }
-    }
-    #list{
-        padding: 0;
-        // Must use !important, because even strong selector do not help.
-        // This class is from 3d party library where !important key word was specified.
-        div.popover {
-            display:flex !important;
-            justify-content: center;
-            align-content: center;
-            top: auto;
-            width: 250px;
-        }
-    }
+.article-content {
+	height: 88px;
+	margin-bottom: 0.2em;
+	overflow: hidden;
 }
 
-@media screen and (max-width: $desktop-res) {
-    #th-list img, #th-large {
-        .article-fav-icon, .article-footer-icon {
-            line-height: 2em;
-        }
-
-        .panel .my-hidden {
-            visibility: visible;
-            display: inline;
-            opacity: 1;
-        }
-    }
+.app-panel {
+	height: 175px;
+	margin: 0;
+	padding: $main-app-offset;
+	background-color: white;
 }
 
-@media screen and (max-width: 1600px) and (min-width: 1200px) {
-    #th-large {
-        .app-panel {
-            height: 225px;
-        }
+.article-footer-item {
+	line-height: 2em;
+	padding-right: $main-app-offset;
+	vertical-align: middle;
+	line-height: $main-app-offset*2;
+}
 
-        .article-content {
-            height: 113px;
-            margin-bottom: 25px;
-        }
+.article-time-icon {
+	margin-right: $main-app-offset/2;
+	float: right;
+	color: #888;
+	padding: 0;
+}
 
-        .read-btn {
-            width: 185px;
-        }
-    }
+.article-date {
+	float: right;
+	color: #888;
+	padding: 0;
+}
 
-    #th-list {
-        .app-panel {
-            height: 180px;
-        }
-
-        .article-content {
-            height: 88px;
-            margin-bottom: 0.2em;
-        }
-
-        .read-btn {
-            width: 7em;
-        }
-    }
+.trash-icon {
+	float: right;
+	line-height: $main-app-offset*2;
+	margin-left: 1em;
 }

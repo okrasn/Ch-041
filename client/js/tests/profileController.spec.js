@@ -4,5 +4,4 @@ describe('ProfileController', function () {
 	beforeEach(angular.mock.inject(function (_$controller_) {
 		$controller = _$controller_;
 	}));
-
 });

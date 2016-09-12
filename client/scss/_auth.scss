@@ -1,190 +1,107 @@
-body {
-    font-size: 16px;
-    color: #000;
-    min-width: 240px;
-}
-
 /*================================Loginform=============================*/
 
-h2.header {
-    margin-bottom: 30px;
-    font-weight: 700;
-    text-align: center;
+.header {
+	margin-bottom: 30px;
+	font-weight: 700;
+	text-align: center;
 }
 
 .animate-error {
-    position: relative;
-    animation: animatetop 1s;
-    width: 70%;
-    margin: 10px auto 0;
+	position: relative;
+	animation: animatetop 1s;
+	width: 70%;
+	margin: 10px auto 0;
 }
 
 input.ng-pristine + #strength {
-    display:none;
+	display: none;
 }
 
-ul#strength {
-    display:inline;
-    list-style:none;
-    margin:0;
-    margin-top: 10px;
-    padding:0;
-    vertical-align:2px;
+#strength {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	margin-top: 10px;
+	padding: 0;
+	vertical-align: 2px;
 }
 
 .point {
-    background:#DDD;
-    border-radius:2px;
-    display:inline-block;
-    height:5px;
-    margin-right:1px;
-    width:20px;
-    &:last {
-        margin:0 !important;
-    }
+	background: #DDD;
+	border-radius: 2px;
+	display: inline-block;
+	height: 5px;
+	margin-right: 1px;
+	width: 20px;
+
+	&:last {
+		margin: 0 !important;
+	}
 }
 
 #footer {
-    position:fixed;
-    bottom:5px;
+	position: fixed;
+	bottom: 5px;
 }
 
 .cstmform-border {
-    margin-top: $main-app-padding;
-    margin-bottom: $main-app-padding;
-    padding: 20px 10% 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    @media screen and (max-width: 768px){
-        padding: 1em;
-    }
+	margin-top: $main-app-offset;
+	margin-bottom: $main-app-offset;
+	padding: 20px 10% 15px;
+	border-radius: 4px;
 }
 
 .form-group.login {
-    height: 90px;
-    margin-bottom: 0;
-    position: relative;
+	height: 90px;
+	margin-bottom: 0;
+	position: relative;
 }
 
 #login .form-group:nth-child(2) {
-    height: 90px;
+	height: 90px;
 }
 
 .form-group.login label.error {
-    margin-top: 3px;
-    color: #af5050;
-    float: right;
-    margin-bottom: 0;
-    font-size: 14px;
+	margin-top: 3px;
+	color: #af5050;
+	float: right;
+	margin-bottom: 0;
+	font-size: 14px;
 }
 
-.checkbox.margin {
-    margin-top: 4px;
-    margin-bottom: 20px;
+.checkbox {
+	margin: 0;
 }
 
 a.pass {
-    float: right;
+	float: right;
 }
 
 .msg-error {
-    margin-top: 3px;
-    color: #af5050;
-    float: right;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: bold;
+	margin-top: 3px;
+	color: #af5050;
+	float: right;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: bold;
 }
-
-.signup>p {
-    text-align: center;
-    margin-top: 5px;
-}
-
-.register {
-    text-align: center;
-    margin-top: 20px;
-}
-
 
 /*==================================Links============================*/
 
-.links a {
-    float: right;
-}
-
 .links img {
-    width: 50px;
-    margin-bottom: 15px;
+	padding: 0;
+	width: 50px;
+	margin-bottom: 15px;
 }
 
-.divder {
-    height: 113px;
-    margin: 0;
-    border-right: 1px solid #42a5f5;
-    padding: 0;
+.divider {
+	height: 113px;
+	margin: 0;
+	border-right: 1px solid #42a5f5;
+	padding: 0;
 }
 
-.divder+span {
-    font-weight: bold;
-    margin-left: 4px;
-}
-
-
-/* Large Devices, Wide Screens */
-
-@media only screen and (max-width: 1200px) {
-    .checkbox {
-        font-size: 13px;
-    }
-    .divder+span {
-        margin-left: -10px;
-    }
-}
-
-
-/* Medium Devices, Desktops */
-
-@media only screen and (max-width: 991px) {
-    .links img {
-        width: 35px;
-    }
-    .links {
-        text-align: center;
-    }
-    .checkbox {
-        font-size: 16px;
-    }
-    .links a {
-        float: none;
-    }
-}
-
-
-/* Small Devices, Tablets */
-
-@media only screen and (max-width: 767px) {
-    .app-btn-blue.cswidth {
-        margin-left: 0;
-        width: 100%;
-    }
-    .form-group.login label.error {
-        font-size: 12px;
-    }
-    .msg-error {
-        font-size: 12px;
-    }
-    .links img {
-        width: 45px;
-    }
-    .form-group.login input[type=email],
-    .form-group.login input[type=password] {
-        height: 50px;
-    }
-    .form-group.login {
-    margin-bottom: 10px;
-    }
-    .header {
-        font-size: 1.5em;
-    }
+.divider + span {
+	font-weight: bold;
+	margin-left: 4px;
 }

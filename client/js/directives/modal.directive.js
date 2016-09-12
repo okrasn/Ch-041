@@ -1,4 +1,4 @@
-﻿angular.module('rssreader').directive('modal', [function () {
+angular.module('rssreader').directive('modal', [function () {
 	return {
 		restrict: 'E',
 		scope: {

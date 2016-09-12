@@ -9,6 +9,12 @@
 					templateUrl: './partials/home.html',
 					controller: 'HomeController'
 				})
+				.state('404', {
+					url: '/not-found',
+					templateUrl: './partials/static/404_page.html',
+					controller: ['$scope', function ($state) {
+					}]
+				})
 				.state('login', {
 					url: '/login',
 					templateUrl: './partials/auth/login.html',
@@ -95,6 +101,11 @@
 					onEnter: ['dashboardService', function (dashboardService) {
 						dashboardService.setTitle("Add Feed");
 					}]
+				})
+				.state("dashboard.article", {
+					url: '/article/:feed/:link',
+					templateUrl: './partials/dashboard/article.html',
+					controller: 'ArticlesController'
 				});
 			$authProvider.facebook({
 				clientId: '173686319709284',
@@ -130,6 +141,7 @@
 					height: 633
 				}
 			});
+
 			$authProvider.twitter({
 				url: '/auth/twitter',
 				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
@@ -140,6 +152,6 @@
 					height: 645
 				}
 			});
-			
-	}]);
+
+		}]);
 })();

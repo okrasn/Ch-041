@@ -1,60 +1,105 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').factory('articlesService', ['$http', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $q, authService, $timeout, dashboardService, feedsService) {
+	angular.module('rssreader').factory('articlesService', ['$http', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $state, $q, authService, $timeout, dashboardService, feedsService) {
 		var ARTICLES_NUM = 50,
+			temp_articles = [],
+			defer = $q.defer(),
+			promises = [],
 			obj = {
 				articles: [],
+				articleForRead: null,
 				isFavourites: false,
 				checkIfFavourites: function () {
 					return obj.isFavourites;
 				},
-				getAllArticles: function () {
-					obj.isFavourites = false;
-					obj.articles.length = 0;
-					dashboardService.setTitle("All");
-					dashboardService.resetFeedId();
-					angular.forEach(feedsService.feedsDictionary, function (value, key) {
-						angular.forEach(value.values, function (value, key) {
-							return fetchArticles(value);
+				setReadArticle: function ($scope, feed, link) {
+					for (var i = 0; i < obj.articles.length; i++) {
+						if (obj.articles[i].link === link) {
+							$scope.articleForRead = obj.articles[i];
+							return;
+						}
+					}
+					return getFeedDataById(feed).success(function (res) {
+						obj.resetArticles();
+						var feedObj = res;
+						return fetchArticles(feedObj).then(function (res) {
+							for (var i = 0; i < temp_articles.length; i++) {
+								if (temp_articles[i].link === link) {
+									$scope.articleForRead = temp_articles[i];
+								}
+							}
+							if (!$scope.articleForRead) {
+								$state.go("404");
+							}
 						});
+					}).catch(function (err) {
+						obj.resetArticles();
+						return getArticleDataByLink(link).then(function (res) {
+							dashboardService.loadingIcon = false;
+							$scope.articleForRead = res.data;
+						}).catch(function (err) {
+							dashboardService.loadingIcon = false;
+							if (err.status === 404) {
+								$state.go("404");
+							}
+						});
+						if (err.status === 404) {
+							$state.go("404");
+						}
+						else $state.go("dashboard." + dashboardService.getViewMode());
 					});
 				},
+				getAllArticles: function () {
+					obj.resetArticles();
+					dashboardService.setTitle("All");
+					angular.forEach(feedsService.feedsDictionary, function (value, key) {
+						angular.forEach(value.values, function (value, key) {
+							promises.push(fetchArticles(value));
+						});
+					});
+					$q.all(promises).then(function () {
+						obj.articles = temp_articles;
+						dashboardService.loadingIcon = false;
+					});
+
+				},
 				getArticlesByFeed: function (feed) {
-					obj.articles.length = 0;
-					obj.isFavourites = false;
+					obj.resetArticles();
 					dashboardService.setTitle(feed.title);
 					dashboardService.setFeedId(feed._id);
-					fetchArticles(feed);
+					fetchArticles(feed).then(function () {
+						obj.articles = temp_articles;
+					});
 				},
 				getArticlesByCat: function (cat) {
-					obj.isFavourites = false;
-					obj.articles.length = 0;
+					obj.resetArticles();
 					dashboardService.setTitle(cat);
-					dashboardService.resetFeedId();
 					angular.forEach(feedsService.feedsDictionary, function (value, key) {
 						if (value.key === cat) {
 							angular.forEach(value.values, function (value, key) {
-								fetchArticles(value);
+								promises.push(fetchArticles(value));
 							});
 						}
 					});
+					$q.all(promises).then(function () {
+						obj.articles = temp_articles;
+					});
 				},
 				getFavourites: function () {
+					obj.resetArticles();
 					obj.isFavourites = true;
-					obj.articles.length = 0;
 					dashboardService.setTitle("Favourites");
-					dashboardService.resetFeedId();
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
 						angular.forEach(value.values, function (value, key) {
 							obj.articles.push(value);
 						});
 					});
+					dashboardService.loadingIcon = false;
 				},
 				getFavArticlesByCat: function (cat) {
+					obj.resetArticles();
 					obj.isFavourites = true;
-					obj.articles.length = 0;
 					dashboardService.setTitle("Favourites: " + cat);
-					dashboardService.resetFeedId();
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
 						if (value.key === cat) {
 							angular.forEach(value.values, function (value, key) {
@@ -62,19 +107,23 @@
 							});
 						}
 					});
+					dashboardService.loadingIcon = false;
 				},
 				getFavArticle: function (article) {
+					obj.resetArticles();
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
-					dashboardService.resetFeedId();
-					obj.articles.length = 0;
 					obj.articles.push(article);
+					dashboardService.loadingIcon = false;
 				},
 				addFavourite: function (article) {
+					dashboardService.loadingIcon = true;
 					return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
 						}
+					}).then(function (res) {
+						dashboardService.loadingIcon = false;
 					});
 				},
 				removeFavourite: function (article) {
@@ -87,6 +136,15 @@
 						dashboardService.loadingIcon = false;
 					});
 				},
+				resetArticles: function () {
+					dashboardService.loadingIcon = true;
+					temp_articles.length = 0;
+					obj.articles.length = 0;
+					obj.isFavourites = false;
+					dashboardService.resetFeedId();
+					promises.length = 0;
+				},
+				// Additional method for unit testing
 				getArticlesFetcher: function () {
 					return fetchArticles;
 				}
@@ -152,10 +210,11 @@
 									link: items[i].getElementsByTagName('link')[0].textContent,
 									img: getImage(items[i], feed.format),
 									content: getContent(items[i], feed.format),
-									date: items[i].getElementsByTagName('pubDate')[0].textContent
+									date: Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent),
+									feed: feed._id
 								};
 								articleObj.content = articleObj.content || articleObj.title;
-								obj.articles.push(articleObj);
+								temp_articles.push(articleObj);
 							}
 						} else if (feed.format === "ATOM") {
 							items = xmlDoc.getElementsByTagName('entry');
@@ -165,14 +224,30 @@
 									link: items[i].getElementsByTagName('id')[0].textContent,
 									img: getImage(items[i], feed.format),
 									content: getContent(items[i], feed.format),
-									date: items[i].getElementsByTagName('published')[0].textContent
+									date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
+									feed: feed._id
 								};
 								articleObj.content = articleObj.content || articleObj.title;
-								obj.articles.push(articleObj);
+								temp_articles.push(articleObj);
 							}
 						}
+						dashboardService.loadingIcon = false;
 						return response.data;
 					});
+			},
+			getFeedDataById = function (id) {
+				return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id }, {
+					headers: {
+						Authorization: 'Bearer ' + authService.getToken()
+					}
+				});
+			},
+			getArticleDataByLink = function (link) {
+				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link }, {
+				    headers: {
+				        Authorization: 'Bearer ' + authService.getToken()
+				    }
+				});
 			}
 		return obj;
 	}]);
