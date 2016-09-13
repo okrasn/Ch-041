@@ -16,15 +16,23 @@
 			}
 		}
 		$scope.addFeed = function () {
+			$scope.error = '';
 			if ($scope.newCategory) {
 				$scope.obj.category = $scope.newCategory;
 			}
-			$scope.error = '';
+			if (!$scope.obj.category) {
+				$scope.error = "Choose category";
+				return;
+			}
+			if (!$scope.newCategory && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+				$scope.error = "Enter new category name";
+				return;
+			}
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
 					$scope.addingNewCategory = false;
 					toasterService.success("Feed successfully added");
-					$state.reload("dashboard");
+					$state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
 				}, function (err) {
 					if (!err.data)
 						$scope.error = err.message;

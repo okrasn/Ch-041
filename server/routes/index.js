@@ -1,18 +1,16 @@
 var mongoose = require('mongoose'),
-    express = require('express'),
-    router = express.Router(),
-    passport = require('passport'),
-    jwt = require('jwt-simple'),
-    Article = mongoose.model('Article'),
-    Feed = mongoose.model('Feed'),
-    User = mongoose.model('User'),
+	express = require('express'),
+	router = express.Router(),
+	passport = require('passport'),
+	jwt = require('jwt-simple'),
+	Article = mongoose.model('Article'),
+	Feed = mongoose.model('Feed'),
+	User = mongoose.model('User'),
 	config = require('../config/config'),
 	authCtrl = require('../controllers/authentication'),
-    articlesCtrl = require('../controllers/articles'),
-    feedsCtrl = require('../controllers/feeds'),
-    profCtrl = require('../controllers/profile');
-
-router.post('/upload', profCtrl.upload);
+	articlesCtrl = require('../controllers/articles'),
+	feedsCtrl = require('../controllers/feeds'),
+	profCtrl = require('../controllers/profile');
 
 router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
@@ -37,6 +35,9 @@ router.post('/users/:user/addFeed', feedsCtrl.add);
 router.post('/users/:user/setCategoryOrder', feedsCtrl.setCategoryOrder);
 router.post('/users/:user/setFavsCategoryOrder', feedsCtrl.setFavsCategoryOrder);
 router.post('/users/:user/addFavArticle', articlesCtrl.addFavArticle);
+router.post('/users/:user/getFavArticle', articlesCtrl.getFavArticle);
+router.post('/users/:user/getFeedData', feedsCtrl.getFeedData);
+router.post('/users/:user/upload', profCtrl.upload);
 
 // remove feed
 router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);

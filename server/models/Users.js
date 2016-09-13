@@ -28,6 +28,11 @@ var mongoose = require('mongoose'),
 		},
 		categories: [String],
 		favCategories: [String],
+		feedsDictionary: [{categories: String, feeds: [{
+		        type: mongoose.Schema.Types.ObjectId,
+		        ref: 'Feed'
+		    }]
+		}],
 		feeds: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Feed'

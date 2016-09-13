@@ -1,18 +1,36 @@
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
 	var that = this;
 	this.DEFAULT_VIEW = 2;
-
+	this.loadingIcon = false;
 	this.currentArticlesType = 'all';
 	this.currentArticlesValue = $window.localStorage.category;
-	this.sortParam = {};
+	this.isReadingArticle = false;
 
+	this.sortParam = {
+		type: 'date',
+		order: 0
+	};
+	if ($window.localStorage.sortType) {
+		this.sortParam.type = $window.localStorage.sortType;
+		if ($window.localStorage.sortOrder) {
+			this.sortParam.order = +$window.localStorage.sortOrder;
+		}
+	}
+	else {
+		$window.localStorage.sortType = this.sortParam.type;
+		$window.localStorage.sortOrder = this.sortParam.order;
+	}
 	this.setSortParam = function (type, order) {
-		console.log(type);
-		console.log(order);
 		this.sortParam.type = type;
 		this.sortParam.order = order;
+		$window.localStorage.sortType = this.sortParam.type;
+		$window.localStorage.sortOrder = this.sortParam.order;
 	}
-	if (!$window.localStorage.articlesType) {
+	this.getSortParam = function () {
+		return that.sortParam;
+	}
+
+    if (!$window.localStorage.articlesType) {
 		$window.localStorage.articlesType = that.currentArticlesType;
 	}
 
@@ -36,7 +54,6 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	if (!$window.localStorage.viewMode) {
 		$window.localStorage.viewMode = this.DEFAULT_VIEW;
 	}
-	this.loadingIcon = false;
 	this.isLoading = function () {
 		return that.loadingIcon;
 	};
@@ -44,8 +61,8 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.checkSidebar = function () {
 		return that.sidebar;
 	}
-	this.currentViewMode = $window.localStorage.viewMode;
 	this.modalShown = false;
+	this.currentViewMode = $window.localStorage.viewMode;
 	this.viewModes = [
 		'list',
 		'th-list',
@@ -66,7 +83,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		that.currentViewMode = $window.localStorage.viewMode;
 		return that.viewModes[that.currentViewMode];
 	}
-	this.title = "";
+	this.title = '';
 	this.setTitle = function (title) {
 		if (title == "Add Feed") {
 			this.resetFeedId();
