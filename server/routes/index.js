@@ -16,6 +16,7 @@ router.post('/register', authCtrl.register);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
 //Auth
+router.post('/users/:user/changeColorTheme', profCtrl.changeColorTheme);
 router.post('/auth/google', authCtrl.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
 router.post('/auth/twitter', authCtrl.twitterAuth);

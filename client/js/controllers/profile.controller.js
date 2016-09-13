@@ -1,16 +1,16 @@
-(function () {
-	'use strict';
-	angular.module('rssreader').config(['$validatorProvider', function ($validatorProvider) {
-		$validatorProvider.addMethod("pattern", function (value, element) {
-			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
-		}, "Please specify the correct domain for your documents");
-	}]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
-		function (Upload, $http, $state, profileService, $scope,
-			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
-			$scope.currentUser = profileService.refreshProfileData;
-			
-			$scope.link = function (provider) {
+(function() {
+    'use strict';
+    angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
+        $validatorProvider.addMethod("pattern", function(value, element) {
+            return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
+        }, "Please specify the correct domain for your documents");
+    }]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
+        'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
+        function(Upload, $http, $state, profileService, $scope,
+            authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
+            $scope.currentUser = profileService.refreshProfileData;
+
+            $scope.link = function (provider) {
 				$auth.link(provider).then(function () {
 					toasterService.info('You have successfully linked a ' + provider + ' account');
 					profileService.getProfile();
@@ -27,7 +27,7 @@
 				});
 			};
 
-			$scope.updateProfile = function () {
+            $scope.updateProfile = function () {
 				profileService.getProfile();
 			};
 
@@ -75,7 +75,7 @@
 			    }
 			};
 
-			var PROFILE_ERRORS = {
+            var PROFILE_ERRORS = {
 				field_required: 'This field is required',
 				email_example: 'Please, use example: jacksparrow@gmail.com',
 				min_6symbl: 'Please,enter at least 6 characters',
@@ -84,7 +84,7 @@
 				reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
 			};
 
-			$scope.changePass = function (form) {
+            $scope.changePass = function (form) {
 				if (form.validate()) {
 					console.log("Submit change password");
 					return $http.post('/changePassword', $scope.newUserData, {
@@ -104,7 +104,7 @@
 				}
 			};
 
-			$scope.changePassValidation = {
+            $scope.changePassValidation = {
 				rules: {
 					currentPassword: {
 						required: true
@@ -119,7 +119,7 @@
 						required: true
 					}
 				},
-				messages: {
+                messages: {
 					currentPassword: {
 						required: PROFILE_ERRORS.field_required,
 						email: PROFILE_ERRORS.email_example,
@@ -138,12 +138,18 @@
 				}
 			};
 
-			$scope.updateTheme = function () {
-				themeService.layout = $scope.layout;
-			};
+            $scope.changeTheme = function() {
+                $scope.modalShown = !$scope.modalShown;
+            };
 
-			$scope.layout = themeService.layout;
-			$scope.layouts = themeService.layouts;
-		}
-	]);
+            $scope.updateTheme = function(layout) {
+                themeService.changeTheme(layout.url).error(function(error) {
+                    console.log("theme not changed" + error);
+                }).then(function(response) {
+                    profileService.getProfile();
+                });
+            };
+            $scope.layouts = themeService.layouts;
+        }
+    ]);
 })();

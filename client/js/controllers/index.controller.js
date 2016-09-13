@@ -1,6 +1,11 @@
 (function () {
-	angular.module('rssreader').controller('IndexController', ['$scope', 'authService', '$window', 'themeService', function ($scope, authService, $window, themeService) {
-		$scope.layout = themeService.getTheme;
-		$scope.text = "some text";
+	angular.module('rssreader').controller('IndexController', ['$scope', 'profileService', 'authService', '$window', 'themeService', function ($scope, profileService, authService, $window, themeService) {
+	$scope.getTheme = function() {
+			if(authService.isLoggedIn()) {
+				return profileService.refreshProfileData().colorTheme;
+			}else {
+				return "theme1";
+			}
+		}
 	}]);
 })();
