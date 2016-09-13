@@ -12,6 +12,8 @@ $sidebar-mobile-width: 270px;
 	transform: rotate(90deg);
 }
 
+
+
 span.glyphicon.glyphicon-chevron-right{
 	margin-right: $main-app-offset;
 	transition: all 0.3s ease;
@@ -24,20 +26,16 @@ span.glyphicon.glyphicon-chevron-right{
 
 #dashboard {
 	font-family: 'Roboto', sans-serif;
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
 	margin-right: -15px;
-	margin-left: -15px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding: 0 1em 0 1em;
+	margin-left: -1em;
 	height: 100%;
 	background-color: $main-background-color;
 
 	#sidebar-wrapper {
 		position: fixed;
-		top: 51px;
+		top: $navbar-height;
 		bottom: 0;
 		left: 0;
 		z-index: 9998;
@@ -156,7 +154,7 @@ ul[dnd-list] .dndPlaceholder {
 }
 
 .sidebar-item .sidebar-sub-item {
-	padding-left: 1em;
+	padding-left: 2em;
 	box-sizing: border-box;
 	cursor: pointer;
 	width: 100%;

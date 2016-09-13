@@ -6,6 +6,8 @@ var articleSchema = new mongoose.Schema({
 	content: String,
 	date: Date,
 	img: String,
+	currentSubscriptions: Number,
+	totalSubscriptions: Number,
 	feed: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Feed'

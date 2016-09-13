@@ -4,10 +4,10 @@ html {
 body {
   font-size: 16px;
   overflow-x: hidden;
-  margin-top: 50px;
   color: #000;
   min-width: 240px;
-  background-color: #f9f9fb; }
+  background-color: #f9f9fb;
+  padding-top: 50px; }
 
 p {
   margin: 0;
@@ -212,25 +212,41 @@ li.dropdown > a.dropdown-toggle {
 .orange {
   color: #ff9d00; }
 
-.article {
-  border-bottom: 1px solid gray; }
+#add-feed {
+  height: 100%; }
+  #add-feed h3 {
+    font-weight: 400; }
+  #add-feed .control-label {
+    font-weight: 400; }
 
-.article-title {
-  font-weight: 600; }
+#add-feed:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-image: url("http://bdwhw.com/images/2/newsletter-background/newsletter-background-01.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover; }
 
 .form-input {
   height: 45px;
   border-radius: 2px; }
 
-.add-feed .control-label {
-  padding-top: 14px; }
-
 .add-feed-form {
-  border-radius: 4px;
-  margin-top: 1em; }
+  margin: 50px auto;
+  border-radius: 2px; }
 
 #feed-head {
-  height: 145px;
+  height: 143px;
   padding: 15px;
   border-bottom: 1px solid #888888;
   background-color: #fff; }
@@ -373,19 +389,15 @@ span.glyphicon.glyphicon-chevron-right {
 
 #dashboard {
   font-family: 'Roboto', sans-serif;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   margin-right: -15px;
-  margin-left: -15px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 1em 0 1em;
+  margin-left: -1em;
   height: 100%;
   background-color: #f9f9fb; }
   #dashboard #sidebar-wrapper {
     position: fixed;
-    top: 51px;
+    top: 50px;
     bottom: 0;
     left: 0;
     z-index: 9998;
@@ -468,7 +480,7 @@ ul[dnd-list] .dndPlaceholder {
     background-color: #c1c1c1; }
 
 .sidebar-item .sidebar-sub-item {
-  padding-left: 1em;
+  padding-left: 2em;
   box-sizing: border-box;
   cursor: pointer;
   width: 100%;

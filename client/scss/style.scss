@@ -16,10 +16,10 @@ html {
 body {
 	font-size: 16px;
 	overflow-x: hidden;
-	margin-top: $navbar-height;
 	color: #000;
 	min-width: 240px;
 	background-color: $main-background-color;
+	padding-top: $navbar-height;
 }
 
 p {

@@ -22,7 +22,8 @@
 		$scope.register = function (form) {
 		    if (form.validate()) {
 		        dashboardService.loadingIcon = true;
-				authService.register($scope.user).error(function (error) {
+		        authService.register($scope.user).error(function (error) {
+		            dashboardService.loadingIcon = false;
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;

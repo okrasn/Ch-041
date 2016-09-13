@@ -6,6 +6,10 @@
 		$scope.categories = feedsService.allCategories;
 		$scope.addingNewCategory = false;
 		$scope.newCategory = null;
+		if ($state.current.name === 'dashboard.addFeed') {
+		    dashboardService.isReadingArticle = true;
+		    console.log($state.current.name);
+		}
 		$scope.checkIfNew = function () {
 			if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 				$scope.addingNewCategory = true;

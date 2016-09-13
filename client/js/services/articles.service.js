@@ -29,7 +29,20 @@
 								}
 							}
 							if (!$scope.articleForRead) {
-								$state.go("404");
+							    obj.resetArticles();
+							    return getArticleDataByLink(link).then(function (res) {
+							        dashboardService.loadingIcon = false;
+							        $scope.articleForRead = res.data;
+							    }).catch(function (err) {
+							        dashboardService.loadingIcon = false;
+							        if (err.status === 404) {
+							            $state.go("404");
+							        }
+							    });
+							    if (err.status === 404) {
+							        $state.go("404");
+							    }
+							    else $state.go("dashboard." + dashboardService.getViewMode());
 							}
 						});
 					}).catch(function (err) {

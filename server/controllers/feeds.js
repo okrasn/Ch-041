@@ -31,7 +31,6 @@ module.exports.userParam = function (req, res, next, id) {
 };
 
 module.exports.allFeed = function (req, res, next) {
-	console.log(req.user);
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		res.json(user.feedsDictionary);
 	});
@@ -74,78 +73,77 @@ module.exports.add = function (req, res, next) {
 		if (err) {
 			return next(err);
 		}
+		var currentFeed = feed;
+		req.user.populate("feedsDictionary.feeds", function (err, user) {
+			var foundCategory = null;
+			for (var i = 0; i < user.feedsDictionary.length; i++) {
+				if (user.feedsDictionary[i].category === req.body.category) {
+					foundCategory = user.feedsDictionary[i];
+				}
+				for (var j = 0; j < user.feedsDictionary[i].feeds.length; j++) {
+					if (user.feedsDictionary[i].feeds[j].rsslink === req.body.rsslink) {
+						return res.status(400).json({
+							message: ERRORS.feed_already_added
+						});
+					}
+				}
+			}
 
-		var foundCategory = req.user.feedsDictionary.filter(function (elem) {
-			return elem.category === req.body.category;
+			if (currentFeed) {
+			    console.log("ALREADY EXIST");
+				currentFeed.totalSubscriptions++;
+				currentFeed.currentSubscriptions++;
+				currentFeed.save(function (err, currentFeed) {
+					if (err) {
+						return next(err);
+					}
+					if (!foundCategory) {
+						var newFeedElement = {
+							category: req.body.category,
+							feeds: []
+						}
+						newFeedElement.feeds.push(currentFeed);
+						req.user.feedsDictionary.push(newFeedElement);
+					}
+					else {
+						foundCategory.feeds.push(currentFeed);
+					}
+					req.user.save(function (err, user) {
+						if (err) {
+							return next(err);
+						}
+						res.json(currentFeed);
+					});
+				});		        
+			}
+			if (!currentFeed) {
+				var feed = new Feed(req.body);
+				feed.totalSubscriptions = 1;
+				feed.currentSubscriptions = 1;
+				feed.save(function (err, feed) {
+					if (err) {
+						return next(err);
+					}
+					if (!foundCategory) {		                   
+							var newFeedElement = {
+								category: req.body.category,
+								feeds: []
+							}
+							newFeedElement.feeds.push(feed);
+							req.user.feedsDictionary.push(newFeedElement);
+					}
+					else {
+						foundCategory.feeds.push(feed);
+					}
+					req.user.save(function (err, user) {
+						if (err) {
+							return next(err);
+						}
+						res.json(feed);
+					});
+				});
+			}
 		});
-
-		if (feed) {
-			if (!foundCategory.length) {
-				if (err) {
-					return next(err);
-				}
-				var newFeedElement = {
-					category: req.body.category,
-					feeds: []
-				}
-				newFeedElement.feeds.push(feed);
-				req.user.feedsDictionary.push(newFeedElement);
-				req.user.save(function (err, user) {
-					if (err) {
-						return next(err);
-					}
-					res.json(feed);
-				}); 
-			}
-			else {
-				if (err) {
-					return next(err);
-				}
-				foundCategory[0].feeds.push(feed);
-				req.user.save(function (err, user) {
-					if (err) {
-						return next(err);
-					}
-					res.json(feed);
-				});
-			}
-		}
-		if (!feed) {
-			var feed = new Feed(req.body);
-			if (!foundCategory.length) {
-				feed.save(function (err, feed) {
-					if (err) {
-						return next(err);
-					}
-					var newFeedElement = {
-						category: req.body.category,
-						feeds: []
-					}
-					newFeedElement.feeds.push(feed);
-					req.user.feedsDictionary.push(newFeedElement);
-					req.user.save(function (err, user) {
-						if (err) {
-							return next(err);
-						}
-						res.json(feed);
-					});
-				});
-			}
-			else {
-				feed.save(function (err, feed) {
-					if (err) {
-						return next(err);
-					}
-					foundCategory[0].feeds.push(feed);
-					req.user.save(function (err, user) {
-						if (err) {
-							return next(err);
-						}
-						res.json(feed);
-					});
-				});
-			}
-		}
 	});
 };
 
@@ -177,6 +175,21 @@ module.exports.remove = function (req, res, next) {
 				error: ERRORS.cant_delete_feed_no_such_feed
 			});
 		}
+
+		Feed.findById(foundCategory[0].feeds[foundFeedIndex], function (err, feed) {
+			if (err) {
+				return next(err);
+			}
+			if (!feed) {
+				return next(new Error(ERRORS.feed_not_found));
+			}
+			if (feed.currentSubscriptions > 0) {
+				feed.currentSubscriptions--;
+			}
+			feed.save(function (err) {
+				if (err) return next(err);
+			});
+		});
 
 		if (foundCategory[0].feeds.length === 1) {
 			req.user.feedsDictionary.splice(foundCategoryIndex, 1);

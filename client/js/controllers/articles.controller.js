@@ -66,10 +66,13 @@
 			}
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
+			    dashboardService.loadingIcon = false;
 				$scope.addingNewCategory = false;
 				toasterService.success("Article marked as favourite");
 				$state.reload("dashboard");
 			}, function (err) {
+			    dashboardService.loadingIcon = false;
+			    $scope.addingNewCategory = false;
 				console.log(err);
 				if (!err.data)
 					$scope.error = err.message;

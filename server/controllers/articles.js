@@ -19,130 +19,142 @@ module.exports.addFavArticle = function (req, res, next) {
 		});
 	}
 	if (req.body.category === undefined) {
-	    req.body.category = 'Unsorted';
+		req.body.category = 'Unsorted';
 	}
 
 	Article.findOne({ link: req.body.link }, function (err, article) {
 		if (err) {
 			return next(err);
 		}
+		var currentArticle = article;
+		req.user.populate("favouritesDictionary.articles", function (err, user) {
+			var foundCategory = null;
+			for (var i = 0; i < req.user.favouritesDictionary.length; i++) {
+				if (req.user.favouritesDictionary[i].category === req.body.category) {
+					foundCategory = req.user.favouritesDictionary[i];
+				}
+				for (var j = 0; j < req.user.favouritesDictionary[i].articles.length; j++) {
+					if (req.user.favouritesDictionary[i].articles[j].link === req.body.link) {
+						return res.status(400).json({
+							message: ERRORS.fav_article_already_added
+						});
+					}
+				}
+			}
 
-		var foundCategory = req.user.favouritesDictionary.filter(function (elem) {
-			return elem.category === req.body.category;
+			if (currentArticle) {
+				currentArticle.totalSubscriptions++;
+				currentArticle.currentSubscriptions++;
+				currentArticle.save(function (err, currentArticle) {
+					if (err) {
+						return next(err);
+					}
+					if (!foundCategory) {
+						var newArticleElement = {
+							category: req.body.category,
+							articles: []
+						}
+						newArticleElement.articles.push(currentArticle);
+						req.user.favouritesDictionary.push(newArticleElement);
+					}
+					else {
+						foundCategory.articles.push(currentArticle);
+					}
+					req.user.save(function (err, user) {
+						if (err) {
+							return next(err);
+						}
+						res.json(currentArticle);
+					});
+				});
+			}
+			if (!currentArticle) {
+				var article = new Article(req.body);
+				article.totalSubscriptions = 1;
+				article.currentSubscriptions = 1;
+				article.save(function (err, article) {
+					if (err) {
+						return next(err);
+					}
+					if (!foundCategory) {
+						var newArticleElement = {
+							category: req.body.category,
+							articles: []
+						}
+						newArticleElement.articles.push(article);
+						req.user.favouritesDictionary.push(newArticleElement);
+					}
+					else {
+						foundCategory.articles.push(article);
+					}
+					req.user.save(function (err, user) {
+						if (err) {
+							return next(err);
+						}
+						res.json(article);
+					});
+				});
+			}
 		});
-
-		if (article) {
-			if (!foundCategory.length) {
-				if (err) {
-					return next(err);
-				}
-				var newArticleElement = {
-					category: req.body.category,
-					articles: []
-				}
-				newArticleElement.articles.push(article);
-				req.user.favouritesDictionary.push(newArticleElement);
-				req.user.save(function (err, user) {
-					if (err) {
-						return next(err);
-					}
-					res.json(article);
-				});
-			}
-			else {
-				if (err) {
-					return next(err);
-				}
-				foundCategory[0].articles.push(article);
-				req.user.save(function (err, user) {
-					if (err) {
-						return next(err);
-					}
-					res.json(article);
-				});
-			}
-		}
-		if (!article) {
-			var article = new Article(req.body);
-			if (!foundCategory.length) {
-				article.save(function (err, article) {
-					if (err) {
-						return next(err);
-					}
-					var newArticleElement = {
-						category: req.body.category,
-						articles: []
-					}
-					newArticleElement.articles.push(article);
-					req.user.favouritesDictionary.push(newArticleElement);
-					req.user.save(function (err, user) {
-						if (err) {
-							return next(err);
-						}
-						res.json(article);
-					});
-				});
-			}
-			else {
-				article.save(function (err, article) {
-					if (err) {
-						return next(err);
-					}
-					foundCategory[0].articles.push(article);
-					req.user.save(function (err, user) {
-						if (err) {
-							return next(err);
-						}
-						res.json(article);
-					});
-				});
-			}
-		}
 	});
 };
 
-module.exports.removeFavArticle = function (req, res, next) {	
-		req.user.populate("favouritesDictionary.articles", function (err, user) {
-			var foundCategoryIndex,
-				foundCategory,
-				foundArticleIndex,
-				foundArticle;
+module.exports.removeFavArticle = function (req, res, next) {
+	req.user.populate("favouritesDictionary.articles", function (err, user) {
+		var foundCategoryIndex,
+			foundCategory,
+			foundArticleIndex,
+			foundArticle;
 
-			foundCategory = req.user.favouritesDictionary.filter(function (elem, i) {
-				foundCategoryIndex = i;
-				return elem.category === req.params.category;
+		foundCategory = req.user.favouritesDictionary.filter(function (elem, i) {
+			foundCategoryIndex = i;
+			return elem.category === req.params.category;
+		});
+
+		if (!foundCategory.length) {
+			return res.send({
+				error: ERRORS.cant_delete_article_no_such_cat
 			});
+		}
 
-			if (!foundCategory.length) {
-				return res.send({
-					error: ERRORS.cant_delete_article_no_such_cat
-				});
-			}
+		foundArticle = foundCategory[0].articles.filter(function (elem, i) {
+			foundArticleIndex = i;
+			return elem._id == req.params.id;
+		});
 
-			foundArticle = foundCategory[0].articles.filter(function (elem, i) {
-				foundArticleIndex = i;
-				return elem._id == req.params.id;
+		if (!foundArticle.length) {
+			return res.send({
+				error: ERRORS.cant_delete_article_no_such_article
 			});
-
-			if (!foundArticle.length) {
-				return res.send({
-					error: ERRORS.cant_delete_article_no_such_article
-				});
+		}
+		Article.findById(foundCategory[0].articles[foundArticleIndex], function (err, article) {
+			if (err) {
+				return next(err);
 			}
-
-			if (foundCategory[0].articles.length === 1) {
-				req.user.favouritesDictionary.splice(foundCategoryIndex, 1);
+			if (!article) {
+				return next(new Error(ERRORS.article_not_found));
 			}
-			else {
-				foundCategory[0].articles.splice(foundArticleIndex, 1);
+			if (article.currentSubscriptions > 0) {
+				article.currentSubscriptions--;
 			}
-
-			req.user.save(function (err) {
+			article.save(function (err) {
 				if (err) return next(err);
-				res.statusCode = 200;
-				return res.send();
 			});
 		});
+
+		if (foundCategory[0].articles.length === 1) {
+			req.user.favouritesDictionary.splice(foundCategoryIndex, 1);
+		}
+		else {
+			foundCategory[0].articles.splice(foundArticleIndex, 1);
+		}
+
+		req.user.save(function (err) {
+			if (err) return next(err);
+			res.statusCode = 200;
+			return res.send();
+		});
+	});
 }
 
 module.exports.getFavArticle = function (req, res, next) {
@@ -163,4 +175,8 @@ module.exports.allFavourites = function (req, res, next) {
 	req.user.populate("favouritesDictionary.articles", function (err, user) {
 		res.json(user.favouritesDictionary);
 	});
+}
+
+module.exports.getPopularArticles = function (req, res, next) {
+
 }
