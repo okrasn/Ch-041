@@ -38,7 +38,7 @@ p {
 
 .app-panel {
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   transition: all 0.2s ease;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
   .app-panel:hover {
@@ -220,7 +220,7 @@ li.dropdown > a.dropdown-toggle {
 
 .form-input {
   height: 45px;
-  border-radius: 4px; }
+  border-radius: 2px; }
 
 .add-feed .control-label {
   padding-top: 14px; }
@@ -282,14 +282,14 @@ li.dropdown > a.dropdown-toggle {
 
 .popover {
   z-index: 500;
-  border-radius: 4px; }
+  border-radius: 2px; }
 
 .article-img {
-  width: 185px;
-  height: 145px;
-  border-radius: 4px;
+  width: 225px;
+  height: 175px;
+  border-radius: 2px 0 0 2px;
   float: left;
-  margin-right: 1em; }
+  margin: -1em 1em -1em -1em; }
 
 #cards-wrapper {
   background-color: #f9f9fb;
@@ -665,7 +665,7 @@ a.cstmblock {
 .app-btn {
   padding: 0.8em;
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   transition: all 0.2s ease;
   cursor: pointer;
   text-transform: uppercase;
@@ -736,7 +736,7 @@ button[disabled] {
   top: 0;
   margin-bottom: 0;
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   transition: all 0.2s ease;
   cursor: pointer; }
   .app-btn-feed-list:visited, .sort-btn:visited {
@@ -811,7 +811,7 @@ button[disabled] {
 
 .app-btn-toaster, .app-btn-toaster-red {
   border: none;
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: #5f5f5f;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -844,14 +844,14 @@ a.sharing-btn {
     color: #3949ab; }
 
 .sort-btn {
-  border-radius: 4px;
+  border-radius: 2px;
   margin-left: 1em; }
 
 .sort-item {
   cursor: pointer; }
 
 .toaster-window {
-  border-radius: 4px;
+  border-radius: 2px;
   z-index: 1000;
   position: fixed;
   width: 400px;
@@ -934,7 +934,7 @@ a.sharing-btn {
     text-align: center; }
 
 .modal-content {
-  border-radius: 4px;
+  border-radius: 2px;
   color: black;
   background-color: white;
   font-family: 'Roboto', sans-serif;
@@ -1158,9 +1158,9 @@ a.sharing-btn {
 
 @media screen and (max-width: 1600px) and (min-width: 1200px) {
   #cards-wrapper.desktop-grow .app-panel {
-    height: 225px; }
+    height: 240px; }
   #cards-wrapper.desktop-grow .article-content {
-    height: 113px;
+    height: 130px;
     margin-bottom: 25px; }
   #cards-wrapper.desktop-grow .read-btn {
     width: 115px; } }
@@ -1190,9 +1190,9 @@ a.sharing-btn {
   .article-img {
     width: 120px;
     height: 95px;
-    border-radius: 4px;
+    border-radius: 2px;
     float: left;
-    margin-right: 1em; }
+    margin: 0 1em 0 0; }
   #cards-wrapper {
     padding: 0; }
     #cards-wrapper div.popover {

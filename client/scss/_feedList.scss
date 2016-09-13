@@ -77,11 +77,11 @@
 }
 
 .article-img {
-	width: 185px;
-	height: 145px;
-	border-radius: $main-border-radius;
+	width: 225px;
+	height: 175px;
+	border-radius: $main-border-radius 0 0 $main-border-radius;
 	float: left;
-	margin-right: 1em;
+	margin: -1em 1em -1em -1em;
 }
 
 #cards-wrapper {
