@@ -528,11 +528,13 @@ ul[dnd-list] .dndPlaceholder {
   font-weight: 700;
   text-align: center; }
 
+.alert-danger {
+  width: 70%;
+  margin: 1em auto 0; }
+
 .animate-error {
   position: relative;
-  animation: animatetop 1s;
-  width: 70%;
-  margin: 10px auto 0; }
+  animation: animatetop 1s; }
 
 input.ng-pristine + #strength {
   display: none; }
@@ -1245,6 +1247,8 @@ a.sharing-btn {
     animation: 0.3s slideLeft ease; } }
 
 @media screen and (max-width: 768px) {
+  .alert-danger {
+    width: 100%; }
   .center-children-mobile {
     display: flex;
     justify-content: center;

@@ -149,6 +149,9 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $phone-res) {
+	.alert-danger{
+		width: 100%;
+	}
 	.center-children-mobile {
 		display: flex;
 		justify-content: center;
