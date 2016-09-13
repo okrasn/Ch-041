@@ -1,9 +1,13 @@
 angular.module('rssreader')
 	.factory('transfer', [function () {
-		var obj = {};
-		var str = '';
-		var providerString = '';
+		var obj = {}, str = '', providerString = '', email = '';
 
+		function setEmail (data) {
+			email = data;
+		}
+		function getEmail () {
+			return email;
+		}
 		function setProviderString (data) {
 			providerString = data;
 		}
@@ -29,7 +33,9 @@ angular.module('rssreader')
 			setString : setString,
 			getString : getString,
 			setProviderString : setProviderString,
-			getProviderString : getProviderString
+			getProviderString : getProviderString,
+			setEmail : setEmail,
+			getEmail : getEmail
 		}
 	}]);
 

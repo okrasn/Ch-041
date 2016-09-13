@@ -7,11 +7,13 @@
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		// $auth.setStorageType('localStorage');
 		$scope.user = {
 			verifyEmail : transfer.getString()
 		};
 		transfer.setString("");
+		$scope.setEmail = function () {
+			return transfer.getEmail();
+		}
 		$scope.password = {
 			token : transfer.getObj()
 		};
@@ -30,6 +32,9 @@
 
 		$scope.register = function (form) {
 			if (form.validate()) {
+				if($scope.user.verifyEmail){
+					$scope.user.email = transfer.getEmail();
+				}
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
 					if(error.message[0] === "F"){

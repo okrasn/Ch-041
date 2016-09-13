@@ -7,7 +7,7 @@ describe('Sign up a new user account', function () {
     	element(by.model('agreeWith')).click().then(function () {
     		element(by.id('sub_btn')).click();
     	});
-		expect(element(by.binding('error.message')).getText()).toEqual('First you have to approve you email. We are send verification link to your email'); // This is wrong!
+		expect(element(by.binding('error.message')).getText()).toEqual('First you have to approve you email. We are send verification link to your email');
     });
     it('should approve email and return link from email', function () {
     	browser.get('http://localhost:8080/#/verify/');

@@ -44,11 +44,13 @@
 					}]
 				})
 				.state('verify', {
-					url: '/verify/:token',
+					url: '/verify/:token/:email',
 					templateUrl: './partials/auth/verify.html',
 					controller: 'AuthController',
 					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
+						transfer.setEmail($stateParams.email);
 						transfer.setString($stateParams.token);
+						console.log($stateParams);
 						toasterService.info('You have successfuly approved you email. Please reenter you fields');
 
 					}]

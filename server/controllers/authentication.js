@@ -14,7 +14,7 @@ var passport = require('passport'),
 	flash = require('express-flash'),
 	path = require('path'),
 	nodemailer = require('nodemailer'),
-	emailToken,mailOptions,host,link,
+	emailToken, mailOptions, host, link, userEmail,
 	smtpTransport = nodemailer.createTransport("SMTP",{
     service: "Gmail",
 	    auth: {
@@ -34,7 +34,8 @@ ERRORS = {
 	invalid_data: 'Invalid email or password',
 	email_not_found: 'User with this email not found',
 	not_local_user: 'User with this email not a local created',
-	email_verification: 'First you have to approve you email. We are send verification link to your email'
+	email_verification: 'First you have to approve you email. We are send verification link to your email',
+	not_verifyed: 'This email have not approved yeat'
 };
 
 function createJWT(user) {
@@ -74,13 +75,14 @@ module.exports.register = function (req, res) {
 	}
 	if (passAccepted) {
 		
+		userEmail = req.body.email;
 		emailToken = randomtoken.generate(16);
 		host = req.get('host');
-		link = "http://" + req.get('host') + "/#/verify/" + emailToken;
+		link = "http://" + req.get('host') + "/#/verify/" + emailToken +"/" + userEmail;
 		mailOptions = {
 			to : req.body.email,
 			subject : "Please confirm your Email account",
-			html : "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"	
+			html : "Hello,<br> Please Click on the link to verify your email <strong>" + userEmail + "</strong>.<br><a href=" + link + ">Click here to verify</a>"	
 		}
 		console.log(mailOptions);
 
@@ -114,40 +116,50 @@ module.exports.register = function (req, res) {
 					existingUser: existingUser
 				});
 			}
-			if (existingUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
+			if (existingUser.emailVerification == false && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
 				return res.status(409).send({
 					message: 'Email is already taken'
 				});
 			}
 
-			var user = new User({
-				emailVerification: false,
-				displayName: req.body.displayName,
-				email: req.body.email,
-				password: req.body.password
-			});
-			if(req.body.verifyEmail){
+			if (req.body.verifyEmail && existingUser.emailVerification) {
 				user.emailVerification = true;
-			}
-
-			if (user.emailVerification === false) {
-				return res.status(400).json({
-					message: ERRORS.email_verification
-				});
-			}
-
-			user.save(function (err, result) {
-				if (err) {
-					res.status(500).send({
-						message: err.message
-					});
+				if( req.body.password === user.password ){
+					user.save(function (err, result) {
+						if (err) {
+							res.status(500).send({
+								message: err.message
+							});
+						}
+						return res.status(400).json({
+							message: ERRORS.email_verification
+						});
+					});	
 				}
 				res.send({
-					token: createJWT(result),
-					user: user
+					userpass : user.password
 				});
-				console.log(result);
-			});
+			}
+
+			if (req.body.verifyEmail === '') {
+				var user = new User({
+					emailVerification: false,
+					email : req.body.email,
+					displayName: req.body.displayName,
+					password: req.body.password
+				});
+
+				user.save(function (err, result) {
+					if (err) {
+						res.status(500).send({
+							message: err.message
+						});
+					}
+					return res.status(400).json({
+						message: ERRORS.email_verification
+					});
+				});
+			}
 		});
 	}
 };
@@ -158,14 +170,19 @@ module.exports.login = function (req, res) {
 	}, '+password', function (err, user) {
 		if (!user) {
 			return res.status(401).send({
-				message: 'Invalid email and/or password email'
+				message: ERRORS.invalid_data
 			});
+		}
+		if (!user.emailVerification) {
+			return res.status(401).send({
+				message: ERRORS.not_verifyed
+			});		
 		}
 		user.comparePassword(req.body.password, function (err, isMatch) {
 			if (!isMatch) {
 				return res.status(401).send({
 					pwd: user.password,
-					message: 'Invalid email and/or password pwd'
+					message: ERRORS.invalid_data
 				});
 			}
 			res.send({
