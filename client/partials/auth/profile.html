@@ -57,7 +57,7 @@
                     <div class="row">
                         <label class="col-xs-5">Change Theme:</label>
                         <div class="col-xs-7">
-                            <button class="btn btn-md app-btn-blue text-uppercase" ng-click="changeTheme()">change theme</button>
+                            <button class="app-btn app-btn-blue social_btn pull-right" ng-click="changeTheme()">change theme</button>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-xs-12 center-children-mobile">
-                        <button class="app-btn app-btn-blue social_btn" ng-click="showChangepwd = !showChangepwd">change password</button>
+                        <button class="app-btn app-btn-blue social_btn pull-right" ng-click="showChangepwd = !showChangepwd">change password</button>
                     </div>
                 </div>
                 <form name="changePassForm" class="fading-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
