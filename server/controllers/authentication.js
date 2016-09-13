@@ -526,7 +526,6 @@ module.exports.twitterAuth = function(req, res) {
         	json: true
       	}, function(err, response, profile) {
 
-        // Step 5a. Link user accounts.
         	if (req.header('Authorization')) {
           		User.findOne({ twitter: profile.id }, function(err, existingUser) {
             		if (existingUser) {
@@ -540,9 +539,7 @@ module.exports.twitterAuth = function(req, res) {
               			if (!user) {
                 			return res.status(400).send({ message: 'User not found' });
               			}
-
-              			user.twitter = profile.id;
-              			// user.email = profile.id;
+						user.twitter = profile.id;
               			user.displayName = user.displayName || profile.name;
               			user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
               			user.save(function () {
@@ -555,100 +552,96 @@ module.exports.twitterAuth = function(req, res) {
             		});
           		});
         	} else {
-          	// Step 5b. Create a new user account or return an existing one.
           		User.findOne({ twitter: profile.id }, function(err, existingUser) {
             		if (existingUser) {
               			return res.send({ token: createJWT(existingUser) });
             		}
 
-            var user = new User();
-            user.email = profile.id;
-            user.twitter = profile.id;
-            user.displayName = profile.name;
-            user.picture = profile.profile_image_url_https.replace('_normal', '');
-            user.save(function () {
-            	var token = createJWT(user);
-              	res.send({ 
-              		token: token,
-              		profile : profile
-              	});
-            });
-          });
-        }
-      });
-    });
-  }
+            		var user = new User();
+            		user.email = profile.id;
+            		user.twitter = profile.id;
+            		user.displayName = profile.name;
+            		user.picture = profile.profile_image_url_https.replace('_normal', '');
+            		user.save(function () {
+            			var token = createJWT(user);
+              			res.send({ 
+              				token: token,
+              				profile : profile
+              			});
+            		});
+          		});
+        	}
+      	});
+    	});
+  	}
 };
 
 module.exports.linkedIdAuth = function(req, res) {
-  var accessTokenUrl = 'https://www.linkedin.com/uas/oauth2/accessToken';
-  var peopleApiUrl = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url)';
-  var params = {
-    code: req.body.code,
-    client_id: req.body.clientId,
-    client_secret: config.LINKEDIN_SECRET,
-    redirect_uri: req.body.redirectUri,
-    grant_type: 'authorization_code'
-  };
+  	var accessTokenUrl = 'https://www.linkedin.com/uas/oauth2/accessToken';
+  	var peopleApiUrl = 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url)';
+  	var params = {
+    	code: req.body.code,
+    	client_id: req.body.clientId,
+    	client_secret: config.LINKEDIN_SECRET,
+    	redirect_uri: req.body.redirectUri,
+    	grant_type: 'authorization_code'
+  	};
 
-  // Step 1. Exchange authorization code for access token.
-  request.post(accessTokenUrl, { form: params, json: true }, function(err, response, body) {
-    if (response.statusCode !== 200) {
-      return res.status(response.statusCode).send({ message: body.error_description });
-    }
-    var params = {
-      oauth2_access_token: body.access_token,
-      format: 'json'
-    };
 
-    // Step 2. Retrieve profile information about the current user.
-    request.get({ url: peopleApiUrl, qs: params, json: true }, function(err, response, profile) {
+  	request.post(accessTokenUrl, { form: params, json: true }, function(err, response, body) {
+    	if (response.statusCode !== 200) {
+      		return res.status(response.statusCode).send({ message: body.error_description });
+    	}
+	    var params = {
+	      	oauth2_access_token: body.access_token,
+	      	format: 'json'
+	    };
+	    request.get({ url: peopleApiUrl, qs: params, json: true }, function(err, response, profile) {
 
-      // Step 3a. Link user accounts.
-      if (req.header('Authorization')) {
-        User.findOne({ linkedin: profile.id }, function(err, existingUser) {
-          if (existingUser) {
-            return res.status(409).send({ message: 'There is already a LinkedIn account that belongs to you' });
-          }
-          var token = req.header('Authorization').split(' ')[1];
-          var payload = jwt.decode(token, config.TOKEN_SECRET);
-          User.findById(payload.sub, function(err, user) {
-            if (!user) {
-              return res.status(400).send({ message: 'User not found' });
-            }
-            user.linkedin = profile.id;
-            user.picture = user.picture || profile.pictureUrl;
-            user.displayName = user.displayName || profile.firstName + ' ' + profile.lastName;
-            user.save(function () {
-              var token = createJWT(user);
-              res.send({ 
-              	token: token 
-              });
-            });
-          });
-        });
-      } else {
-        // Step 3b. Create a new user account or return an existing one.
-        User.findOne({ linkedin: profile.id }, function(err, existingUser) {
-          if (existingUser) {
-            return res.send({ token: createJWT(existingUser) });
-          }
-          var user = new User();
-          user.linkedin = profile.id;
-          user.email = profile.emailAddress;
-          user.picture = profile.pictureUrl;
-          user.displayName = profile.firstName + ' ' + profile.lastName;
-          user.save(function () {
-            var token = createJWT(user);
-            res.send({ 
-            	token: token,
-            	profile : profile	
-            });
-          });
-        });
-      }
-    });
-  });
+		    if (req.header('Authorization')) {
+		        User.findOne({ linkedin: profile.id }, function(err, existingUser) {
+		          	if (existingUser) {
+		            	return res.status(409).send({ message: 'There is already a LinkedIn account that belongs to you' });
+		          	}
+		          	var token = req.header('Authorization').split(' ')[1];
+		          	var payload = jwt.decode(token, config.TOKEN_SECRET);
+		          	User.findById(payload.sub, function(err, user) {
+		 			    if (!user) {
+		              		return res.status(400).send({ message: 'User not found' });
+		            	}
+		            	user.linkedin = profile.id;
+		            	user.picture = user.picture || profile.pictureUrl;
+		            	user.displayName = user.displayName || profile.firstName + ' ' + profile.lastName;
+		            	user.save(function () {
+		              		var token = createJWT(user);
+		              			res.send({ 
+		              				token: token 
+		              			});
+		            	});
+		          	});
+		        });
+		    } else {
+
+		        User.findOne({ linkedin: profile.id }, function(err, existingUser) {
+		          	if (existingUser) {
+		            	return res.send({ token: createJWT(existingUser) });
+		          	}
+		          	var user = new User();
+		          	user.linkedin = profile.id;
+		          	user.email = profile.emailAddress;
+		          	user.picture = profile.pictureUrl;
+		          	user.displayName = profile.firstName + ' ' + profile.lastName;
+		          	user.save(function () {
+		            	var token = createJWT(user);
+		            	res.send({ 
+		            		token: token,
+		            		profile : profile	
+		            	});
+		          	});
+		        });
+		    }
+	    });
+	});
 };
 
 module.exports.unlink = function (req, res) {
