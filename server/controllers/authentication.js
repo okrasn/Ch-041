@@ -116,13 +116,14 @@ module.exports.register = function (req, res) {
 					existingUser: existingUser
 				});
 			}
-			if (existingUser.emailVerification == false && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
+			if (existingUser && existingUser.emailVerification && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
 				return res.status(409).send({
-					message: 'Email is already taken'
+					message: 'Email is already taken',
+					existing : existingUser
 				});
 			}
 
-			if (req.body.verifyEmail && existingUser.emailVerification) {
+			if (!existingUser.emailVerification && req.body.verifyEmail) {
 				user.emailVerification = true;
 				if( req.body.password === user.password ){
 					user.save(function (err, result) {
