@@ -52,7 +52,7 @@ module.exports.register = function (req, res) {
 	var passAccepted = false;
 
 	if(req.body.verifyEmail){
-		req.body.repPassword = req.body.password
+		req.body.repPassword = req.body.password;
 	}
 
 	if (!req.body.email || !req.body.password || !req.body.repPassword) {
@@ -99,33 +99,57 @@ module.exports.register = function (req, res) {
 			});
 		}
 
-	User.findOne({
-			email: req.body.email
-		}, function (err, existingUser) {
-			if (existingUser && (existingUser.google || existingUser.facebook || existingUser.twitter || existingUser.linkedin )) {
-				existingUser.password = req.body.password;
-				existingUser.save(function (err, existingUser) {
-					if (err) {
-						res.status(500).send({
-							message: err.message
+		User.findOne({email: req.body.email}, function (err, existingUser) {
+				if (existingUser && (existingUser.google || existingUser.facebook || existingUser.twitter || existingUser.linkedin )) {
+					existingUser.password = req.body.password;
+					existingUser.save(function (err, existingUser) {
+						if (err) {
+							res.status(500).send({
+								message: err.message
+							});
+						}
+					})
+					return res.send({
+						token: createJWT(existingUser),
+						existingUser: existingUser
+					});
+				}
+				if (existingUser && existingUser.emailVerification && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
+					return res.status(409).send({
+						message: 'Email is already taken'
+					});
+				}
+
+				if (existingUser && !existingUser.emailVerification && req.body.verifyEmail !== '') {
+					existingUser.emailVerification = true;
+					var reqPassword = req.body.password;
+					bcrypt.genSalt(10, function(err, salt) {
+						bcrypt.hash(reqPassword, salt, function(err, hash) {
+							reqPassword = hash;
+						});
+					});
+					if( reqPassword === existingUser.password ){
+						existingUser.save(function (err, result) {
+							if (err) {
+								res.status(500).send({
+									message: err.message
+								});
+							}
+						});	
+						return res.send({
+							token: createJWT(existingUser)
 						});
 					}
-				})
-				return res.send({
-					token: createJWT(existingUser),
-					existingUser: existingUser
-				});
-			}
-			if (existingUser && existingUser.emailVerification && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
-				return res.status(409).send({
-					message: 'Email is already taken',
-					existing : existingUser
-				});
-			}
 
-			if (!existingUser.emailVerification && req.body.verifyEmail) {
-				user.emailVerification = true;
-				if( req.body.password === user.password ){
+				}
+
+				if (!req.body.verifyEmail) {
+					var user = new User({
+						emailVerification: false,
+						email : req.body.email,
+						displayName: req.body.displayName,
+						password: req.body.password
+					});
 					user.save(function (err, result) {
 						if (err) {
 							res.status(500).send({
@@ -135,32 +159,8 @@ module.exports.register = function (req, res) {
 						return res.status(400).json({
 							message: ERRORS.email_verification
 						});
-					});	
-				}
-				res.send({
-					userpass : user.password
-				});
-			}
-
-			if (req.body.verifyEmail === '') {
-				var user = new User({
-					emailVerification: false,
-					email : req.body.email,
-					displayName: req.body.displayName,
-					password: req.body.password
-				});
-
-				user.save(function (err, result) {
-					if (err) {
-						res.status(500).send({
-							message: err.message
-						});
-					}
-					return res.status(400).json({
-						message: ERRORS.email_verification
 					});
-				});
-			}
+				}
 		});
 	}
 };
