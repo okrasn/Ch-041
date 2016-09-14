@@ -17,10 +17,10 @@ var exec = require('child_process').exec,
 
 gulp.task('server', function (cb) {
 	//You must create folder 'data' in the root of project folder
-	// exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-	// 	console.log(stdout, stderr);
-	// 	cb(err);
-	// });
+	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+		console.log(stdout, stderr);
+		cb(err);
+	});
 	console.log("Server is running on port 8080");
 	exec('node app.js', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
