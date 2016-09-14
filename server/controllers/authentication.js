@@ -75,81 +75,44 @@ module.exports.register = function (req, res) {
 	}
 	if (passAccepted) {
 		
-		userEmail = req.body.email;
-		emailToken = randomtoken.generate(16);
-		host = req.get('host');
-		link = "http://" + req.get('host') + "/#/verify/" + emailToken +"/" + userEmail;
-		mailOptions = {
-			to : req.body.email,
-			subject : "Please confirm your Email account",
-			html : "Hello,<br> Please Click on the link to verify your email <strong>" + userEmail + "</strong>.<br><a href=" + link + ">Click here to verify</a>"	
-		}
-		console.log(mailOptions);
-
-		if(req.body.email !== arrayOfEmails[0]){
-			smtpTransport.sendMail(mailOptions, function(error, response){
-		   	 	if(error){
-		        	console.log(error);
-					res.end("error");
-			 	} else {
-		        	console.log("Message sent: " + response.message);
-		    		arrayOfEmails.push(req.body.email);
-					res.end("sent");
-		    	}
-			});
-		}
+		
 
 		User.findOne({email: req.body.email}, function (err, existingUser) {
-				if (existingUser && (existingUser.google || existingUser.facebook || existingUser.twitter || existingUser.linkedin )) {
-					existingUser.password = req.body.password;
-					existingUser.save(function (err, existingUser) {
-						if (err) {
-							res.status(500).send({
-								message: err.message
-							});
-						}
-					})
-					return res.send({
-						token: createJWT(existingUser),
-						existingUser: existingUser
-					});
-				}
-				if (existingUser && existingUser.emailVerification && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
-					return res.status(409).send({
-						message: 'Email is already taken'
-					});
-				}
-
-				if (existingUser && !existingUser.emailVerification && req.body.verifyEmail !== '') {
-					existingUser.emailVerification = true;
-					var reqPassword = req.body.password;
-					bcrypt.genSalt(10, function(err, salt) {
-						bcrypt.hash(reqPassword, salt, function(err, hash) {
-							reqPassword = hash;
-						});
-					});
-					if( reqPassword === existingUser.password ){
-						existingUser.save(function (err, result) {
-							if (err) {
-								res.status(500).send({
-									message: err.message
-								});
-							}
-						});	
-						return res.send({
-							token: createJWT(existingUser)
-						});
-					}
-
-				}
-
+				
 				if (!req.body.verifyEmail) {
 					var user = new User({
 						emailVerification: false,
 						email : req.body.email,
 						displayName: req.body.displayName,
-						password: req.body.password
+						password: req.body.password,
+						tempPassword: req.body.password
 					});
+
+					userEmail = req.body.email;
+					emailToken = randomtoken.generate(16);
+					host = req.get('host');
+					link = "http://" + req.get('host') + "/#/verify/" + emailToken +"/" + userEmail;
+					mailOptions = {
+						to : req.body.email,
+						subject : "Please confirm your Email account",
+						html : "Hello,<br> Please Click on the link to verify your email <strong>" + userEmail + "</strong>.<br><a href=" + link + ">Click here to verify</a>"	
+					}
+					console.log(mailOptions);
+
+					if(req.body.email !== arrayOfEmails[0]){
+						smtpTransport.sendMail(mailOptions, function(error, response){
+					   	 	if(error){
+					        	console.log(error);
+								res.end("error");
+						 	} else {
+					        	console.log("Message sent: " + response.message);
+					    		arrayOfEmails.push(req.body.email);
+								res.end("sent");
+					    	}
+						});
+					}	
+
+
 					user.save(function (err, result) {
 						if (err) {
 							res.status(500).send({
@@ -160,6 +123,49 @@ module.exports.register = function (req, res) {
 							message: ERRORS.email_verification
 						});
 					});
+				}
+				
+				// if (existingUser && !existingUser.verifiedUser) {
+				// 	existingUser.password = req.body.password;
+				// 	existingUser.save(function (err, existingUser) {
+				// 		if (err) {
+				// 			res.status(500).send({
+				// 				message: err.message
+				// 			});
+				// 		}
+				// 	})
+				// 	return res.send({
+				// 		token: createJWT(existingUser),
+				// 		existingUser: existingUser
+				// 	});
+				// }
+				// if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
+				// 	return res.status(409).send({
+				// 		message: 'Email is already taken'
+				// 	});
+				// }
+
+				if (existingUser && !existingUser.verifiedUser) {
+					existingUser.emailVerification = true;
+					existingUser.verifiedUser = true;
+					if( req.body.password === existingUser.tempPassword ){
+
+						existingUser.save(function (err, result) {
+							if (err) {
+								res.status(500).send({
+									message: err.message
+								});
+							}
+							// res.status(401).send({
+							// 	reqPass : reqPassword,
+							// 	exisPass : existingUser.password
+							// });
+							res.send({
+								token: createJWT(result)
+							});
+						});	
+					}
+					res.status(400);
 				}
 		});
 	}

@@ -11,11 +11,13 @@ var mongoose = require('mongoose'),
 			required: true
 		},
 		password: { type: String, select: true },
+		tempPassword: {type: String},
 		local: {
 			email : String,
 			password : String
 		},
 		emailVerification: { type : Boolean },
+		verifiedUser : {type : Boolean},
 		resetPasswordToken: String,
 		resetPasswordExpires: Date,
 		displayName: String,
