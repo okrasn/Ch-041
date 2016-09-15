@@ -75,8 +75,6 @@ module.exports.register = function (req, res) {
 	}
 	if (passAccepted) {
 		
-		
-
 		User.findOne({email: req.body.email}, function (err, existingUser) {
 				
 				if (!req.body.verifyEmail && req.body.counter === 0) {
@@ -111,12 +109,10 @@ module.exports.register = function (req, res) {
 					    	}
 						});
 					}	
-
-
 					user.save(function (err, result) {
 						if (err) {
-							return res.status(500).send({
-								message: err.message
+							return res.status(409).send({
+								message: 'Email is already taken'
 							});
 						}
 						return res.status(400).json({
@@ -140,7 +136,7 @@ module.exports.register = function (req, res) {
 					existingUser.emailVerification = true;
 					existingUser.verifiedUser = true;
 					if( req.body.password === existingUser.tempPassword ){
-
+						existingUser.tempPassword = '';	
 						existingUser.save(function (err, result) {
 							if (err) {
 								res.status(500).json({
@@ -205,11 +201,6 @@ module.exports.forgotPass = function(req, res) {
 	  					message: ERRORS.email_not_found
 	  				});
 	  			}
-	  			// if(!user.password){
-	  			// 	return res.status(404).send({
-	  			// 		message: ERRORS.not_local_user
-	  			// 	});
-	  			// }
 			user.resetPasswordToken = token;
 			user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
