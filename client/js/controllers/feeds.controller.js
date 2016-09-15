@@ -8,10 +8,10 @@
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
 		$scope.advicedCategory = $stateParams.category;
-		if ($state.current.name === 'dashboard.addFeed') {
+		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
 			dashboardService.isReadingArticle = true;
-			console.log($state.current.name);
 		}
+
 		$scope.checkIfNew = function () {
 			if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 				$scope.addingNewCategory = true;

@@ -4,7 +4,7 @@
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
 		$scope.articleData = articlesService;
 		$scope.obj = {};
-		$scope.newCatObj = {};
+		$scope.newCategory = {};
 		$scope.categories = feedsService.allFavsCategories;
 		$scope.error = null;
 		$scope.modalShown = false;
@@ -53,7 +53,7 @@
 			}
 			else {
 				$scope.addingNewFavCategory = false;
-				$scope.newCatObj.category = null;
+				$scope.newCategory.category = null;
 			}
 		}
 		
@@ -65,11 +65,11 @@
 		
 		$scope.confirmAddFavourite = function () {
 			$scope.error = '';
-			if ($scope.newCatObj.category) {
-				$scope.obj.category = $scope.newCatObj.category;
+			if ($scope.newCategory.category) {
+				$scope.obj.category = $scope.newCategory.category;
 			}
 			if ($scope.obj.category) {
-				if (!$scope.newCatObj.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+				if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 					$scope.error = "Enter new category name";
 					return;
 				}
@@ -94,7 +94,7 @@
 		$scope.cancelAddFavourite = function () {
 			$scope.modalShown = false;
 			$scope.favForAdd = {};
-			$scope.newCatObj = null;
+			$scope.newCategory = null;
 		}
 
 		$scope.share = function (article) {
