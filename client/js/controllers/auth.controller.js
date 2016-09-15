@@ -8,7 +8,8 @@
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
 		$scope.user = {
-			verifyEmail : transfer.getString()
+			verifyEmail : transfer.getString(),
+			counter : 0
 		};
 		transfer.setString("");
 		$scope.setEmail = function () {
@@ -32,6 +33,7 @@
 
 		$scope.register = function (form) {
 			if (form.validate()) {
+
 				if($scope.user.verifyEmail){
 					$scope.user.email = transfer.getEmail();
 				}
@@ -47,6 +49,7 @@
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
 					});
+					$scope.user.counter ++;
 				});
 			}
 		};
