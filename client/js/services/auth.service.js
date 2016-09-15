@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', 'dashboardService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService, dashboardService) {
+	angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService) {
 		var auth = {
 			saveToken: function (token) {
 				$auth.setToken(token);

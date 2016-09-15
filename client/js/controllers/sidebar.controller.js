@@ -1,24 +1,25 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('SidebarController', ['$scope', '$state', '$timeout', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $timeout, feedsService, articlesService, dashboardService) {
+	angular.module('rssreader').controller('SidebarController', ['$scope', '$state', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, feedsService, articlesService, dashboardService) {
 		$scope.feedsListDragableTypes = ['feeds'];
 		$scope.favsListDragableTypes = ['favs'];
 		$scope.currentArticlesType = dashboardService.currentArticlesType;
 		$scope.currentSelectedItem;
 		$scope.feeds = feedsService.feedsDictionary;
-		$scope.favs = feedsService.favouritesDictionary;
+		$scope.feedsData = feedsService;
+		$scope.favs = $scope.feedsData.favouritesDictionary;
 		$scope.onFeedsDrag = function (index) {
-		    dashboardService.loadingIcon = true;
+		    dashboardService.displayLoading();
 		    $scope.feeds.splice(index, 1);
 			feedsService.setFeedsOrder().then(function (resp) {
-				dashboardService.loadingIcon = false;
+				dashboardService.hideLoading();
 			});
 		}
 		$scope.onFavsDrag = function (index) {
-			dashboardService.loadingIcon = true;
+			dashboardService.displayLoading();
 			$scope.favs.splice(index, 1);
 			feedsService.setFavsOrder().then(function (resp) {
-				dashboardService.loadingIcon = false;
+				dashboardService.hideLoading();
 			});
 		}
 		$scope.getAll = function ($event) {

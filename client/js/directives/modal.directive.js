@@ -6,11 +6,11 @@ angular.module('rssreader').directive('modal', [function () {
 		},
 		replace: true,
 		transclude: true,
-		link: function (scope, element, attrs) {
+		link: function (scope, element, attrs, ctrl) {
 			scope.modalStyle = {};
 
 			scope.hideModal = function () {
-				scope.show = false;
+			    scope.show = false;
 			};
 		},
 		templateUrl: '../partials/modals/modal.html'

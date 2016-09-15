@@ -1,14 +1,16 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
+	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
 		$scope.obj = {};
 		$scope.feeds = feedsService.feedsDictionary;
+		$scope.adviced = feedsService.advicedDictionary;
 		$scope.categories = feedsService.allCategories;
 		$scope.addingNewCategory = false;
-		$scope.newCategory = null;
+		$scope.newCategory = {};
+		$scope.advicedCategory = $stateParams.category;
 		if ($state.current.name === 'dashboard.addFeed') {
-		    dashboardService.isReadingArticle = true;
-		    console.log($state.current.name);
+			dashboardService.isReadingArticle = true;
+			console.log($state.current.name);
 		}
 		$scope.checkIfNew = function () {
 			if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
@@ -16,41 +18,85 @@
 			}
 			else {
 				$scope.addingNewCategory = false;
-				$scope.newCategory = null;
+				$scope.newCategory = {};
 			}
 		}
 		$scope.addFeed = function () {
+		    console.log($scope.newCategory);
 		    dashboardService.loadingIcon = true;
-		    $scope.error = '';
-		    if (!$scope.obj.link) {
-		        $scope.error = "Enter Rss feed link";
-		        dashboardService.loadingIcon = false;
-		        return;
-		    }
-			if ($scope.newCategory) {
-				$scope.obj.category = $scope.newCategory;
+		    console.log("addd");
+			$scope.error = '';
+			if (!$scope.obj.link) {
+				$scope.error = "Enter Rss feed link";
+				dashboardService.loadingIcon = false;
+				return;
 			}
+			if ($scope.newCategory.category) {
+			    $scope.obj.category = $scope.newCategory.category;
+			    console.log($scope.obj.category);
+			}
+
 			if (!$scope.obj.category) {
-			    $scope.error = "Choose category";
-			    dashboardService.loadingIcon = false;
+			    console.log($scope.obj.category);
+				$scope.error = "Choose category";
+				dashboardService.loadingIcon = false;
 				return;
 			}
-			if (!$scope.newCategory && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+
+			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 			    $scope.error = "Enter new category name";
+			    console.log($scope.newCategory);
 			    dashboardService.loadingIcon = false;
-				return;
+			    return;
 			}
+
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
 					$scope.addingNewCategory = false;
 					toasterService.success("Feed successfully added");
 					$state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
 				}, function (err) {
-				    dashboardService.loadingIcon = false;
+					dashboardService.loadingIcon = false;
 					if (!err.data)
 						$scope.error = err.message;
 					else $scope.error = err.data.message;
 				});
+		}
+		$scope.addFeedByAdvice = function (feed) {
+		    console.log(feed);
+		    $scope.obj.link = feed.rsslink;
+		    $scope.error = null;
+		    $scope.modalShown = !$scope.modalShown;
+		}
+		$scope.setCoverImage = function (item) {
+			var coverImage = "";
+			switch (item.category) {
+				case "IT": {
+					coverImage = '/assets/images/it.jpeg'
+					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
+				}
+					break;
+				case "Gaming": {
+					coverImage = '/assets/images/gaming.jpeg'
+					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
+				}
+					break;
+				case "News": {
+					coverImage = '/assets/images/news.jpeg'
+					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
+				}
+					break;
+				case "Sport": {
+					coverImage = '/assets/images/sport.jpeg'
+					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
+				}
+					break;
+				case "Food": {
+					coverImage = '/assets/images/food.jpeg'
+					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
+				}
+					break;
+			}
 		}
 	}]);
 })();

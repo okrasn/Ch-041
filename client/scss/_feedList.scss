@@ -103,7 +103,7 @@
 
 #list {
 	background-color: $main-background-color;
-
+	padding-bottom: $main-app-offset;
 	.list-share-wrap {
 		height: 100%;
 		display: flex;
@@ -168,5 +168,5 @@
 .trash-icon {
 	float: right;
 	line-height: $main-app-offset*2;
-	margin-left: 1em;
+	margin-left: $main-app-offset;
 }

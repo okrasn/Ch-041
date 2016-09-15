@@ -38,19 +38,27 @@ module.exports.allFeed = function (req, res, next) {
 	});
 }
 
+module.exports.advicedFeeds = function (req, res, next) {
+	Advice.find({}, function (err, adviced) {
+		adviced[0].populate("feedsDictionary.feeds", function (err, adviced) {
+		    res.json(adviced.feedsDictionary);
+		});
+	});
+}
+
 module.exports.getAdvicedFeeds = function (req, res, next) {
 	Advice.find({}, function (err, advice) {
 		if (err) {
 			return next(err);
 		}
 		if (advice[0]) {
-		    advice[0].populate("feedsDictionary.feeds", function (err, user) {
-		        res.json(advice[0].feedsDictionary);
-		    });
+			advice[0].populate("feedsDictionary.feeds", function (err, user) {
+				res.json(advice[0].feedsDictionary);
+			});
 		}
 		else {
-		    res.status(404).send('Not found');
-		    return;
+			res.status(404).send('Not found');
+			return;
 		}
 	});
 }

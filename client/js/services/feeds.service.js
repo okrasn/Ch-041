@@ -2,6 +2,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 	that = this;
 	this.feedsDictionary = [];
 	this.favouritesDictionary = [];
+	this.advicedDictionary = [];
 	this.advicedFeeds = [];
 	this.allArticles = [];
 	this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Gaming", "Food", "Economics", "Science"];
@@ -76,8 +77,9 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 	            Authorization: 'Bearer ' + authService.getToken()
 	        }
 	    }).then(function (res) {
+	        angular.copy(res.data, that.advicedDictionary);
 	        console.log(res.data);
-	        angular.copy(res.data, that.advicedFeeds);
+	        dashboardService.hideLoading();
 	    });
 	}
 	this.getAllFavourites = function () {
@@ -130,7 +132,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 		return checkRssFormat;
 	}
 	this.addFeed = function (feed) {
-		dashboardService.loadingIcon = true;
+	    dashboardService.displayLoading();
 		return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
 			.then(function (response) {
 					if (feed.link === undefined) {
@@ -155,7 +157,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 							}
 						}).error(function (err) {
 							console.log(err);
-							dashboardService.loadingIcon = false;
+							dashboardService.hideLoading();
 						});
 					}
 				return response.data;

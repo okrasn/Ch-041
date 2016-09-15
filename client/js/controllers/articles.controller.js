@@ -1,24 +1,22 @@
 (function () {
 	'use strict';
+
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
-	    $scope.totalDisplayed = articlesService.displayedIncrement;
-	    $scope.loadMore = function () {
-	        $scope.totalDisplayed += displayedIncrement;
-	    };
+		$scope.articleData = articlesService;
 		$scope.obj = {};
 		$scope.newCatObj = {};
 		$scope.categories = feedsService.allFavsCategories;
 		$scope.error = null;
 		$scope.modalShown = false;
-		$scope.articles = articlesService.articles;
-		$scope.isFavourites = articlesService.checkIfFavourites;
+		$scope.articles = $scope.articleData.articles;
+		$scope.isFavourites = $scope.articleData.checkIfFavourites;
 		$scope.favForAdd = null;
 		$scope.favForRemove = null;
 		$scope.articleForShare = null;
 		$scope.articleForRead = null;
 		$scope.addingNewFavCategory = false;
 
-		if ($stateParams.feed !== undefined && $stateParams.link !== undefined) {
+		if ($stateParams.feed && $stateParams.link) {
 			dashboardService.isReadingArticle = true;
 			articlesService.setReadArticle($scope, $stateParams.feed, $stateParams.link);
 		}
@@ -27,6 +25,14 @@
 			if (feedsService.feedsDictionary.length < 1 && !$scope.isFavourites()) {
 				$state.go("dashboard.addFeed");
 			}
+		}
+
+		$scope.loadMore = function () {
+			$scope.articleData.totalDisplayed += $scope.articleData.displayedIncrement;
+		};
+
+		$scope.isAllDisplayed = function () {
+			return $scope.articleData.totalDisplayed > $scope.articleData.articles.length;
 		}
 
 		$scope.getArticles = function () {
@@ -70,12 +76,13 @@
 			}
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
-				dashboardService.loadingIcon = false;
+			    dashboardService.hideLoading();
+			    $scope.addingNewCategory = false;
+			    $scope.newCategory = null;
 				$scope.addingNewCategory = false;
 				toasterService.success("Article marked as favourite");
-				$state.reload("dashboard");
 			}, function (err) {
-				dashboardService.loadingIcon = false;
+			    dashboardService.hideLoading();
 				$scope.addingNewCategory = false;
 				console.log(err);
 				if (!err.data)
@@ -87,6 +94,7 @@
 		$scope.cancelAddFavourite = function () {
 			$scope.modalShown = false;
 			$scope.favForAdd = {};
+			$scope.newCatObj = null;
 		}
 
 		$scope.share = function (article) {

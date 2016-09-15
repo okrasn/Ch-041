@@ -3,11 +3,6 @@
 	String.prototype.replaceAll = function (target, replacement) {
 		return this.split(target).join(replacement);
 	};
-	angular.module('rssreader').filter('decode', function () {
-		return function (text) {
-			return angular.element('<div>' + text + '</div>').text();
-		};
-	});
 	angular.module('rssreader').factory('articlesService', ['$http', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $state, $q, authService, $timeout, dashboardService, feedsService) {
 		var ARTICLES_NUM = 50,
 			temp_articles = [],
@@ -17,6 +12,8 @@
 				articles: [],
 				articleForRead: null,
 				isFavourites: false,
+				displayedIncrement: 20,
+				totalDisplayed: 20,
 				checkIfFavourites: function () {
 					return obj.isFavourites;
 				},
@@ -39,10 +36,10 @@
 							if (!$scope.articleForRead) {
 								obj.resetArticles();
 								return getArticleDataByLink(link).then(function (res) {
-									dashboardService.loadingIcon = false;
+									dashboardService.hideLoading();
 									$scope.articleForRead = res.data;
 								}).catch(function (err) {
-									dashboardService.loadingIcon = false;
+									dashboardService.hideLoading();
 									if (err.status === 404) {
 										$state.go("404");
 									}
@@ -56,10 +53,10 @@
 					}).catch(function (err) {
 						obj.resetArticles();
 						return getArticleDataByLink(link).then(function (res) {
-							dashboardService.loadingIcon = false;
+							dashboardService.hideLoading();
 							$scope.articleForRead = res.data;
 						}).catch(function (err) {
-							dashboardService.loadingIcon = false;
+							dashboardService.hideLoading();
 							if (err.status === 404) {
 								$state.go("404");
 							}
@@ -79,8 +76,8 @@
 						});
 					});
 					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.loadingIcon = false;
+					    obj.articles = temp_articles;
+						dashboardService.hideLoading();
 					});
 				},
 				getArticlesByFeed: function (feed) {
@@ -88,7 +85,8 @@
 					dashboardService.setTitle(feed.title);
 					dashboardService.setFeedId(feed);
 					return fetchArticles(feed).then(function () {
-						obj.articles = temp_articles;
+					    obj.articles = temp_articles;
+					    dashboardService.hideLoading();
 					});
 				},
 				getArticlesByCat: function (cat) {
@@ -103,7 +101,8 @@
 							}
 						});
 						return $q.all(promises).then(function () {
-							obj.articles = temp_articles;
+						    obj.articles = temp_articles;
+						    dashboardService.hideLoading();
 						});
 					}, 350);
 				},
@@ -113,10 +112,10 @@
 					dashboardService.setTitle("Favourites");
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
 						angular.forEach(value.articles, function (value, key) {
-							obj.articles.push(value);
+						    obj.articles.push(value);
 						});
 					});
-					dashboardService.loadingIcon = false;
+					dashboardService.hideLoading();
 				},
 				getFavArticlesByCat: function (cat) {
 					obj.resetArticles();
@@ -129,37 +128,39 @@
 							});
 						}
 					});
-					dashboardService.loadingIcon = false;
+					dashboardService.hideLoading();
 				},
 				getFavArticle: function (article) {
 					obj.resetArticles();
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
 					obj.articles.push(article);
-					dashboardService.loadingIcon = false;
+					dashboardService.hideLoading();
 				},
 				addFavourite: function (article) {
-					dashboardService.loadingIcon = true;
+					dashboardService.displayLoading();
 					return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
 						}
 					}).then(function (res) {
-						dashboardService.loadingIcon = false;
+					    feedsService.getAllFavourites();
+						dashboardService.hideLoading();
 					});
 				},
 				removeFavourite: function (article) {
-					dashboardService.loadingIcon = true;
+					dashboardService.displayLoading();
 					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id + '/' + article.category, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
 						}
 					}).then(function (res) {
-						dashboardService.loadingIcon = false;
+						dashboardService.hideLoading();
 					});
 				},
 				resetArticles: function () {
-					dashboardService.loadingIcon = true;
+				    this.totalDisplayed = this.displayedIncrement;
+					dashboardService.displayLoading();
 					temp_articles.length = 0;
 					obj.articles.length = 0;
 					obj.isFavourites = false;
@@ -265,7 +266,6 @@
 								temp_articles.push(articleObj);
 							}
 						}
-						dashboardService.loadingIcon = false;
 						return response.data;
 					});
 			},

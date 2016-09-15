@@ -102,6 +102,16 @@
 						dashboardService.setTitle("Add Feed");
 					}],
 					resolve: {
+						feedPromise: ['feedsService', function (feedsService) {
+							return feedsService.getAdvicedFeeds();
+						}]
+					},
+				})
+				.state("dashboard.adviced", {
+					url: '/adviced/:category',
+					templateUrl: './partials/dashboard/adviced.html',
+					controller: 'FeedsController',
+					resolve: {
 					    feedPromise: ['feedsService', function (feedsService) {
 					        return feedsService.getAdvicedFeeds();
 					    }]
