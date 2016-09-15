@@ -36,11 +36,12 @@
 					controller: 'AuthController'
 				})
 				.state('reset', {
-					url: '/reset/:token',
+					url: '/reset/:token/:email',
 					templateUrl: './partials/auth/reset.html',
 					controller: 'AuthController',
 					onEnter : ['$stateParams', 'transfer', function ($stateParams, transfer) {
-						transfer.setObj($stateParams.token);	
+						transfer.setObj($stateParams.token);
+						transfer.setEmail($stateParams.email);	
 					}]
 				})
 				.state('verify', {
@@ -50,9 +51,7 @@
 					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
 						transfer.setEmail($stateParams.email);
 						transfer.setString($stateParams.token);
-						console.log($stateParams);
 						toasterService.info('You have successfuly approved you email. Please reenter you fields');
-
 					}]
 				})
 				.state('profile', {

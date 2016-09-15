@@ -11,7 +11,6 @@
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
 			$scope.sameProvider = transfer.getProviderString();
-			console.log($scope.sameProvider);
 			$scope.link = function (provider) {
 				$auth.link(provider).then(function () {
 					toasterService.info('You have successfully linked a ' + provider + ' account');
@@ -33,7 +32,6 @@
 
 			$scope.updateProfile = function () {
 				profileService.getProfile();
-				console.log(profileService.getProfile());
 			};
 
 			$scope.newUserData = {
@@ -50,7 +48,6 @@
 			};
 
 			$scope.upload = function (file) {
-				console.log($scope.file);
 				Upload.upload({
 					url: '/upload', //webAPI exposed to upload the file
 					data: {

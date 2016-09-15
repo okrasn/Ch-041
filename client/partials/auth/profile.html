@@ -13,6 +13,14 @@
 					</div>
 				</div>
 			</div>
+			<div class="form-group profile" ng-show="currentUser().date_of_signup">
+				<div class="row">
+					<label class="col-xs-5 capitalize">Date of Signup:</label>
+					<div class="col-xs-7">
+						<input class="form-control" type="text" ng-model="currentUser().date_of_signup" disabled>
+					</div>
+				</div>
+			</div>
 			<div class="form-group profile">
 				<div class="row">
 					<label class="col-xs-5 capitalize">your email:</label>

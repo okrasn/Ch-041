@@ -135,6 +135,7 @@ module.exports.register = function (req, res) {
 				if (existingUser && !existingUser.verifiedUser && req.body.verifyEmail) {
 					existingUser.emailVerification = true;
 					existingUser.verifiedUser = true;
+					existingUser.date_of_signup = new Date();
 					if( req.body.password === existingUser.tempPassword ){
 						existingUser.tempPassword = '';	
 						existingUser.save(function (err, result) {
@@ -223,7 +224,7 @@ module.exports.forgotPass = function(req, res) {
 			subject: 'Node.js Password Reset',
 			text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-			  'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+			  'http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '\n\n' +
 			  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 	  	};
 	  	smtpTransport.sendMail(mailOptions, function(err) {
@@ -240,7 +241,7 @@ module.exports.forgotPass = function(req, res) {
 
 module.exports.reset = function(req, res) {
   	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    	res.redirect('/#/reset/'+ req.params.token);
+    	res.redirect('/#/reset/'+ req.params.token + '/' + req.params.user.email);
   	});
 }
 
