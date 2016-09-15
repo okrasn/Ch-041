@@ -29,6 +29,7 @@ router.param('user', feedsCtrl.userParam);
 // get user and his feeds
 router.get('/users/:user', feedsCtrl.allFeed);
 router.get('/users/:user/favourites', articlesCtrl.allFavourites);
+router.get('/users/:user/advicedFeeds', feedsCtrl.getAdvicedFeeds);
 
 // add new feed
 router.post('/users/:user/addFeed', feedsCtrl.add);
@@ -40,7 +41,7 @@ router.post('/users/:user/getFeedData', feedsCtrl.getFeedData);
 router.post('/users/:user/upload', profCtrl.upload);
 
 // remove feed
-router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);
-router.delete('/users/:user/deleteFavFeed/:id', articlesCtrl.removeFavArticle);
+router.delete('/users/:user/deleteFeed/:id/:category', feedsCtrl.remove);
+router.delete('/users/:user/deleteFavFeed/:id/:category', articlesCtrl.removeFavArticle);
 
 module.exports = router;

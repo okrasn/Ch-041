@@ -1,5 +1,5 @@
 #feed-head {
-	height: 145px;
+	height: 143px;
 	padding: 15px;
 	border-bottom: 1px solid #888888;
 	background-color: #fff;
@@ -77,11 +77,11 @@
 }
 
 .article-img {
-	width: 185px;
-	height: 145px;
-	border-radius: $main-border-radius;
+	width: 225px;
+	height: 175px;
+	border-radius: $main-border-radius 0 0 $main-border-radius;
 	float: left;
-	margin-right: 1em;
+	margin: -1em 1em -1em -1em;
 }
 
 #cards-wrapper {
@@ -103,7 +103,7 @@
 
 #list {
 	background-color: $main-background-color;
-
+	padding-bottom: $main-app-offset;
 	.list-share-wrap {
 		height: 100%;
 		display: flex;
@@ -168,5 +168,5 @@
 .trash-icon {
 	float: right;
 	line-height: $main-app-offset*2;
-	margin-left: 1em;
+	margin-left: $main-app-offset;
 }

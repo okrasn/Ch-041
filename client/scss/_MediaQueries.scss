@@ -23,11 +23,11 @@ $desktop-res: 1200px;
 @media screen and (max-width: 1600px) and (min-width: $desktop-res) {
 	#cards-wrapper.desktop-grow {
 		.app-panel {
-			height: 225px;
+			height: 240px;
 		}
 
 		.article-content {
-			height: 113px;
+			height: 130px;
 			margin-bottom: 25px;
 		}
 
@@ -80,7 +80,7 @@ $desktop-res: 1200px;
 		height: 95px;
 		border-radius: $main-border-radius;
 		float: left;
-		margin-right: 1em;
+		margin: 0 1em 0 0;
 	}
 
 	#cards-wrapper {
@@ -149,6 +149,9 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $phone-res) {
+	.alert-danger-app{
+		width: 100%;
+	}
 	.center-children-mobile {
 		display: flex;
 		justify-content: center;
