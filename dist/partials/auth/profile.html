@@ -31,8 +31,8 @@
                                 <img ng-show="!currentUser().avatar" class="img-circle profile-img-square" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
                             </div>
                             <div class="col-xs-12 col-sm-7">
-                                <div class="center-children">
-                                    <button class="app-btn app-btn-blue centered-block" ngf-select="upload($file, $invalidFiles)" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
+                                <div class="center-children-mobile">
+                                    <button class="app-btn app-btn-blue pull-right" ngf-select="upload($file, $invalidFiles)" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="1MB">
                                         <span class="fa fa-upload" style="margin-right: 0.5em;"></span> Select File
                                     </button>
                                 </div>
@@ -57,7 +57,7 @@
                     <div class="row">
                         <label class="col-xs-5">Change Theme:</label>
                         <div class="col-xs-7">
-                            <button class="app-btn app-btn-blue social_btn pull-right" ng-click="changeTheme()">change theme</button>
+                            <button class="app-btn app-btn-blue pull-right" ng-click="changeTheme()">change theme</button>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-xs-12 center-children-mobile">
-                        <button class="app-btn app-btn-blue social_btn pull-right" ng-click="showChangepwd = !showChangepwd">change password</button>
+                        <button class="app-btn app-btn-blue pull-right" ng-click="showChangepwd = !showChangepwd">change password</button>
                     </div>
                 </div>
                 <form name="changePassForm" class="fading-anim" ng-submit="changePass(changePassForm)" ng-validate="changePassValidation" ng-show="showChangepwd">
