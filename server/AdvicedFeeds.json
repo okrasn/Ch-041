@@ -4,7 +4,6 @@
       "category": "IT",
       "feeds": [
         {
-          "_id": "57d91de775e8ba0dc431e159",
           "title": "TechCrunch",
           "description": "TechCrunch is a group-edited blog that profiles the companies, products and events defining and transforming the new web.",
           "link": "https://techcrunch.com",
@@ -12,7 +11,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d904d3648dee12cc026e98",
           "title": "The Verge - All Posts",
           "description": "",
           "link": "http://www.theverge.com/",
@@ -20,7 +18,6 @@
           "format": "ATOM"
         },
         {
-          "_id": "57d91e6c75e8ba0dc431e15c",
           "title": "Engadget RSS Feed",
           "description": "Engadget is a web magazine with obsessive daily coverage of everything new in gadgets and consumer electronics",
           "link": "https://www.engadget.com/rss.xml",
@@ -28,7 +25,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d91e7f75e8ba0dc431e15d",
           "title": "CNET News",
           "description": "CNET news editors and reporters provide top technology news, with investigative reporting and in-depth coverage of tech issues and events.",
           "link": "http://www.cnet.com/#ftag=CAD590a51e",
@@ -36,7 +32,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d91e9475e8ba0dc431e15e",
           "title": "Интересные / Публикации / Хабралента",
           "description": "Интересные публикации из Хабраленты",
           "link": "https://habrahabr.ru/feed/posts/",
@@ -44,7 +39,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d91eb375e8ba0dc431e15f",
           "title": "vc.ru",
           "description": "",
           "link": "https://vc.ru/",
@@ -52,7 +46,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d91ef175e8ba0dc431e160",
           "title": "Phone Arena - Latest News",
           "description": "PhoneArena.com - Cell Phone Reviews, News, Specs and Info.",
           "link": "http://www.phonearena.com/news",
@@ -60,7 +53,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d91f2075e8ba0dc431e161",
           "title": "Android Authority",
           "description": "Android News, Reviews, How To",
           "link": "http://www.androidauthority.com",
@@ -73,7 +65,6 @@
       "category": "News",
       "feeds": [
         {
-          "_id": "57d921a075e8ba0dc431e162",
           "title": "CNN.com - RSS Channel - Intl Homepage - News",
           "description": "CNN.com delivers up-to-the-minute news and information on the latest top stories, weather, entertainment, politics and more.",
           "link": "http://www.cnn.com/intl_index.html",
@@ -81,7 +72,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d92ba975e8ba0dc431e165",
           "title": "Reuters: World News",
           "description": "Reuters.com is your source for breaking news, business, financial and investing news, including personal finance and stocks. Reuters is the leading global provider of news, financial information and technology solutions to the world's media, financial institutions, businesses and individuals.",
           "link": "http://www.reuters.com",
@@ -89,7 +79,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d7f16323a7f52f40409786",
           "title": "Новости Украины 24 часа в сутки : ЛІГАБізнесІнформ",
           "description": "Ежедневные новости Украины: Оперативно, Достоверно, 24 часа в сутки. Последние новости, фотографии с места событий. Горячие новости: политика, экономика и финансы, общество, мир, культура, спорт и новости Киева.",
           "link": "http://www.liga.net",
@@ -97,7 +86,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d92ccc75e8ba0dc431e166",
           "title": "Інформаційне Агентство УНІАН",
           "description": "Iнформацiйне агентство УНIАН :: Новини, Полiтика, Бiзнес, Фотосервiс, Регiони",
           "link": "http://www.unian.ua/",
@@ -105,7 +93,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d92d7975e8ba0dc431e169",
           "title": "ABC News: Top Stories",
           "description": "",
           "link": "http://abcnews.go.com/",
@@ -113,7 +100,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d92da475e8ba0dc431e16a",
           "title": "BBC News - Home",
           "description": "BBC News - Home",
           "link": "http://www.bbc.co.uk/news/",
@@ -121,7 +107,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d92de175e8ba0dc431e16b",
           "title": "FOX News",
           "description": "FOXNews.com - Breaking news and video. Latest Current News: U.S., World, Entertainment, Health, Business, Technology, Politics, Sports.",
           "link": "http://www.foxnews.com/",
@@ -134,7 +119,6 @@
       "category": "Sport",
       "feeds": [
         {
-          "_id": "57d92d0375e8ba0dc431e167",
           "title": "www.espn.com - TOP",
           "description": "Latest TOP news from www.espn.com",
           "link": "http://www.espn.com",
@@ -142,7 +126,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d92e2c75e8ba0dc431e16c",
           "title": "BBC Sport - Sport",
           "description": "BBC Sport - Sport",
           "link": "http://www.bbc.co.uk/sport/0/",
@@ -155,7 +138,6 @@
       "category": "Gaming",
       "feeds": [
         {
-          "_id": "57d92fd775e8ba0dc431e16e",
           "title": "IGN All",
           "description": "The latest IGN news, reviews and videos about video games, movies, TV, tech and comics",
           "link": "http://www.ign.com/articles",
@@ -163,7 +145,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d9307375e8ba0dc431e170",
           "title": "Eurogamer.net",
           "description": "Eurogamer is the largest independent gaming website in Europe, providing news, reviews, previews, and more.",
           "link": "http://www.eurogamer.net/",
@@ -171,7 +152,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d930a775e8ba0dc431e171",
           "title": "GameSpot News",
           "description": "The latest News from GameSpot",
           "link": "http://www.gamespot.com/feeds/news/",
@@ -179,7 +159,6 @@
           "format": "RSS"
         },
         {
-          "_id": "57d9310475e8ba0dc431e172",
           "title": "destructoid",
           "description": "",
           "link": "https://www.destructoid.com/?mode=atom",
@@ -192,7 +171,6 @@
       "category": "Food",
       "feeds": [
         {
-          "_id": "57d9317f75e8ba0dc431e173",
           "title": "David Lebovitz",
           "description": "",
           "link": "http://www.davidlebovitz.com/",
@@ -200,7 +178,6 @@
           "format": "ATOM"
         },
         {
-          "_id": "57d931d675e8ba0dc431e175",
           "title": "Serious Eats",
           "description": "",
           "link": "http://www.seriouseats.com/",

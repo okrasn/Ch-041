@@ -20,7 +20,8 @@
 				setReadArticle: function ($scope, feed, link) {
 					for (var i = 0; i < obj.articles.length; i++) {
 						if (obj.articles[i].link === link) {
-							$scope.articleForRead = obj.articles[i];
+						    $scope.articleForRead = obj.articles[i];
+						    dashboardService.hideLoading();
 							return;
 						}
 					}
@@ -33,7 +34,9 @@
 									$scope.articleForRead = temp_articles[i];
 								}
 							}
+							dashboardService.hideLoading();
 							if (!$scope.articleForRead) {
+							    dashboardService.displayLoading();
 								obj.resetArticles();
 								return getArticleDataByLink(link).then(function (res) {
 									dashboardService.hideLoading();
@@ -55,6 +58,7 @@
 						return getArticleDataByLink(link).then(function (res) {
 							dashboardService.hideLoading();
 							$scope.articleForRead = res.data;
+							dashboardService.hideLoading();
 						}).catch(function (err) {
 							dashboardService.hideLoading();
 							if (err.status === 404) {
@@ -62,7 +66,8 @@
 							}
 						});
 						if (err.status === 404) {
-							$state.go("404");
+						    $state.go("404");
+						    dashboardService.hideLoading();
 						}
 						else $state.go("dashboard." + dashboardService.getViewMode());
 					});

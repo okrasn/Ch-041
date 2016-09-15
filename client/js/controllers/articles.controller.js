@@ -53,7 +53,7 @@
 			}
 			else {
 				$scope.addingNewFavCategory = false;
-				$scope.newCategory.category = null;
+				$scope.newCategory = {};
 			}
 		}
 		
@@ -76,14 +76,11 @@
 			}
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
-			    dashboardService.hideLoading();
-			    $scope.addingNewCategory = false;
-			    $scope.newCategory = null;
-				$scope.addingNewCategory = false;
+			    $scope.resetAddFavValues();
+			    $scope.cancelAddFavourite();
 				toasterService.success("Article marked as favourite");
 			}, function (err) {
-			    dashboardService.hideLoading();
-				$scope.addingNewCategory = false;
+			    $scope.resetAddFavValues();
 				console.log(err);
 				if (!err.data)
 					$scope.error = err.message;
@@ -91,10 +88,17 @@
 			});
 		}
 
+		$scope.resetAddFavValues = function () {
+		    dashboardService.hideLoading();
+		    $scope.newCategory = {};
+		    $scope.obj = {};
+		    $scope.addingNewFavCategory = false;
+		}
+
 		$scope.cancelAddFavourite = function () {
 			$scope.modalShown = false;
 			$scope.favForAdd = {};
-			$scope.newCategory = null;
+			$scope.newCategory = {};
 		}
 
 		$scope.share = function (article) {

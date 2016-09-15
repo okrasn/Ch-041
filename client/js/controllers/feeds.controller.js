@@ -31,9 +31,7 @@
 			}
 		}
 		$scope.addFeed = function () {
-		    console.log($scope.newCategory);
 		    dashboardService.loadingIcon = true;
-		    console.log("addd");
 			$scope.error = '';
 			if (!$scope.obj.link) {
 				$scope.error = "Enter Rss feed link";

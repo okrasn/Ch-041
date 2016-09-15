@@ -182,10 +182,27 @@ addAdvicedFromJson = function (category, feed) {
 				articlesDictionary: [],
 				feedsDictionary: []
 			});
-			advice.feedsDictionary = JsonFeeds.feedsDictionary;
+			for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
+			    advice.feedsDictionary.push({
+			        category: JsonFeeds.feedsDictionary[i].category
+			    });
+			    for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
+			        var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
+			        feed.totalSubscriptions = 0;
+			        feed.currentSubscriptions = 0;
+			        advice.feedsDictionary[i].feeds.push(feed);
+			        feed.save(function (err, feed) {
+			            if (err) {
+			                console.log(err);
+			                return;
+			            }
+			        });
+			    }
+			}
 			advice.save(function (err, advice) {
-				if (err) {
-
+			    if (err) {
+			        console.log(err);
+				    return;
 				}
 			});
 		}

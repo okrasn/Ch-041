@@ -2,7 +2,8 @@
 <div id="cards-wrapper" class="desktop-grow clearfix feeds">
 	<div class="col-md-12 col-lg-6" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed" on-finish-render="ngRepeatFinished">
 		<div class="app-panel fade-in-anim">
-			<img class="img-responsive article-img" ng-show="article.img" ng-src="{{article.img}}" alt="Article image">
+			<div class="img-responsive article-img" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
+			</div>
 			<div class="content">
 				<div class="article-title">
 					<div class="list-item" ng-click="readArticle(article)"><img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span></div>
