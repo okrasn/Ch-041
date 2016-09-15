@@ -79,7 +79,7 @@ module.exports.register = function (req, res) {
 
 		User.findOne({email: req.body.email}, function (err, existingUser) {
 				
-				if (!req.body.verifyEmail) {
+				if (!req.body.verifyEmail && req.body.counter === 0) {
 					var user = new User({
 						emailVerification: false,
 						email : req.body.email,
@@ -115,7 +115,7 @@ module.exports.register = function (req, res) {
 
 					user.save(function (err, result) {
 						if (err) {
-							res.status(500).send({
+							return res.status(500).send({
 								message: err.message
 							});
 						}
@@ -125,45 +125,36 @@ module.exports.register = function (req, res) {
 					});
 				}
 				
-				// if (existingUser && !existingUser.verifiedUser) {
-				// 	existingUser.password = req.body.password;
-				// 	existingUser.save(function (err, existingUser) {
-				// 		if (err) {
-				// 			res.status(500).send({
-				// 				message: err.message
-				// 			});
-				// 		}
-				// 	})
-				// 	return res.send({
-				// 		token: createJWT(existingUser),
-				// 		existingUser: existingUser
-				// 	});
-				// }
-				// if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
-				// 	return res.status(409).send({
-				// 		message: 'Email is already taken'
-				// 	});
-				// }
+				if(existingUser && !req.body.verifyEmail && req.body.counter !== 0){
+					return res.status(400).json({
+						message : 'Please check your email to continue registration'
+					});
+				}
+				if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
+					return res.status(409).json({
+						message: 'Email is already taken'
+					});
+				}
 
-				if (existingUser && !existingUser.verifiedUser) {
+				if (existingUser && !existingUser.verifiedUser && req.body.verifyEmail) {
 					existingUser.emailVerification = true;
 					existingUser.verifiedUser = true;
 					if( req.body.password === existingUser.tempPassword ){
 
 						existingUser.save(function (err, result) {
 							if (err) {
-								res.status(500).send({
+								res.status(500).json({
 									message: err.message
 								});
 							}
-							// res.status(401).send({
-							// 	reqPass : reqPassword,
-							// 	exisPass : existingUser.password
-							// });
 							res.send({
 								token: createJWT(result)
 							});
 						});	
+					} else {
+						res.status(400).json({
+							message : ERRORS.pass_not_match
+						});
 					}
 				}
 		});
