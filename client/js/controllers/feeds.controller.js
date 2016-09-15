@@ -20,16 +20,24 @@
 			}
 		}
 		$scope.addFeed = function () {
-			$scope.error = '';
+		    dashboardService.loadingIcon = true;
+		    $scope.error = '';
+		    if (!$scope.obj.link) {
+		        $scope.error = "Enter Rss feed link";
+		        dashboardService.loadingIcon = false;
+		        return;
+		    }
 			if ($scope.newCategory) {
 				$scope.obj.category = $scope.newCategory;
 			}
 			if (!$scope.obj.category) {
-				$scope.error = "Choose category";
+			    $scope.error = "Choose category";
+			    dashboardService.loadingIcon = false;
 				return;
 			}
 			if (!$scope.newCategory && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-				$scope.error = "Enter new category name";
+			    $scope.error = "Enter new category name";
+			    dashboardService.loadingIcon = false;
 				return;
 			}
 			feedsService.addFeed($scope.obj)
@@ -38,6 +46,7 @@
 					toasterService.success("Feed successfully added");
 					$state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
 				}, function (err) {
+				    dashboardService.loadingIcon = false;
 					if (!err.data)
 						$scope.error = err.message;
 					else $scope.error = err.data.message;

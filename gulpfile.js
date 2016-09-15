@@ -20,7 +20,7 @@ mkdirp.sync('./dist/uploads', function (err) {
 
 gulp.task('server', function (cb) {
 	console.log("Server is running on port 8080");
-	exec('nodemon app.js', function (err, stdout, stderr) {
+	exec('node app.js', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
 		cb(err);
 	});

@@ -98,8 +98,8 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.getFeedId = function () {
 		return that.currentFeed;
 	}
-	this.setFeedId = function (id) {
-		that.currentFeed = id;
+	this.setFeedId = function (feed) {
+		that.currentFeed = feed;
 	}
 	this.resetFeedId = function () {
 		that.currentFeed = '';

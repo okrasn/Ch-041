@@ -1,6 +1,6 @@
 <!--Grid feeds-->
 <div id="cards-wrapper" class="desktop-grow clearfix feeds">
-	<div class="col-md-12 col-lg-6" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order">
+	<div class="col-md-12 col-lg-6" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:totalDisplayed">
 		<div class="app-panel fade-in-anim">
 			<img class="img-responsive article-img" ng-show="article.img" ng-src="{{article.img}}" alt="Article image">
 			<div class="content">
@@ -55,4 +55,9 @@
 			</div>
 		</div>
 	</modal>
+</div>
+<div class="load-btn-wrap center-children">
+	<button class="app-btn app-btn-blue" ng-click="loadMore()">
+		Load more
+	</button>
 </div>

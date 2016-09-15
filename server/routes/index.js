@@ -28,6 +28,7 @@ router.param('user', feedsCtrl.userParam);
 // get user and his feeds
 router.get('/users/:user', feedsCtrl.allFeed);
 router.get('/users/:user/favourites', articlesCtrl.allFavourites);
+router.get('/users/:user/advicedFeeds', feedsCtrl.getAdvicedFeeds);
 
 // add new feed
 router.post('/users/:user/addFeed', feedsCtrl.add);

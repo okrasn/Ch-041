@@ -17,7 +17,7 @@
 		border: none;
 		transition: $app-transition;
 		box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
-	    text-decoration: none;
+		text-decoration: none;
 	}
 
 	&:active {
@@ -81,6 +81,10 @@
 
 .submit-btn {
 	margin: 1em 0 1em 0;
+}
+
+.load-btn-wrap{
+	margin-bottom: 1em;
 }
 
 button[disabled] {

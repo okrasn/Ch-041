@@ -31,6 +31,7 @@
     "jsonwebtoken": "^7.1.6",
     "jwt-simple": "^0.4.1",
     "logger": "0.0.1",
+    "meanie-angular-duplicate-requests-filter": "^1.2.0",
     "method-override": "~2.0.2",
     "mkdirp": "^0.5.1",
     "moment": "^2.12.0",

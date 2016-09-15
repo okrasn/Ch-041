@@ -1,6 +1,6 @@
 <!--Table feeds-->
 <div id="list" class="feeds">
-	<div class="table-feed" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order">
+	<div class="table-feed" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:totalDisplayed">
 		<div class="col-lg-11 col-xs-10 col-same-height">
 			<div class="list-item" ng-click="readArticle(article)">
 				<p class="shortened-text strong-text" ng-bind="article.title">
@@ -51,4 +51,9 @@
 			</div>
 		</div>
 	</modal>
+</div>
+<div class="load-btn-wrap center-children">
+	<button class="app-btn app-btn-blue" ng-click="loadMore()">
+		Load more
+	</button>
 </div>

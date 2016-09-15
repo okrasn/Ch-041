@@ -18,6 +18,7 @@ app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico'
 require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
+require('./server/models/Advised');
 require('./server/config/passport');
 
 var routes = require('./server/routes/index');

@@ -1,5 +1,13 @@
 (function () {
 	'use strict';
+	String.prototype.replaceAll = function (target, replacement) {
+		return this.split(target).join(replacement);
+	};
+	angular.module('rssreader').filter('decode', function () {
+		return function (text) {
+			return angular.element('<div>' + text + '</div>').text();
+		};
+	});
 	angular.module('rssreader').factory('articlesService', ['$http', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $state, $q, authService, $timeout, dashboardService, feedsService) {
 		var ARTICLES_NUM = 50,
 			temp_articles = [],
@@ -29,20 +37,20 @@
 								}
 							}
 							if (!$scope.articleForRead) {
-							    obj.resetArticles();
-							    return getArticleDataByLink(link).then(function (res) {
-							        dashboardService.loadingIcon = false;
-							        $scope.articleForRead = res.data;
-							    }).catch(function (err) {
-							        dashboardService.loadingIcon = false;
-							        if (err.status === 404) {
-							            $state.go("404");
-							        }
-							    });
-							    if (err.status === 404) {
-							        $state.go("404");
-							    }
-							    else $state.go("dashboard." + dashboardService.getViewMode());
+								obj.resetArticles();
+								return getArticleDataByLink(link).then(function (res) {
+									dashboardService.loadingIcon = false;
+									$scope.articleForRead = res.data;
+								}).catch(function (err) {
+									dashboardService.loadingIcon = false;
+									if (err.status === 404) {
+										$state.go("404");
+									}
+								});
+								if (err.status === 404) {
+									$state.go("404");
+								}
+								else $state.go("dashboard." + dashboardService.getViewMode());
 							}
 						});
 					}).catch(function (err) {
@@ -70,7 +78,7 @@
 							promises.push(fetchArticles(value));
 						});
 					});
-					$q.all(promises).then(function () {
+					return $q.all(promises).then(function () {
 						obj.articles = temp_articles;
 						dashboardService.loadingIcon = false;
 					});
@@ -79,23 +87,25 @@
 					obj.resetArticles();
 					dashboardService.setTitle(feed.title);
 					dashboardService.setFeedId(feed);
-					fetchArticles(feed).then(function () {
+					return fetchArticles(feed).then(function () {
 						obj.articles = temp_articles;
 					});
 				},
 				getArticlesByCat: function (cat) {
-					obj.resetArticles();
-					dashboardService.setTitle(cat);
-					angular.forEach(feedsService.feedsDictionary, function (value, key) {
-						if (value.category === cat) {
-							angular.forEach(value.feeds, function (value, key) {
-								promises.push(fetchArticles(value));
-							});
-						}
-					});
-					$q.all(promises).then(function () {
-						obj.articles = temp_articles;
-					});
+					return $timeout(function () {
+						obj.resetArticles();
+						dashboardService.setTitle(cat);
+						angular.forEach(feedsService.feedsDictionary, function (value, key) {
+							if (value.category === cat) {
+								angular.forEach(value.feeds, function (value, key) {
+									promises.push(fetchArticles(value));
+								});
+							}
+						});
+						return $q.all(promises).then(function () {
+							obj.articles = temp_articles;
+						});
+					}, 350);
 				},
 				getFavourites: function () {
 					obj.resetArticles();
@@ -202,11 +212,15 @@
 						content = document.createElement('div');
 						content.innerHTML = item.getElementsByTagName('description')[0].textContent;
 						content = $(content).text();
-					} catch (err) { }
+					} catch (err) {
+					}
 				} else if (format === "ATOM") {
 					content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
 				}
-				return content;
+				if (typeof content !== "String") {
+					return "";
+				}
+				else return content;
 			},
 			fetchArticles = function (feed) {
 				return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + ARTICLES_NUM + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml")
@@ -218,13 +232,21 @@
 							items = xmlDoc.getElementsByTagName('item');
 							for (var i = 0; i < items.length; i++) {
 								var articleObj = {
-									title: items[i].getElementsByTagName('title')[0].innerHTML,
+									title: items[i].getElementsByTagName('title')[0].innerHTML
+										.replaceAll("apos;", '\'')
+										.replaceAll("&apos;", '\'')
+										.replaceAll("&amp;", ''),
 									link: items[i].getElementsByTagName('link')[0].textContent,
 									img: getImage(items[i], feed.format),
 									content: getContent(items[i], feed.format),
-									date: Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent),
 									feed: feed._id
 								};
+								if (items[i].getElementsByTagName('pubDate')[0]) {
+									articleObj.date = Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent);
+								}
+								else if (!items[i].getElementsByTagName('pubDate')[0] && !articleObj.img && !articleObj.content) {
+									continue;
+								}
 								articleObj.content = articleObj.content || articleObj.title;
 								temp_articles.push(articleObj);
 							}
@@ -233,7 +255,7 @@
 							for (var i = 0; i < items.length; i++) {
 								var articleObj = {
 									title: items[i].getElementsByTagName('title')[0].textContent,
-									link: items[i].getElementsByTagName('id')[0].textContent,
+									link: angular.element(items[i].getElementsByTagName('link'))[0].attributes["href"].value,
 									img: getImage(items[i], feed.format),
 									content: getContent(items[i], feed.format),
 									date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
@@ -256,9 +278,9 @@
 			},
 			getArticleDataByLink = function (link) {
 				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link }, {
-				    headers: {
-				        Authorization: 'Bearer ' + authService.getToken()
-				    }
+					headers: {
+						Authorization: 'Bearer ' + authService.getToken()
+					}
 				});
 			}
 		return obj;

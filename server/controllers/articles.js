@@ -102,32 +102,35 @@ module.exports.addFavArticle = function (req, res, next) {
 module.exports.removeFavArticle = function (req, res, next) {
 	req.user.populate("favouritesDictionary.articles", function (err, user) {
 		var foundCategoryIndex,
-			foundCategory,
+			foundCategory = null,
 			foundArticleIndex,
-			foundArticle;
+			foundArticle = null;
 
-		foundCategory = req.user.favouritesDictionary.filter(function (elem, i) {
-			foundCategoryIndex = i;
-			return elem.category === req.params.category;
-		});
+		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
+		    if (array[i].category == req.params.category) {
+		        foundCategory = array[i];
+		        foundCategoryIndex = i;
+		        for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
+		            if (articles[j]._id == req.params.id) {
+		                foundArticle = articles[j];
+		                foundArticleIndex = j;
+		            }
+		        }
+		    }
+		}
 
-		if (!foundCategory.length) {
+		if (!foundCategory) {
 			return res.send({
 				error: ERRORS.cant_delete_article_no_such_cat
 			});
 		}
 
-		foundArticle = foundCategory[0].articles.filter(function (elem, i) {
-			foundArticleIndex = i;
-			return elem._id == req.params.id;
-		});
-
-		if (!foundArticle.length) {
+		if (!foundArticle) {
 			return res.send({
 				error: ERRORS.cant_delete_article_no_such_article
 			});
 		}
-		Article.findById(foundCategory[0].articles[foundArticleIndex], function (err, article) {
+		Article.findById(foundCategory.articles[foundArticleIndex], function (err, article) {
 			if (err) {
 				return next(err);
 			}
@@ -142,11 +145,11 @@ module.exports.removeFavArticle = function (req, res, next) {
 			});
 		});
 
-		if (foundCategory[0].articles.length === 1) {
+		if (foundCategory.articles.length === 1) {
 			req.user.favouritesDictionary.splice(foundCategoryIndex, 1);
 		}
 		else {
-			foundCategory[0].articles.splice(foundArticleIndex, 1);
+			foundCategory.articles.splice(foundArticleIndex, 1);
 		}
 
 		req.user.save(function (err) {

@@ -161,6 +161,9 @@ ul[dnd-list] .dndPlaceholder {
 	line-height: 3em;
 	border-right: 0em solid;
 	border-left: 2px solid black;
+	&:hover {
+		border-right: 0.7em solid $blue-btn-active-color;
+	}
 }
 
 .sidebar-item.selected, .sidebar-sub-item .selected{
@@ -170,18 +173,4 @@ ul[dnd-list] .dndPlaceholder {
 #sidebar .selected{
 	border-right: 0.7em solid $blue-btn-active-color;
 	background-color: $item-hover-color;
-}
-
-.sidebar-item {
-	padding-left: 1em;
-	cursor: pointer;
-	width: 100%;
-	line-height: 3em;
-	border-right: 0em solid;
-
-	&:hover {
-		transition: background 0.2s ease;
-		border-right: 0.7em solid $blue-btn-active-color;
-		background-color: $item-hover-color;
-	}
 }

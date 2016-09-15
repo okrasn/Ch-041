@@ -1,6 +1,10 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
+	    $scope.totalDisplayed = articlesService.displayedIncrement;
+	    $scope.loadMore = function () {
+	        $scope.totalDisplayed += displayedIncrement;
+	    };
 		$scope.obj = {};
 		$scope.newCatObj = {};
 		$scope.categories = feedsService.allFavsCategories;
@@ -66,13 +70,13 @@
 			}
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
-			    dashboardService.loadingIcon = false;
+				dashboardService.loadingIcon = false;
 				$scope.addingNewCategory = false;
 				toasterService.success("Article marked as favourite");
 				$state.reload("dashboard");
 			}, function (err) {
-			    dashboardService.loadingIcon = false;
-			    $scope.addingNewCategory = false;
+				dashboardService.loadingIcon = false;
+				$scope.addingNewCategory = false;
 				console.log(err);
 				if (!err.data)
 					$scope.error = err.message;

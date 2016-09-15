@@ -2,8 +2,9 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 	that = this;
 	this.feedsDictionary = [];
 	this.favouritesDictionary = [];
+	this.advicedFeeds = [];
 	this.allArticles = [];
-	this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"];
+	this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Gaming", "Food", "Economics", "Science"];
 	this.allCategories = function () {
 		var res = that.CATEGORIES.concat(getCustomCategories());
 		res.push("Custom");
@@ -50,9 +51,34 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 					res.data[i].feeds[j].category = res.data[i].category;
 				}
 			}
+			//var Jsonfriendly = [];
+			//for (var i = 0; i < res.data.length; i++) {
+			//    var temp = {};
+			//    angular.copy(res.data[i], temp);
+			//    Jsonfriendly.push(temp);
+			//    delete Jsonfriendly[i]._id;
+			//    for (var j = 0; j < Jsonfriendly[i].feeds.length; j++) {
+			//        //delete Jsonfriendly[i].feeds[j]._id;
+			//        delete Jsonfriendly[i].feeds[j].currentSubscriptions;
+			//        delete Jsonfriendly[i].feeds[j].totalSubscriptions;
+			//        delete Jsonfriendly[i].feeds[j].__v;
+			//        delete Jsonfriendly[i].feeds[j].category;
+			//    }
+			//}
+			//console.log(JSON.stringify(Jsonfriendly));
 			angular.copy(res.data, that.feedsDictionary);
 			that.getAllFavourites();
 		});
+	}
+	this.getAdvicedFeeds = function () {
+	    return $http.get('/users/' + authService.userID() + "/advicedFeeds", {
+	        headers: {
+	            Authorization: 'Bearer ' + authService.getToken()
+	        }
+	    }).then(function (res) {
+	        console.log(res.data);
+	        angular.copy(res.data, that.advicedFeeds);
+	    });
 	}
 	this.getAllFavourites = function () {
 		return $http.get('/users/' + authService.userID() + "/favourites", {
@@ -65,7 +91,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 					res.data[i].articles[j].category = res.data[i].category;
 				}
 			}
-			console.log(res.data);
 			angular.copy(res.data, that.favouritesDictionary);
 		});
 	}
@@ -105,35 +130,41 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 		return checkRssFormat;
 	}
 	this.addFeed = function (feed) {
+		dashboardService.loadingIcon = true;
 		return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
 			.then(function (response) {
-				if (feed.link === undefined) {
-					throw new Error("Enter Rss feed link");
-				}
-				if (feed.category === undefined) {
-					throw new Error("Choose category");
-				}
-				if (response.data.responseData === null) {
-					throw new Error("URL is incorrect or does not contain RSS Feed data");
-				}
-				var parser = new DOMParser();
-				xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
-				var format = checkRssFormat(xmlDoc);
-				if (format === -1) {
-					throw new Error("URL is incorrect or does not contain RSS Feed data");
-				} else {
-					var feedObj = generateFeed(xmlDoc, feed, format);
-					return $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
-						headers: {
-							Authorization: 'Bearer ' + authService.getToken()
-						}
-					});
-				}
+					if (feed.link === undefined) {
+						throw new Error("Enter Rss feed link");
+					}
+					if (feed.category === undefined) {
+						throw new Error("Choose category");
+					}
+					if (response.data.responseData === null) {
+						throw new Error("URL is incorrect or does not contain RSS Feed data");
+					}
+					var parser = new DOMParser();
+					xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
+					var format = checkRssFormat(xmlDoc);
+					if (format === -1) {
+						throw new Error("URL is incorrect or does not contain RSS Feed data");
+					} else {
+						var feedObj = generateFeed(xmlDoc, feed, format);
+						return $http.post('/users/' + authService.userID() + '/addFeed', feedObj, {
+							headers: {
+								Authorization: 'Bearer ' + authService.getToken()
+							}
+						}).error(function (err) {
+							console.log(err);
+							dashboardService.loadingIcon = false;
+						});
+					}
 				return response.data;
 			});
 	}
 
 	this.removeFeed = function (feed) {
+		console.log("ToREmove");
+		console.log(feed);
 		return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + feed._id + '/' + feed.category, {
 			headers: {
 				Authorization: 'Bearer ' + authService.getToken()

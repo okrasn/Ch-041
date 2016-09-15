@@ -5,7 +5,6 @@
 		$scope.currentUser = authService.currentUser;
 		$scope.onFeeds = function () {
 		    if (authService.isLoggedIn()) {
-		        console.log("GOGO0");
 				$state.go('dashboard.' + dashboardService.getViewMode(), {
 					id: authService.userID()
 				});

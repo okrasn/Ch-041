@@ -61,12 +61,14 @@
 			}, $scope);
 		}
 		$scope.confirmFeedDelete = function () {
+		    dashboardService.loadingIcon = true;
 			feedsService.removeFeed(dashboardService.getFeedId())
 				.then(function (res) {
+				    dashboardService.loadingIcon = false;
 				    toasterService.info("Feed has been deleted");
-				    console.log("reload");
 					$state.reload("dashboard");
 				}, function (err) {
+				    dashboardService.loadingIcon = false;
 					console.log(err);
 				});
 		}

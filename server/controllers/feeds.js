@@ -1,8 +1,10 @@
 var passport = require('passport'),
 	mongoose = require('mongoose'),
+	fs = require("fs"),
 	User = mongoose.model('User'),
 	Feed = mongoose.model('Feed'),
 	Article = mongoose.model('Article'),
+	Advice = mongoose.model('Advice'),
 	ERRORS = {
 		choose_cat: 'Choose category',
 		cant_find_user: 'Can\'t find user',
@@ -36,6 +38,23 @@ module.exports.allFeed = function (req, res, next) {
 	});
 }
 
+module.exports.getAdvicedFeeds = function (req, res, next) {
+	Advice.find({}, function (err, advice) {
+		if (err) {
+			return next(err);
+		}
+		if (advice[0]) {
+		    advice[0].populate("feedsDictionary.feeds", function (err, user) {
+		        res.json(advice[0].feedsDictionary);
+		    });
+		}
+		else {
+		    res.status(404).send('Not found');
+		    return;
+		}
+	});
+}
+
 module.exports.getFeedData = function (req, res, next) {
 	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
 		res.status(404).send('Invalid feed');
@@ -43,7 +62,6 @@ module.exports.getFeedData = function (req, res, next) {
 	}
 	Feed.findById(req.body.id, function (err, feed) {
 		if (err) {
-			console.log("ERROR: " + err);
 			return next(err);
 		}
 		if (!feed) {
@@ -90,7 +108,6 @@ module.exports.add = function (req, res, next) {
 			}
 
 			if (currentFeed) {
-			    console.log("ALREADY EXIST");
 				currentFeed.totalSubscriptions++;
 				currentFeed.currentSubscriptions++;
 				currentFeed.save(function (err, currentFeed) {
@@ -147,36 +164,61 @@ module.exports.add = function (req, res, next) {
 	});
 };
 
+var JsonFeeds = require('../AdvicedFeeds.json');
+addAdvicedFromJson = function (category, feed) {
+	var passedFeed = feed,
+		passedCategory = category;
+	Advice.find({}, function (err, advice) {
+		if (!advice.length) {
+			var advice = new Advice({
+				articlesDictionary: [],
+				feedsDictionary: []
+			});
+			advice.feedsDictionary = JsonFeeds.feedsDictionary;
+			advice.save(function (err, advice) {
+				if (err) {
+
+				}
+			});
+		}
+	});
+};
+
+addAdvicedFromJson();
+
 module.exports.remove = function (req, res, next) {
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		var foundCategoryIndex,
-			foundCategory,
+			foundCategory = null,
 			foundFeedIndex,
-			foundFeed;
+			foundFeed = null;
 
-		foundCategory = req.user.feedsDictionary.filter(function (elem, i) {
-			foundCategoryIndex = i;
-			return elem.category === req.params.category;
-		});
+		for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
+			if (array[i].category == req.params.category) {
+				foundCategory = array[i];
+				foundCategoryIndex = i;
+				for (var j = 0, feeds = array[i].feeds; j < feeds.length; j++) {
+					if (feeds[j]._id == req.params.id) {
+						foundFeed = feeds[j];
+						foundFeedIndex = j;
+					}
+				}
+			}
+		}
 
-		if (!foundCategory.length) {
+		if (!foundCategory) {
 			return res.send({
 				error: ERRORS.cant_delete_feed_no_such_cat
 			});
 		}
 
-		foundFeed = foundCategory[0].feeds.filter(function (elem, i) {
-			foundFeedIndex = i;
-			return elem._id == req.params.id;
-		});
-
-		if (!foundFeed.length) {
+		if (!foundFeed) {
 			return res.send({
 				error: ERRORS.cant_delete_feed_no_such_feed
 			});
 		}
 
-		Feed.findById(foundCategory[0].feeds[foundFeedIndex], function (err, feed) {
+		Feed.findById(foundCategory.feeds[foundFeedIndex]._id, function (err, feed) {
 			if (err) {
 				return next(err);
 			}
@@ -191,11 +233,11 @@ module.exports.remove = function (req, res, next) {
 			});
 		});
 
-		if (foundCategory[0].feeds.length === 1) {
+		if (foundCategory.feeds.length === 1) {
 			req.user.feedsDictionary.splice(foundCategoryIndex, 1);
 		}
 		else {
-			foundCategory[0].feeds.splice(foundFeedIndex, 1);
+			foundCategory.feeds.splice(foundFeedIndex, 1);
 		}
 
 		req.user.save(function (err) {
