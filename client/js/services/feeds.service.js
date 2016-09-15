@@ -52,35 +52,21 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 					res.data[i].feeds[j].category = res.data[i].category;
 				}
 			}
-			//var Jsonfriendly = [];
-			//for (var i = 0; i < res.data.length; i++) {
-			//    var temp = {};
-			//    angular.copy(res.data[i], temp);
-			//    Jsonfriendly.push(temp);
-			//    delete Jsonfriendly[i]._id;
-			//    for (var j = 0; j < Jsonfriendly[i].feeds.length; j++) {
-			//        //delete Jsonfriendly[i].feeds[j]._id;
-			//        delete Jsonfriendly[i].feeds[j].currentSubscriptions;
-			//        delete Jsonfriendly[i].feeds[j].totalSubscriptions;
-			//        delete Jsonfriendly[i].feeds[j].__v;
-			//        delete Jsonfriendly[i].feeds[j].category;
-			//    }
-			//}
-			//console.log(JSON.stringify(Jsonfriendly));
+			
 			angular.copy(res.data, that.feedsDictionary);
 			that.getAllFavourites();
 		});
 	}
 	this.getAdvicedFeeds = function () {
-	    return $http.get('/users/' + authService.userID() + "/advicedFeeds", {
-	        headers: {
-	            Authorization: 'Bearer ' + authService.getToken()
-	        }
-	    }).then(function (res) {
-	        angular.copy(res.data, that.advicedDictionary);
-	        console.log(res.data);
-	        dashboardService.hideLoading();
-	    });
+		return $http.get('/users/' + authService.userID() + "/advicedFeeds", {
+			headers: {
+				Authorization: 'Bearer ' + authService.getToken()
+			}
+		}).then(function (res) {
+			angular.copy(res.data, that.advicedDictionary);
+			console.log(res.data);
+			dashboardService.hideLoading();
+		});
 	}
 	this.getAllFavourites = function () {
 		return $http.get('/users/' + authService.userID() + "/favourites", {
@@ -132,7 +118,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 		return checkRssFormat;
 	}
 	this.addFeed = function (feed) {
-	    dashboardService.displayLoading();
+		dashboardService.displayLoading();
 		return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
 			.then(function (response) {
 					if (feed.link === undefined) {
@@ -202,3 +188,19 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 		});
 	}
 }]);
+
+function FeedsToJson(array) {
+	var Jsonfriendly = [];
+	for (var i = 0; i < array.length; i++) {
+		var temp = {};
+		angular.copy(array[i], temp);
+		Jsonfriendly.push(temp);
+		delete Jsonfriendly[i]._id;
+		for (var j = 0; j < Jsonfriendly[i].feeds.length; j++) {
+			delete Jsonfriendly[i].feeds[j].currentSubscriptions;
+			delete Jsonfriendly[i].feeds[j].totalSubscriptions;
+			delete Jsonfriendly[i].feeds[j].__v;
+			delete Jsonfriendly[i].feeds[j].category;
+		}
+	}
+}

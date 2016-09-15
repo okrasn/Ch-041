@@ -1,15 +1,24 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
-		$scope.obj = {};
+	    if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
+	        dashboardService.isReadingArticle = true;
+	    }
+	    $scope.obj = {};
 		$scope.feeds = feedsService.feedsDictionary;
 		$scope.adviced = feedsService.advicedDictionary;
 		$scope.categories = feedsService.allCategories;
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
 		$scope.advicedCategory = $stateParams.category;
-		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-			dashboardService.isReadingArticle = true;
+
+		if ($state.current.name === "dashboard.adviced") {
+		    var invalidCategory = $scope.adviced.filter(function (elem, i) {
+		        return elem.category == $stateParams.category;
+		    });
+		    if (!invalidCategory.length) {
+		        $state.go("404", {reload: true});
+		    }
 		}
 
 		$scope.checkIfNew = function () {
