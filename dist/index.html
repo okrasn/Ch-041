@@ -10,14 +10,22 @@
 	<link href="assets/fonts/Roboto-Regular.ttf">
 </head>
 
-<body>
-	<div id="app-wrapper">
-		<ng-include src="'partials/static/navbar.html'"></ng-include>
-		<div class="container-fluid">
-			<ui-view></ui-view>
+	<body ng-controller="IndexController">
+		<div id="app-wrapper">
+			<ng-include src="'partials/static/navbar.html'"></ng-include>
+			<div class="container-fluid">
+				<div class="loading-icon fading-anim" ng-show="loadingIcon()">
+					<div class="center-absolute spinner">
+						<div class="rect1"></div>
+						<div class="rect2"></div>
+						<div class="rect3"></div>
+						<div class="rect4"></div>
+						<div class="rect5"></div>
+					</div>
+				</div>
+				<ui-view></ui-view>
+			</div>
 		</div>
-	</div>
-	<script src="scripts/minified.js"></script>
-</body>
-
+		<script src="scripts/minified.js"></script>
+	</body>
 </html>

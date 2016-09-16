@@ -71,7 +71,7 @@ Our application has folowing structure
 ```
 
 As you might noticed, server and client are separated into folders correspondingly.
-While we have __./client__ folder for front-end development. However, server exposes client from folder called __./dist__. This folder contains all used libraries, Angular scripts, styles and others in optimized (minificated) form.
+We have __./client__ folder for front-end development. However, server exposes client from folder called __./dist__. This folder contains all used libraries, Angular scripts, styles and others in optimized (minificated) form.
 
 ##### Building our front-end with GULP
 To generate optimized form of front-end part of our app we are using __Gulp__ task runner.
