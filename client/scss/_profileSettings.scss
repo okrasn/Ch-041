@@ -1,0 +1,162 @@
+.cstmform-border-profile-header{
+	padding: 0 10% 0;
+}
+
+a.cstmblock {
+	display: block;
+	cursor: pointer;
+	padding: 10px 15px;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+}
+
+#profile label {
+	line-height: 30px;
+	font-size: 17px;
+}
+
+#profile .capitalize {
+	margin-top: 5px;
+}
+
+.profile-header{
+	height: 10em;
+	background-color: #1d2129;
+}
+
+.profile-name{
+	margin-top: 95px;
+	margin-left: 15px;
+	color: white;
+}
+
+.profile-email{
+	margin-left: 15px;
+	color: white;
+}
+
+.file-alert {
+	color: red;
+}
+
+.btn-social-icon {
+	margin-left: 0.5em;
+}
+
+.form-group.profile {
+	height: 58px;
+	margin-bottom: 0;
+}
+
+.change-pass {
+	height: 64px;
+	margin-bottom: 0;
+}
+
+.upload-btn{
+	width: 200px;
+}
+
+.upload-btn-offset{
+	margin-top: 15px;
+}
+
+.profile-btn-icon{
+	margin-right: 0.5em;
+}
+
+.error-msg {
+	margin-top: 5px;
+	color: #af5050;
+	position: absolute;
+	top: 88px;
+	right: 20px;
+	margin-bottom: 0;
+	font-size: 13px;
+}
+
+.error {
+	color: #af5050;
+	float: right;
+}
+
+.change-pass .msg-error, .change-pass .error, .error-msg {
+	font-size: 13px;
+	margin-bottom: 0;
+}
+
+.margin-right{
+	margin-right: $main-app-offset/2;
+}
+
+.margin-left{
+	margin-left: $main-app-offset/2;
+}
+
+.profile-img-square {
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+	margin-top: -62px;
+	width: 125px;
+	height: 125px;
+}
+
+.user_ava, .user_name {
+	padding: 0.5% 0 0.5% 0;
+	font-weight: 700;
+}
+
+.carousel-control {
+	color: #000;
+	z-index: 1000;
+
+	&:hover {
+		color: #000;
+		text-shadow: 4px 1px 1px #ff9d00;
+	}
+}
+
+.carousel-control.right,.carousel-control.left {
+	background-image: none;
+}
+
+.clickme {
+	color: rgba(0,0,0,0.5);
+	position: absolute;
+	top: 0px;
+	left: 0;
+	background: transparent;
+	text-align:center;
+	padding-top: 155px;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	font-weight: bold;
+	font-size: 2.2em;
+
+	&:hover {
+		color: black;
+		text-shadow: 2px 1px 3px #ff9d00;
+	}
+}
+.carousel .modal-window {
+	width: 50%;
+}
+.carousel .hide-modal-btn {
+	cursor: pointer;
+	position: absolute;
+	top: $main-app-offset;
+	right: $main-app-offset;
+	color: white;
+	z-index: 1001;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.carousel-indicators li {
+	display: none;
+}
+
+#myCarousel span.glyphicon.glyphicon-chevron-right{
+	margin-right: 0;
+}
