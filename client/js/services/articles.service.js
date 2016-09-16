@@ -5,6 +5,7 @@
 	};
 	angular.module('rssreader').factory('articlesService', ['$http', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $state, $q, authService, $timeout, dashboardService, feedsService) {
 		var ARTICLES_NUM = 50,
+			loadDelay = 350,
 			temp_articles = [],
 			defer = $q.defer(),
 			promises = [],
@@ -20,8 +21,8 @@
 				setReadArticle: function ($scope, feed, link) {
 					for (var i = 0; i < obj.articles.length; i++) {
 						if (obj.articles[i].link === link) {
-						    $scope.articleForRead = obj.articles[i];
-						    dashboardService.hideLoading();
+							$scope.articleForRead = obj.articles[i];
+							dashboardService.hideLoading();
 							return;
 						}
 					}
@@ -36,7 +37,7 @@
 							}
 							dashboardService.hideLoading();
 							if (!$scope.articleForRead) {
-							    dashboardService.displayLoading();
+								dashboardService.displayLoading();
 								obj.resetArticles();
 								return getArticleDataByLink(link).then(function (res) {
 									dashboardService.hideLoading();
@@ -66,8 +67,8 @@
 							}
 						});
 						if (err.status === 404) {
-						    $state.go("404");
-						    dashboardService.hideLoading();
+							$state.go("404");
+							dashboardService.hideLoading();
 						}
 						else $state.go("dashboard." + dashboardService.getViewMode());
 					});
@@ -81,18 +82,20 @@
 						});
 					});
 					return $q.all(promises).then(function () {
-					    obj.articles = temp_articles;
+						obj.articles = temp_articles;
 						dashboardService.hideLoading();
 					});
 				},
 				getArticlesByFeed: function (feed) {
-					obj.resetArticles();
-					dashboardService.setTitle(feed.title);
-					dashboardService.setFeedId(feed);
-					return fetchArticles(feed).then(function () {
-					    obj.articles = temp_articles;
-					    dashboardService.hideLoading();
-					});
+					return $timeout(function () {
+						obj.resetArticles();
+						dashboardService.setTitle(feed.title);
+						dashboardService.setFeedId(feed);
+						return fetchArticles(feed).then(function () {
+							obj.articles = temp_articles;
+							dashboardService.hideLoading();
+						});
+					}, loadDelay);
 				},
 				getArticlesByCat: function (cat) {
 					return $timeout(function () {
@@ -106,41 +109,47 @@
 							}
 						});
 						return $q.all(promises).then(function () {
-						    obj.articles = temp_articles;
-						    dashboardService.hideLoading();
+							obj.articles = temp_articles;
+							dashboardService.hideLoading();
 						});
-					}, 350);
+					}, loadDelay);
 				},
 				getFavourites: function () {
-					obj.resetArticles();
-					obj.isFavourites = true;
-					dashboardService.setTitle("Favourites");
-					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						angular.forEach(value.articles, function (value, key) {
-						    obj.articles.push(value);
-						});
-					});
-					dashboardService.hideLoading();
+				    return $timeout(function () {
+					    obj.resetArticles();
+					    obj.isFavourites = true;
+					    dashboardService.setTitle("Favourites");
+					    angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+						    angular.forEach(value.articles, function (value, key) {
+							    obj.articles.push(value);
+						    });
+					    });
+					    dashboardService.hideLoading();
+				    }, loadDelay);
 				},
 				getFavArticlesByCat: function (cat) {
-					obj.resetArticles();
-					obj.isFavourites = true;
-					dashboardService.setTitle("Favourites: " + cat);
-					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						if (value.category === cat) {
-							angular.forEach(value.articles, function (value, key) {
-								obj.articles.push(value);
-							});
-						}
-					});
-					dashboardService.hideLoading();
+				    return $timeout(function () {
+					    obj.resetArticles();
+					    obj.isFavourites = true;
+					    dashboardService.setTitle("Favourites: " + cat);
+					    angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+						    if (value.category === cat) {
+							    angular.forEach(value.articles, function (value, key) {
+								    obj.articles.push(value);
+							    });
+						    }
+					    });
+					    dashboardService.hideLoading();
+				    }, loadDelay);
 				},
 				getFavArticle: function (article) {
-					obj.resetArticles();
-					obj.isFavourites = true;
-					dashboardService.setTitle("Favourites");
-					obj.articles.push(article);
-					dashboardService.hideLoading();
+				    return $timeout(function () {
+					    obj.resetArticles();
+					    obj.isFavourites = true;
+					    dashboardService.setTitle("Favourites");
+					    obj.articles.push(article);
+					    dashboardService.hideLoading();
+				    }, loadDelay);
 				},
 				addFavourite: function (article) {
 					dashboardService.displayLoading();
@@ -149,7 +158,7 @@
 							Authorization: 'Bearer ' + authService.getToken()
 						}
 					}).then(function (res) {
-					    feedsService.getAllFavourites();
+						feedsService.getAllFavourites();
 						dashboardService.hideLoading();
 					});
 				},
@@ -164,7 +173,7 @@
 					});
 				},
 				resetArticles: function () {
-				    this.totalDisplayed = this.displayedIncrement;
+					this.totalDisplayed = this.displayedIncrement;
 					dashboardService.displayLoading();
 					temp_articles.length = 0;
 					obj.articles.length = 0;

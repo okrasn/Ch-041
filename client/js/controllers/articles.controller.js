@@ -1,6 +1,5 @@
 (function () {
 	'use strict';
-
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
 		$scope.articleData = articlesService;
 		$scope.obj = {};
