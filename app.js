@@ -10,7 +10,10 @@ var express = require('express'),
 	passport = require('passport'),
 	multer = require('multer'),
 	cors = require('cors'),
-	logger = require('morgan');
+	logger = require('morgan'),
+	User = require('./server/models/Users'),
+	mongoose = require('mongoose'),
+	flash = require('express-flash');
 
 app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico')));
 require('./server/models/Feeds');

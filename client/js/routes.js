@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'DuplicateRequestsFilter.Decorator', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
