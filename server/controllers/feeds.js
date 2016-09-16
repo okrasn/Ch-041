@@ -63,6 +63,26 @@ module.exports.allFeed = function (req, res, next) {
 	});
 }
 
+module.exports.getFeedData = function (req, res, next) {
+	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
+		res.status(404).send('Not found');
+		return;
+	}
+	Feed.findById(req.body.id, function (err, feed) {
+		if (err) {
+			console.log("ERROR: " + err);
+			return next(err);
+		}
+		if (!feed) {
+		    res.status(404).send('Not found');
+		    return;
+		}
+		else {
+		    res.json(feed);
+		}
+	});
+}
+
 module.exports.add = function (req, res, next) {
 	if (req.body.rsslink === undefined) {
 		return res.status(400).json({
@@ -94,10 +114,11 @@ module.exports.add = function (req, res, next) {
 					res.json(feed);
 				});
 			});
+
 		} else {
-			return res.status(400).json({
-				message: ERRORS.feed_already_added
-			});
+		    return res.status(400).json({
+		        message: ERRORS.feed_already_added
+		    });
 		}
 	});
 };
@@ -146,13 +167,12 @@ module.exports.remove = function (req, res, next) {
 					return res.send({
 						status: 'OK'
 					});
-				} else {
-					res.statusCode = 500;
-					log.error(ERRORS.internal_error, res.statusCode, err.message);
-					return res.send({
-						error: ERRORS.feed_not_found
-					});
-				}
+				} 
+				res.statusCode = 500;
+				log.error(ERRORS.internal_error, res.statusCode, err.message);
+				return res.send({
+					error: ERRORS.feed_not_found
+				});
 			});
 		});
 	});

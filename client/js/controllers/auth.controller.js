@@ -4,6 +4,9 @@
 		$validatorProvider.addMethod("pattern", function(value, element) {
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Password must contain(a-z,A-Z,0-9,!@#)");
+		$validatorProvider.addMethod("email", function(value, element) {
+			return this.optional(element) || /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
+		}, "text");
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
@@ -16,7 +19,8 @@
 			return transfer.getEmail();
 		}
 		$scope.password = {
-			token : transfer.getObj()
+			token : transfer.getObj(),
+			email : transfer.getEmail()
 		};
 		$scope.confirm_email = {};
 		$scope.session;
@@ -44,7 +48,6 @@
 					}
 					toasterService.error(error.message);
 				}).then(function (response) {
-					console.log(response);
 					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
@@ -56,7 +59,6 @@
 
 		$scope.logIn = function (form) {
 			if (form.validate()) {
-				console.log($scope.user);
 				authService.logIn($scope.user, $scope.session).error(function (error) {
 					$scope.error = error;
 				}).then(function () {
@@ -84,7 +86,6 @@
 				$scope.error = error;	
 				toasterService.error(error.message);
 			}).then(function (response) {
-				console.log(response.data);
 				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
 			})
 		}
@@ -94,7 +95,6 @@
 					$scope.error = error;
 					toasterService.error(error.message);
 				}).then(function (response) {
-					console.log(response.data);
 					toasterService.success('You have successfully changed password');
 					$state.go('login');	
 				})

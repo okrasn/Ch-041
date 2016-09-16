@@ -38,6 +38,7 @@ module.exports = function (config) {
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/js/app.js",
 			"./client/js/tests/registerNewUser.spec.js",
+
 			"./client/js/tests/profileController.spec.js",
 			"./client/js/tests/resetPassword.spec.js",
 			"./client/js/tests/emailApproving.spec.js",

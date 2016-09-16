@@ -16,6 +16,8 @@ var mongoose = require('mongoose'),
 			email : String,
 			password : String
 		},
+		date_of_signup : {type : Date},
+		emailToken : String,
 		emailVerification: { type : Boolean },
 		verifiedUser : {type : Boolean},
 		resetPasswordToken: String,
@@ -29,8 +31,17 @@ var mongoose = require('mongoose'),
 		hash: String,
 		salt: String,
 		avatar: String,
+		colorTheme: {
+			type: String,
+			default: "theme1"
+		},
 		categories: [String],
 		favCategories: [String],
+		feedsDictionary: [{categories: String, feeds: [{
+		        type: mongoose.Schema.Types.ObjectId,
+		        ref: 'Feed'
+		    }]
+		}],
 		feeds: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Feed'

@@ -1,22 +1,37 @@
-'use strict';
-angular.module('rssreader').service('themeService', ['authService', '$window', function (authService, $window) {
-	that = this;
-	this.layout = 'style';
-	this.getTheme = function () {
-		return that.layout !== undefined ? that.layout : "style";
-	}
-	this.layouts = [
-		{
-			name: 'Blue',
-			url: 'style'
-		},
-		{
-			name: 'Black',
-			url: 'style2'
-		},
-		{
-			name: 'Grey',
-			url: 'style3'
-		}
-	];
-}]);
+(function() {
+    'use strict';
+    angular.module('rssreader').factory('themeService', ['$http', 'authService', '$window',
+        function($http, authService, $window) {
+            var thm = {
+                layouts: [{
+                    name: 'Blue',
+                    url: 'theme1',
+                    src: 'assets/images/theme1.jpg'
+                }, {
+                    name: 'Black',
+                    url: 'theme2',
+                    src: 'assets/images/theme2.jpg'
+                }, {
+                    name: 'Grey',
+                    url: 'theme3',
+                    src: 'assets/images/theme3.jpg'
+                }, {
+                    name: 'Black',
+                    url: 'theme4',
+                    src: 'assets/images/theme4.jpg'
+                },],
+                changeTheme: function(theme) {
+                	console.log(theme);
+                    return $http.post('/users/' + authService.userID() + '/changeColorTheme', {
+                        colorTheme: theme
+                    }, {
+                        headers: {
+                            Authorization: 'Bearer ' + authService.getToken()
+                        }
+                    });
+                }
+            }
+            return thm;
+        }
+    ]);
+})();

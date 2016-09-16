@@ -10,6 +10,12 @@
 					templateUrl: './partials/home.html',
 					controller: 'HomeController'
 				})
+				.state('404', {
+					url: '/not-found',
+					templateUrl: './partials/static/404_page.html',
+					controller: ['$scope', function ($state) {
+					}]
+				})
 				.state('login', {
 					url: '/login',
 					templateUrl: './partials/auth/login.html',
@@ -36,11 +42,12 @@
 					controller: 'AuthController'
 				})
 				.state('reset', {
-					url: '/reset/:token',
+					url: '/reset/:token/:email',
 					templateUrl: './partials/auth/reset.html',
 					controller: 'AuthController',
 					onEnter : ['$stateParams', 'transfer', function ($stateParams, transfer) {
-						transfer.setObj($stateParams.token);	
+						transfer.setObj($stateParams.token);
+						transfer.setEmail($stateParams.email);	
 					}]
 				})
 				.state('verify', {
@@ -50,9 +57,7 @@
 					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
 						transfer.setEmail($stateParams.email);
 						transfer.setString($stateParams.token);
-						console.log($stateParams);
 						toasterService.info('You have successfuly approved you email. Please reenter you fields');
-
 					}]
 				})
 				.state('profile', {
@@ -121,6 +126,11 @@
 					onEnter: ['dashboardService', function (dashboardService) {
 						dashboardService.setTitle("Add Feed");
 					}]
+				})
+				.state("dashboard.article", {
+					url: '/article/:feed/:link',
+					templateUrl: './partials/dashboard/article.html',
+					controller: 'ArticlesController'
 				});
 			
 			$authProvider.twitter({

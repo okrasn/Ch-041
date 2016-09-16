@@ -11,7 +11,6 @@
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
 			$scope.sameProvider = transfer.getProviderString();
-			console.log($scope.sameProvider);
 			$scope.link = function (provider) {
 				$auth.link(provider).then(function () {
 					toasterService.info('You have successfully linked a ' + provider + ' account');
@@ -25,56 +24,61 @@
 				$http.post('/auth/unlink', {
 					id: profileService.refreshProfileData()._id,
 					provider: provider
-				}).then(function (response) {
+				}).then(function (resonse) {
 					toasterService.info('You have unlinked a ' + provider + ' account');
 					profileService.getProfile();
 				});
 			};
 
-			$scope.updateProfile = function () {
+            $scope.updateProfile = function () {
 				profileService.getProfile();
-				console.log(profileService.getProfile());
 			};
 
 			$scope.newUserData = {
-				email: profileService.refreshProfileData().email,
-				currentPass: "",
-				newPass: "",
-				newPassRepeat: ""
-			}
+			    email: profileService.refreshProfileData().email,
+			    currentPass: "",
+			    newPass: "",
+			    newPassRepeat: ""
+			};
 
-			$scope.submit = function () { //function to call on form submit
-				if ($scope.upload_form.file.$valid && $scope.file) { //check if from is valid
-					$scope.upload($scope.file); //call upload function
+			$scope.submit = function (file) { //function to call on form submit
+				if ($scope.upload_form.file.$valid && file) { //check if from is valid
+					$scope.upload(file); //call upload function
 				}
 			};
 
-			$scope.upload = function (file) {
-				console.log($scope.file);
-				Upload.upload({
-					url: '/upload', //webAPI exposed to upload the file
-					data: {
-						file: file,
-						user: authService.userID()
-					} //pass file as data, should be user ng-model
-				}).then(function (resp) { //upload function returns a promise
-					if (resp.data.error_code === 0) { //validate success
-						profileService.getProfile();
-					} else {
-						toasterService.error('an error occured');
-					}
-				}, function (resp) { //catch error
-					console.log('Error status: ' + resp.status);
-					$window.alert('Error status: ' + resp.status);
-				}, function (evt) {
-					console.log(evt);
-					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-					console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-					$scope.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
-				});
+			$scope.upload = function (file, errFiles) {
+			    $scope.f = file;
+			    if (errFiles) {
+			        $scope.errFile = errFiles[0];
+			    }
+			    else {
+			        $scope.errFile = null;
+			    }
+			    if (file) {
+			        Upload.upload({
+			            url: '/users/' + authService.userID() + '/upload', //webAPI exposed to upload the file
+			            data: {
+			                file: file,
+			                user: authService.userID()
+			            }, //pass file as data, should be user ng-model
+			            headers: {
+			                Authorization: 'Bearer ' + authService.getToken()
+			            }
+			        }).then(function (res) { //upload function returns a promise
+			            if (res.data.error_code === 0) { //validate success
+			                profileService.getProfile();
+			            } else {
+			                $window.alert('an error occured');
+			            }
+			        }, function (err) { //catch error
+			            if (err.status > 0)
+			                $scope.errorMsg = err.status + ': ' + err.data;
+			        });
+			    }
 			};
 
-			var PROFILE_ERRORS = {
+            var PROFILE_ERRORS = {
 				field_required: 'This field is required',
 				email_example: 'Please, use example: jacksparrow@gmail.com',
 				min_6symbl: 'Please,enter at least 6 characters',
@@ -83,7 +87,7 @@
 				reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
 			};
 
-			$scope.changePass = function (form) {
+            $scope.changePass = function (form) {
 				if (form.validate()) {
 					console.log("Submit change password");
 					return $http.post('/changePassword', $scope.newUserData, {
@@ -103,7 +107,7 @@
 				}
 			};
 
-			$scope.changePassValidation = {
+            $scope.changePassValidation = {
 				rules: {
 					currentPassword: {
 						required: true
@@ -118,7 +122,7 @@
 						required: true
 					}
 				},
-				messages: {
+                messages: {
 					currentPassword: {
 						required: PROFILE_ERRORS.field_required,
 						email: PROFILE_ERRORS.email_example,
@@ -137,12 +141,18 @@
 				}
 			};
 
-			$scope.updateTheme = function () {
-				themeService.layout = $scope.layout;
-			};
+            $scope.changeTheme = function() {
+                $scope.modalShown = !$scope.modalShown;
+            };
 
-			$scope.layout = themeService.layout;
-			$scope.layouts = themeService.layouts;
-		}
-	]);
+            $scope.updateTheme = function(layout) {
+                themeService.changeTheme(layout.url).error(function(error) {
+                    console.log("theme not changed" + error);
+                }).then(function(response) {
+                    profileService.getProfile();
+                });
+            };
+            $scope.layouts = themeService.layouts;
+        }
+    ]);
 })();

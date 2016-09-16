@@ -38,4 +38,3 @@ angular.module('rssreader')
 			getEmail : getEmail
 		}
 	}]);
-

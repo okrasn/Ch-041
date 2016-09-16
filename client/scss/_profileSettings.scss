@@ -1,96 +1,134 @@
-cstmform-border{
-	padding : 0 1% 0 1%;
+cstmform-border {
+	padding: 0 1% 0 1%;
 }
 
-.profile .capitalize{
+a.cstmblock {
+	display: block;
+	cursor: pointer;
+	padding: 10px 15px;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+}
+
+#profile label {
+	line-height: 30px;
+	font-size: 17px;
+}
+
+#profile .capitalize {
 	margin-top: 5px;
+}
+
+.file-alert {
+	color: red;
+}
+
+.btn-social-icon {
+	margin-left: 0.5em;
 }
 
 .form-group.profile {
 	height: 58px;
 	margin-bottom: 0;
 }
+
 .change-pass {
-	height: 58px;
+	height: 64px;
 	margin-bottom: 0;
 }
+
 .error-msg {
 	margin-top: 5px;
 	color: #af5050;
 	position: absolute;
 	top: 88px;
 	right: 20px;
+	margin-bottom: 0;
+	font-size: 13px;
 }
-.change-pass .error {
+
+.error {
 	color: #af5050;
 	float: right;
 }
 
-.change-pass .msg-error,.change-pass .error,.error-msg {
+.change-pass .msg-error, .change-pass .error, .error-msg {
 	font-size: 13px;
 	margin-bottom: 0;
 }
 
-img.img-size {
-   width: 100px; 
-   height: 100px;
+.margin-right{
+	margin-right: $main-app-offset/2;
 }
 
-.save-reset {
-	float: right;
-}
-.file-upload {
-	 position: relative;
-	 overflow: hidden;
-	 width: 52%; 
-	 height: 32px; 
-	 float: right;
-	 background: $navbar-color;
-	 border-radius: 4px;
-	 margin-top: 15px;
-	 padding: 8px 4px;
-	 color: #fff;
-	 text-align: center;
-	 box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
-	 font-weight: 400;
+.margin-left{
+	margin-left: $main-app-offset/2;
 }
 
-.file-upload:hover {
-	background-color: #fcf8e3;
-	color: black;
-	border: none;
-	transition: $app-transition;
-	box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
-}
-.upload{
-	margin: 22px 0 0 0;
-}
-.no-margin{
-	margin-left: 0;
+.profile-img-square {
+	width: 125px;
+	height: 125px;
+	margin-bottom: $main-app-offset;
 }
 
-.file-upload input[type="file"] {
-	display: none;
-}
-
-.file-upload>label {
-	 display: block;
-	 position: absolute;
-	 top: 0;
-	 left: 0;
-	 width: 100%;
-	 height: 100%;
-	 cursor: pointer;
-	 font-size: 14px;
-	 padding: 6px 12px;
-	 margin-bottom: 0;
-	 font-weight: 400;
-}
-
-.margin-bottom {
-	margin-bottom: 15px;
-}
-.user_ava, .user_name{
+.user_ava, .user_name {
 	padding: 0.5% 0 0.5% 0;
 	font-weight: 700;
 }
+
+.carousel-control {
+	color: #000;
+	z-index: 1000;
+
+	&:hover {
+		color: #000;
+		text-shadow: 4px 1px 1px #ff9d00;
+	}
+}
+
+.carousel-control.right,.carousel-control.left {
+	background-image: none;
+}
+
+.clickme {
+	color: rgba(0,0,0,0.5);
+	position: absolute;
+	top: 0px;
+	left: 0;
+	background: transparent;
+	text-align:center;
+	padding-top: 155px;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	font-weight: bold;
+	font-size: 2.2em;
+
+	&:hover {
+		color: black;
+		text-shadow: 2px 1px 3px #ff9d00;
+	}
+}
+.carousel .modal-window {
+	width: 50%;
+}
+.carousel .hide-modal-btn {
+	cursor: pointer;
+	position: absolute;
+	top: $main-app-offset;
+	right: $main-app-offset;
+	color: white;
+	z-index: 1001;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.carousel-indicators li {
+	display: none;
+}
+
+span.glyphicon.glyphicon-chevron-right {
+	margin-right: 0;
+}
+

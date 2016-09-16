@@ -27,6 +27,7 @@ var passport = require('passport'),
 ERRORS = {
 	fill_out_fields: 'Please fill out all fields',
 	user_not_found: 'User not found',
+	pass_or_token_not_match: 'Passwords or tokens does\'t match',
 	pass_not_match: 'Passwords does\'t match',
 	same_pass: 'Please enter new password',
 	pass_incorrect: 'Entered password is incorrect',
@@ -78,14 +79,6 @@ module.exports.register = function (req, res) {
 		User.findOne({email: req.body.email}, function (err, existingUser) {
 				
 				if (!req.body.verifyEmail && req.body.counter === 0) {
-					var user = new User({
-						emailVerification: false,
-						email : req.body.email,
-						displayName: req.body.displayName,
-						password: req.body.password,
-						tempPassword: req.body.password
-					});
-
 					userEmail = req.body.email;
 					emailToken = randomtoken.generate(16);
 					host = req.get('host');
@@ -96,6 +89,16 @@ module.exports.register = function (req, res) {
 						html : "Hello,<br> Please Click on the link to verify your email <strong>" + userEmail + "</strong>.<br><a href=" + link + ">Click here to verify</a>"	
 					}
 					console.log(mailOptions);
+
+					var user = new User({
+						emailVerification: false,
+						email : req.body.email,
+						displayName: req.body.displayName,
+						password: req.body.password,
+						tempPassword: req.body.password,
+						emailToken: emailToken
+					});
+
 
 					if(req.body.email !== arrayOfEmails[0]){
 						smtpTransport.sendMail(mailOptions, function(error, response){
@@ -116,7 +119,8 @@ module.exports.register = function (req, res) {
 							});
 						}
 						return res.status(400).json({
-							message: ERRORS.email_verification
+							message: ERRORS.email_verification,
+							user : user
 						});
 					});
 				}
@@ -135,7 +139,8 @@ module.exports.register = function (req, res) {
 				if (existingUser && !existingUser.verifiedUser && req.body.verifyEmail) {
 					existingUser.emailVerification = true;
 					existingUser.verifiedUser = true;
-					if( req.body.password === existingUser.tempPassword ){
+					existingUser.date_of_signup = new Date();
+					if( (req.body.password === existingUser.tempPassword)  && (existingUser.emailToken === req.body.verifyEmail)){
 						existingUser.tempPassword = '';	
 						existingUser.save(function (err, result) {
 							if (err) {
@@ -149,7 +154,7 @@ module.exports.register = function (req, res) {
 						});	
 					} else {
 						res.status(400).json({
-							message : ERRORS.pass_not_match
+							message : ERRORS.pass_or_token_not_match
 						});
 					}
 				}
@@ -223,7 +228,7 @@ module.exports.forgotPass = function(req, res) {
 			subject: 'Node.js Password Reset',
 			text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-			  'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+			  'http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '\n\n' +
 			  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 	  	};
 	  	smtpTransport.sendMail(mailOptions, function(err) {
@@ -240,7 +245,7 @@ module.exports.forgotPass = function(req, res) {
 
 module.exports.reset = function(req, res) {
   	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-    	res.redirect('/#/reset/'+ req.params.token);
+    	res.redirect('/#/reset/'+ req.params.token + '/' + req.params.user.email);
   	});
 }
 
@@ -727,3 +732,4 @@ module.exports.changePassword = function (req, res, next) {
 		}
 	});
 };
+

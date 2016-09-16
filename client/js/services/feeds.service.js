@@ -4,7 +4,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 	this.favouritesDictionary = [];
 	this.allArticles = [];
 	this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Economics", "Science"];
-	this.allCategories = function(){
+	this.allCategories = function () {
 		var res = that.CATEGORIES.concat(getCustomCategories());
 		res.push("Custom");
 		return res;

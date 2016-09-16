@@ -4,199 +4,186 @@ $item-text-color: #000000;
 $sidebar-mobile-width: 270px;
 
 #sidebar-toggle {
-    float: left;
-    margin-left: 1em;
+	float: left;
+	margin-left: 1em;
 }
 
 .chevron-down>span.glyphicon.glyphicon-chevron-right{
-    transform: rotate(90deg);
+	transform: rotate(90deg);
 }
 
 span.glyphicon.glyphicon-chevron-right{
-    margin-right: $main-app-padding;
-    transition: all 0.3s ease;
+	margin-right: $main-app-offset;
+	transition: all 0.3s ease;
 }
 
 #sidebar span.glyphicon-star{
-    margin-right: $main-app-padding/2;
-    color: #ff9d00;
+	margin-right: $main-app-offset/2;
+	color: #ff9d00;
 }
 
 #dashboard {
-    font-family: 'Roboto', sans-serif;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    margin-right: -15px;
-    margin-left: -15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    height: 100%;
-    background-color: $main-background-color;
+	font-family: 'Roboto', sans-serif;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	margin-right: -15px;
+	margin-left: -15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 100%;
+	background-color: $main-background-color;
 
-    #sidebar-wrapper {
-        position: fixed;
-        top: 51px;
-        bottom: 0;
-        left: 0;
-        z-index: 9998;
-        display: block;
-        padding: 0px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        background-color: $sidebar-color;
-    }
+	#sidebar-wrapper {
+		position: fixed;
+		top: 51px;
+		bottom: 0;
+		left: 0;
+		z-index: 9998;
+		display: block;
+		padding: 0px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: $sidebar-color;
+	}
 
-    .sidebar-mobile {
-        display: block;
-    }
+	.sidebar-mobile {
+		display: block;
+	}
 
-    .sidebar-overlay {
-        position: fixed;
-        z-index: 9997;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.6);
-    }
+	.sidebar-overlay {
+		position: fixed;
+		z-index: 9997;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.6);
+	}
 
-    #sidebar {
-        width: 100%;
-        -webkit-transition: all 0.5s ease;
-        -moz-transition: all 0.5s ease;
-        -o-transition: all 0.5s ease;
-        transition: all 0.5s ease;
+	#sidebar {
+		width: 100%;
+		-webkit-transition: all 0.5s ease;
+		-moz-transition: all 0.5s ease;
+		-o-transition: all 0.5s ease;
+		transition: all 0.5s ease;
 
-        ul {
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-        }
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style-type: none;
+		}
 
-        a {
-            display: block;
-            text-decoration: none;
-            color: $item-text-color;
+		a {
+			display: block;
+			text-decoration: none;
+			color: $item-text-color;
 
-            &:hover {
-                text-decoration: none;
-                background-color: transparent;
-            }
+			&:hover {
+				text-decoration: none;
+				background-color: transparent;
+			}
 
-            &:active,
-            &:focus {
-                text-decoration: none;
-            }
-        }
+			&:active,
+			&:focus {
+				text-decoration: none;
+			}
+		}
 
-        .app-btn-blue {
-            margin-top: 1em;
-        }
-    }
+		.app-btn-blue {
+			margin-top: 1em;
+		}
+	}
 
-    #page-content-wrapper {
-        width: 100%;
-        position: absolute;
-    }
+	#page-content-wrapper {
+		width: 100%;
+		position: absolute;
+	}
 }
 
 #dashboard #allFeedsBtn {
-    height: 50px;
-    font-size: 18px;
-    line-height: 60px;
+	height: 50px;
+	font-size: 18px;
+	line-height: 60px;
 
-    a {
-        color: $item-text-color;
+	a {
+		color: $item-text-color;
 
-        &:hover {
-            color: #fff;
-            background: none;
-        }
-    }
+		&:hover {
+			color: #fff;
+			background: none;
+		}
+	}
 
-    .all-text {
-        padding-left: 10px;
-    }
+	.all-text {
+		padding-left: 10px;
+	}
 }
 
 ul[dnd-list], ul[dnd-list] > li {
-    position: relative;
+	position: relative;
 }
 
 ul[dnd-list] {
-    min-height: 3em;
+	min-height: 3em;
 }
 
 ul[dnd-list] .dndDraggingSource {
-    display: none;
+	display: none;
 }
 
 ul[dnd-list] .dndPlaceholder {
-    display: block;
-    background-color: #c1c1c1;
-    min-height: 3em;
+	display: block;
+	background-color: #c1c1c1;
+	min-height: 3em;
 }
 
 #sidebar-wrapper.toggled {
-    display: block;
+	display: block;
 }
 
 .sidebar-item {
-    padding-left: 1em;
-    cursor: pointer;
-    width: 100%;
-    line-height: 3em;
-    border-right: 0em solid;
+	padding-left: 1em;
+	cursor: pointer;
+	width: 100%;
+	line-height: 3em;
+	border-right: 0em solid;
 
-    &:hover {
-        transition: background 0.2s ease;
-        border-right: 0.7em solid $blue-btn-active-color;
-        background-color: $item-hover-color;
-    }
-
-    @media(max-width: $phone-res) {
-        padding-left: 10px;
-    }
+	&:hover {
+		transition: background 0.2s ease;
+		border-right: 0.7em solid $blue-btn-active-color;
+		background-color: $item-hover-color;
+	}
 }
 
 .sidebar-item .sidebar-sub-item {
-    padding-left: 1em;
-    box-sizing: border-box;
-    cursor: pointer;
-    width: 100%;
-    line-height: 3em;
-    border-right: 0em solid;
-    border-left: 2px solid black;
-
-    @media(max-width: $phone-res) {
-        padding-left: 20px;
-    }
+	padding-left: 1em;
+	box-sizing: border-box;
+	cursor: pointer;
+	width: 100%;
+	line-height: 3em;
+	border-right: 0em solid;
+	border-left: 2px solid black;
 }
 
 .sidebar-item.selected, .sidebar-sub-item .selected{
-    background-color: red/*$item-hover-color*/;
+	background-color: red/*$item-hover-color*/;
 }
 
 #sidebar .selected{
-    border-right: 0.7em solid $blue-btn-active-color;
-    background-color: $item-hover-color;
+	border-right: 0.7em solid $blue-btn-active-color;
+	background-color: $item-hover-color;
 }
 
-@media(max-width: $tablet-res) {
-    #sidebar-wrapper {
-        animation: 0.3s slideRight ease;
-        width: $sidebar-mobile-width;
-        box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.76);
+.sidebar-item {
+	padding-left: 1em;
+	cursor: pointer;
+	width: 100%;
+	line-height: 3em;
+	border-right: 0em solid;
 
-    }
-
-    #sidebar ul {
-        width: 100%;
-    }
-
-    #dashboard #sidebar-wrapper.sidebar-mobile {
-        transition: all 0.3s ease;
-        left: -$sidebar-mobile-width - 5px;
-        animation: 0.3s slideLeft ease;
-    }
+	&:hover {
+		transition: background 0.2s ease;
+		border-right: 0.7em solid $blue-btn-active-color;
+		background-color: $item-hover-color;
+	}
 }

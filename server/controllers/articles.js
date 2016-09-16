@@ -102,6 +102,20 @@ module.exports.removeFavArticle = function (req, res, next) {
 	});
 }
 
+module.exports.getFavArticle = function (req, res, next) {
+	Article.findOne({ link: req.body.link }, function (err, article) {
+		if (err) {
+			console.log("ERROR: " + err);
+			return next(err);
+		}
+		if (!article) {
+			res.status(404).send('Not found');
+			return;
+		}
+		res.json(article);
+	});
+}
+
 module.exports.allFavourites = function (req, res, next) {
 	// Flow is the same to feeds selection
 	req.user.populate('favourites', function (err, user) {
