@@ -17,7 +17,7 @@
 				<div class="row">
 					<label class="col-xs-5 capitalize">Date of Signup:</label>
 					<div class="col-xs-7">
-						<input class="form-control" type="text" ng-model="currentUser().date_of_signup" disabled>
+						<span class="form-control" type="text" ng-bind="currentUser().date_of_signup | date : 'medium'" disabled></span>
 					</div>
 				</div>
 			</div>

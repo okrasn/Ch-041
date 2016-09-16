@@ -17,6 +17,7 @@ var mongoose = require('mongoose'),
 			password : String
 		},
 		date_of_signup : {type : Date},
+		emailToken : String,
 		emailVerification: { type : Boolean },
 		verifiedUser : {type : Boolean},
 		resetPasswordToken: String,
