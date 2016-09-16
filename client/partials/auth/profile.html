@@ -55,8 +55,7 @@
                         <button class="app-btn app-btn-blue pull-right upload-btn" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon" ></span>change theme</button>
                     </div>
                 </div>
-              
-                <modal show='modalShown'>
+                <modal show='modalShown' class="carousel">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -67,7 +66,8 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item" ng-class="$first? 'active':''" ng-repeat="layout in layouts">
-                                <img src="{{layout.src}}" alt="{{layout.name}}" ng-click="updateTheme(layout)" style="cursor: pointer">
+                                <img src="{{layout.src}}" alt="{{layout.name}}">
+                                <div class="text-center clickme" ng-click="updateTheme(layout)">Click to apply</div>
                             </div>
                         </div>
                         <!-- Left and right controls -->

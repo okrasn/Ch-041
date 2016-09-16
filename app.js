@@ -52,7 +52,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/client'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
 
