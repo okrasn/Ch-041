@@ -8,7 +8,8 @@
 					<span class="article-page-date" ng-bind="getArticleDate(articleForRead.date)"></span>
 				</div>
 				<div class="article-row">
-					<img class="article-image" ng-src="{{articleForRead.img}}" alt="" />
+					<div class="img-responsive read-article-img" ng-show="articleForRead.img" ng-style="{'background-image':'url(' + articleForRead.img + ')'}">
+					</div>
 				</div>
 				<div class="article-row">
 					<p ng-bind="articleForRead.content"></p>
@@ -18,12 +19,19 @@
 					<span class="article-footer-item fa fa-share-alt onhover-green" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
 				</div>
 				<div class="center-children">
-					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}"><span>Continue reading</span></a>
+					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}" target="_blank"><span>Continue reading</span></a>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3">
-			<h4>Also read</h4>
+		<div class="col-lg-3 adviced-articles-wrapper">
+			<h3 class="also-read-header">Also read</h3>
+			<div class="card adviced-article-card col-lg-12 col-md-4 col-xs-6" ng-repeat="article in adviced">
+				<div class="adviced-article-title">
+					<div class="list-item" ng-click="readArticle(article)"><span ng-bind="article.title"></span></div>
+				</div>
+				<div class="img-responsive adviced-article-img" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

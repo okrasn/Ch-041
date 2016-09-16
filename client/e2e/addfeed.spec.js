@@ -2,7 +2,7 @@
 	var EC = protractor.ExpectedConditions;
 
 	it('Should login first', function () {
-
+	    console.log("Should login first");
 		browser.get('http://localhost:8080/');
 
 		element(by.id('login-btn')).click();

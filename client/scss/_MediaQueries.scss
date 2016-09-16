@@ -20,6 +20,12 @@ $desktop-res: 1200px;
 	}
 }
 
+@media screen and (min-width: $desktop-res) {
+.adviced-articles-wrapper{
+	padding-left: 0;
+}
+}
+
 @media screen and (max-width: 1600px) and (min-width: $desktop-res) {
 	#cards-wrapper.desktop-grow {
 		.app-panel {
@@ -47,6 +53,12 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $tablet-res) {
+	.also-read-header{
+		margin-top: 1em;
+	}
+	.adviced-article-img{
+		height: 150px;
+	}
 	.links {
 		text-align: center;
 	}
@@ -164,10 +176,14 @@ $desktop-res: 1200px;
 
 	.cstmform-border {
 		margin: $main-app-offset/2 0 $main-app-offset/2 0;
-		padding: 1em;
+		padding: $main-app-offset;
 	}
 
-	.mobile-half-padding, {
+	.cstmform-border-profile{
+		padding: 0 $main-app-offset $main-app-offset;
+	}
+
+	.mobile-half-padding {
 		padding: 0 $main-app-offset/2 0 $main-app-offset/2;
 	}
 
@@ -175,6 +191,15 @@ $desktop-res: 1200px;
 		width: 100%;
 		padding-right: $main-app-offset/2;
 		padding-left: $main-app-offset/2;
+	}
+
+	.carousel>.modal-window {
+		width: 100%;
+		height: 50%;
+	}
+
+	.carousel>.modal-content {
+		padding: $main-app-offset*2;
 	}
 
 	.hide-modal-btn {
@@ -186,25 +211,9 @@ $desktop-res: 1200px;
 		width: 100%;
 	}
 
-	.form-group.login label.error {
-		font-size: 12px;
-	}
-
-	.msg-error {
-		font-size: 12px;
-	}
-
-	.links img {
-		width: 45px;
-	}
-
 	.form-group.login input[type=email],
 	.form-group.login input[type=password] {
 		height: 50px;
-	}
-
-	.form-group.login {
-		margin-bottom: 10px;
 	}
 
 	.header {
@@ -252,10 +261,6 @@ $desktop-res: 1200px;
 
 	.form-group.login {
 		margin-bottom: 10px;
-	}
-
-	.header {
-		font-size: 1.5em;
 	}
 
 	#home_container {
@@ -314,5 +319,10 @@ $desktop-res: 1200px;
 
 	.text-center-mobile{
 		text-align: center;
+	}
+
+	.read-article-img{
+		width: 360px;
+		height: 280px;
 	}
 }

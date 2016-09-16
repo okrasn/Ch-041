@@ -67,7 +67,6 @@
 				});
 		}
 		$scope.addFeedByAdvice = function (feed) {
-		    console.log(feed);
 		    $scope.obj.link = feed.rsslink;
 		    $scope.error = null;
 		    $scope.modalShown = !$scope.modalShown;

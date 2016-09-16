@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'DuplicateRequestsFilter.Decorator', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
@@ -75,7 +75,7 @@
 							return feedsService.getAllFeeds();
 						}]
 					},
-					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
+					onEnter: ['articlesService', function (articlesService) {
 						articlesService.getAllArticles();
 					}]
 				})
@@ -120,7 +120,12 @@
 				.state("dashboard.article", {
 					url: '/article/:feed/:link',
 					templateUrl: './partials/dashboard/article.html',
-					controller: 'ArticlesController'
+					controller: 'ArticlesController',
+					resolve: {
+					    articlePromise: ['articlesService', function (articlesService) {
+					        return articlesService.getAdvicedArticles();
+		                }]
+					}
 				});
 			$authProvider.facebook({
 				clientId: '173686319709284',
@@ -167,6 +172,5 @@
 					height: 645
 				}
 			});
-
 		}]);
 })();

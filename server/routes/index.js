@@ -30,6 +30,7 @@ router.param('user', feedsCtrl.userParam);
 router.get('/users/:user', feedsCtrl.allFeed);
 router.get('/users/:user/favourites', articlesCtrl.allFavourites);
 router.get('/users/:user/advicedFeeds', feedsCtrl.getAdvicedFeeds);
+router.get('/users/:user/advicedArticles', articlesCtrl.getAdvicedArticles);
 
 // add new feed
 router.post('/users/:user/addFeed', feedsCtrl.add);

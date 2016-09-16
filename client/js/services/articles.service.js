@@ -10,7 +10,8 @@
 			defer = $q.defer(),
 			promises = [],
 			obj = {
-				articles: [],
+			    articles: [],
+			    advicedArticles: [],
 				articleForRead: null,
 				isFavourites: false,
 				displayedIncrement: 20,
@@ -171,6 +172,19 @@
 					}).then(function (res) {
 						dashboardService.hideLoading();
 					});
+				},
+				getAdvicedArticles: function () {
+				    obj.advicedArticles.length = 0;
+				    return $http.get('/users/' + authService.userID() + "/advicedArticles", {
+				        headers: {
+				            Authorization: 'Bearer ' + authService.getToken()
+				        }
+				    }).then(function (res) {
+				        console.log(res.data);
+				        angular.copy(res.data, obj.advicedArticles);
+				    }, function (err) {
+				        console.log(err);
+				    });
 				},
 				resetArticles: function () {
 					this.totalDisplayed = this.displayedIncrement;

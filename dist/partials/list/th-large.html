@@ -2,6 +2,8 @@
 <div id="cards-wrapper" class="desktop-grow clearfix feeds">
 	<div class="col-md-12 col-lg-6" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed" on-finish-render="ngRepeatFinished">
 		<div class="app-panel fade-in-anim">
+			<div class="fav-indicator" ng-show="checkIfFavourites(article)">
+			</div>
 			<div class="img-responsive article-img" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
 			</div>
 			<div class="content">
@@ -16,7 +18,7 @@
 						<button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)">
 							read
 						</button>
-						<span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-click="addFavourite(article)" ng-hide="isFavourites()"></span>
+						<span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-hide="checkIfFavourites(article)" ng-click="addFavourite(article)"></span>
 						<span class="article-footer-item fa fa-share-alt extra-btn onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
 					</span>
 					<span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>

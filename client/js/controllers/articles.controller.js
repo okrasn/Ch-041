@@ -8,6 +8,7 @@
 		$scope.error = null;
 		$scope.modalShown = false;
 		$scope.articles = $scope.articleData.articles;
+		$scope.adviced = $scope.articleData.advicedArticles;
 		$scope.isFavourites = $scope.articleData.checkIfFavourites;
 		$scope.favForAdd = null;
 		$scope.favForRemove = null;
@@ -24,6 +25,20 @@
 			if (feedsService.feedsDictionary.length < 1 && !$scope.isFavourites()) {
 				$state.go("dashboard.addFeed");
 			}
+		}
+
+		$scope.checkIfFavourites = function (article) {
+		    if ($scope.isFavourites()) {
+		        return false;
+		    }
+		    for (var i = 0; i < feedsService.favouritesDictionary.length; i++) {
+		        for (var j = 0; j < feedsService.favouritesDictionary[i].articles.length; j++) {
+		            if (feedsService.favouritesDictionary[i].articles[j].link === article.link) {
+		                return true;
+		            }
+		        }
+		    }
+		    return false;
 		}
 
 		$scope.loadMore = function () {

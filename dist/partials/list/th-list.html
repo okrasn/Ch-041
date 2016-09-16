@@ -2,6 +2,8 @@
 <div id="cards-wrapper" class="clearfix feeds">
 	<div class="col-md-12 col-lg-12" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed" on-finish-render="ngRepeatFinished">
 		<div class="app-panel fade-in-anim">
+			<div class="fav-indicator" ng-show="checkIfFavourites(article)">
+			</div>
 			<div class="img-responsive article-img" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
 			</div>
 			<div class="content">
