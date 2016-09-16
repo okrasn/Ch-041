@@ -105,7 +105,7 @@
 						feedPromise: ['feedsService', function (feedsService) {
 							return feedsService.getAdvicedFeeds();
 						}]
-					},
+					}
 				})
 				.state("dashboard.adviced", {
 					url: '/adviced/:category',
@@ -115,7 +115,7 @@
 					    feedPromise: ['feedsService', function (feedsService) {
 					        return feedsService.getAdvicedFeeds();
 					    }]
-					},
+					}
 				})
 				.state("dashboard.article", {
 					url: '/article/:feed/:link',

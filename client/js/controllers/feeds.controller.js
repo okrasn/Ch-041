@@ -40,11 +40,9 @@
 			}
 			if ($scope.newCategory.category) {
 			    $scope.obj.category = $scope.newCategory.category;
-			    console.log($scope.obj.category);
 			}
 
 			if (!$scope.obj.category) {
-			    console.log($scope.obj.category);
 				$scope.error = "Choose category";
 				dashboardService.loadingIcon = false;
 				return;
@@ -52,7 +50,6 @@
 
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 			    $scope.error = "Enter new category name";
-			    console.log($scope.newCategory);
 			    dashboardService.loadingIcon = false;
 			    return;
 			}

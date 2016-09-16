@@ -58,6 +58,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 		});
 	}
 	this.getAdvicedFeeds = function () {
+	    dashboardService.displayLoading();
 		return $http.get('/users/' + authService.userID() + "/advicedFeeds", {
 			headers: {
 				Authorization: 'Bearer ' + authService.getToken()
@@ -101,7 +102,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 			feedObj.rsslink = feed.link;
 			feedObj.category = feed.category;
 		} else if (format === 'ATOM') {
-		    console.log(doc);
 			feedObj.title = doc.getElementsByTagName('title')[0].childNodes[0].nodeValue;
 			feedObj.description = '';
 			feedObj.link = doc.getElementsByTagName('link')[0].getAttribute('href');
@@ -151,8 +151,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', 'authSer
 	}
 
 	this.removeFeed = function (feed) {
-		console.log("ToREmove");
-		console.log(feed);
 		return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + feed._id + '/' + feed.category, {
 			headers: {
 				Authorization: 'Bearer ' + authService.getToken()

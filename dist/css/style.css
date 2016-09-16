@@ -743,6 +743,9 @@ a.cstmblock {
 .carousel-indicators li {
   display: none; }
 
+#myCarousel span.glyphicon.glyphicon-chevron-right {
+  margin-right: 0; }
+
 .app-btn {
   padding: 0.8em;
   border: none;
@@ -1314,7 +1317,7 @@ a.sharing-btn {
   height: 50px; }
 
 .adviced-feed-content {
-  height: 50px;
+  height: 49px;
   overflow: hidden; }
 
 .readers-num {
