@@ -33,7 +33,7 @@ $desktop-res: 1200px;
 		}
 
 		.article-content {
-			height: 130px;
+			height: 8.5em;
 			margin-bottom: 25px;
 		}
 
@@ -195,7 +195,7 @@ $desktop-res: 1200px;
 
 	.carousel>.modal-window {
 		width: 100%;
-		height: 50%;
+		height: 25%;
 	}
 
 	.carousel>.modal-content {
@@ -297,10 +297,6 @@ $desktop-res: 1200px;
 
 	.sidebar-item {
 		padding-left: 10px;
-	}
-
-	.sidebar-item .sidebar-sub-item {
-		padding-left: 20px;
 	}
 
 	.profile-header{

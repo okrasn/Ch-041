@@ -180,7 +180,6 @@
 				            Authorization: 'Bearer ' + authService.getToken()
 				        }
 				    }).then(function (res) {
-				        console.log(res.data);
 				        angular.copy(res.data, obj.advicedArticles);
 				    }, function (err) {
 				        console.log(err);
@@ -244,12 +243,13 @@
 					} catch (err) {
 					}
 				} else if (format === "ATOM") {
-					content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
+				    content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
+
 				}
-				if (typeof content !== "String") {
-					return "";
+				if (typeof content !== 'string') {
+				    return "";
 				}
-				else return content;
+				else return content.toString();
 			},
 			fetchArticles = function (feed) {
 				return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + ARTICLES_NUM + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml")
@@ -276,7 +276,7 @@
 								else if (!items[i].getElementsByTagName('pubDate')[0] && !articleObj.img && !articleObj.content) {
 									continue;
 								}
-								articleObj.content = articleObj.content || articleObj.title;
+								articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
 								temp_articles.push(articleObj);
 							}
 						} else if (feed.format === "ATOM") {
@@ -290,7 +290,7 @@
 									date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
 									feed: feed._id
 								};
-								articleObj.content = articleObj.content || articleObj.title;
+								articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
 								temp_articles.push(articleObj);
 							}
 						}

@@ -2,6 +2,8 @@
 	<div class="row">
 		<div class="col-lg-9">
 			<div class="card clearfix">
+				<div class="fav-indicator" ng-show="checkIfFavourites(articleForRead)">
+				</div>
 				<h2 ng-bind="articleForRead.title"></h2>
 				<div class="article-row">
 					<span class="article-page-time-icon glyphicon glyphicon-time"></span>
@@ -15,7 +17,7 @@
 					<p ng-bind="articleForRead.content"></p>
 				</div>
 				<div class="article-row">
-					<span class="article-footer-item glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="isFavourites()"></span>
+					<span class="article-footer-item glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="checkIfFavourites(articleForRead)"></span>
 					<span class="article-footer-item fa fa-share-alt onhover-green" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
 				</div>
 				<div class="center-children">

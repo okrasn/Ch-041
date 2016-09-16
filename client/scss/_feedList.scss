@@ -61,12 +61,16 @@
 	position: absolute;
 	margin-top: -$main-app-offset;
 	left: 100%;
-	transform: translateX(-120%);
+	transform: translateX(-125%);
 	width: 0;
 	height: 0;
 	border-style: solid;
 	border-width: 0 30px 30px 0;
 	border-color: transparent #ff9d00 transparent transparent;
+}
+
+#article-page .fav-indicator{
+	transform: translateX(-145%);
 }
 
 .list-item{

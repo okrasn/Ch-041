@@ -1,7 +1,7 @@
 <!--Table feeds-->
 <div id="list" class="feeds">
 	<div class="table-feed" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed" on-finish-render="ngRepeatFinished">
-		<div class="fav-indicator" ng-show="checkIfFavourites(article)">
+		<div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
 		</div>
 		<div class="col-lg-11 col-xs-10 col-same-height">
 			<div class="list-item" ng-click="readArticle(article)">
@@ -13,7 +13,7 @@
 		</div>
 		<div class="col-lg-1 col-xs-2 col-same-height">
 			<div class="list-share-wrap center-text">
-				<span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article)>
+				<span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || isFavourites()">
 				</span>
 				<span class="list-item-btn-top glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
 				<span class="list-item-btn">

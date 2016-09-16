@@ -28,6 +28,9 @@
 		}
 
 		$scope.checkIfFavourites = function (article) {
+		    if (!article) {
+		        return false;
+		    }
 		    if ($scope.isFavourites()) {
 		        return false;
 		    }
@@ -150,7 +153,6 @@
 		}
 
 		$scope.readArticle = function (article) {
-			dashboardService.isReadingArticle = true;
 			$state.go("dashboard.article", {feed: article.feed, link: article.link});
 		}
 	}]);
