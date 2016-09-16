@@ -1,20 +1,22 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
+
+		$scope.articleData = articlesService;
 		$scope.obj = {};
-		$scope.newCatObj = {};
+		$scope.newCategory = {};
 		$scope.categories = feedsService.allFavsCategories;
 		$scope.error = null;
 		$scope.modalShown = false;
-		$scope.articles = articlesService.articles;
-		$scope.isFavourites = articlesService.checkIfFavourites;
+		$scope.articles = $scope.articleData.articles;
+		$scope.isFavourites = $scope.articleData.checkIfFavourites;
 		$scope.favForAdd = null;
 		$scope.favForRemove = null;
 		$scope.articleForShare = null;
 		$scope.articleForRead = null;
 		$scope.addingNewFavCategory = false;
 
-		if ($stateParams.feed !== undefined && $stateParams.link !== undefined) {
+		if ($stateParams.feed && $stateParams.link) {
 			dashboardService.isReadingArticle = true;
 			articlesService.setReadArticle($scope, $stateParams.feed, $stateParams.link);
 		}
@@ -23,6 +25,14 @@
 			if (feedsService.feedsDictionary.length < 1 && !$scope.isFavourites()) {
 				$state.go("dashboard.addFeed");
 			}
+		}
+
+		$scope.loadMore = function () {
+			$scope.articleData.totalDisplayed += $scope.articleData.displayedIncrement;
+		};
+
+		$scope.isAllDisplayed = function () {
+			return $scope.articleData.totalDisplayed > $scope.articleData.articles.length;
 		}
 
 		$scope.getArticles = function () {
@@ -43,7 +53,7 @@
 			}
 			else {
 				$scope.addingNewFavCategory = false;
-				$scope.newCatObj.category = null;
+				$scope.newCategory = {};
 			}
 		}
 		
@@ -55,8 +65,14 @@
 		
 		$scope.confirmAddFavourite = function () {
 			$scope.error = '';
-			if ($scope.newCatObj.category) {
-				$scope.obj.category = $scope.newCatObj.category;
+			if ($scope.newCategory.category) {
+				$scope.obj.category = $scope.newCategory.category;
+			}
+			if ($scope.obj.category) {
+				if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+					$scope.error = "Enter new category name";
+					return;
+				}
 			}
 			if ($scope.obj.category) {
 				if (!$scope.newCatObj.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
@@ -67,10 +83,11 @@
 			
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
-				$scope.addingNewCategory = false;
+			    $scope.resetAddFavValues();
+			    $scope.cancelAddFavourite();
 				toasterService.success("Article marked as favourite");
-				$state.reload("dashboard");
 			}, function (err) {
+			    $scope.resetAddFavValues();
 				console.log(err);
 				if (!err.data)
 					$scope.error = err.message;
@@ -78,9 +95,17 @@
 			});
 		}
 
+		$scope.resetAddFavValues = function () {
+		    dashboardService.hideLoading();
+		    $scope.newCategory = {};
+		    $scope.obj = {};
+		    $scope.addingNewFavCategory = false;
+		}
+
 		$scope.cancelAddFavourite = function () {
 			$scope.modalShown = false;
 			$scope.favForAdd = {};
+			$scope.newCategory = {};
 		}
 
 		$scope.share = function (article) {

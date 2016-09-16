@@ -16,18 +16,18 @@ app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico'
 require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
+require('./server/models/Advised');
 require('./server/config/passport');
 
 var routes = require('./server/routes/index');
 
 app.set('port', process.env.PORT || 8080);
 app.set('base url', process.env.URL || 'http://localhost');
-
+//'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds'
 mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
 });
-
 app.use(cors());
 app.use(function (req, res, next) { //allow cross origin requests
 	res.header('Access-Control-Allow-Origin', process.env.allowOrigin || 'http://localhost');
@@ -48,12 +48,11 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(__dirname + '/dist'));
 app.use(express.static('./server/uploads'));
 app.use('/', routes);
 
-
-// catch 404 and forward to error handler
+ //catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
@@ -65,6 +64,7 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
+	console.log("development");
 	app.use(function (err, req, res, next) {
 		res.status(err.status || 500);
 		res.render('error', {

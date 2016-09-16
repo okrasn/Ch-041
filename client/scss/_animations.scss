@@ -1,15 +1,12 @@
 $toaster-height: 70px;
-
-.fade-in-anim {
-	animation: fadeIn 0.5s;
-}
+$fading-duration: 0.3s;
 
 .fading-anim.ng-hide-add{
-	animation: fadeOut 0.5s;
+	animation: fadeOut $fading-duration;
 }
 
 .fading-anim.ng-hide-remove{
-	animation: fadeIn 0.5s;
+	animation: fadeIn $fading-duration;
 }
 
 .slide-down-anim {

@@ -37,7 +37,7 @@
 
 		$scope.register = function (form) {
 			if (form.validate()) {
-
+				dashboardService.loadingIcon = true;
 				if($scope.user.verifyEmail){
 					$scope.user.email = transfer.getEmail();
 				}
@@ -48,6 +48,7 @@
 					}
 					toasterService.error(error.message);
 				}).then(function (response) {
+				    dashboardService.loadingIcon = false;
 					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
@@ -58,14 +59,17 @@
 		};
 
 		$scope.logIn = function (form) {
-			if (form.validate()) {
-				authService.logIn($scope.user, $scope.session).error(function (error) {
+		    if (form.validate()) {
+		        dashboardService.loadingIcon = true;
+		        authService.logIn($scope.user, $scope.session).error(function (error) {
+		            dashboardService.loadingIcon = false;
 					$scope.error = error;
 				}).then(function () {
 					if (!$scope.session) {
 						$scope.onExit = function () {
 							auth.logOut();
 						};
+						dashboardService.loadingIcon = false;
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});

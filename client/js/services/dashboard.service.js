@@ -1,11 +1,18 @@
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
 	var that = this;
 	this.DEFAULT_VIEW = 2;
-	this.loadingIcon = false;
 	this.currentArticlesType = 'all';
 	this.currentArticlesValue = $window.localStorage.category;
 	this.isReadingArticle = false;
+	this.loadingIcon = false;
 
+	this.displayLoading = function () {
+	    that.loadingIcon = true;
+	}
+
+	this.hideLoading = function () {
+	    that.loadingIcon = false;
+	}
 	this.sortParam = {
 		type: 'date',
 		order: 0
@@ -30,7 +37,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		return that.sortParam;
 	}
 
-    if (!$window.localStorage.articlesType) {
+	if (!$window.localStorage.articlesType) {
 		$window.localStorage.articlesType = that.currentArticlesType;
 	}
 
@@ -94,12 +101,12 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		return that.title;
 	}
 
-	this.currentFeed = '';
+	this.currentFeed = null;
 	this.getFeedId = function () {
 		return that.currentFeed;
 	}
-	this.setFeedId = function (id) {
-		that.currentFeed = id;
+	this.setFeedId = function (feed) {
+		that.currentFeed = feed;
 	}
 	this.resetFeedId = function () {
 		that.currentFeed = '';

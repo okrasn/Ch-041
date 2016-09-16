@@ -6,11 +6,14 @@
 	text-align: center;
 }
 
+.alert-danger-app{
+	width: 70%;
+	margin: 1em auto 0;
+}
+
 .animate-error {
 	position: relative;
 	animation: animatetop 1s;
-	width: 70%;
-	margin: 10px auto 0;
 }
 
 input.ng-pristine + #strength {
@@ -26,6 +29,10 @@ input.ng-pristine + #strength {
 	vertical-align: 2px;
 }
 
+#change-pass-form{
+	margin-top: $main-app-offset;
+}
+
 .point {
 	background: #DDD;
 	border-radius: 2px;
@@ -38,18 +45,6 @@ input.ng-pristine + #strength {
 		margin: 0 !important;
 	}
 }
-.terms-condition{
-    font: 14px;
-}
-.bold {
-    font-weight: 700;
-}
-.terms-condition{
-    font: 14px;
-}
-.bold {
-    font-weight: 700;
-}
 
 #footer {
 	position: fixed;
@@ -61,6 +56,11 @@ input.ng-pristine + #strength {
 	margin-bottom: $main-app-offset;
 	padding: 20px 10% 15px;
 	border-radius: 4px;
+}
+
+.cstmform-border-profile{
+	margin-bottom: $main-app-offset;
+	padding: 0 10% 15px;
 }
 
 .form-group.login {

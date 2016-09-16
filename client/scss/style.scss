@@ -1,4 +1,6 @@
-$main-border-radius: 4px;
+
+$main-border-radius: 2px;
+
 $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
@@ -16,9 +18,10 @@ html {
 body {
 	font-size: 16px;
 	overflow-x: hidden;
-	margin-top: $navbar-height;
 	color: #000;
 	min-width: 240px;
+	background-color: $main-background-color;
+	padding-top: $navbar-height;
 }
 
 p {
@@ -109,17 +112,10 @@ p {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 9000;
+	z-index: 99000;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(255, 255, 255, 0.5);
-
-	&.ng-hide-add {
-		animation: 0.2s fadeIn ease;
-	}
-	&.ng-hide-remove {
-		animation: 0.2s fadeOut ease;
-	}
 }
 
 .center-absolute{
@@ -146,5 +142,6 @@ p {
 @import "animations";
 @import "forgot";
 @import "article.scss";
+@import "advicedFeeds.scss";
 @import "MediaQueries";
 

@@ -47,7 +47,6 @@
 				}
 			};
 
-<<<<<<< HEAD
 			$scope.upload = function (file, errFiles) {
 			    $scope.f = file;
 			    if (errFiles) {
