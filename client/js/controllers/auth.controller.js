@@ -23,11 +23,13 @@
 		}
 
 		$scope.register = function (form) {
-			if (form.validate()) {
-				authService.register($scope.user).error(function (error) {
+		    if (form.validate()) {
+		        dashboardService.loadingIcon = true;
+		        authService.register($scope.user).error(function (error) {
+		            dashboardService.loadingIcon = false;
 					$scope.error = error;
 				}).then(function (response) {
-					console.log(response);
+				    dashboardService.loadingIcon = false;
 					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
@@ -37,15 +39,17 @@
 		};
 
 		$scope.logIn = function (form) {
-			if (form.validate()) {
-				console.log($scope.user);
-				authService.logIn($scope.user, $scope.session).error(function (error) {
+		    if (form.validate()) {
+		        dashboardService.loadingIcon = true;
+		        authService.logIn($scope.user, $scope.session).error(function (error) {
+		            dashboardService.loadingIcon = false;
 					$scope.error = error;
 				}).then(function () {
 					if (!$scope.session) {
 						$scope.onExit = function () {
 							auth.logOut();
 						};
+						dashboardService.loadingIcon = false;
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});

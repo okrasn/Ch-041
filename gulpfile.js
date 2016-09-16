@@ -20,16 +20,16 @@ mkdirp.sync('./dist/uploads', function (err) {
 
 gulp.task('server', function (cb) {
 	console.log("Server is running on port 8080");
-	exec('npm start', function (err, stdout, stderr) {
+	exec('node app.js', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
 		cb(err);
 	});
 });
 
-gulp.task('main', ['sass', 'scripts'], function () {
+gulp.task('main', ['build'], function () {
 	gulp.watch('./client/partials/**/*.html', { interval: 500 }, ['build']);
-	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['sass']);
-	gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'], { interval: 500 }, ['scripts']);
+	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['build']);
+	gulp.watch(['./client/js/**/*.js', '!./client/js/**/*.spec.js', '!./client/js/app.min.js', '!./client/js/app.js'], { interval: 500 }, ['build']);
 });
 
 gulp.task('sass', function () {
@@ -71,7 +71,7 @@ gulp.task('useref', function () {
 		.pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('build', function () {
+gulp.task('build', ['scripts', 'sass'], function () {
 	gulp.src('client/scss/**/*.scss')
 		.pipe(sass())
 		.pipe(gulp.dest('dist/css/'));
@@ -101,4 +101,4 @@ gulp.task('build', function () {
 		.pipe(sourcemaps.write());
 });
 
-gulp.task('default', ['server', 'sass', 'scripts', 'main', 'build']);
+gulp.task('default', ['server', 'main']);

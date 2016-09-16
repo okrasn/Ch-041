@@ -5,12 +5,13 @@ var feedSchema = new mongoose.Schema({
 	description: String,
 	link: String,
 	rsslink: String,
-	category: String,
+	currentSubscriptions: Number,
+	totalSubscriptions: Number,
 	format: {
 		type: String,
 		enum: ["RSS", "ATOM"],
 		required: true
-	}, // format can be eather RSS or ATOM
+	}   // format can be eather RSS or ATOM
 });
 
 mongoose.model('Feed', feedSchema);

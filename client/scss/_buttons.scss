@@ -17,7 +17,7 @@
 		border: none;
 		transition: $app-transition;
 		box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.76);
-	    text-decoration: none;
+		text-decoration: none;
 	}
 
 	&:active {
@@ -53,6 +53,25 @@
 	}
 }
 
+.subscribe-btn{
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+	color: $blue-btn-active-color;
+    font-weight: 500;
+	background-color: white;
+	border: 5px solid $blue-btn-active-color;
+    transition: all 0.3s ease;
+}
+
+.subscribe-btn:hover{
+	color: white;
+	background-color: #00ffb1;
+    border: none;
+    transition: all 0.3s ease;
+    border: 5px solid #00ffb1;
+}
+
 .app-btn-red {
 	color: white;
 	background-color: $delete-btn-color;
@@ -81,6 +100,10 @@
 
 .submit-btn {
 	margin: 1em 0 1em 0;
+}
+
+.load-btn-wrap{
+	margin-bottom: 1em;
 }
 
 button[disabled] {

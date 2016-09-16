@@ -1,5 +1,5 @@
-cstmform-border {
-	padding: 0 1% 0 1%;
+.cstmform-border-profile-header{
+	padding: 0 10% 0;
 }
 
 a.cstmblock {
@@ -20,6 +20,22 @@ a.cstmblock {
 	margin-top: 5px;
 }
 
+.profile-header{
+	height: 10em;
+	background-color: #1d2129;
+}
+
+.profile-name{
+	margin-top: 95px;
+	margin-left: 15px;
+	color: white;
+}
+
+.profile-email{
+	margin-left: 15px;
+	color: white;
+}
+
 .file-alert {
 	color: red;
 }
@@ -36,6 +52,18 @@ a.cstmblock {
 .change-pass {
 	height: 64px;
 	margin-bottom: 0;
+}
+
+.upload-btn{
+	width: 200px;
+}
+
+.upload-btn-offset{
+	margin-top: 15px;
+}
+
+.profile-btn-icon{
+	margin-right: 0.5em;
 }
 
 .error-msg {
@@ -67,9 +95,10 @@ a.cstmblock {
 }
 
 .profile-img-square {
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+	margin-top: -62px;
 	width: 125px;
 	height: 125px;
-	margin-bottom: $main-app-offset;
 }
 
 .user_ava, .user_name {
@@ -128,7 +157,6 @@ a.cstmblock {
 	display: none;
 }
 
-span.glyphicon.glyphicon-chevron-right {
+#myCarousel span.glyphicon.glyphicon-chevron-right{
 	margin-right: 0;
 }
-

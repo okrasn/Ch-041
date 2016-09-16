@@ -1,0 +1,68 @@
+﻿<div id="adviced-feeds-wrapper" class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
+    <h3 id="feeds-title" class="uppercase">Best #<span ng-bind="advicedCategory"></span> resources</h3>
+    <div ng-repeat="item in adviced | filter:{category: advicedCategory}">
+        <div class="col-lg-4 col-sm-6 col-xs-12" ng-repeat="feed in item.feeds">
+            <div class="adviced-feed app-panel fade-in-anim"">
+                <div class="adviced-feed-title">
+                    <a ng-href="{{feed.link}}"><img class="favicon" ng-src="{{feed.link|favicon}}"><span ng-bind="feed.title"></span></a>
+                </div>
+                <div class="adviced-feed-content">
+                    <span ng-bind="feed.description"></span>
+                </div>
+                <div class="advice-feed-stats">
+                    <div class="col-xs-9 stats-block">
+                        <div class="readers-num" ng-bind="feed.currentSubscriptions"></div>
+                        <div class="readers-word">readers</div>
+                    </div>
+                    <div class="col-xs-3 stats-block center-children">
+                        <button class="subscribe-btn" ng-click="addFeedByAdvice(feed)"><span>+</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <modal show='modalShown'>
+        <h4 class="uppercase">add new feed</h4>
+        <div class="modal-row">
+            <select id="category" 
+                    class="form-control form-input" 
+                    ng-model="obj.category" 
+                    ng-options="category for category in categories()" 
+                    ng-change="checkIfNew()" 
+                    uib-tooltip="To enter custom category choose 'custom'" 
+                    tooltip-trigger="'focus'" 
+                    tooltip-placement="top-left">
+                <option value="" disabled selected hidden>Choose</option>
+            </select>
+        </div>
+        <div class="modal-row">
+            <input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCategory.category" ng-show="addingNewCategory" maxlength="25">
+        </div>
+        <div class="modal-row">
+            <div class="center-children">
+                <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="addFeed()">Add Feed</button>
+            </div>
+        </div>
+        <div class="modal-row" ng-show="error">
+            <div class="alert alert-danger text-center fading-anim" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <span ng-bind="error"></span>
+            </div>
+        </div>
+    </modal>
+</div>
+
+<div class="adviced-bottom-offset col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
+    <h4 class="uppercase">Explore popular</h4>
+    <div id="adviced-wrapper">
+        <div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat="item in adviced">
+            <div class="adviced-card">
+                <div class="advice-cover-image" ng-style="setCoverImage(item)"></div>
+                <a class="advice-content" ui-sref="dashboard.adviced({category: '{{item.category}}'})">
+                    <h4 class="advice-header text-center center-absolute" ng-bind="item.category"></h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

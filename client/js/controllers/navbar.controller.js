@@ -23,6 +23,7 @@
 
 			$scope.toProfile = function () {
 			    $scope.hideMobileNavbar();
+			    $scope.hideSidebar();
 			    $state.go("profile");
 			}
 
@@ -35,7 +36,7 @@
 			$scope.onEmblem = function () {
 			    $scope.hideMobileNavbar();
 				if (authService.isLoggedIn()) {
-					if ($scope.isDashboard()) {
+				    if ($state.current.name === "dashboard.list" || $state.current.name === "dashboard.th-list" || $state.current.name === "dashboard.th-large") {
 						$state.reload('dashboard');
 					}
 					else $state.go("dashboard." + dashboardService.getViewMode());
