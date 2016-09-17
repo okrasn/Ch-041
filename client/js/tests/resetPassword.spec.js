@@ -4,7 +4,7 @@ describe('AuthController', function () {
 	html = {
 		html :  "<html ng-app='rssreader'></html>"
 	};
-  	beforeEach(angular.mock.inject(function (_$controller_) {
+	beforeEach(angular.mock.inject(function (_$controller_) {
 		$controller = _$controller_;
 		
 	}));
@@ -20,12 +20,12 @@ describe('AuthController', function () {
 		});
 	});
 	describe('http test request to /frogot and /reset', function() {
-  		beforeEach(inject(function(_$controller_, _$httpBackend_) {
-    		$controller = _$controller_;
-    		$scope = {};
-    		$httpBackend = _$httpBackend_;
-  		}));
-  		it('should get success response from server with html page', inject(function ($http) {
+		beforeEach(inject(function(_$controller_, _$httpBackend_) {
+			$controller = _$controller_;
+			$scope = {};
+			$httpBackend = _$httpBackend_;
+		}));
+		it('should get success response from server with html page', inject(function ($http) {
 			var AuthController = $controller('AuthController', { $scope: $scope });
 			$scope.confirm_email = {};
 			$http.post('/forgot', { 
@@ -56,6 +56,6 @@ describe('AuthController', function () {
 			expect($scope.responseReset).toEqual(html);
 			expect($scope.error).toBe(undefined);
 			
-  		}));	
-  	});
+		}));	
+	});
 });

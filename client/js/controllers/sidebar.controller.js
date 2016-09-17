@@ -9,8 +9,8 @@
 		$scope.feedsData = feedsService;
 		$scope.favs = $scope.feedsData.favouritesDictionary;
 		$scope.onFeedsDrag = function (index) {
-		    dashboardService.displayLoading();
-		    $scope.feeds.splice(index, 1);
+			dashboardService.displayLoading();
+			$scope.feeds.splice(index, 1);
 			feedsService.setFeedsOrder().then(function (resp) {
 				dashboardService.hideLoading();
 			});
@@ -26,44 +26,44 @@
 			setArticlesType(angular.element($event.currentTarget).parent(), 'all');
 			// if there is only one category and feed, return this feed articles
 			if ($scope.feeds.length === 1 && $scope.feeds[0].feeds.length === 1) {
-			    articlesService.getArticlesByFeed($scope.feeds[0].feeds[0]).then(function () {
-			        $state.go("dashboard." + dashboardService.getViewMode());
-			    });
+				articlesService.getArticlesByFeed($scope.feeds[0].feeds[0]).then(function () {
+					$state.go("dashboard." + dashboardService.getViewMode());
+				});
 			} else {
-			    articlesService.getAllArticles().then(function () {
-			        $state.go("dashboard." + dashboardService.getViewMode());
-			    });
+				articlesService.getAllArticles().then(function () {
+					$state.go("dashboard." + dashboardService.getViewMode());
+				});
 			}
 		}
 		$scope.getByFeed = function ($event, feed) {
 			setArticlesType(angular.element($event.currentTarget).parent());
 			articlesService.getArticlesByFeed(feed).then(function () {
-			    $state.go("dashboard." + dashboardService.getViewMode());
+				$state.go("dashboard." + dashboardService.getViewMode());
 			});
 		}
 		$scope.getByCat = function ($event, cat, index) {
-		    setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
-		    if ($event.currentTarget.attributes[4]) {
-		        if ($event.currentTarget.attributes[4].value == 'true') {
-		            angular.element($event.currentTarget).removeClass('chevron-down');
-		        }
-		        if ($event.currentTarget.attributes[4].value == 'false') {
-		            angular.element($event.currentTarget).addClass('chevron-down');
-		        }
-		    }
-		    else {
-		        angular.element($event.currentTarget).addClass('chevron-down');
-		    }
-		    // if there is only one feed within selected category, return its articles
-		    if ($scope.feeds[arguments[2]].feeds.length == 1) {
-		        articlesService.getArticlesByFeed($scope.feeds[arguments[2]].feeds[0]).then(function () {
-		            $state.go("dashboard." + dashboardService.getViewMode());
-		        });
-		    } else {
-		        articlesService.getArticlesByCat(arguments[1]).then(function () {
-		            $state.go("dashboard." + dashboardService.getViewMode());
-		        });
-		    }
+			setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
+			if ($event.currentTarget.attributes[4]) {
+				if ($event.currentTarget.attributes[4].value == 'true') {
+					angular.element($event.currentTarget).removeClass('chevron-down');
+				}
+				if ($event.currentTarget.attributes[4].value == 'false') {
+					angular.element($event.currentTarget).addClass('chevron-down');
+				}
+			}
+			else {
+				angular.element($event.currentTarget).addClass('chevron-down');
+			}
+			// if there is only one feed within selected category, return its articles
+			if ($scope.feeds[arguments[2]].feeds.length == 1) {
+				articlesService.getArticlesByFeed($scope.feeds[arguments[2]].feeds[0]).then(function () {
+					$state.go("dashboard." + dashboardService.getViewMode());
+				});
+			} else {
+				articlesService.getArticlesByCat(arguments[1]).then(function () {
+					$state.go("dashboard." + dashboardService.getViewMode());
+				});
+			}
 		}
 		$scope.getFavourites = function ($event) {
 			setArticlesType(angular.element($event.currentTarget).parent(), 'favourites');
