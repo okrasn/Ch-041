@@ -32,7 +32,7 @@
 		        return false;
 		    }
 		    if ($scope.isFavourites()) {
-		        return false;
+		        return true;
 		    }
 		    for (var i = 0; i < feedsService.favouritesDictionary.length; i++) {
 		        for (var j = 0; j < feedsService.favouritesDictionary[i].articles.length; j++) {

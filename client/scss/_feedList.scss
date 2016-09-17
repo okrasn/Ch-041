@@ -155,8 +155,8 @@
 }
 
 .article-content {
-	height: 88px;
-	margin-bottom: 0.2em;
+	height: 70px;
+	margin-bottom: 1.1em;
 	overflow: hidden;
 }
 
@@ -168,6 +168,7 @@
 }
 
 .article-footer-item {
+	top: 0;
 	line-height: 2em;
 	padding-right: $main-app-offset;
 	vertical-align: middle;
