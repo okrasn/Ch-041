@@ -65,6 +65,19 @@
 		        });
 		    }
 		}
+		$scope.shevronToggle = function ($event) {
+		    if ($event.currentTarget.attributes[4]) {
+		        if ($event.currentTarget.attributes[4].value == 'true') {
+		            angular.element($event.currentTarget).removeClass('chevron-down');
+		        }
+		        if ($event.currentTarget.attributes[4].value == 'false') {
+		            angular.element($event.currentTarget).addClass('chevron-down');
+		        }
+		    }
+		    else {
+		        angular.element($event.currentTarget).addClass('chevron-down');
+		    }
+		}
 		$scope.getFavourites = function ($event) {
 			setArticlesType(angular.element($event.currentTarget).parent(), 'favourites');
 			if ($event.currentTarget.attributes[4]) {

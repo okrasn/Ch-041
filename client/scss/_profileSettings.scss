@@ -11,6 +11,10 @@ a.cstmblock {
 	font-weight: bold;
 }
 
+.file-name{
+	margin-top: 1em;
+}
+
 #profile label {
 	line-height: 30px;
 	font-size: 17px;
@@ -111,8 +115,14 @@ a.cstmblock {
 	z-index: 1000;
 
 	&:hover {
-		color: #000;
-		text-shadow: 4px 1px 1px #ff9d00;
+		.glyphicon.glyphicon-chevron-right{
+			color: black;
+			text-shadow: 2px 1px 3px #ff9d00;
+		}
+		.glyphicon.glyphicon-chevron-left{
+			color: black;
+			text-shadow: -2px 1px 3px #ff9d00;
+		}
 	}
 }
 

@@ -32,6 +32,7 @@
 			</ul>
 		</div>
 	</div>
+
 	<ul dnd-list="feeds"
 		dnd-allowed-types="feedsListDragableTypes"
 		ng-show="checkIfEmpty()">
@@ -41,7 +42,8 @@
 			dnd-type="'feeds'"
 			dnd-moved="onFeedsDrag($index)"
 			dnd-effect-allowed="move">
-			<a data-toggle="collapse" data-target="{{ '#' + $index + category.category.split(' ').join('') }}" ng-click="getByCat($event, category.category, $index)" class="glyphFeeds">
+			<div><span class="eye-view-btn glyphicon glyphicon-eye-open" ng-click="getByCat($event, category.category, $index)"></span></div>
+			<a data-toggle="collapse" data-target="{{ '#' + $index + category.category.split(' ').join('') }}" class="glyphFeeds" ng-click="shevronToggle($event)">
 				<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 			</a>
 			<div class="collapse" id="{{ $index + category.category.split(' ').join('')}}">

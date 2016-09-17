@@ -32,8 +32,8 @@
                                 </div>
                             </div>
                             <div class="col-xs-12">
-                                <div class="text-center">
-                                    <span ng-bind="f.name"></span>
+                                <div ng-show="f.name" class="file-name text-center">
+                                    <span ng-bind="'File name: ' + f.name"></span>
                                 </div>
                                 <div class="alert alert-danger text-center fading-anim" role="alert" ng-show="errFile">
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

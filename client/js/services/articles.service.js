@@ -88,32 +88,30 @@
 					});
 				},
 				getArticlesByFeed: function (feed) {
-					return $timeout(function () {
-						obj.resetArticles();
-						dashboardService.setTitle(feed.title);
-						dashboardService.setFeedId(feed);
-						return fetchArticles(feed).then(function () {
-							obj.articles = temp_articles;
-							dashboardService.hideLoading();
-						});
-					}, loadDelay);
+				    obj.resetArticles();
+				    dashboardService.readSingleFeed.state = true;
+				    dashboardService.setSortParam('date', 1);
+					dashboardService.setTitle(feed.title);
+					dashboardService.setFeedId(feed);
+					return fetchArticles(feed).then(function () {
+						obj.articles = temp_articles;
+						dashboardService.hideLoading();
+					});
 				},
 				getArticlesByCat: function (cat) {
-					return $timeout(function () {
-						obj.resetArticles();
-						dashboardService.setTitle(cat);
-						angular.forEach(feedsService.feedsDictionary, function (value, key) {
-							if (value.category === cat) {
-								angular.forEach(value.feeds, function (value, key) {
-									promises.push(fetchArticles(value));
-								});
-							}
-						});
-						return $q.all(promises).then(function () {
-							obj.articles = temp_articles;
-							dashboardService.hideLoading();
-						});
-					}, loadDelay);
+					obj.resetArticles();
+					dashboardService.setTitle(cat);
+					angular.forEach(feedsService.feedsDictionary, function (value, key) {
+						if (value.category === cat) {
+							angular.forEach(value.feeds, function (value, key) {
+								promises.push(fetchArticles(value));
+							});
+						}
+					});
+					return $q.all(promises).then(function () {
+						obj.articles = temp_articles;
+						dashboardService.hideLoading();
+					});
 				},
 				getFavourites: function () {
 				    return $timeout(function () {
@@ -144,13 +142,12 @@
 				    }, loadDelay);
 				},
 				getFavArticle: function (article) {
-				    return $timeout(function () {
-					    obj.resetArticles();
-					    obj.isFavourites = true;
-					    dashboardService.setTitle("Favourites");
-					    obj.articles.push(article);
-					    dashboardService.hideLoading();
-				    }, loadDelay);
+				    obj.resetArticles();
+				    dashboardService.hideSortList.state = true;
+					obj.isFavourites = true;
+					dashboardService.setTitle("Favourites");
+					obj.articles.push(article);
+					dashboardService.hideLoading();
 				},
 				addFavourite: function (article) {
 					dashboardService.displayLoading();
@@ -186,6 +183,8 @@
 				    });
 				},
 				resetArticles: function () {
+				    dashboardService.hideSortList.state = false;
+				    dashboardService.readSingleFeed.state = false;
 					this.totalDisplayed = this.displayedIncrement;
 					dashboardService.displayLoading();
 					temp_articles.length = 0;
