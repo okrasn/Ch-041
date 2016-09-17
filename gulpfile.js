@@ -101,4 +101,4 @@ gulp.task('build', ['scripts', 'sass'], function () {
 		.pipe(sourcemaps.write());
 });
 
-gulp.task('default', ['server', 'main']);
+gulp.task('default', ['build']);
