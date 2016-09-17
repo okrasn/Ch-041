@@ -104,6 +104,10 @@
 				}
 			};
 
+			$scope.resetPass = function () {
+				angular.element('label.error').remove();
+			};
+			
             $scope.changePassValidation = {
 				rules: {
 					currentPassword: {

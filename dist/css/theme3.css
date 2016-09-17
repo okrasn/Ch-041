@@ -74,3 +74,6 @@
 	 -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
 	 animation: sk-stretchdelay 1.2s infinite ease-in-out;
  }
+.profile-header{
+    background-color: #086bae;
+}

@@ -22,7 +22,7 @@ a.cstmblock {
 
 .profile-header{
 	height: 10em;
-	background-color: #1d2129;
+	background-color: yellow;
 }
 
 .profile-name{
@@ -79,6 +79,9 @@ a.cstmblock {
 .error {
 	color: #af5050;
 	float: right;
+}
+.error-hidden {
+	display: none;
 }
 
 .change-pass .msg-error, .change-pass .error, .error-msg {
