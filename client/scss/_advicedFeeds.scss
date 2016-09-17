@@ -1,0 +1,99 @@
+﻿#adviced-wrapper{
+	margin-bottom: 2em;
+
+	[class*=' col-'] {
+		padding: 0;
+	}
+}
+
+.adviced-card{
+	box-sizing:border-box;
+	height: 10em;
+	border-radius: $main-border-radius;
+}
+
+.advice-cover-image{
+	z-index: 0;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.adviced-bottom-offset{
+	margin-bottom: 5em;
+}
+
+.advice-content{
+	display: block;
+	cursor: pointer;
+	z-index: 1;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.78));
+	transition: all 0.5s ease;
+}
+
+.advice-content:hover{
+	transition: all 0.5s ease;
+	background: radial-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3));
+}
+
+.advice-header{
+	z-index: 3;
+	color: white;
+	margin: 0;
+}
+
+#feeds-title{
+	padding-left: 7px;
+}
+
+#adviced-feeds-wrapper {
+	padding: $main-app-offset/2;
+}
+
+#adviced-feeds-wrapper{
+	margin-top: $main-app-offset;
+	margin-bottom: $main-app-offset*5;
+	[class*=' col-'] {
+		padding: $main-app-offset/2;
+	}
+}
+
+.adviced-feed{
+	padding: $main-app-offset;
+	border-radius: $main-border-radius;
+	height: 20em;
+}
+
+.adviced-feed-title{
+	&>a{
+		font-weight: 500;
+		color: black;
+		text-decoration: none;
+	}
+	height: 45px;
+	cursor: pointer;
+	margin-bottom: $main-app-offset;
+}
+
+
+.stats-block {
+	padding: 0;
+	height: 50px;
+}
+
+.adviced-feed-content {
+	height: 49px;
+	overflow: hidden;
+}
+
+.readers-num{
+	font-weight: 600;
+	margin: 0;
+}
+
+.readers-word{
+	opacity: 0.5;
+}
