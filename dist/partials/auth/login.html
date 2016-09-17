@@ -19,7 +19,7 @@
 							<label>
 								<input type="checkbox" ng-model="session">Remember me
 							</label>
-							<a class="pass text-right" href="">Forget password?</a>
+							<a class="pass text-right" href ui-sref='forgot'">Forgot password?</a>
 						</div>
 						<div class="submit-btn center-children">
 							<button id="submit-btn" type="submit" class="centered-block app-btn app-btn-blue">sign in</button>
@@ -40,9 +40,9 @@
 				</div>
 				<div class="col-xs-12 col-md-2 links">
 					<a href ng-click="authenticate('facebook')"><img class="app-btn" src="../assets/images/facebook.png" alt="facebook"></a>
-					<a href><img class="app-btn" src="../assets/images/twitter.png" alt="google"></a>
+					<a href ng-click="authenticate('twitter')" ><img class="app-btn" src="../assets/images/twitter.png" alt="google"></a>
 					<a href ng-click="authenticate('google')"><img class="app-btn" src="../assets/images/google-plus.png" alt="google"></a>
-					<a href><img class="app-btn" src="/assets/images/linkedin.png" alt="linkedin"></a>
+					<a href ng-click="authenticate('linkedin')" ><img class="app-btn" src="/assets/images/linkedin.png" alt="linkedin"></a>
 				</div>
 				<!-- /.col-xs-12 col-md-2 -->
 				

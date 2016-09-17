@@ -1,4 +1,4 @@
-﻿describe('Add Feed test', function () {
+describe('Add Feed test', function () {
 	var EC = protractor.ExpectedConditions;
 
 	it('Should login first', function () {
@@ -52,3 +52,4 @@
 		element(by.css('.app-btn-delete')).click();
 	});
 });
+

@@ -10,7 +10,7 @@ angular.module('rssreader').directive('modal', [function () {
 			scope.modalStyle = {};
 
 			scope.hideModal = function () {
-			    scope.show = false;
+				scope.show = false;
 			};
 		},
 		templateUrl: '../partials/modals/modal.html'

@@ -13,7 +13,6 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.hideLoading = function () {
 	    that.loadingIcon = false;
 	}
-
 	this.sortParam = {
 		type: 'date',
 		order: 0

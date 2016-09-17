@@ -20,12 +20,11 @@ mkdirp.sync('./dist/uploads', function (err) {
 
 gulp.task('server', function (cb) {
 	console.log("Server is running on port 8080");
-	exec('node app.js', function (err, stdout, stderr) {
+	exec('npm start', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
 		cb(err);
 	});
 });
-
 gulp.task('main', ['build'], function () {
 	gulp.watch('./client/partials/**/*.html', { interval: 500 }, ['build']);
 	gulp.watch('./client/scss/**/*.scss', { interval: 500 }, ['build']);
@@ -39,7 +38,7 @@ gulp.task('sass', function () {
 			browsers: ['> 1%', 'IE 7'],
 			cascade: true
 		}))
-		.pipe(gulp.dest('client/css'))
+		.pipe(gulp.dest('dist/css'))
 		.pipe(sourcemaps.init())
 		.pipe(cssmin())
 		.pipe(rename({
@@ -100,5 +99,5 @@ gulp.task('build', ['scripts', 'sass'], function () {
 		.pipe(gulp.dest('./dist/'))
 		.pipe(sourcemaps.write());
 });
-
 gulp.task('default', ['server', 'main']);
+

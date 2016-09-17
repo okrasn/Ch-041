@@ -1,10 +1,10 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
-	    if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-	        dashboardService.isReadingArticle = true;
-	    }
-	    $scope.obj = {};
+		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
+			dashboardService.isReadingArticle = true;
+		}
+		$scope.obj = {};
 		$scope.feeds = feedsService.feedsDictionary;
 		$scope.adviced = feedsService.advicedDictionary;
 		$scope.categories = feedsService.allCategories;
@@ -13,12 +13,12 @@
 		$scope.advicedCategory = $stateParams.category;
 
 		if ($state.current.name === "dashboard.adviced") {
-		    var invalidCategory = $scope.adviced.filter(function (elem, i) {
-		        return elem.category == $stateParams.category;
-		    });
-		    if (!invalidCategory.length) {
-		        $state.go("404", {reload: true});
-		    }
+			var invalidCategory = $scope.adviced.filter(function (elem, i) {
+				return elem.category == $stateParams.category;
+			});
+			if (!invalidCategory.length) {
+				$state.go("404", {reload: true});
+			}
 		}
 
 		$scope.checkIfNew = function () {
@@ -31,7 +31,7 @@
 			}
 		}
 		$scope.addFeed = function () {
-		    dashboardService.loadingIcon = true;
+			dashboardService.loadingIcon = true;
 			$scope.error = '';
 			if (!$scope.obj.link) {
 				$scope.error = "Enter Rss feed link";
@@ -39,7 +39,7 @@
 				return;
 			}
 			if ($scope.newCategory.category) {
-			    $scope.obj.category = $scope.newCategory.category;
+				$scope.obj.category = $scope.newCategory.category;
 			}
 
 			if (!$scope.obj.category) {
@@ -49,11 +49,10 @@
 			}
 
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-			    $scope.error = "Enter new category name";
-			    dashboardService.loadingIcon = false;
-			    return;
+				$scope.error = "Enter new category name";
+				dashboardService.loadingIcon = false;
+				return;
 			}
-
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
 					$scope.addingNewCategory = false;
@@ -67,10 +66,10 @@
 				});
 		}
 		$scope.addFeedByAdvice = function (feed) {
-		    console.log(feed);
-		    $scope.obj.link = feed.rsslink;
-		    $scope.error = null;
-		    $scope.modalShown = !$scope.modalShown;
+			console.log(feed);
+			$scope.obj.link = feed.rsslink;
+			$scope.error = null;
+			$scope.modalShown = !$scope.modalShown;
 		}
 		$scope.setCoverImage = function (item) {
 			var coverImage = "";

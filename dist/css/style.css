@@ -1226,6 +1226,40 @@ a.sharing-btn {
     transform: scaleY(1);
     -webkit-transform: scaleY(1); } }
 
+.forgot_from .forgot {
+  margin: 5px 0 10px 0;
+  color: #000000; }
+
+.forgot_from .forgot_label {
+  margin: 5px 5px 0 0;
+  display: block;
+  padding: 0; }
+
+.forgot_from .form-group {
+  margin-bottom: 0; }
+
+.forgot_from .aapp-btn-blue {
+  margin-bottom: 5px;
+  width: 100px; }
+
+.error {
+  color: #af5050;
+  font-size: 14px;
+  margin: 0 0 0 0; }
+
+.reset {
+  margin: 0 0 10px 0;
+  color: #000000; }
+
+.email-label {
+  margin-left: 13px; }
+  .email-label .user-email {
+    font-weight: 600;
+    color: #3949ab; }
+
+.bold {
+  font-weight: 700; }
+
 #article-page {
   padding: 1em; }
 
