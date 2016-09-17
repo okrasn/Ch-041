@@ -4,7 +4,7 @@
   "description": "Rss reader aplication.",
   "main": "app.js",
   "scripts": {
-    "start": "gulp build && node app.js",
+    "start": "node app.js",
     "postinstall": "bower install",
     "prestart": "npm install",
     "main": "app.js",
@@ -45,7 +45,19 @@
     "run-sequence": "^1.2.2",
     "serve-favicon": "^2.3.0",
     "session": "^0.1.0",
-    "winston": "0.7.x"
+    "winston": "0.7.x",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.2.0",
+    "gulp-useref": "latest",
+    "gulp-watch": "^4.3.4"
   },
   "repository": {
     "type": "git",
