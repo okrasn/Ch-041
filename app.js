@@ -15,7 +15,6 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	flash = require('express-flash');
 
-
 app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico')));
 require('./server/models/Feeds');
 require('./server/models/Articles');
@@ -62,6 +61,7 @@ app.use(function (req, res, next) {
 	err.status = 404;
 	next(err);
 });
+
 // error handlers
 // development error handler
 // will print stacktrace
