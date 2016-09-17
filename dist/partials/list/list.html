@@ -1,0 +1,61 @@
+<!--Table feeds-->
+<div id="list" class="feeds">
+	<div class="table-feed" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed" on-finish-render="ngRepeatFinished">
+		<div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
+		</div>
+		<div class="col-lg-11 col-xs-10 col-same-height">
+			<div class="list-item" ng-click="readArticle(article)">
+				<p class="shortened-text strong-text" ng-bind="article.title">
+				</p>
+				<p class="shortened-text" ng-bind="article.content">
+				</p>
+			</div>
+		</div>
+		<div class="col-lg-1 col-xs-2 col-same-height">
+			<div class="list-share-wrap center-text">
+				<span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || isFavourites()">
+				</span>
+				<span class="list-item-btn-top glyphicon glyphicon-trash onhover-red" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
+				<span class="list-item-btn">
+					<span class="fa fa-share-alt onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right" popover-elem>
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<modal show='modalShown'>
+		<h4 class="uppercase">add to favourites</h4>
+		<div class="modal-row">
+			<select id="category"
+					class="form-control form-input"
+					ng-model="obj.category"
+					ng-options="category for category in categories()"
+					ng-change="checkIfNew()"
+					uib-tooltip="To enter custom category choose 'custom'"
+					tooltip-trigger="'focus'"
+					tooltip-placement="top-left">
+				<option value="" disabled selected hidden>Choose</option>
+			</select>
+		</div>
+		<div class="modal-row">
+			<input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCategory.category" ng-show="addingNewFavCategory" maxlength="25">
+		</div>
+		<div class="modal-row">
+			<div class="center-children">
+				<button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+			</div>
+		</div>
+		<div class="modal-row" ng-show="error">
+			<div class="alert alert-danger text-center fading-anim" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				<span ng-bind="error"></span>
+			</div>
+		</div>
+	</modal>
+</div>
+<div class="load-btn-wrap center-children fading-anim" ng-hide="isAllDisplayed()">
+	<button class="app-btn app-btn-blue" ng-click="loadMore()">
+		Load more
+	</button>
+</div>
