@@ -4,7 +4,7 @@ describe('AuthController', function () {
 	errorMsg = {
 		message : "First you have to approve you email. We are send verification link to your email"	
 	};
-  	beforeEach(angular.mock.inject(function (_$controller_) {
+	beforeEach(angular.mock.inject(function (_$controller_) {
 		$controller = _$controller_;
 		
 	}));
@@ -17,12 +17,12 @@ describe('AuthController', function () {
 		});
 	});
 	describe('http test request to /register', function() {
-  		beforeEach(inject(function(_$controller_, _$httpBackend_) {
-    		$controller = _$controller_;
-    		$scope = {};
-    		$httpBackend = _$httpBackend_;
-  		}));
-  		it('should get success response from server with message that begins at "First"', inject(function ($http) {
+		beforeEach(inject(function(_$controller_, _$httpBackend_) {
+			$controller = _$controller_;
+			$scope = {};
+			$httpBackend = _$httpBackend_;
+		}));
+		it('should get success response from server with message that begins at "First"', inject(function ($http) {
 			var AuthController = $controller('AuthController', { $scope: $scope });
 			$http.post('/reset', {
 				email: "gemyni85@gmail.com",
@@ -42,5 +42,5 @@ describe('AuthController', function () {
 			expect($scope.errorMsg).toEqual(errorMsg);
 			expect($scope.response).toBe(undefined);
 		}));	
-  	});
+	});
 });

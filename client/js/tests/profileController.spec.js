@@ -1,7 +1,7 @@
 describe('ProfileController', function () {
 	beforeEach(angular.mock.module('rssreader'));
 	var $controller, $httpBackend, $scope, profileService,
-  		token = {
+		token = {
 			token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2QzYzM1MzU2NTc2M2FjM2M3OWY3YmUiLCJlbWFpbCI6ImdlbXluaTg1QGdtYWlsLmNvbSIsImlhdCI6MTQ3MzUwOTg5NCwiZXhwIjoxNDczNTk2Mjk0fQ.OSLhxRYB97SwgVnKCIzdolHB8jR1lEUEc8Rxji7TaIE"
 		};
 
@@ -17,13 +17,13 @@ describe('ProfileController', function () {
 		});
 	});
 	describe('http test request to /changePassword', function() {
-  		beforeEach(inject(function(_$controller_, _$httpBackend_, _profileService_) {
-    		$controller = _$controller_;
-    		$scope = {};
-    		$httpBackend = _$httpBackend_;
-    		profileService = _profileService_;
-  		}));
-  		it('should get success response from server with token', inject(function ($http) {
+		beforeEach(inject(function(_$controller_, _$httpBackend_, _profileService_) {
+			$controller = _$controller_;
+			$scope = {};
+			$httpBackend = _$httpBackend_;
+			profileService = _profileService_;
+		}));
+		it('should get success response from server with token', inject(function ($http) {
 			var ProfileController = $controller('ProfileController', { $scope: $scope });
 			$http.post('/changePassword', {
 				email: 'gemyni85@gmail.com',
@@ -48,5 +48,5 @@ describe('ProfileController', function () {
 			expect($scope.currentUser).toBeDefined();
 			expect(profileService).toBeDefined();
 		}));	
-  	});
+	});
 });
