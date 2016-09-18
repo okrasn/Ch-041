@@ -26,7 +26,6 @@ var routes = require('./server/routes/index');
 app.set('port', process.env.PORT || 8080);
 app.set('base url', process.env.URL || 'http://localhost');
 
-//'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds'
 mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
@@ -52,8 +51,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', routes);
 app.use(express.static(__dirname + '/dist'));
+app.use('/', routes);
 
  //catch 404 and forward to error handler
 app.use(function (req, res, next) {
