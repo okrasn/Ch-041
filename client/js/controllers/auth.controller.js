@@ -8,10 +8,23 @@
 			return this.optional(element) || /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
 		}, "text");
 	}]).
-	controller('AuthController', ['$scope', '$state', 'authService', 'profileService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', function ($scope, $state, authService, profileService, $window,  dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$scope.user = {};
-		$scope.test = 5;
+	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
+		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
+		$scope.user = {
+			verifyEmail : transfer.getString(),
+			counter : 0
+		};
+		transfer.setString("");
+		$scope.setEmail = function () {
+			return transfer.getEmail();
+		}
+		$scope.password = {
+			token : transfer.getObj(),
+			email : transfer.getEmail()
+		};
+		$scope.confirm_email = {};
 		$scope.session;
+		$scope.test = 5;
 
 		var ERRORS = {
 			field_required: 'This field is required',
@@ -23,17 +36,25 @@
 		}
 
 		$scope.register = function (form) {
-		    if (form.validate()) {
-		        dashboardService.loadingIcon = true;
-		        authService.register($scope.user).error(function (error) {
-		            dashboardService.loadingIcon = false;
-					$scope.error = error;
+			if (form.validate()) {
+				dashboardService.loadingIcon = true;
+				if($scope.user.verifyEmail){
+					$scope.user.email = transfer.getEmail();
+				}
+				authService.register($scope.user).error(function (error) {
+				    $scope.error = error;
+				    dashboardService.loadingIcon = false;
+					if(error.message[0] === "F"){
+						toasterService.info(error.message);		
+					}
+					toasterService.error(error.message);
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
 					toasterService.success('You have successfully registered');
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
 					});
+					$scope.user.counter ++;
 				});
 			}
 		};
@@ -64,16 +85,38 @@
 				});
 			}
 		};
-
-		$scope.authenticate = function (provider) {
-			$auth.authenticate(provider).then(function (response) {
-				authService.saveToken(response.data.token);
-				toasterService.success('You have successfully authenticated');
-				$state.go('dashboard.' + dashboardService.getViewMode(), {
-					id: authService.userID()
-				});
+		
+		$scope.forgot = function(form){
+			authService.forgot($scope.confirm_email).error(function (error) {
+				$scope.error = error;	
+				toasterService.error(error.message);
+			}).then(function (response) {
+				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
 			})
 		}
+
+		$scope.reset = function(form){
+				authService.reset($scope.password).error(function (error) {
+					$scope.error = error;
+					toasterService.error(error.message);
+				}).then(function (response) {
+					toasterService.success('You have successfully changed password');
+					$state.go('login');	
+				})
+		};	
+
+		$scope.authenticate = function (provider) {
+			transfer.setProviderString(provider);
+			$auth.authenticate(provider).then(function (response) {
+				$auth.removeToken();
+				authService.saveToken(response.data.token);
+				toasterService.success('You have successfully authenticated');
+				$state.go('dashboard.' + dashboardService.getViewMode());
+			},function (response) {
+				toasterService.error(response.data.message);
+			})
+		};
+
 
 		$scope.validationLoginOptions = {
 			rules: {

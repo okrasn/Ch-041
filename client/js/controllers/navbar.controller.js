@@ -8,7 +8,7 @@
 			}
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.toggleSidebar = function () {
-			    $scope.hideMobileNavbar();
+				$scope.hideMobileNavbar();
 				dashboardService.sidebar = !dashboardService.sidebar;
 				$scope.getProfile();
 			}
@@ -18,25 +18,25 @@
 			}
 
 			$scope.hideMobileNavbar = function () {
-			    angular.element(document.querySelector("#bs-example-navbar-collapse-1")).removeClass('in');
+				angular.element(document.querySelector("#bs-example-navbar-collapse-1")).removeClass('in');
 			}
 
 			$scope.toProfile = function () {
-			    $scope.hideMobileNavbar();
-			    $scope.hideSidebar();
-			    $state.go("profile");
+				$scope.hideMobileNavbar();
+				$scope.hideSidebar();
+				$state.go("profile");
 			}
 
 			$scope.logOut = function () {
-			    $scope.hideMobileNavbar();
+				$scope.hideMobileNavbar();
 				authService.logOut();
 				$state.go("home");
 			}
 
 			$scope.onEmblem = function () {
-			    $scope.hideMobileNavbar();
+				$scope.hideMobileNavbar();
 				if (authService.isLoggedIn()) {
-				    if ($state.current.name === "dashboard.list" || $state.current.name === "dashboard.th-list" || $state.current.name === "dashboard.th-large") {
+					if ($state.current.name === "dashboard.list" || $state.current.name === "dashboard.th-list" || $state.current.name === "dashboard.th-large") {
 						$state.reload('dashboard');
 					}
 					else $state.go("dashboard." + dashboardService.getViewMode());
@@ -45,8 +45,8 @@
 				}
 			}
 			$scope.goToProgile = function () {
-			    $state.go("profile");
-			    $scope.hideMobileNavbar();
+				$state.go("profile");
+				$scope.hideMobileNavbar();
 			}
 			$scope.getProfile = function () {
 				accountInfo.getProfile().then(function (response) {

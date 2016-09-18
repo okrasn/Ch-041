@@ -20,6 +20,10 @@ input.ng-pristine + #strength {
 	display: none;
 }
 
+.auth-alert{
+	margin-bottom: $main-app-offset;
+}
+
 #strength {
 	display: inline;
 	list-style: none;

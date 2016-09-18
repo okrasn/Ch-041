@@ -11,6 +11,10 @@ a.cstmblock {
 	font-weight: bold;
 }
 
+.file-name{
+	margin-top: 1em;
+}
+
 #profile label {
 	line-height: 30px;
 	font-size: 17px;
@@ -19,7 +23,6 @@ a.cstmblock {
 #profile .capitalize {
 	margin-top: 5px;
 }
-
 .profile-header{
 	height: 10em;
 	background-color: transparent;
@@ -55,7 +58,7 @@ a.cstmblock {
 }
 
 .upload-btn{
-	width: 200px;
+	width: 13em;
 }
 
 .upload-btn-offset{
@@ -119,8 +122,14 @@ label.error {
 	z-index: 1000;
 
 	&:hover {
-		color: #000;
-		text-shadow: 4px 1px 1px #ff9d00;
+		.glyphicon.glyphicon-chevron-right{
+			color: black;
+			text-shadow: 2px 1px 3px #ff9d00;
+		}
+		.glyphicon.glyphicon-chevron-left{
+			color: black;
+			text-shadow: -2px 1px 3px #ff9d00;
+		}
 	}
 }
 
@@ -129,16 +138,11 @@ label.error {
 }
 
 .clickme {
+	pointer-events: none;
+	z-index: 50;
 	color: rgba(0,0,0,0.5);
-	position: absolute;
-	top: 0px;
-	left: 0;
 	background: transparent;
-	text-align:center;
-	padding-top: 155px;
 	cursor: pointer;
-	width: 100%;
-	height: 100%;
 	font-weight: bold;
 	font-size: 2.2em;
 
@@ -147,8 +151,8 @@ label.error {
 		text-shadow: 2px 1px 3px #ff9d00;
 	}
 }
-.carousel .modal-window {
-	width: 50%;
+.carousel>.modal-window {
+	width: 700px;
 }
 .carousel .hide-modal-btn {
 	cursor: pointer;
@@ -158,7 +162,6 @@ label.error {
 	color: white;
 	z-index: 1001;
 	margin-right: 10px;
-	margin-top: 10px;
 }
 
 .carousel-indicators li {
@@ -168,3 +171,4 @@ label.error {
 #myCarousel span.glyphicon.glyphicon-chevron-right{
 	margin-right: 0;
 }
+

@@ -7,14 +7,15 @@ var express = require('express'),
 	favicon = require('serve-favicon'),
 	path = require('path'),
 	morgan = require('morgan'),
-	mongoose = require('mongoose'),
 	passport = require('passport'),
 	multer = require('multer'),
 	cors = require('cors'),
-	logger = require('morgan');
+	logger = require('morgan'),
+	User = require('./server/models/Users'),
+	mongoose = require('mongoose'),
+	flash = require('express-flash');
 
 app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico')));
-
 require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
@@ -26,7 +27,6 @@ var routes = require('./server/routes/index');
 app.set('port', process.env.PORT || 8080);
 app.set('base url', process.env.URL || 'http://localhost');
 
-//'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds'
 mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
@@ -38,7 +38,6 @@ app.use(function (req, res, next) { //allow cross origin requests
 	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 	next();
 });
-
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -53,7 +52,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/dist'));
-app.use(express.static('./server/uploads'));
 app.use('/', routes);
 
  //catch 404 and forward to error handler
@@ -61,6 +59,16 @@ app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
 	next(err);
+});
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function (err, req, res, next) {
+	res.status(err.status || 500);
+	res.render('error', {
+		message: err.message,
+		error: {}
+	});
 });
 
 // error handlers
@@ -84,16 +92,6 @@ if (app.get('env') === 'production') {
 		protocol === 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
 	});
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: {}
-	});
-});
 
 app.listen(app.get('port'));
 module.exports = app;

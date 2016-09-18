@@ -5,6 +5,13 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.currentArticlesValue = $window.localStorage.category;
 	this.isReadingArticle = false;
 	this.loadingIcon = false;
+	this.readSingleFeed = {
+	    state: false
+	};
+
+	this.hideSortList = {
+	    state: false
+	}
 
 	this.displayLoading = function () {
 	    that.loadingIcon = true;
@@ -13,7 +20,6 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.hideLoading = function () {
 	    that.loadingIcon = false;
 	}
-
 	this.sortParam = {
 		type: 'date',
 		order: 0

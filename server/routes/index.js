@@ -13,6 +13,9 @@ var mongoose = require('mongoose'),
 	profCtrl = require('../controllers/profile');
 
 router.post('/register', authCtrl.register);
+router.post('/forgot', authCtrl.forgotPass);
+router.get('/reset/:token', authCtrl.reset);
+router.post('/reset/:token', authCtrl.resetPost);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
 //Auth
@@ -20,6 +23,7 @@ router.post('/users/:user/changeColorTheme', profCtrl.changeColorTheme);
 router.post('/auth/google', authCtrl.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
 router.post('/auth/twitter', authCtrl.twitterAuth);
+router.post('/auth/linkedin', authCtrl.linkedIdAuth);
 router.post('/auth/unlink', authCtrl.unlink);
 router.get('/api/me', authCtrl.getUserInfo);
 router.put('/api/me', authCtrl.putUserInfo);
@@ -30,6 +34,7 @@ router.param('user', feedsCtrl.userParam);
 router.get('/users/:user', feedsCtrl.allFeed);
 router.get('/users/:user/favourites', articlesCtrl.allFavourites);
 router.get('/users/:user/advicedFeeds', feedsCtrl.getAdvicedFeeds);
+router.get('/users/:user/advicedArticles', articlesCtrl.getAdvicedArticles);
 
 // add new feed
 router.post('/users/:user/addFeed', feedsCtrl.add);

@@ -59,7 +59,7 @@
 				message: message,
 				type: 'toaster-success',
 				iconClass: 'fa fa-check',
-				delay: 3000
+				delay: 5000
 			},
 			options;
 			if (typeof customOptions === 'object') {
@@ -75,7 +75,7 @@
 				message: message,
 				type: 'toaster-info',
 				iconClass: 'fa fa-info',
-				delay: 3000
+				delay: 5000
 			},
 			options;
 			if (typeof arguments[1] === 'object') {
