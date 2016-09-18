@@ -549,8 +549,14 @@ ul[dnd-list] .dndPlaceholder {
   margin-right: 0.9em;
   margin-left: 0.1em; }
 
+#home {
+  font-family: 'Roboto', sans-serif; }
+  #home img {
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.76); }
+  #home .not-visible {
+    visibility: hidden; }
+
 #home_container {
-  font-family: 'Roboto', sans-serif;
   background-color: #E2E2E1;
   background-size: cover;
   color: white;
@@ -570,20 +576,65 @@ ul[dnd-list] .dndPlaceholder {
 
 .dashboad-image {
   width: 60em;
-  margin-top: 1em; }
+  margin-top: 3em; }
   .dashboad-image img {
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.76);
     width: 100%; }
 
 .second-layer {
-  padding-top: 140px;
-  height: 30em;
+  padding-top: 20em;
+  height: 40em;
   width: 100%;
   background-color: #616161; }
-  .second-layer h3 {
+  .second-layer .welcometo-under {
     color: white;
     font-weight: 300;
-    font-size: 20px; }
+    font-size: 20px;
+    margin-bottom: 1em; }
+
+.third-layer {
+  padding-top: 4em;
+  height: 40em;
+  width: 100%;
+  background-color: #E2E2E1; }
+  .third-layer .home-same-height {
+    height: 32em; }
+  .third-layer .welcometo-under {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 1em; }
+    @media screen and (max-width: 768px) {
+      .third-layer .welcometo-under {
+        display: block;
+        position: relative; } }
+
+.fourth-layer {
+  padding-top: 4em;
+  height: 40em;
+  width: 100%;
+  background-color: #616161; }
+  .fourth-layer .add-feed-img {
+    overflow: hidden;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.76); }
+  .fourth-layer .home-same-height {
+    height: 32em; }
+  .fourth-layer .welcometo-under {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 300;
+    font-size: 20px;
+    margin-bottom: 1em; }
+    @media screen and (max-width: 768px) {
+      .fourth-layer .welcometo-under {
+        display: block;
+        position: relative; } }
 
 .header {
   margin-bottom: 30px;
@@ -1180,6 +1231,9 @@ a.sharing-btn {
 .slide-from-left {
   animation: slideFromLeft 1s ease; }
 
+.slide-from-right {
+  animation: slideFromRight 1s ease; }
+
 .fade-in-1s {
   animation: fadeIn 1s ease; }
 
@@ -1189,6 +1243,15 @@ a.sharing-btn {
     opacity: 0; }
   60% {
     transform: translateX(100px); }
+  100% {
+    opacity: 1; } }
+
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(800px);
+    opacity: 0; }
+  60% {
+    transform: translateX(-100px); }
   100% {
     opacity: 1; } }
 
@@ -1526,6 +1589,8 @@ label.error {
     opacity: 1; } }
 
 @media screen and (min-width: 1200px) {
+  .home-same-height {
+    height: 15em; }
   .adviced-articles-wrapper {
     padding-left: 0; } }
 
@@ -1613,6 +1678,8 @@ label.error {
     width: 80%; } }
 
 @media screen and (max-width: 768px) {
+  .dashboad-image {
+    width: 25em; }
   .alert-danger-app {
     width: 100%; }
   .center-children-mobile {
