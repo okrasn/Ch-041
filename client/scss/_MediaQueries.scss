@@ -44,12 +44,7 @@ $desktop-res: 1200px;
 }
 
 @media screen and (min-width: $phone-res) and (max-width: $desktop-res) {
-	#home_container {
-		.welcometo {
-			font-size: 43px;
-			margin-bottom: 50px;
-		}
-	}
+
 }
 
 @media screen and (max-width: $tablet-res) {
@@ -157,6 +152,14 @@ $desktop-res: 1200px;
 		transition: all 0.3s ease;
 		left: -$sidebar-mobile-width - 5px;
 		animation: 0.3s slideLeft ease;
+	}
+
+	#home_container {
+		height: 80%;
+	}
+
+	.dashboad-image{
+		width: 80%;
 	}
 }
 
@@ -272,11 +275,10 @@ $desktop-res: 1200px;
 	}
 
 	#home_container {
-		background: url('../assets/images/rss-header.jpg') 80% 100% no-repeat;
 		background-size: cover;
-
-		.welcometo {
-			margin-bottom: 50px;
+		height: 90%;
+		.welcometo{
+			font-size: 30px;
 		}
 	}
 
