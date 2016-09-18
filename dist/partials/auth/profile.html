@@ -6,10 +6,11 @@
 				</div>
 				<div class="col-xs-12 col-sm-5">
 					<div class="profile-name text-center-mobile">
-						<h4 ng-show="currentUser().displayName"><span ng-bind="currentUser().displayName"></span></h4>
+						<h4 ng-show="currentUser().displayName"><span ng-bind="currentUser().displayName"></h4>
+						<h5 ng-show="currentUser().date_of_signup">Joined: <span ng-bind="currentUser().date_of_signup | date : 'mediumDate'"></h5>
 					</div>
 					<div class="profile-email text-center-mobile">
-						<h5><span ng-bind="currentUser().email"></span></h5>
+						<h5><span class="info" ng-bind="currentUser().email"></h5>
 					</div>
 				</div>
 			</div>
@@ -20,8 +21,8 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col-xs-12 col-sm-5 center-children">
-								<img ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img-circle profile-img-square" name="image" alt="User Image">
-								<img ng-show="!currentUser().avatar" class="img-circle profile-img-square" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
+								<img ng-hide="!currentUser().avatar" ng-src="{{currentUser().avatar}}" class="img-circle profile-img-square img-responsive" name="image" alt="User Image">
+								<img ng-show="!currentUser().avatar" class="img-circle profile-img-square img-responsive" alt='user picture' ng-src='{{currentUser().picture}}' src="/assets/images/profile.png">
 							</div>
 							<div class="col-xs-12 col-sm-7 clearfix">
 								<div class="center-children-mobile">
@@ -100,29 +101,29 @@
 				</form>
 				<hr>
 				<div class="row">
-					<div class="col-xs-12 ng-cloak">
-						<button class="app-btn app-btn-red" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
+					<div class="col-xs-12 text-center ng-cloak">
+						<button class="app-btn app-btn-red soc-btn" ng-if="currentUser().facebook" ng-click="unlink('facebook')">
 							Facebook <span class="fa fa-link btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-blue" ng-if="!currentUser().facebook" ng-click="link('facebook')">
+						<button class="app-btn app-btn-blue soc-btn" ng-if="!currentUser().facebook" ng-click="link('facebook')">
 							Facebook <span class="fa fa-unlink btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-red" ng-if="currentUser().google" ng-click="unlink('google')">
+						<button class="app-btn app-btn-red soc-btn" ng-if="currentUser().google" ng-click="unlink('google')">
 							Google <span class="fa fa-link btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-blue" ng-if="!currentUser().google" ng-click="link('google')">
+						<button class="app-btn app-btn-blue soc-btn" ng-if="!currentUser().google" ng-click="link('google')">
 							Google <span class="fa fa-unlink btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-red" ng-if="currentUser().twitter" ng-click="unlink('twitter')">
+						<button class="app-btn app-btn-red soc-btn" ng-if="currentUser().twitter" ng-click="unlink('twitter')">
 							Twitter <span class="fa fa-link btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-blue" ng-if="!currentUser().twitter" ng-click="link('twitter')">
+						<button class="app-btn app-btn-blue soc-btn" ng-if="!currentUser().twitter" ng-click="link('twitter')">
 							Twitter <span class="fa fa-unlink btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-red" ng-if="currentUser().linkedin" ng-click="unlink('linkedin')">
+						<button class="app-btn app-btn-red soc-btn" ng-if="currentUser().linkedin" ng-click="unlink('linkedin')">
 							Linkedin <span class="fa fa-link btn-social-icon"></span>
 						</button>
-						<button class="app-btn app-btn-blue" ng-if="!currentUser().linkedin" ng-click="link('linkedin')">
+						<button class="app-btn app-btn-blue soc-btn" ng-if="!currentUser().linkedin" ng-click="link('linkedin')">
 							Linkedin <span class="fa fa-unlink btn-social-icon"></span>
 						</button>
 					</div>

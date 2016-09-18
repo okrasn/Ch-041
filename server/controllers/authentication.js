@@ -36,7 +36,7 @@ ERRORS = {
 	email_not_found: 'User with this email not found',
 	not_local_user: 'User with this email not a local created',
 	email_verification: 'First you have to approve you email. We are send verification link to your email',
-	not_verifyed: 'This email have not approved yeat'
+	not_verifyed: 'This email have not approved yet'
 };
 
 function createJWT(user) {
@@ -86,7 +86,7 @@ module.exports.register = function (req, res) {
 					mailOptions = {
 						to : req.body.email,
 						subject : "Please confirm your Email account",
-						html : "Hello,<br> Please Click on the link to verify your email <strong>" + userEmail + "</strong>.<br><a href=" + link + ">Click here to verify</a>"	
+						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email <strong>" + userEmail + "</strong>.<br>"	
 					}
 					console.log(mailOptions);
 
@@ -226,9 +226,9 @@ module.exports.forgotPass = function(req, res) {
 			to: user.email,
 			from: 'passwordreset@demo.com',
 			subject: 'Node.js Password Reset',
-			text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+			html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-			  'http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '\n\n' +
+			  '<a href="http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '">http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '</a>\n\n' +
 			  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 		};
 		smtpTransport.sendMail(mailOptions, function(err) {
@@ -265,9 +265,7 @@ module.exports.resetPost = function(req, res) {
 					user.resetPasswordExpires = undefined;
 
 					user.save(function(err) {
-						req.logIn(user, function(err) {
-							done(err, user);
-						});
+						done(err, user);
 					});
 				} else {
 					return res.status(400).json({
