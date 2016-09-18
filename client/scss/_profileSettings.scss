@@ -22,7 +22,7 @@ a.cstmblock {
 
 .profile-header{
 	height: 10em;
-	background-color: yellow;
+	background-color: transparent;
 }
 
 .profile-name{
@@ -76,9 +76,14 @@ a.cstmblock {
 	font-size: 13px;
 }
 
-.error {
+label.error {
 	color: #af5050;
 	float: right;
+}
+
+#profile .msg-error {
+	font-size: 17px;
+	line-height: 30px;
 }
 .error-hidden {
 	display: none;

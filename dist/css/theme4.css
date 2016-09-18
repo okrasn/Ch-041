@@ -69,17 +69,13 @@
  }
  
  .chevron-down>span.glyphicon.glyphicon-chevron-right,
- .error {
+ label.error,#profile .msg-error  {
      color: #ff9d00;
  }
  
  .table-feed,
  #dashboard #sidebar a {
      color: #d1d1d4;
- }
- 
- .table-feed:hover {
-     background-color: #504f54;
  }
  
  .app-panel,
@@ -98,6 +94,9 @@
      -webkit-transition: all 0.2s ease;
      transition: all 0.2s ease;
      box-shadow: 0 4px 15px 0 #ff9d00;
+ }
+ .onhover-green:hover {
+ 	color: #ff9d00;
  }
  
  .spinner > div {
@@ -137,7 +136,8 @@
  
  .profile-drop-down,
  .navbar-nav .user-menu .dropdown-menu,
- .navbar-nav .user-menu .dropdown-menu .user-footer,#sidebar li:hover {
+ .navbar-nav .user-menu .dropdown-menu .user-footer,
+ #sidebar li:hover,.table-feed:hover {
      background-color: #504f54;
  }
  
