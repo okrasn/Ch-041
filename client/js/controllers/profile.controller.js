@@ -1,10 +1,6 @@
 (function() {
     'use strict';
-    angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
-        $validatorProvider.addMethod("pattern", function(value, element) {
-            return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
-        }, "Please specify the correct domain for your documents");
-    }]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
+    angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
         'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService',
         function(Upload, $http, $state, profileService, $scope,
             authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService) {
@@ -81,7 +77,7 @@
 				min_6symbl: 'Please,enter at least 6 characters',
 				min_9symbl: 'Please,enter at least 9 characters',
 				max_20symbl: 'Please,no more then 20 characters',
-				reg_exp: 'Password must contain(a-z,A-Z,0-9,!@#)'
+				reg_exp: 'Password must contain (a-z,A-Z,0-9,!@#)'
 			};
 
             $scope.changePass = function (form) {
