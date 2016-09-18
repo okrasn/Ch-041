@@ -42,11 +42,9 @@ angular.module('rssreader').directive('checkStrength', [function() {
 				}
 			};
 			scope.$watch(iAttrs.checkStrength, function() {
-				if (scope.user.password === '') {
+
+				if (!scope.user.password && !scope.password.pas) {
 					iElement.css({ "display": "none" });
-				} 
-				if(scope.password.pas === '') {
-					iElement.css({ "display": "none" });		
 				} else {
 					var c = strength.getColor(strength.mesureStrength(scope.user.password || scope.password.pas));
 					iElement.css({ "display": "block" });

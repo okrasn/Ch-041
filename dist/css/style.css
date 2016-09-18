@@ -632,7 +632,7 @@ a.cstmblock {
   margin-top: 5px; }
 
 .profile-header {
-  height: 10em;
+  height: 12em;
   background-color: #1d2129; }
 
 .profile-name {
@@ -693,6 +693,7 @@ a.cstmblock {
 .profile-img-square {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   margin-top: -62px;
+  margin-bottom: 0;
   width: 125px;
   height: 125px; }
 
@@ -953,6 +954,10 @@ a.sharing-btn {
 
 .sort-item {
   cursor: pointer; }
+
+.soc-btn {
+  width: 145px;
+  margin: 5px 5px 5px 0px; }
 
 .toaster-window {
   border-radius: 2px;
@@ -1259,6 +1264,9 @@ a.sharing-btn {
 
 .bold {
   font-weight: 700; }
+
+#strength_res {
+  padding-left: 0; }
 
 #article-page {
   padding: 1em; }
