@@ -25,7 +25,7 @@ a.cstmblock {
 }
 .profile-header{
 	height: 10em;
-	background-color: #1d2129;
+	background-color: transparent;
 }
 
 .profile-name{
@@ -52,13 +52,16 @@ a.cstmblock {
 	margin-bottom: 0;
 }
 
-.change-pass {
+.change-pass:nth-child(1),.change-pass:nth-child(2) {
 	height: 64px;
-	margin-bottom: 0;
+	margin-bottom: 15px;
+}
+.change-pass:nth-child(1) {
+	margin-top: 45px;
 }
 
 .upload-btn{
-	width: 13em;
+	width: 14em;
 }
 
 .upload-btn-offset{
@@ -79,9 +82,17 @@ a.cstmblock {
 	font-size: 13px;
 }
 
-.error {
+label.error {
 	color: #af5050;
 	float: right;
+}
+
+#profile .msg-error {
+	font-size: 17px;
+	line-height: 30px;
+}
+.error-hidden {
+	display: none;
 }
 
 .change-pass .msg-error, .change-pass .error, .error-msg {
@@ -153,7 +164,8 @@ a.cstmblock {
 	right: $main-app-offset;
 	color: white;
 	z-index: 1001;
-	margin-right: 10px;
+	margin: 10px 10px 0 0;
+
 }
 
 .carousel-indicators li {
@@ -162,5 +174,9 @@ a.cstmblock {
 
 #myCarousel span.glyphicon.glyphicon-chevron-right{
 	margin-right: 0;
+}
+
+.item {
+	cursor: pointer;
 }
 

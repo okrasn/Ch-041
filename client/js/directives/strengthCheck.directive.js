@@ -45,7 +45,7 @@ angular.module('rssreader').directive('checkStrength', [function() {
 				if (scope.user.password === '') {
 					iElement.css({ "display": "none" });
 				} 
-				if(scope.password.pas === '') {
+				else if(scope.password.pas === '') {
 					iElement.css({ "display": "none" });		
 				} else {
 					var c = strength.getColor(strength.mesureStrength(scope.user.password || scope.password.pas));

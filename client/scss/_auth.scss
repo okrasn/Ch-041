@@ -1,5 +1,3 @@
-/*================================Loginform=============================*/
-
 .header {
 	margin-bottom: 30px;
 	font-weight: 700;
@@ -77,7 +75,7 @@ input.ng-pristine + #strength {
 	height: 90px;
 }
 
-.form-group.login label.error {
+label.error {
 	margin-top: 3px;
 	color: #af5050;
 	float: right;
@@ -101,8 +99,6 @@ a.pass {
 	font-size: 14px;
 	font-weight: bold;
 }
-
-/*==================================Links============================*/
 
 .links img {
 	padding: 0;
