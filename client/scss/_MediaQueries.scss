@@ -21,11 +21,6 @@ $desktop-res: 1200px;
 }
 
 @media screen and (min-width: $desktop-res) {
-
-    .home-same-height {
-        height: 15em;
-    }
-
     .adviced-articles-wrapper {
         padding-left: 0;
     }
@@ -52,6 +47,12 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $tablet-res) {
+    .center-children-tablet {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .also-read-header {
         margin-top: 1em;
     }
@@ -174,14 +175,18 @@ $desktop-res: 1200px;
         height: 80%;
     }
 
-    .dashboad-image {
+    .home-image {
         width: 80%;
     }
 }
 
 @media screen and (max-width: $phone-res) {
-    .dashboad-image {
-        width: 25em;
+    .home-small-img-mobile{
+        width: 90%;
+    }
+
+    .home-image {
+        width: 21em;
     }
 
     .alert-danger-app {

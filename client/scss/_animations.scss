@@ -23,8 +23,38 @@ $fading-duration: 0.3s;
 	animation: slideFromRight 1s ease;
 }
 
+.slide-from-left-smooth{
+	animation: slideFromLeftSmooth 1s ease;
+}
+
+.slide-from-right-smooth{
+	animation: slideFromRightSmooth 1s ease;
+}
+
 .fade-in-1s{
 	animation: fadeIn 1s ease;
+}
+
+@keyframes slideFromLeftSmooth {
+	0% {
+		transform: translateX(-800px);
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes slideFromRightSmooth {
+	0% {
+		transform: translateX(800px);
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 @keyframes slideFromLeft {

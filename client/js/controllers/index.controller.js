@@ -16,12 +16,12 @@
 
 		$scope.slideFromLeft = function ($el) {
 		    $el.removeClass('not-visible');
-		    $el.addClass('slide-from-left');
+		    $el.addClass('slide-from-left-smooth');
 		}
 
 		$scope.slideFromRight = function ($el) {
 		    $el.removeClass('not-visible');
-		    $el.addClass('slide-from-right');
+		    $el.addClass('slide-from-right-smooth');
 		}
 	}]);
 })();
