@@ -1431,7 +1431,7 @@ a.sharing-btn {
 #adviced-feeds-wrapper {
   padding: 0.5em;
   margin-top: 1em;
-  margin-bottom: 5em; }
+  margin-bottom: 1em; }
   #adviced-feeds-wrapper [class*=' col-'] {
     padding: 0.5em; }
 
@@ -1575,6 +1575,8 @@ a.sharing-btn {
   .mobile-half-padding {
     padding: 0 0.5em 0 0.5em; }
   .mobile-zero-padding {
+    padding: 0; }
+  #adviced-feeds-wrapper {
     padding: 0; }
   .modal-window {
     width: 100%;
