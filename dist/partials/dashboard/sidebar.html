@@ -42,7 +42,7 @@
 			dnd-type="'feeds'"
 			dnd-moved="onFeedsDrag($index)"
 			dnd-effect-allowed="move">
-			<div><span class="eye-view-btn glyphicon glyphicon-eye-open" ng-click="getByCat($event, category.category, $index)"></span></div>
+			<div><span class="eye-view-btn my-hidden" ng-click="getByCat($event, category.category, $index)">view</span></div>
 			<a data-toggle="collapse" data-target="{{ '#' + $index + category.category.split(' ').join('') }}" class="glyphFeeds" ng-click="shevronToggle($event)">
 				<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 			</a>

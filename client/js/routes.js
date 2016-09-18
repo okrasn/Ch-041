@@ -136,9 +136,9 @@
 					templateUrl: './partials/dashboard/adviced.html',
 					controller: 'FeedsController',
 					resolve: {
-					    feedPromise: ['feedsService', function (feedsService) {
-					        return feedsService.getAdvicedFeeds();
-					    }]
+						feedPromise: ['feedsService', function (feedsService) {
+							return feedsService.getAdvicedFeeds();
+						}]
 					}
 				})
 				.state("dashboard.article", {
@@ -146,10 +146,26 @@
 					templateUrl: './partials/dashboard/article.html',
 					controller: 'ArticlesController',
 					resolve: {
-					    articlePromise: ['articlesService', function (articlesService) {
-					        return articlesService.getAdvicedArticles();
-		                }]
+						articlePromise: ['articlesService', function (articlesService) {
+							return articlesService.getAdvicedArticles();
+						}]
 					}
+				})
+				.state("dashboard.profile", {
+					url: '/profile',
+					templateUrl: './partials/auth/profile.html',
+					controller: 'ProfileController',
+					resolve: {
+						profilePromise: ['profileService', function (profileService) {
+							return profileService.getProfile();
+						}]
+					},
+					onEnter: ['$state', 'authService', function ($state, authService) {
+						if (!authService.isLoggedIn()) {
+							authService.logOut();
+							$state.go('home');
+						}
+					}]
 				});
 			
 			$authProvider.twitter({

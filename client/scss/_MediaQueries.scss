@@ -72,8 +72,18 @@ $desktop-res: 1200px;
 		box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.76);
 	}
 
-	#sidebar ul {
-		width: 100%;
+	#sidebar {
+		ul {
+			width: 100%;
+		}
+
+		.sidebar-item{
+			.my-hidden{
+				visibility: visible;
+				display: inline;
+				opacity: 1;
+			}
+		}
 	}
 
 	#dashboard #sidebar-wrapper.sidebar-mobile {

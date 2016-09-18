@@ -24,7 +24,7 @@
 			$scope.toProfile = function () {
 				$scope.hideMobileNavbar();
 				$scope.hideSidebar();
-				$state.go("profile");
+				$state.go("dashboard.profile");
 			}
 
 			$scope.logOut = function () {

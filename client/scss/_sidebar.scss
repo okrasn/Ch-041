@@ -93,6 +93,7 @@ span.glyphicon.glyphicon-chevron-left{
 
 		.app-btn-blue {
 			margin-top: 1em;
+			margin-bottom: 1em;
 		}
 	}
 
@@ -157,6 +158,12 @@ ul[dnd-list] .dndPlaceholder {
 		.eye-view-btn{	        
 			right: 1.3em;
 		}
+		.my-hidden {
+			display: inline;
+			visibility: visible;
+			opacity: 1;
+			transition: opacity 0.2s ease;
+		}
 	}
 }
 
@@ -179,10 +186,9 @@ ul[dnd-list] .dndPlaceholder {
 }
 
 .eye-view-btn{
-	opacity: 0.2;
+	opacity: 0.3;
 	position: absolute;
 	right: 2em;
-	margin-top: 1em;
 	transition: opacity 0.2s ease;
 	&:hover{
 		transition: opacity 0.2s ease;

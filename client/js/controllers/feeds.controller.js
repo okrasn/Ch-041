@@ -4,13 +4,13 @@
 		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
 			dashboardService.isReadingArticle = true;
 		}
+		$scope.advicedCategory = $stateParams.category;
 		$scope.obj = {};
 		$scope.feeds = feedsService.feedsDictionary;
 		$scope.adviced = feedsService.advicedDictionary;
 		$scope.categories = feedsService.allCategories;
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
-		$scope.advicedCategory = $stateParams.category;
 
 		if ($state.current.name === "dashboard.adviced") {
 			var invalidCategory = $scope.adviced.filter(function (elem, i) {
@@ -43,15 +43,20 @@
 			}
 
 			if (!$scope.obj.category) {
-				$scope.error = "Choose category";
-				dashboardService.loadingIcon = false;
-				return;
+			    if (!$scope.advicedCategory) {
+			        $scope.error = "Choose category";
+			        dashboardService.loadingIcon = false;
+			        return;
+			    }
 			}
 
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 				$scope.error = "Enter new category name";
 				dashboardService.loadingIcon = false;
 				return;
+			}
+			if (!$scope.obj.category) {
+			    $scope.obj.category = $scope.advicedCategory;
 			}
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {

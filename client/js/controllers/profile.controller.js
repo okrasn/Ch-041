@@ -6,8 +6,8 @@
 		}, "Please specify the correct domain for your documents");
 	}]).controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer',
-		function (Upload, $http, $state, profileService, $scope,
-			authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
+		function (Upload, $http, $state, profileService, $scope, authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
+		    dashboardService.isReadingArticle = true;
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
 			$scope.sameProvider = transfer.getProviderString();
@@ -141,14 +141,14 @@
 				}
 			};
 
-			$scope.changeTheme = function() {
+			$scope.changeTheme = function () {
 				$scope.modalShown = !$scope.modalShown;
 			};
 
-			$scope.updateTheme = function(layout) {
-				themeService.changeTheme(layout.url).error(function(error) {
+			$scope.updateTheme = function (layout) {
+				themeService.changeTheme(layout.url).error(function (error) {
 					console.log("theme not changed" + error);
-				}).then(function(response) {
+				}).then(function (response) {
 					profileService.getProfile();
 				});
 			};

@@ -468,7 +468,8 @@ span.glyphicon.glyphicon-chevron-left {
       #dashboard #sidebar a:active, #dashboard #sidebar a:focus {
         text-decoration: none; }
     #dashboard #sidebar .app-btn-blue {
-      margin-top: 1em; }
+      margin-top: 1em;
+      margin-bottom: 1em; }
   #dashboard #page-content-wrapper {
     width: 100%;
     position: absolute; }
@@ -514,6 +515,11 @@ ul[dnd-list] .dndPlaceholder {
     background-color: #c1c1c1; }
     .sidebar-item:hover .eye-view-btn {
       right: 1.3em; }
+    .sidebar-item:hover .my-hidden {
+      display: inline;
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.2s ease; }
 
 .sidebar-item .sidebar-sub-item {
   padding-left: 2em;
@@ -531,10 +537,9 @@ ul[dnd-list] .dndPlaceholder {
   background-color: #c1c1c1; }
 
 .eye-view-btn {
-  opacity: 0.2;
+  opacity: 0.3;
   position: absolute;
   right: 2em;
-  margin-top: 1em;
   transition: opacity 0.2s ease; }
   .eye-view-btn:hover {
     transition: opacity 0.2s ease;
@@ -1539,6 +1544,10 @@ a.sharing-btn {
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.76); }
   #sidebar ul {
     width: 100%; }
+  #sidebar .sidebar-item .my-hidden {
+    visibility: visible;
+    display: inline;
+    opacity: 1; }
   #dashboard #sidebar-wrapper.sidebar-mobile {
     transition: all 0.3s ease;
     left: -275px;
