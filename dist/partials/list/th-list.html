@@ -1,6 +1,6 @@
 <!--Detailed table feeds-->
 <div id="cards-wrapper" class="clearfix feeds">
-	<div class="col-md-12 col-lg-12" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed" on-finish-render="ngRepeatFinished">
+	<div class="col-md-12 col-lg-12" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
 		<div class="app-panel fade-in-anim">
 			<div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
 			</div>

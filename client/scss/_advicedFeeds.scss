@@ -1,12 +1,10 @@
 ﻿#adviced-wrapper{
 	margin-bottom: 2em;
-
-	[class*=' col-'] {
-		padding: 0;
-	}
 }
 
 .adviced-card{
+	display: block;
+	overflow: hidden;
 	box-sizing:border-box;
 	height: 10em;
 	border-radius: $main-border-radius;
@@ -19,14 +17,28 @@
 	width: 100%;
 }
 
+#adviced-cards-wrapper {
+	padding: $main-app-offset/2;
+	[class*=' col-'] {
+		padding: $main-app-offset/2;
+	}
+}
+
 .adviced-bottom-offset{
 	margin-bottom: 5em;
+}
+
+.adviced-img {
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 175px;
+	border-radius: $main-border-radius 0 0 $main-border-radius;
 }
 
 .advice-content{
 	display: block;
 	cursor: pointer;
-	z-index: 1;
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -34,8 +46,25 @@
 	transition: all 0.5s ease;
 }
 
+.gradient{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 1;
+	width: 95%;
+	height: 92%;
+	background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.78));
+	transition: opacity 0.2s ease;
+}
+
+.gradient:hover{
+	transition: opacity 0.2s ease;
+	opacity: 0.2;
+}
+
 .advice-content:hover{
-	transition: all 0.5s ease;
+	transition: all 0.2s ease;
 	background: radial-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3));
 }
 
@@ -45,15 +74,16 @@
 	margin: 0;
 }
 
+.explore-header{
+	padding-left: 0.3em;
+}
+
 #feeds-title{
 	padding-left: 7px;
 }
 
 #adviced-feeds-wrapper {
 	padding: $main-app-offset/2;
-}
-
-#adviced-feeds-wrapper{
 	margin-top: $main-app-offset;
 	margin-bottom: $main-app-offset*5;
 	[class*=' col-'] {
