@@ -14,6 +14,7 @@ describe('ProfileController', function () {
 			var $scope = {};
 			var controller = $controller('ProfileController', { $scope: $scope });
 			expect($scope.newUserData).toBeDefined();
+			expect($scope.currentUser).toBeDefined();
 		});
 	});
 	describe('http test request to /changePassword', function() {

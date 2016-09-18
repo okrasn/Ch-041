@@ -1,12 +1,12 @@
 (function() {
 	
-	angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
+angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
 		$validatorProvider.addMethod("pattern", function(value, element) {
 			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
 		}, "Password must contain (a-z,A-Z,0-9,!@#)");
 		$validatorProvider.addMethod("email", function(value, element) {
-			return this.optional(element) || /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
-		}, "text");
+			return this.optional(element) || /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
+		}, "Please enter a valid email address.");
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
@@ -42,12 +42,7 @@
 					$scope.user.email = transfer.getEmail();
 				}
 				authService.register($scope.user).error(function (error) {
-				    $scope.error = error;
-				    dashboardService.loadingIcon = false;
-					if(error.message[0] === "F"){
-						toasterService.info(error.message);		
-					}
-					toasterService.error(error.message);
+					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
 					toasterService.success('You have successfully registered');
