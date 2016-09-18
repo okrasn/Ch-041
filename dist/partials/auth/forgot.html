@@ -1,0 +1,22 @@
+
+<div class='container-fluid'>
+	<h1>Forgot password</h1>
+	<hr>
+	<form class="forgot_from" ng-validate="validationLoginOptions">
+		<div class="form-group login">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<label class="forgot_label control-label ">Enter your email to confirm reset password:</label>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+				<input class='form-control forgot ' type="email" name="email" ng-model='confirm_email.email' placeholder="jacksparrow@gmail.com" required>
+			</div>
+		</div>
+		<div class="from-group login">
+			<div class="clearfix"></div>
+			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+				<input class="btn btn-primary app-btn-blue form-control" type="button" ng-click='forgot()' value="Reset Password">
+			</div>
+		</div>
+	</form>
+</div>
