@@ -10,15 +10,24 @@ var mongoose = require('mongoose'),
 			unique: true,
 			required: true
 		},
-		password: { type: String, select: false },
+		password: { type: String, select: true },
+		tempPassword: {type: String},
 		local: {
 			email : String,
 			password : String
 		},
+		date_of_signup : {type : Date},
+		emailToken : String,
+		emailVerification: { type : Boolean },
+		verifiedUser : {type : Boolean},
+		resetPasswordToken: String,
+		resetPasswordExpires: Date,
 		displayName: String,
 		picture : String,
 		facebook: String,
 		google: String,
+		twitter: String,
+		linkedin: String,
 		hash: String,
 		salt: String,
 		avatar: String,
@@ -29,15 +38,15 @@ var mongoose = require('mongoose'),
 		categories: [String],
 		favCategories: [String],
 		feedsDictionary: [{category: String, feeds: [{
-		        type: mongoose.Schema.Types.ObjectId,
-		        ref: 'Feed'
-		    }]
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Feed'
+			}]
 		}],
 		favouritesDictionary: [{
-		    category: String, articles: [{
-		        type: mongoose.Schema.Types.ObjectId,
-		        ref: 'Article'
-		    }]
+			category: String, articles: [{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Article'
+			}]
 		}]
 	});
 
@@ -54,12 +63,12 @@ userSchema.pre('save', function(next) {
 	});
 });
 
-userSchema.methods.comparePassword = function(password, done) {
-	bcrypt.compare(password, this.password, function(err, isMatch) {
-		done(err, isMatch);
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+	bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+		if (err) return cb(err);
+		cb(null, isMatch);
 	});
 };
-
 userSchema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };

@@ -24,9 +24,9 @@
 		}
 
 		$scope.hideViewBtns = function () {
-		    if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
-		        return true;
-		    }
+			if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
+				return true;
+			}
 			return false;
 			
 		}
@@ -64,14 +64,14 @@
 			}, $scope);
 		}
 		$scope.confirmFeedDelete = function () {
-		    dashboardService.loadingIcon = true;
+			dashboardService.loadingIcon = true;
 			feedsService.removeFeed(dashboardService.getFeedId())
 				.then(function (res) {
-				    dashboardService.loadingIcon = false;
-				    toasterService.info("Feed has been deleted");
+					dashboardService.loadingIcon = false;
+					toasterService.info("Feed has been deleted");
 					$state.reload("dashboard");
 				}, function (err) {
-				    dashboardService.loadingIcon = false;
+					dashboardService.loadingIcon = false;
 					console.log(err);
 				});
 		}

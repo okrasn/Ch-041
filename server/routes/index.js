@@ -13,6 +13,9 @@ var mongoose = require('mongoose'),
 	profCtrl = require('../controllers/profile');
 
 router.post('/register', authCtrl.register);
+router.post('/forgot', authCtrl.forgotPass);
+router.get('/reset/:token', authCtrl.reset);
+router.post('/reset/:token', authCtrl.resetPost);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
 //Auth
@@ -20,6 +23,7 @@ router.post('/users/:user/changeColorTheme', profCtrl.changeColorTheme);
 router.post('/auth/google', authCtrl.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
 router.post('/auth/twitter', authCtrl.twitterAuth);
+router.post('/auth/linkedin', authCtrl.linkedIdAuth);
 router.post('/auth/unlink', authCtrl.unlink);
 router.get('/api/me', authCtrl.getUserInfo);
 router.put('/api/me', authCtrl.putUserInfo);

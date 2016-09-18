@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
+
 		$scope.articleData = articlesService;
 		$scope.obj = {};
 		$scope.newCategory = {};
@@ -91,6 +92,13 @@
 					return;
 				}
 			}
+			if ($scope.obj.category) {
+				if (!$scope.newCatObj.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
+					$scope.error = "Enter new category name";
+					return;
+				}
+			}
+			
 			$scope.favForAdd.category = $scope.obj.category;
 			articlesService.addFavourite($scope.favForAdd).then(function (res) {
 			    $scope.resetAddFavValues();

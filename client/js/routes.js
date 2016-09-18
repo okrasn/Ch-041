@@ -35,6 +35,30 @@
 						}
 					}]
 				})
+				.state('forgot', {
+					url: '/forgot',
+					templateUrl: './partials/auth/forgot.html',
+					controller: 'AuthController'
+				})
+				.state('reset', {
+					url: '/reset/:token/:email',
+					templateUrl: './partials/auth/reset.html',
+					controller: 'AuthController',
+					onEnter : ['$stateParams', 'transfer', function ($stateParams, transfer) {
+						transfer.setObj($stateParams.token);
+						transfer.setEmail($stateParams.email);	
+					}]
+				})
+				.state('verify', {
+					url: '/verify/:token/:email',
+					templateUrl: './partials/auth/verify.html',
+					controller: 'AuthController',
+					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
+						transfer.setEmail($stateParams.email);
+						transfer.setString($stateParams.token);
+						toasterService.info('You have successfuly approved you email. Please reenter you fields');
+					}]
+				})
 				.state('profile', {
 					url: '/profile',
 					templateUrl: './partials/auth/profile.html',
@@ -127,6 +151,29 @@
 		                }]
 					}
 				});
+			
+			$authProvider.twitter({
+				clientId: '768721225971560448',
+				url: '/auth/twitter',
+				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+				redirectUri: window.location.origin,
+				oauthType: '1.0',
+				popupOptions: {
+					width: 495,
+					height: 645
+				}
+			});
+			$authProvider.linkedin({
+				clientId: '78ffzenowt180q',
+				url: '/auth/linkedin',
+				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
+				redirectUri: window.location.origin,
+				requiredUrlParams: ['state'],
+				scopeDelimiter: ' ',
+				state: 'STATE',
+				oauthType: '2.0',
+				popupOptions: { width: 527, height: 582 }
+			});
 			$authProvider.facebook({
 				clientId: '173686319709284',
 				name: 'facebook',
@@ -148,7 +195,7 @@
 				clientId: '806677097865-va2i3kq96mmu8i00t9k6q92ks1s9tg0l.apps.googleusercontent.com',
 				url: '/auth/google',
 				authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-				redirectUri: 'http://localhost:8080',
+				redirectUri: window.location.origin,
 				requiredUrlParams: ['scope'],
 				optionalUrlParams: ['display'],
 				scope: ['profile', 'email'],
@@ -161,16 +208,5 @@
 					height: 633
 				}
 			});
-
-			$authProvider.twitter({
-				url: '/auth/twitter',
-				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-				redirectUri: window.location.origin,
-				oauthType: '1.0',
-				popupOptions: {
-					width: 495,
-					height: 645
-				}
-			});
-		}]);
+	}]);
 })();

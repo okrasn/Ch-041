@@ -129,7 +129,7 @@ button[disabled] {
 	border-radius: $main-border-radius;
 	transition: $app-transition;
 	cursor: pointer;
-
+	
 	&:visited {
 		border: none;
 	}

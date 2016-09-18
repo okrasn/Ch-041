@@ -65,7 +65,7 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 
 module.exports.getFeedData = function (req, res, next) {
 	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-		res.status(404).send('Invalid feed');
+	res.status(404).send('Invalid feed');
 		return;
 	}
 	Feed.findById(req.body.id, function (err, feed) {
@@ -80,7 +80,6 @@ module.exports.getFeedData = function (req, res, next) {
 			res.json(feed);
 		}
 	});
-
 }
 
 module.exports.add = function (req, res, next) {

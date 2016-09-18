@@ -7,14 +7,15 @@ var express = require('express'),
 	favicon = require('serve-favicon'),
 	path = require('path'),
 	morgan = require('morgan'),
-	mongoose = require('mongoose'),
 	passport = require('passport'),
 	multer = require('multer'),
 	cors = require('cors'),
-	logger = require('morgan');
+	logger = require('morgan'),
+	User = require('./server/models/Users'),
+	mongoose = require('mongoose'),
+	flash = require('express-flash');
 
 app.use(favicon(path.join(__dirname, 'server', 'assets', 'images', 'favicon.ico')));
-
 require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
@@ -37,7 +38,6 @@ app.use(function (req, res, next) { //allow cross origin requests
 	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 	next();
 });
-
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({
 	extended: true

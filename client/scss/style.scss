@@ -1,4 +1,6 @@
+
 $main-border-radius: 2px;
+
 $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
@@ -142,6 +144,8 @@ p {
 @import "modals/toaster";
 @import "modals/modal";
 @import "animations";
+@import "forgot";
 @import "article.scss";
 @import "advicedFeeds.scss";
 @import "MediaQueries";
+

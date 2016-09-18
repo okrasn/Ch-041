@@ -293,6 +293,7 @@
 								temp_articles.push(articleObj);
 							}
 						}
+						dashboardService.loadingIcon = false;
 						return response.data;
 					});
 			},
