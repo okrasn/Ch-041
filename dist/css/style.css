@@ -580,7 +580,6 @@ ul[dnd-list] .dndPlaceholder {
     font-weight: 300;
     font-size: 20px; }
 
-/*================================Loginform=============================*/
 .header {
   margin-bottom: 30px;
   font-weight: 700;
@@ -643,7 +642,7 @@ input.ng-pristine + #strength {
 #login .form-group:nth-child(2) {
   height: 90px; }
 
-.form-group.login label.error {
+label.error {
   margin-top: 3px;
   color: #af5050;
   float: right;
@@ -664,7 +663,6 @@ a.pass {
   font-size: 14px;
   font-weight: bold; }
 
-/*==================================Links============================*/
 .links img {
   padding: 0;
   width: 50px;
@@ -703,7 +701,7 @@ a.cstmblock {
 
 .profile-header {
   height: 10em;
-  background-color: #1d2129; }
+  background-color: transparent; }
 
 .profile-name {
   margin-top: 95px;
@@ -724,12 +722,15 @@ a.cstmblock {
   height: 58px;
   margin-bottom: 0; }
 
-.change-pass {
+.change-pass:nth-child(1), .change-pass:nth-child(2) {
   height: 64px;
-  margin-bottom: 0; }
+  margin-bottom: 15px; }
+
+.change-pass:nth-child(1) {
+  margin-top: 45px; }
 
 .upload-btn {
-  width: 13em; }
+  width: 14em; }
 
 .upload-btn-offset {
   margin-top: 15px; }
@@ -746,9 +747,16 @@ a.cstmblock {
   margin-bottom: 0;
   font-size: 13px; }
 
-.error {
+label.error {
   color: #af5050;
   float: right; }
+
+#profile .msg-error {
+  font-size: 17px;
+  line-height: 30px; }
+
+.error-hidden {
+  display: none; }
 
 .change-pass .msg-error, .change-pass .error, .error-msg {
   font-size: 13px;
@@ -805,13 +813,16 @@ a.cstmblock {
   right: 1em;
   color: white;
   z-index: 1001;
-  margin-right: 10px; }
+  margin: 10px 10px 0 0; }
 
 .carousel-indicators li {
   display: none; }
 
 #myCarousel span.glyphicon.glyphicon-chevron-right {
   margin-right: 0; }
+
+.item {
+  cursor: pointer; }
 
 .app-btn {
   padding: 0.8em;
@@ -1327,7 +1338,7 @@ a.sharing-btn {
   margin-bottom: 5px;
   width: 100px; }
 
-.error {
+label.error {
   color: #af5050;
   font-size: 14px;
   margin: 0 0 0 0; }
