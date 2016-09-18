@@ -580,7 +580,6 @@ ul[dnd-list] .dndPlaceholder {
     font-weight: 300;
     font-size: 20px; }
 
-/*================================Loginform=============================*/
 .header {
   margin-bottom: 30px;
   font-weight: 700;
@@ -664,7 +663,6 @@ a.pass {
   font-size: 14px;
   font-weight: bold; }
 
-/*==================================Links============================*/
 .links img {
   padding: 0;
   width: 50px;

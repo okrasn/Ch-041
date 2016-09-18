@@ -1,6 +1,4 @@
- /*----------------Navbar--------------*/
- 
- .main-navbar .navbar {
+  .main-navbar .navbar {
 	 background: #2c3e50;
  }
  
@@ -19,7 +17,6 @@
  .navbar-nav > .user-menu > .dropdown-toggle > span:hover {
 	 color: #ffffff;
  }
- /*-----------------Btn----------------*/
  
  .app-btn-blue {
 	 color: white;
