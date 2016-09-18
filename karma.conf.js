@@ -37,7 +37,6 @@ module.exports = function (config) {
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/js/app.min.js",
-			
 			"./tests/unit/registerNewUser.spec.js",
 			"./tests/unit/profileController.spec.js",
 			"./tests/unit/resetPassword.spec.js", 

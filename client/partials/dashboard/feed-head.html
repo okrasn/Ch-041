@@ -10,14 +10,14 @@
 					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-list" aria-label="Center Align" ng-class="{'selected' : checkIfToggled('th-list')}" ng-click="onViewChange('view-mode2')"><span></span></button>
 					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-large visible-lg" aria-label="Justify" ng-class="{'selected' : checkIfToggled('th-large')}" ng-click="onViewChange('view-mode3')"><span aria-hidden="true"></span></button>
 				</div>
-				<div class="btn-group" uib-dropdown is-open="status.isopen">
+				<div ng-hide="hideSortList.state" class="btn-group" uib-dropdown is-open="status.isopen">
 					<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled">
 						{{currentSortTitle()}}<span class="caret"></span>
 					</button>
 					<ul id="sort-dropdown" class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'date', 1)" ng-class="{'selected' : checkSortType('date', 1)}"><a>Newest</a></li>
 						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'date', 0)" ng-class="{'selected' : checkSortType('date', 0)}"><a>Oldest</a></li>
-						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'feed', 1)" ng-class="{'selected' : checkSortType('feed', 1)}"><a>By Feed</a></li>
+						<li class="sort-item" role="menuitem" ng-hide="readSingleFeed.state" ng-click="setSortParam($event, 'feed', 1)" ng-class="{'selected' : checkSortType('feed', 1)}"><a>By Feed</a></li>
 					</ul>
 				</div>
 			</div>

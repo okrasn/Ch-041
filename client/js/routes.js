@@ -99,7 +99,7 @@
 							return feedsService.getAllFeeds();
 						}]
 					},
-					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
+					onEnter: ['articlesService', function (articlesService) {
 						articlesService.getAllArticles();
 					}]
 				})
@@ -144,7 +144,12 @@
 				.state("dashboard.article", {
 					url: '/article/:feed/:link',
 					templateUrl: './partials/dashboard/article.html',
-					controller: 'ArticlesController'
+					controller: 'ArticlesController',
+					resolve: {
+					    articlePromise: ['articlesService', function (articlesService) {
+					        return articlesService.getAdvicedArticles();
+		                }]
+					}
 				});
 			
 			$authProvider.twitter({

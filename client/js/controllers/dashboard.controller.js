@@ -6,6 +6,9 @@
 		$scope.feed = dashboardService.getFeedId;
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
+		$scope.readSingleFeed = dashboardService.readSingleFeed;
+		$scope.hideSortList = dashboardService.hideSortList;
+		
 		$scope.checkIfReading = function () {
 			return dashboardService.isReadingArticle;
 		};
