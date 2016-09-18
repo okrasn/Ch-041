@@ -53,6 +53,26 @@
 	}
 }
 
+.table-feed>.fav-indicator{
+	transform: translateX(-100%);
+}
+
+.fav-indicator{
+	position: absolute;
+	margin-top: -$main-app-offset;
+	left: 100%;
+	transform: translateX(-125%);
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 30px 30px 0;
+	border-color: transparent #ff9d00 transparent transparent;
+}
+
+#article-page .fav-indicator{
+	transform: translateX(-145%);
+}
+
 .list-item{
 	cursor: pointer;
 }
@@ -135,8 +155,8 @@
 }
 
 .article-content {
-	height: 88px;
-	margin-bottom: 0.2em;
+	height: 70px;
+	margin-bottom: 1.1em;
 	overflow: hidden;
 }
 
@@ -148,6 +168,7 @@
 }
 
 .article-footer-item {
+	top: 0;
 	line-height: 2em;
 	padding-right: $main-app-offset;
 	vertical-align: middle;

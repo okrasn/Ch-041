@@ -66,10 +66,11 @@
 				});
 		}
 		$scope.addFeedByAdvice = function (feed) {
-			console.log(feed);
-			$scope.obj.link = feed.rsslink;
-			$scope.error = null;
-			$scope.modalShown = !$scope.modalShown;
+		    $scope.addingNewCategory = false;
+		    $scope.obj.link = feed.rsslink;
+		    $scope.error = null;
+		    $scope.obj.category = '';
+		    $scope.modalShown = !$scope.modalShown;
 		}
 		$scope.setCoverImage = function (item) {
 			var coverImage = "";

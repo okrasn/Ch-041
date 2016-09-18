@@ -107,16 +107,16 @@ module.exports.removeFavArticle = function (req, res, next) {
 			foundArticle = null;
 
 		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
-		    if (array[i].category == req.params.category) {
-		        foundCategory = array[i];
-		        foundCategoryIndex = i;
-		        for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
-		            if (articles[j]._id == req.params.id) {
-		                foundArticle = articles[j];
-		                foundArticleIndex = j;
-		            }
-		        }
-		    }
+			if (array[i].category == req.params.category) {
+				foundCategory = array[i];
+				foundCategoryIndex = i;
+				for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
+					if (articles[j]._id == req.params.id) {
+						foundArticle = articles[j];
+						foundArticleIndex = j;
+					}
+				}
+			}
 		}
 
 		if (!foundCategory) {
@@ -174,12 +174,43 @@ module.exports.getFavArticle = function (req, res, next) {
 	});
 }
 
+module.exports.getAdvicedArticles = function (req, res, next) {
+	console.log("Get adviced articles");
+	Article.find({}).sort({ totalSubscriptions: 'desc' }).limit(1000).exec(function (err, articles) {
+		if (err) {
+			return next(err);
+		}
+		if (!articles) {
+			if (!article) {
+				res.status(404).send('Not found');
+				return;
+			}
+		}
+		var result;
+		var num = articles.length;
+		if (num < 11) {
+		    result = articles;
+		}
+		if (num > 10 && num < 51) {
+		    result = articles.slice(0, 10);
+		    result.sort(function () { return 0.5 - Math.random() });
+		}
+		if (num > 50 && num < 101) {
+		    result = articles.slice(0, 20);
+		    result.sort(function () { return 0.5 - Math.random() });
+		    result.slice(0, 10);
+		}
+		if (num > 100 && num < 1001) {
+		    result = articles.slice(0, 100);
+		    result.sort(function () { return 0.5 - Math.random() });
+		    result.slice(0, 10);
+		}
+		res.json(result);
+	});
+}
+
 module.exports.allFavourites = function (req, res, next) {
 	req.user.populate("favouritesDictionary.articles", function (err, user) {
 		res.json(user.favouritesDictionary);
 	});
-}
-
-module.exports.getPopularArticles = function (req, res, next) {
-
 }

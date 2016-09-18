@@ -8,7 +8,7 @@ This is fully functional RSS feed reader with enhanced abilities, including:
 - social media login and sharing
 - and more
 
-You can try it [here](http://rssfeedsreader.azurewebsites.net/) (or visit rssfeedsreader.azurewebsites.net)
+You can try it [here](http://rss-reader.azurewebsites.net/) (or visit http://rss-reader.azurewebsites.net/)
 
 Application (server & client) deployed to [AZURE](https://azure.microsoft.com/ru-ru/) cloud server, database hosted on [Mlab](https://mlab.com/).
 

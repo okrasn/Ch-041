@@ -54,22 +54,22 @@
 }
 
 .subscribe-btn{
-    height: 40px;
-    width: 40px;
-    border-radius: 8px;
+	height: 40px;
+	width: 40px;
+	border-radius: 8px;
 	color: $blue-btn-active-color;
-    font-weight: 500;
+	font-weight: 500;
 	background-color: white;
 	border: 5px solid $blue-btn-active-color;
-    transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 
 .subscribe-btn:hover{
 	color: white;
-	background-color: #00ffb1;
-    border: none;
-    transition: all 0.3s ease;
-    border: 5px solid #00ffb1;
+	background-color: #33c23e;
+	border: none;
+	transition: all 0.3s ease;
+	border: 5px solid #33c23e;
 }
 
 .app-btn-red {
@@ -104,6 +104,10 @@
 
 .load-btn-wrap{
 	margin-bottom: 1em;
+}
+
+#list .load-btn-wrap{
+	margin-top: 1em;
 }
 
 button[disabled] {
@@ -212,10 +216,10 @@ button[disabled] {
 .onhover-green {
 	color: black;
 	&:hover {
-		color: #00ffb1;
+		color: #33c23e;
 	}
 
-	&:hover {
+	&:active {
 		color: #00ff62;
 	}
 }
@@ -226,7 +230,7 @@ button[disabled] {
 		color: $blue-btn-active-color;
 	}
 
-	&:hover {
+	&:active {
 		color: $blue-btn-active-color;
 	}
 }

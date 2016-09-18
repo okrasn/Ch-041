@@ -42,7 +42,8 @@
 					$scope.user.email = transfer.getEmail();
 				}
 				authService.register($scope.user).error(function (error) {
-					$scope.error = error;
+				    $scope.error = error;
+				    dashboardService.loadingIcon = false;
 					if(error.message[0] === "F"){
 						toasterService.info(error.message);		
 					}
