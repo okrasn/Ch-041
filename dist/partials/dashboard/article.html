@@ -17,8 +17,8 @@
 					<p ng-bind="articleForRead.content"></p>
 				</div>
 				<div class="article-row">
-					<span class="article-footer-item glyphicon glyphicon-star onhover-orange" ng-click="addFavourite(articleForRead)" ng-hide="checkIfFavourites(articleForRead)"></span>
-					<span class="article-footer-item fa fa-share-alt onhover-green" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
+					<span class="article-footer-item glyphicon glyphicon-star onhover-orange pointer" ng-click="addFavourite(articleForRead)" ng-hide="checkIfFavourites(articleForRead)"></span>
+					<span class="article-footer-item fa fa-share-alt onhover-green pointer" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
 				</div>
 				<div class="center-children">
 					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}" target="_blank"><span>Continue reading</span></a>
@@ -31,7 +31,7 @@
 				<div class="adviced-article-title">
 					<div class="list-item" ng-click="readArticle(article)"><span ng-bind="article.title"></span></div>
 				</div>
-				<div class="img-responsive adviced-article-img" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
+				<div class="img-responsive adviced-article-img center-block" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
 				</div>
 			</div>
 		</div>

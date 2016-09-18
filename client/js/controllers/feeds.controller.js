@@ -66,8 +66,10 @@
 				});
 		}
 		$scope.addFeedByAdvice = function (feed) {
+		    $scope.addingNewCategory = false;
 		    $scope.obj.link = feed.rsslink;
 		    $scope.error = null;
+		    $scope.obj.category = '';
 		    $scope.modalShown = !$scope.modalShown;
 		}
 		$scope.setCoverImage = function (item) {

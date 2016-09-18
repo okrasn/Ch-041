@@ -95,7 +95,6 @@
 					dashboardService.setFeedId(feed);
 					return fetchArticles(feed).then(function () {
 					    obj.articles = temp_articles;
-					    console.log(obj.articles);
 						dashboardService.hideLoading();
 					});
 				},
