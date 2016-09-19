@@ -41,7 +41,7 @@ module.exports.allFeed = function (req, res, next) {
 module.exports.advicedFeeds = function (req, res, next) {
 	Advice.find({}, function (err, adviced) {
 		adviced[0].populate("feedsDictionary.feeds", function (err, adviced) {
-		    res.json(adviced.feedsDictionary);
+			res.json(adviced.feedsDictionary);
 		});
 	});
 }
@@ -108,7 +108,9 @@ module.exports.add = function (req, res, next) {
 				for (var j = 0; j < user.feedsDictionary[i].feeds.length; j++) {
 					if (user.feedsDictionary[i].feeds[j].rsslink === req.body.rsslink) {
 						return res.status(400).json({
-							message: ERRORS.feed_already_added
+							message: ERRORS.feed_already_added,
+							id: user.feedsDictionary[i].feeds[j]._id,
+							category: user.feedsDictionary[i].category
 						});
 					}
 				}
@@ -182,26 +184,26 @@ addAdvicedFromJson = function (category, feed) {
 				feedsDictionary: []
 			});
 			for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
-			    advice.feedsDictionary.push({
-			        category: JsonFeeds.feedsDictionary[i].category
-			    });
-			    for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
-			        var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
-			        feed.totalSubscriptions = 0;
-			        feed.currentSubscriptions = 0;
-			        advice.feedsDictionary[i].feeds.push(feed);
-			        feed.save(function (err, feed) {
-			            if (err) {
-			                console.log(err);
-			                return;
-			            }
-			        });
-			    }
+				advice.feedsDictionary.push({
+					category: JsonFeeds.feedsDictionary[i].category
+				});
+				for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
+					var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
+					feed.totalSubscriptions = 0;
+					feed.currentSubscriptions = 0;
+					advice.feedsDictionary[i].feeds.push(feed);
+					feed.save(function (err, feed) {
+						if (err) {
+							console.log(err);
+							return;
+						}
+					});
+				}
 			}
 			advice.save(function (err, advice) {
-			    if (err) {
-			        console.log(err);
-				    return;
+				if (err) {
+					console.log(err);
+					return;
 				}
 			});
 		}
@@ -305,5 +307,49 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
 		if (err) return next(err);
 		res.statusCode = 200;
 		return res.send();
+	});
+}
+
+module.exports.changeFeedCategory = function (req, res, next) {
+	req.user.populate("feedsDictionary.feeds", function (err, user) {
+		var lookup = {};
+		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
+			lookup[array[i].category] = array[i];
+		}
+
+		for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
+			if (array[i].category == req.body.category) {
+				for (var j = 0, feeds = array[i].feeds; j < feeds.length; j++) {
+					if (feeds[j]._id == req.body.id) {
+					    array[i].feeds.splice(j, 1);
+					    if (!array[i].feeds.length) {
+					        array.splice(i, 1);
+					    }
+					    var pushedToExistin = false;
+					    for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
+					        if (array[i].category == req.body.newCategory) {
+					            array[i].feeds.push(req.body.id);
+					            pushedToExistin = true;
+					        }
+					    }
+					    if (!pushedToExistin) {
+					        var obj = {
+					            category: req.body.newCategory,
+					            feeds: []
+					        }
+
+					        obj.feeds.push(req.body.id);
+					        req.user.feedsDictionary.push(obj);
+					    }
+						
+						req.user.save(function (err) {
+						    if (err) return next(err);
+						    res.statusCode = 200;
+						    return res.send();
+						});
+					}
+				}
+			}
+		}
 	});
 }
