@@ -311,6 +311,9 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
 }
 
 module.exports.changeFeedCategory = function (req, res, next) {
+	if (!req.body.id || !req.body.category || !req.body.newCategory) {
+		res.status(404).send('Not found');
+	}
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		var lookup = {};
 		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
@@ -321,31 +324,31 @@ module.exports.changeFeedCategory = function (req, res, next) {
 			if (array[i].category == req.body.category) {
 				for (var j = 0, feeds = array[i].feeds; j < feeds.length; j++) {
 					if (feeds[j]._id == req.body.id) {
-					    array[i].feeds.splice(j, 1);
-					    if (!array[i].feeds.length) {
-					        array.splice(i, 1);
-					    }
-					    var pushedToExistin = false;
-					    for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
-					        if (array[i].category == req.body.newCategory) {
-					            array[i].feeds.push(req.body.id);
-					            pushedToExistin = true;
-					        }
-					    }
-					    if (!pushedToExistin) {
-					        var obj = {
-					            category: req.body.newCategory,
-					            feeds: []
-					        }
+						array[i].feeds.splice(j, 1);
+						if (!array[i].feeds.length) {
+							array.splice(i, 1);
+						}
+						var pushedToExistin = false;
+						for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
+							if (array[i].category == req.body.newCategory) {
+								array[i].feeds.push(req.body.id);
+								pushedToExistin = true;
+							}
+						}
+						if (!pushedToExistin) {
+							var obj = {
+								category: req.body.newCategory,
+								feeds: []
+							}
 
-					        obj.feeds.push(req.body.id);
-					        req.user.feedsDictionary.push(obj);
-					    }
+							obj.feeds.push(req.body.id);
+							req.user.feedsDictionary.push(obj);
+						}
 						
 						req.user.save(function (err) {
-						    if (err) return next(err);
-						    res.statusCode = 200;
-						    return res.send();
+							if (err) return next(err);
+							res.statusCode = 200;
+							return res.send();
 						});
 					}
 				}
