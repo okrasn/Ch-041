@@ -595,6 +595,7 @@ ul[dnd-list] .dndPlaceholder {
     margin-bottom: 1em; }
 
 .third-layer {
+  overflow: hidden;
   padding-top: 4em;
   height: 40em;
   width: 100%;
@@ -622,6 +623,7 @@ ul[dnd-list] .dndPlaceholder {
         position: relative; } }
 
 .fourth-layer {
+  overflow: hidden;
   padding-top: 4em;
   height: 40em;
   width: 100%;
