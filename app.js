@@ -27,7 +27,7 @@ var routes = require('./server/routes/index');
 app.set('port', process.env.PORT || 8080);
 app.set('base url', process.env.URL || 'http://localhost');
 
-mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
+//mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 //mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 mongoose.connect('mongodb://localhost/feeds');
 mongoose.connection.on('error', function (err) {
