@@ -22,7 +22,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	}
 	this.sortParam = {
 		type: 'date',
-		order: 0
+		order: 1
 	};
 	if ($window.localStorage.sortType) {
 		this.sortParam.type = $window.localStorage.sortType;

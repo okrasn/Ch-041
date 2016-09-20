@@ -175,7 +175,6 @@ module.exports.getFavArticle = function (req, res, next) {
 }
 
 module.exports.getAdvicedArticles = function (req, res, next) {
-	console.log("Get adviced articles");
 	Article.find({}).sort({ totalSubscriptions: 'desc' }).limit(1000).exec(function (err, articles) {
 		if (err) {
 			return next(err);

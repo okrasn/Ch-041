@@ -88,7 +88,6 @@ module.exports.register = function (req, res) {
 						subject : "Please confirm your Email account",
 						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email <strong>" + userEmail + "</strong>.<br>"	
 					}
-					console.log(mailOptions);
 
 					var user = new User({
 						emailVerification: false,

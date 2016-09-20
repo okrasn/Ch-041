@@ -32,6 +32,9 @@ input.ng-pristine + #strength {
 }
 
 #change-pass-form{
+	input{
+		border-radius: $main-border-radius;
+	}
 	margin-top: $main-app-offset;
 }
 
@@ -116,4 +119,10 @@ a.pass {
 .divider + span {
 	font-weight: bold;
 	margin-left: 4px;
+}
+
+#login, #register{
+	input{
+		border-radius: $main-border-radius;
+	}
 }
