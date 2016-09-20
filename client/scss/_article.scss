@@ -24,3 +24,34 @@
 	color:#888;
 	padding: 0;
 }
+
+.adviced-article-img {
+	background-size: cover;
+	background-position: center center;
+	width: 225px;
+	height: 175px;
+	border-radius: $main-border-radius 0 0 $main-border-radius;
+}
+
+.read-article-img{
+	margin: auto;
+	background-size: cover;
+	background-position: center center;
+	width: 640px;
+	height: 480px;
+	border-radius: $main-border-radius 0 0 $main-border-radius;
+}
+
+.adviced-article-title{
+	font-weight: 500;
+	height: 3em;
+	overflow: hidden;
+}
+
+.adviced-article-card{
+	margin-bottom: $main-app-offset;
+}
+
+.also-read-header{
+	margin-top: 0;
+}

@@ -38,15 +38,15 @@ var mongoose = require('mongoose'),
 		categories: [String],
 		favCategories: [String],
 		feedsDictionary: [{category: String, feeds: [{
-		        type: mongoose.Schema.Types.ObjectId,
-		        ref: 'Feed'
-		    }]
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Feed'
+			}]
 		}],
 		favouritesDictionary: [{
-		    category: String, articles: [{
-		        type: mongoose.Schema.Types.ObjectId,
-		        ref: 'Article'
-		    }]
+			category: String, articles: [{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Article'
+			}]
 		}]
 	});
 

@@ -99,7 +99,7 @@
 							return feedsService.getAllFeeds();
 						}]
 					},
-					onEnter: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
+					onEnter: ['articlesService', function (articlesService) {
 						articlesService.getAllArticles();
 					}]
 				})
@@ -144,14 +144,19 @@
 				.state("dashboard.article", {
 					url: '/article/:feed/:link',
 					templateUrl: './partials/dashboard/article.html',
-					controller: 'ArticlesController'
+					controller: 'ArticlesController',
+					resolve: {
+					    articlePromise: ['articlesService', function (articlesService) {
+					        return articlesService.getAdvicedArticles();
+		                }]
+					}
 				});
 			
 			$authProvider.twitter({
 				clientId: '768721225971560448',
 				url: '/auth/twitter',
 				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-				redirectUri: 'http://localhost:8080',
+				redirectUri: window.location.origin,
 				oauthType: '1.0',
 				popupOptions: {
 					width: 495,
@@ -162,7 +167,7 @@
 				clientId: '78ffzenowt180q',
 				url: '/auth/linkedin',
 				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-				redirectUri: 'http://localhost:8080',
+				redirectUri: window.location.origin,
 				requiredUrlParams: ['state'],
 				scopeDelimiter: ' ',
 				state: 'STATE',
@@ -190,7 +195,7 @@
 				clientId: '806677097865-va2i3kq96mmu8i00t9k6q92ks1s9tg0l.apps.googleusercontent.com',
 				url: '/auth/google',
 				authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-				redirectUri: 'http://localhost:8080',
+				redirectUri: window.location.origin,
 				requiredUrlParams: ['scope'],
 				optionalUrlParams: ['display'],
 				scope: ['profile', 'email'],

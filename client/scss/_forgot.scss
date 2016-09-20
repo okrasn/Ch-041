@@ -18,7 +18,7 @@
 	}
 
 }
-.error {
+label.error {
 	color: #af5050;
 	font-size: 14px;
 	margin: 0 0 0 0;
@@ -38,4 +38,7 @@
 }
 .bold{
 	font-weight: 700;
+}
+#strength_res {
+	padding-left: 0;
 }

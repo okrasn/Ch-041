@@ -3,7 +3,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" id="sidebar-toggle" class="navbar-toggle visible-sm visible-xs" ng-click="toggleSidebar()" ng-show="isDashboard()">
-					<span class="glyphicon glyphicon-menu-hamburger"></span>
+					<img class="sidebar-icon" src="assets/images/left-sidebar.png">
 				</button>
 				<button type="button" id="sidebar-toggle" class="navbar-toggle visible-sm visible-xs" ng-hide="isDashboard()" style="visibility: hidden">
 					<span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -37,10 +37,10 @@
 							</li>
 							<li class="user-footer">
 								<div class="pull-left">
-									<button href="#" class="app-btn app-btn-blue" ui-sref="profile">Profile</button>
+									<button href="#" class="app-btn app-btn-blue" id="profile_btn" ui-sref="profile">Profile</button>
 								</div>
 								<div class="pull-right">
-									<button href="#" class="app-btn app-btn-blue" ng-click="logOut()">Sign out</button>
+									<button href="#" class="app-btn app-btn-blue" id="sign_out" ng-click="logOut()">Sign out</button>
 								</div>
 							</li>
 						</ul>
@@ -65,7 +65,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="user-footer ">
+						<li class="user-footer">
 							<div class="row">
 								<div class="col-xs-6">
 									<div class="text-center">
