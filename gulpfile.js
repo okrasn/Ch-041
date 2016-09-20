@@ -19,10 +19,10 @@ mkdirp.sync('./dist/uploads', function (err) {
 });
 
 gulp.task('server', function (cb) {
-		exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-		console.log(stdout, stderr);
-		cb(err);
-	});
+	// 	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+	// 	console.log(stdout, stderr);
+	// 	cb(err);
+	// });
 	
 	console.log("Server is running on port 8080");
 	exec('npm start', function (err, stdout, stderr) {

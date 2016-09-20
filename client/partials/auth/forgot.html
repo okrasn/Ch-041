@@ -1,22 +1,25 @@
-
-<div class='container-fluid'>
-	<h1>Forgot password</h1>
-	<hr>
-	<form class="forgot_from" ng-validate="validationLoginOptions">
-		<div class="form-group login">
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-				<label class="forgot_label control-label ">Enter your email to confirm reset password:</label>
-			</div>
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-				<input class='form-control forgot ' type="email" name="email" ng-model='confirm_email.email' placeholder="jacksparrow@gmail.com" required>
+<div class="row">
+	<div id="register" class="mobile-half-padding col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-3 col-md-6">
+		<div class="cstmform-border card">
+			<h2 class="header uppercase">
+				<span class="orange">rss</span><span>|Forgot Password</span>
+			</h2>
+			<div class="row">
+				<div class="col-xs-12">
+					<form name="forgot-form" ng-validate="validationLoginOptions">
+						<div class="form-group login">
+							<label class="capitalize" for="enterEmail">email</label>
+							<input type="email" name="email" class="form-control" id="enterEmail" placeholder="jacksparrow@gmail.com" ng-model='confirm_email.email' required>
+						</div>
+						<button id="sub_btn" class="btn btn-default btn-lg center-block app-btn-blue cswidth capitalize" ng-click='forgot()'>Reset Password</button>
+						<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
+							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							<span class="sr-only">Error:</span>
+							<span id="error" ng-bind="error.message"></span>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-		<div class="from-group login">
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
-				<input class="btn btn-primary app-btn-blue form-control" type="button" ng-click='forgot()' value="Reset Password">
-			</div>
-		</div>
-	</form>
+	</div>
 </div>
