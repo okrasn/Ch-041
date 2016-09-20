@@ -1,6 +1,4 @@
-
 $main-border-radius: 2px;
-
 $blue-btn-color: #42a5f5;
 $blue-btn-active-color: #3949ab;
 $delete-btn-color: #eb4e54;
@@ -10,6 +8,8 @@ $main-app-offset: 1em;
 $navbar-color: #3949ab;
 $user-dropdown-color: #f0f0f0;
 $navbar-height: 50px;
+
+$navbar-zindex: 9999;
 
 html {
 	font-family: 'Roboto', sans-serif;
@@ -152,4 +152,3 @@ p {
 @import "article.scss";
 @import "advicedFeeds.scss";
 @import "MediaQueries";
-

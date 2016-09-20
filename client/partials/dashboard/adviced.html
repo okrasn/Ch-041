@@ -10,11 +10,14 @@
                     <span ng-bind="feed.description"></span>
                 </div>
                 <div class="advice-feed-stats">
-                    <div class="col-xs-9 stats-block">
-                        <div class="readers-num" ng-bind="feed.currentSubscriptions"></div>
-                        <div class="readers-word">readers</div>
+                    <div class="col-xs-3 stats-block">
+                        <div class="center-block readers-num" ng-bind="feed.currentSubscriptions"></div>
+                        <div class="center-block readers-word">readers</div>
                     </div>
-                    <div class="col-xs-3 stats-block center-children">
+                    <div class="col-xs-7">
+
+                    </div>
+                    <div class="col-xs-2 stats-block center-children">
                         <button class="subscribe-btn" ng-click="addFeedByAdvice(feed)"><span>+</span></button>
                     </div>
                 </div>

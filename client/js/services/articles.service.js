@@ -263,7 +263,8 @@
 									title: items[i].getElementsByTagName('title')[0].innerHTML
 										.replaceAll("apos;", '\'')
 										.replaceAll("&apos;", '\'')
-										.replaceAll("&amp;", ''),
+										.replaceAll("&amp;", '')
+										.replaceAll("&#8217;", 'bb'),
 									link: items[i].getElementsByTagName('link')[0].textContent,
 									img: getImage(items[i], feed.format),
 									content: getContent(items[i], feed.format),

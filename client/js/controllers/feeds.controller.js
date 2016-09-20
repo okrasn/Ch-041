@@ -22,6 +22,10 @@
 			}
 		}
 
+		$scope.IgnoreDoubleClick = function () {
+		    return false;
+		}
+
 		$scope.checkIfNew = function () {
 			if ($scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 				$scope.addingNewCategory = true;

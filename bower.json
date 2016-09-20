@@ -38,6 +38,7 @@
     "angular-bootstrap": "^2.1.2",
     "angular-touch": "^1.5.8",
     "angular-mocks": "^1.5.8",
-    "angular-scroll-animate": "^0.9.9"
+    "angular-scroll-animate": "^0.9.9",
+    "nsPopover": "https://github.com/nohros/nsPopover"
   }
 }

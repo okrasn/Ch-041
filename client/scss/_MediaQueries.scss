@@ -29,16 +29,12 @@ $desktop-res: 1200px;
 @media screen and (max-width: 1600px) and (min-width: $desktop-res) {
     #cards-wrapper.desktop-grow {
         .app-panel {
-            height: 240px;
+            height: 15em;
         }
 
         .article-content {
-            height: 8.7em;
+            height: 8.5em;
             margin-bottom: 15px;
-        }
-
-        .read-btn {
-            width: 115px;
         }
     }
 }
@@ -180,8 +176,34 @@ $desktop-res: 1200px;
     }
 }
 
+@media screen and (max-width: $phone-res - 1) {
+
+    #cards-wrapper {
+        .article-title {
+            height: 110px;
+        }
+    }
+}
+
 @media screen and (max-width: $phone-res) {
-    .home-small-img-mobile{
+    #cards-wrapper .app-panel {
+        height: 10em;
+        padding: $main-app-offset/2;
+
+        .article-img {
+            margin-right: $main-app-offset/2;
+        }
+    }
+
+    .modal-content {
+        padding: $main-app-offset/2;
+    }
+
+    .hide-modal-btn {
+        right: 1.5em;
+    }
+
+    .home-small-img-mobile {
         width: 90%;
     }
 
@@ -239,18 +261,9 @@ $desktop-res: 1200px;
         padding: $main-app-offset*2;
     }
 
-    .hide-modal-btn {
-        right: $main-app-offset*2;
-    }
-
     .app-btn-blue.cswidth {
         margin-left: 0;
         width: 100%;
-    }
-
-    .form-group.login input[type=email],
-    .form-group.login input[type=password] {
-        height: 50px;
     }
 
     .header {
@@ -311,12 +324,6 @@ $desktop-res: 1200px;
 
     #article-page {
         padding: $main-app-offset/2;
-    }
-
-    #cards-wrapper {
-        .article-title {
-            height: 110px;
-        }
     }
 
     .navbar-nav {

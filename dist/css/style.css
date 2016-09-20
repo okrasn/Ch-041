@@ -102,7 +102,7 @@ p {
   font-weight: 400; }
 
 .main-navbar .navbar {
-  z-index: 10000;
+  z-index: 9999;
   height: 50px;
   background: #3949ab;
   border-radius: 0px;
@@ -263,6 +263,8 @@ li.dropdown > a.dropdown-toggle {
     margin-top: 25px; }
   #feed-head .article-title {
     padding: 0; }
+  #feed-head .dropdown-menu {
+    border-radius: 2px; }
 
 .favicon {
   margin-right: 1em;
@@ -329,8 +331,8 @@ li.dropdown > a.dropdown-toggle {
 .article-img {
   background-size: cover;
   background-position: center center;
-  width: 225px;
-  height: 175px;
+  width: 16em;
+  height: 11em;
   border-radius: 2px 0 0 2px;
   float: left;
   margin: -1em 1em -1em -1em; }
@@ -374,7 +376,7 @@ li.dropdown > a.dropdown-toggle {
   overflow: hidden; }
 
 .app-panel {
-  height: 175px;
+  height: 11em;
   margin: 0;
   padding: 1em;
   background-color: white; }
@@ -509,6 +511,10 @@ ul[dnd-list] .dndPlaceholder {
   width: 100%;
   line-height: 3em;
   border-right: 0em solid; }
+  .sidebar-item a {
+    text-overflow: ellipsis;
+    padding-right: 5em;
+    overflow: hidden; }
   .sidebar-item:hover {
     transition: background 0.2s ease;
     border-right: 0.7em solid #3949ab;
@@ -687,6 +693,8 @@ input.ng-pristine + #strength {
 
 #change-pass-form {
   margin-top: 1em; }
+  #change-pass-form input {
+    border-radius: 2px; }
 
 .point {
   background: #DDD;
@@ -755,6 +763,9 @@ a.pass {
 .divider + span {
   font-weight: bold;
   margin-left: 4px; }
+
+#login input, #register input {
+  border-radius: 2px; }
 
 .cstmform-border-profile-header {
   padding: 0 10% 0; }
@@ -886,19 +897,17 @@ label.error {
   width: 700px; }
 
 .carousel .hide-modal-btn {
-  cursor: pointer;
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  color: white;
-  z-index: 1001;
-  margin: 10px 10px 0 0; }
+  color: white; }
 
 .carousel-indicators li {
   display: none; }
 
 #myCarousel span.glyphicon.glyphicon-chevron-right {
   margin-right: 0; }
+
+.change-theme-img {
+  width: 100%;
+  margin: 0; }
 
 .item {
   cursor: pointer; }
@@ -951,7 +960,7 @@ label.error {
   color: #3949ab;
   font-weight: 500;
   background-color: white;
-  border: 5px solid #3949ab;
+  border: 0.25em solid #3949ab;
   transition: all 0.3s ease; }
 
 .subscribe-btn:hover {
@@ -1519,9 +1528,6 @@ label.error {
 .adviced-article-card {
   margin-bottom: 1em; }
 
-.also-read-header {
-  margin-top: 0; }
-
 #adviced-wrapper {
   margin-bottom: 2em; }
 
@@ -1618,7 +1624,7 @@ label.error {
   height: 50px; }
 
 .adviced-feed-content {
-  height: 49px;
+  height: 3em;
   overflow: hidden; }
 
 .readers-num {
@@ -1644,12 +1650,10 @@ label.error {
 
 @media screen and (max-width: 1600px) and (min-width: 1200px) {
   #cards-wrapper.desktop-grow .app-panel {
-    height: 240px; }
+    height: 15em; }
   #cards-wrapper.desktop-grow .article-content {
-    height: 8.7em;
-    margin-bottom: 15px; }
-  #cards-wrapper.desktop-grow .read-btn {
-    width: 115px; } }
+    height: 8.5em;
+    margin-bottom: 15px; } }
 
 @media screen and (max-width: 992px) {
   .center-children-tablet {
@@ -1729,7 +1733,20 @@ label.error {
   .home-image {
     width: 80%; } }
 
+@media screen and (max-width: 767px) {
+  #cards-wrapper .article-title {
+    height: 110px; } }
+
 @media screen and (max-width: 768px) {
+  #cards-wrapper .app-panel {
+    height: 10em;
+    padding: 0.5em; }
+    #cards-wrapper .app-panel .article-img {
+      margin-right: 0.5em; }
+  .modal-content {
+    padding: 0.5em; }
+  .hide-modal-btn {
+    right: 1.5em; }
   .home-small-img-mobile {
     width: 90%; }
   .home-image {
@@ -1762,14 +1779,9 @@ label.error {
     height: 25%; }
   .carousel > .modal-content {
     padding: 2em; }
-  .hide-modal-btn {
-    right: 2em; }
   .app-btn-blue.cswidth {
     margin-left: 0;
     width: 100%; }
-  .form-group.login input[type=email],
-  .form-group.login input[type=password] {
-    height: 50px; }
   .header {
     font-size: 1.5em; }
   .toaster-window {
@@ -1804,8 +1816,6 @@ label.error {
       font-size: 30px; }
   #article-page {
     padding: 0.5em; }
-  #cards-wrapper .article-title {
-    height: 110px; }
   .navbar-nav {
     margin-right: 0;
     margin-left: 0;

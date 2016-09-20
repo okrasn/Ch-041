@@ -6,10 +6,6 @@
 				</div>
 				<h2 ng-bind="articleForRead.title"></h2>
 				<div class="article-row">
-					<span class="article-page-time-icon glyphicon glyphicon-time"></span>
-					<span class="article-page-date" ng-bind="getArticleDate(articleForRead.date)"></span>
-				</div>
-				<div class="article-row">
 					<div class="img-responsive read-article-img" ng-show="articleForRead.img" ng-style="{'background-image':'url(' + articleForRead.img + ')'}">
 					</div>
 				</div>
@@ -19,6 +15,8 @@
 				<div class="article-row">
 					<span class="article-footer-item glyphicon glyphicon-star onhover-orange pointer" ng-click="addFavourite(articleForRead)" ng-hide="checkIfFavourites(articleForRead)"></span>
 					<span class="article-footer-item fa fa-share-alt onhover-green pointer" ng-click="share(articleForRead)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-left"></span>
+					<span class="article-footer-item article-date" ng-bind="getArticleDate(articleForRead.date)"></span>
+					<span class="article-footer-item article-time-icon glyphicon glyphicon-time"></span>
 				</div>
 				<div class="center-children">
 					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}" target="_blank"><span>Continue reading</span></a>
