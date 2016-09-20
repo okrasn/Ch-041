@@ -10,7 +10,6 @@ var exec = require('child_process').exec,
 	cssmin = require("gulp-cssmin"),
 	rename = require("gulp-rename"),
 	sourcemaps = require('gulp-sourcemaps'),
-	ngHtml2Js = require("gulp-ng-html2js"),
 	ngAnnotate = require('gulp-ng-annotate'),
 	mkdirp = require('mkdirp');
 

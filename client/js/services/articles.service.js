@@ -257,19 +257,21 @@
 							xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml"),
 							items = [];
 						if (feed.format === "RSS") {
-							items = xmlDoc.getElementsByTagName('item');
-							for (var i = 0; i < items.length; i++) {
-								var articleObj = {
-									title: items[i].getElementsByTagName('title')[0].innerHTML
-										.replaceAll("apos;", '\'')
-										.replaceAll("&apos;", '\'')
-										.replaceAll("&amp;", '')
-										.replaceAll("&#8217;", 'bb'),
-									link: items[i].getElementsByTagName('link')[0].textContent,
-									img: getImage(items[i], feed.format),
-									content: getContent(items[i], feed.format),
-									feed: feed._id
-								};
+						    items = xmlDoc.getElementsByTagName('item');
+						    for (var i = 0; i < items.length; i++) {
+						        var articleObj = {
+						            title: items[i].getElementsByTagName('title')[0].innerHTML,
+						            link: items[i].getElementsByTagName('link')[0].textContent,
+						            img: getImage(items[i], feed.format),
+						            content: getContent(items[i], feed.format),
+						            feed: feed._id
+						        };
+						        if (articleObj.title) {
+						            articleObj.title.replaceAll("apos;", '\'')
+													.replaceAll("&apos;", '\'')
+													.replaceAll("&amp;", '')
+													.replaceAll("&#8217;", 'bb');
+						        }
 								if (items[i].getElementsByTagName('pubDate')[0]) {
 									articleObj.date = Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent);
 								}
