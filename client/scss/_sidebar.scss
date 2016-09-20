@@ -153,7 +153,13 @@ ul[dnd-list] .dndPlaceholder {
 
     a {
         text-overflow: ellipsis;
-        padding-right: 5em;
+        padding-right: 4em;
+        overflow: hidden;
+    }
+
+    .fav-dropdown {
+        padding: 0;
+        text-overflow: ellipsis;
         overflow: hidden;
     }
 

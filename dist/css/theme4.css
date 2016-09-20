@@ -67,13 +67,15 @@
 	background-color: #c1c1c1;
 }
 
-#sidebar .selected,
 #dashboard #sidebar li:hover,
 .sidebar-item:hover {
 	border-right: 0.7em solid #060606;
 	background-color: #504f54;
 }
 
+#sidebar .selected{
+	background-color: white;
+}
 .chevron-down > span.glyphicon.glyphicon-chevron-right,
 label.error,
 #profile .msg-error {

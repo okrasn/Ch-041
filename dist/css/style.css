@@ -513,7 +513,11 @@ ul[dnd-list] .dndPlaceholder {
   border-right: 0em solid; }
   .sidebar-item a {
     text-overflow: ellipsis;
-    padding-right: 5em;
+    padding-right: 4em;
+    overflow: hidden; }
+  .sidebar-item .fav-dropdown {
+    padding: 0;
+    text-overflow: ellipsis;
     overflow: hidden; }
   .sidebar-item:hover {
     transition: background 0.2s ease;
@@ -954,21 +958,20 @@ label.error {
     background-color: #3949ab; }
 
 .subscribe-btn {
-  height: 40px;
-  width: 40px;
-  border-radius: 8px;
-  color: #3949ab;
+  height: 3em;
+  width: 3em;
+  border: none;
+  border-radius: 2px;
+  color: white;
   font-weight: 500;
-  background-color: white;
-  border: 0.25em solid #3949ab;
+  background-color: #3949ab;
   transition: all 0.3s ease; }
 
 .subscribe-btn:hover {
   color: white;
   background-color: #33c23e;
   border: none;
-  transition: all 0.3s ease;
-  border: 5px solid #33c23e; }
+  transition: all 0.3s ease; }
 
 .app-btn-red {
   color: white;
