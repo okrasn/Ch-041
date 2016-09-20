@@ -1,4 +1,4 @@
-﻿$phone-res: 768px;
+﻿$phone-res: 767px;
 $tablet-res: 992px;
 $desktop-res: 1200px;
 
@@ -331,4 +331,12 @@ $desktop-res: 1200px;
 		width: 360px;
 		height: 280px;
 	}
+
+	.change-pass:nth-child(1),.change-pass:nth-child(2) {
+	height: 85px;
+}
+
+.change-pass:nth-child(3) {
+	height: 110px;
+}
 }

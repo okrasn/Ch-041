@@ -164,7 +164,7 @@
 	 color: #d1d1d4;
  }
  
- #dashboard {
+ #dashboard,.adviced-feed-title>a,.shortened-text.strong-text,.shortened-text.list-item, #article-page h2 {
 	 color: #ff9d00;
  }
  
@@ -176,3 +176,18 @@
  body {
 	 background-color: #303032;
  }
+
+ textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus {   
+  border-color: #ff9d00;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ff9d00;
+  outline: 0 none;
+}
+
+.mobile-email-text {
+	color: #d1d1d4;
+	}

@@ -105,6 +105,7 @@
 
 			$scope.resetPass = function () {
 				angular.element('label.error').remove();
+				angular.element('span.msg-error').addClass('error-hidden');
 			};
 			
             $scope.changePassValidation = {
