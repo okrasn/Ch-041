@@ -678,6 +678,9 @@ a.pass {
   font-weight: bold;
   margin-left: 4px; }
 
+.terms-container {
+  padding: 20px; }
+
 .cstmform-border-profile-header {
   padding: 0 10% 0; }
 
@@ -1039,6 +1042,10 @@ a.sharing-btn {
 .soc-btn {
   width: 145px;
   margin: 5px 5px 5px 0px; }
+
+.terms-btn {
+  font-weight: 400;
+  font-size: 16px; }
 
 .toaster-window {
   border-radius: 2px;
