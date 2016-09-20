@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 	Feed = mongoose.model('Feed'),
 	User = mongoose.model('User'),
 	config = require('../config/config'),
+	googleAuth = require('../controllers/googleAuth'),
 	authCtrl = require('../controllers/authentication'),
 	articlesCtrl = require('../controllers/articles'),
 	feedsCtrl = require('../controllers/feeds'),
@@ -20,7 +21,7 @@ router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
 //Auth
 router.post('/users/:user/changeColorTheme', profCtrl.changeColorTheme);
-router.post('/auth/google', authCtrl.googleAuth);
+router.post('/auth/google', googleAuth.googleAuth);
 router.post('/auth/facebook', authCtrl.facebookAuth);
 router.post('/auth/twitter', authCtrl.twitterAuth);
 router.post('/auth/linkedin', authCtrl.linkedIdAuth);
