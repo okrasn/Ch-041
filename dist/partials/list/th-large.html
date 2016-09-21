@@ -4,14 +4,17 @@
 		<div class="app-panel fade-in-anim">
 			<div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
 			</div>
-			<div class="img-responsive article-img" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
+			<div class="img-responsive article-img hidden-lg pointer" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}" ng-click="readArticle(article)">
+			</div>
+			<div class="img-responsive article-img hidden-xs hidden-sm hidden-md" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}">
 			</div>
 			<div class="content">
 				<div class="article-title">
-					<div class="shortened-text list-item" ng-click="readArticle(article)"><img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span></div>
+					<div class="list-item" ng-click="readArticle(article)"><img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span></div>
 				</div>
 				<div class="article-content hidden-xs">
-					<span ng-bind="article.content"></span>
+					<span class="hidden-lg pointer" ng-bind="article.content" ng-click="readArticle(article)"></span>
+					<span class="hidden-xs hidden-sm hidden-md" ng-bind="article.content"></span>
 				</div>
 				<div class="footer">
 					<span class="my-hidden">

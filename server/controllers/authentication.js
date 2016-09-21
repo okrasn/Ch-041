@@ -1,28 +1,28 @@
 var passport = require('passport'),
     mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    moment = require('moment'),
-    jwt = require('jwt-simple'),
-    config = require('../config/config'),
-    request = require('request'),
-    qs = require('querystring'),
-    nev = require('email-verification')(mongoose),
-    async = require('async'),
-    crypto = require('crypto'),
-    randomtoken = require('rand-token'),
-    bcrypt = require('bcryptjs'),
-    flash = require('express-flash'),
-    path = require('path'),
-    nodemailer = require('nodemailer'),
-    emailToken, mailOptions, host, link, userEmail,
-    smtpTransport = nodemailer.createTransport("SMTP", {
-        service: "Gmail",
-        auth: {
-            user: 'rss.reader.app.ch.041@gmail.com',
-            pass: 'rssreader'
-        }
-    }),
-    arrayOfEmails = [],
+	User = mongoose.model('User'),
+	moment = require('moment'),
+	jwt = require('jwt-simple'),
+	config = require('../config/config'),
+	request = require('request'),
+	qs = require('querystring'),
+	nev = require('email-verification')(mongoose),
+	async = require('async'),
+	crypto = require('crypto'),
+	randomtoken = require('rand-token'),
+	bcrypt = require('bcryptjs'),
+	flash = require('express-flash'),
+	path = require('path'),
+	nodemailer = require('nodemailer'),
+	emailToken, mailOptions, host, link, userEmail,
+	smtpTransport = nodemailer.createTransport("SMTP",{
+	service: "Gmail",
+		auth: {
+			user: 'rss.reader.app.ch.041@gmail.com',
+			pass: 'rssreader'
+		}
+	}),
+	arrayOfEmails = [],
 
     ERRORS = {
         fill_out_fields: 'Please fill out all fields',
@@ -49,116 +49,116 @@ function createJWT(user) {
     return jwt.encode(payload, config.TOKEN_SECRET);
 }
 
-module.exports.register = function(req, res) {
-    var passAccepted = false;
+module.exports.register = function (req, res) {
+	var passAccepted = false;
 
-    if (req.body.verifyEmail) {
-        req.body.repPassword = req.body.password;
-    }
+	if(req.body.verifyEmail){
+		req.body.repPassword = req.body.password;
+	}
 
-    if (!req.body.email || !req.body.password || !req.body.repPassword) {
-        return res.status(400).json({
-            message: ERRORS.fill_out_fields
-        });
-    }
-    if (req.body.password !== req.body.repPassword) {
-        return res.status(400).json({
-            message: ERRORS.pass_not_match
-        });
-    }
-    if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/.test(req.body.password)) {
-        passAccepted = true;
-    } else {
-        return res.status(400).json({
-            message: ERRORS.pass_not_match
-        });
-    }
-    if (passAccepted) {
+	if (!req.body.email || !req.body.password || !req.body.repPassword) {
+		return res.status(400).json({
+			message: ERRORS.fill_out_fields
+		});
+	}
+	if (req.body.password !== req.body.repPassword) {
+		return res.status(400).json({
+			message: ERRORS.pass_not_match
+		});
+	}
+	if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/.test(req.body.password)) {
+		passAccepted = true;
+	}
+	else {
+		return res.status(400).json({
+			message: ERRORS.pass_not_match
+		});
+	}
+	if (passAccepted) {
+		
+		User.findOne({email: req.body.email}, function (err, existingUser) {
+				
+				if (!req.body.verifyEmail && req.body.counter === 0) {
+					userEmail = req.body.email;
+					emailToken = randomtoken.generate(16);
+					host = req.get('host');
+					link = "http://" + req.get('host') + "/#/verify/" + emailToken +"/" + userEmail;
+					mailOptions = {
+						to : req.body.email,
+						subject : "Please confirm your Email account",
+						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email <strong>" + userEmail + "</strong>.<br>"	
+					}
 
-        User.findOne({ email: req.body.email }, function(err, existingUser) {
-
-            if (!req.body.verifyEmail && req.body.counter === 0) {
-                userEmail = req.body.email;
-                emailToken = randomtoken.generate(16);
-                host = req.get('host');
-                link = "http://" + req.get('host') + "/#/verify/" + emailToken + "/" + userEmail;
-                mailOptions = {
-                    to: req.body.email,
-                    subject: "Please confirm your Email account",
-                    html: "Hello,<br> Please Click on the link to verify your email <strong>" + userEmail + "</strong>.<br><a href=" + link + ">Click here to verify</a>"
-                }
-                console.log(mailOptions);
-
-                var user = new User({
-                    emailVerification: false,
-                    email: req.body.email,
-                    displayName: req.body.displayName,
-                    password: req.body.password,
-                    tempPassword: req.body.password,
-                    emailToken: emailToken
-                });
+					var user = new User({
+						emailVerification: false,
+						email : req.body.email,
+						displayName: req.body.displayName,
+						password: req.body.password,
+						tempPassword: req.body.password,
+						emailToken: emailToken
+					});
 
 
-                if (req.body.email !== arrayOfEmails[0]) {
-                    smtpTransport.sendMail(mailOptions, function(error, response) {
-                        if (error) {
-                            console.log(error);
-                            res.end("error");
-                        } else {
-                            console.log("Message sent: " + response.message);
-                            arrayOfEmails.push(req.body.email);
-                            res.end("sent");
-                        }
-                    });
-                }
-                user.save(function(err, result) {
-                    if (err) {
-                        return res.status(409).send({
-                            message: 'Email is already taken'
-                        });
-                    }
-                    return res.status(400).json({
-                        message: ERRORS.email_verification,
-                        user: user
-                    });
-                });
-            }
+					if(req.body.email !== arrayOfEmails[0]){
+						smtpTransport.sendMail(mailOptions, function(error, response){
+							if(error){
+								console.log(error);
+								res.end("error");
+							} else {
+								console.log("Message sent: " + response.message);
+								arrayOfEmails.push(req.body.email);
+								res.end("sent");
+							}
+						});
+					}	
+					user.save(function (err, result) {
+						if (err) {
+							return res.status(409).send({
+								message: 'Email is already taken'
+							});
+						}
+						return res.status(400).json({
+							message: ERRORS.email_verification,
+							user : user
+						});
+					});
+				}
+				
+				if(existingUser && !req.body.verifyEmail && req.body.counter !== 0){
+					return res.status(400).json({
+						message : 'Please check your email to continue registration'
+					});
+				}
+				if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
+					return res.status(409).json({
+						message: 'Email is already taken'
+					});
+				}
 
-            if (existingUser && !req.body.verifyEmail && req.body.counter !== 0) {
-                return res.status(400).json({
-                    message: 'Please check your email to continue registration'
-                });
-            }
-            if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin)) {
-                return res.status(409).json({
-                    message: 'Email is already taken'
-                });
-            }
-
-            if (existingUser && !existingUser.verifiedUser && req.body.verifyEmail) {
-                existingUser.emailVerification = true;
-                existingUser.verifiedUser = true;
-                existingUser.date_of_signup = new Date();
-                if ((req.body.password === existingUser.tempPassword) && (existingUser.emailToken === req.body.verifyEmail)) {
-                    existingUser.tempPassword = '';
-                    existingUser.save(function(err, result) {
-                        if (err) {
-                            res.status(500).json({
-                                message: err.message
-                            });
-                        }
-                        res.send({
-                            token: createJWT(result)
-                        });
-                    });
-                } else {
-                    res.status(400).json({
-                        message: ERRORS.pass_or_token_not_match
-                    });
-                }
-            }
-        });
-    }
+				if (existingUser && !existingUser.verifiedUser && req.body.verifyEmail) {
+					existingUser.emailVerification = true;
+					existingUser.verifiedUser = true;
+					existingUser.date_of_signup = new Date();
+					if( (req.body.password === existingUser.tempPassword)  && (existingUser.emailToken === req.body.verifyEmail)){
+						existingUser.tempPassword = '';	
+						existingUser.save(function (err, result) {
+							if (err) {
+								res.status(500).json({
+									message: err.message
+								});
+							}
+							res.send({
+								token: createJWT(result)
+							});
+						});	
+					} else {
+						res.status(400).json({
+							message : ERRORS.pass_or_token_not_match
+						});
+					}
+				}
+		});
+	}
 };
 
 module.exports.login = function(req, res) {
@@ -191,55 +191,55 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.forgotPass = function(req, res) {
+
     async.waterfall([
-        function(done) {
-            crypto.randomBytes(10, function(err, buf) {
-                var token = buf.toString('hex');
-                done(err, token);
-            });
-        },
-        function(token, done) {
-            User.findOne({ email: req.body.email }, function(err, user) {
-                if (!user) {
-                    return res.status(404).send({
-                        message: ERRORS.email_not_found
-                    });
-                }
-                user.resetPasswordToken = token;
-                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+		function(done) {
+			crypto.randomBytes(10, function(err, buf) {
+				var token = buf.toString('hex');
+				done(err, token);
+			});
+		},
+	function(token, done) { 
+			User.findOne({email: req.body.email }, function(err, user) {
+				if(!user){
+					return res.status(404).send({
+						message: ERRORS.email_not_found
+					});
+				}
+			user.resetPasswordToken = token;
+			user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-                user.save(function(err) {
-                    done(err, token, user);
-                });
-            });
-        },
-        function(token, user, done) {
-            var smtpTransport = nodemailer.createTransport('SMTP', {
-                service: 'Gmail',
-                auth: {
-                    user: 'rss.reader.app.ch.041@gmail.com',
-                    pass: 'rssreader'
-                }
-            });
-            var mailOptions = {
-                to: user.email,
-                from: 'passwordreset@demo.com',
-                subject: 'Node.js Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                    'http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '\n\n' +
-                    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-            };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                done(err, 'done');
-            });
-        }
-    ], function(err) {
-        if (err) return next(err);
-        res.status(200);
-        return res.redirect('/#/forgot');
-    });
-
+			user.save(function(err) {
+				done(err, token, user);
+			});
+			});
+	},
+	function(token, user, done) {
+		var smtpTransport = nodemailer.createTransport('SMTP', {
+			service: 'Gmail',
+			auth: {
+				user: 'rss.reader.app.ch.041@gmail.com',
+				pass: 'rssreader'
+			}
+		});
+		var mailOptions = {
+			to: user.email,
+			from: 'passwordreset@demo.com',
+			subject: 'Node.js Password Reset',
+			html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+			  '<a href="http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '">http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '</a>\n\n' +
+			  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+		};
+		smtpTransport.sendMail(mailOptions, function(err) {
+			done(err, 'done');
+		});
+	}
+	], function(err) {
+		if (err) return next(err);
+			res.status(200);
+			return res.redirect('/#/forgot');
+	});
 };
 
 module.exports.reset = function(req, res) {
@@ -249,54 +249,53 @@ module.exports.reset = function(req, res) {
 }
 
 module.exports.resetPost = function(req, res) {
-    var passRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/;
-    async.waterfall([
-        function(done) {
-            User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-                if (req.body.pas !== req.body.confirm) {
-                    return res.status(400).send({
-                        message: ERRORS.pass_not_match
-                    })
-                }
-                if (passRequirements.test(req.body.pas)) {
-                    user.password = req.body.pas;
-                    user.resetPasswordToken = undefined;
-                    user.resetPasswordExpires = undefined;
 
-                    user.save(function(err) {
-                        req.logIn(user, function(err) {
-                            done(err, user);
-                        });
-                    });
-                } else {
-                    return res.status(400).json({
-                        message: ERRORS.pass_not_match
-                    });
-                }
-            });
-        },
-        function(user, done) {
-            var smtpTransport = nodemailer.createTransport('SMTP', {
-                service: 'Gmail',
-                auth: {
-                    user: 'rss.reader.app.ch.041@gmail.com',
-                    pass: 'rssreader'
-                }
-            });
-            var mailOptions = {
-                to: user.email,
-                from: 'rss.reader.app.ch.041@gmail.com',
-                subject: 'Your password has been changed',
-                text: 'Hello,\n\n' +
-                    'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-            };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                done(err);
-            });
-        }
-    ], function(err) {
-        res.redirect('/#/home');
-    });
+    var passRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/;
+	async.waterfall([
+		function(done) {
+			User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+				if(req.body.pas !== req.body.confirm){
+					return res.status(400).send({
+						message: ERRORS.pass_not_match
+					})	
+				}
+				if (passRequirements.test(req.body.pas)) {
+					user.password = req.body.pas;
+					user.resetPasswordToken = undefined;
+					user.resetPasswordExpires = undefined;
+
+					user.save(function(err) {
+						done(err, user);
+					});
+				} else {
+					return res.status(400).json({
+						message: ERRORS.pass_not_match
+					});
+				}
+			});
+		},
+		function(user, done) {
+			var smtpTransport = nodemailer.createTransport('SMTP', {
+			service: 'Gmail',
+				auth: {
+					user: 'rss.reader.app.ch.041@gmail.com',
+					pass: 'rssreader'
+				}
+			});
+			var mailOptions = {
+				to: user.email,
+				from: 'rss.reader.app.ch.041@gmail.com',
+				subject: 'Your password has been changed',
+				text: 'Hello,\n\n' +
+				'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+			};
+			smtpTransport.sendMail(mailOptions, function(err) {
+				done(err);
+			});
+		}
+	], function(err) {
+		res.redirect('/#/home');
+	});
 };
 
 module.exports.getUserInfo = function(req, res) {
@@ -712,13 +711,11 @@ module.exports.changePassword = function(req, res) {
         } else {
             user.comparePassword(req.body.currentPass, function(err, isMatch) {
                 if (!isMatch) {
-                    console.log("error");
                     return res.status(401).send({
                         pwd: user.password,
                         message: ERRORS.pass_incorrect
                     });
                 } else {
-                    console.log("done");
                     user.password = req.body.newPass;
                     user.save(function(err) {
                         if (err) {

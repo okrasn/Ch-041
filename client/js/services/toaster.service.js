@@ -75,7 +75,7 @@
 				message: message,
 				type: 'toaster-info',
 				iconClass: 'fa fa-info',
-				delay: 5000
+				delay: 3000
 			},
 			options;
 			if (typeof arguments[1] === 'object') {
@@ -91,7 +91,7 @@
 				message: message,
 				type: 'toaster-error',
 				iconClass: 'fa fa-exclamation-triangle',
-				delay: 3000
+				delay: 5000
 			},
 			options;
 			if (typeof arguments[1] === 'object') {

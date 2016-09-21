@@ -36,16 +36,14 @@ module.exports = function (config) {
 			'./client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
-			"./client/js/app.js",
-			"./client/js/tests/registerNewUser.spec.js",
-
-			"./client/js/tests/profileController.spec.js",
-			"./client/js/tests/resetPassword.spec.js",
-			"./client/js/tests/emailApproving.spec.js",
-
-			"./client/js/tests/dashboard.service.spec.js",
-			"./client/js/tests/feeds.service.spec.js",
-			"./client/js/tests/articles.service.spec.js"
+			"./client/js/app.min.js",
+			"./client/tests/unit/registerNewUser.spec.js",
+			"./client/tests/unit/profileController.spec.js",
+			"./client/tests/unit/resetPassword.spec.js", 
+			"./client/tests/unit/emailApproving.spec.js",
+			"./client/tests/unit/dashboard.service.spec.js",
+			"./client/tests/unit/feeds.service.spec.js",
+			"./client/tests/unit/articles.service.spec.js"
 		],
 
 		// list of files to exclude
@@ -64,7 +62,7 @@ module.exports = function (config) {
 		reporters: ['spec', 'coverage'],
 		coverageReporter: {
 			type : 'html',
-			dir : 'client/coverage'
+			dir : 'tests/coverage'
 		},
 
 		// web server port
@@ -93,6 +91,7 @@ module.exports = function (config) {
 		singleRun: false,
 		plugins: [
 			'karma-chrome-launcher',
+			'karma-firefox-launcher',
 			'karma-jasmine', 
 			'karma-spec-reporter', 
 			'karma-coverage'

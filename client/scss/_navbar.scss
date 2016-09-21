@@ -4,7 +4,7 @@
 }
 
 .main-navbar .navbar {
-	z-index: 10000;
+	z-index: $navbar-zindex;
 	height: $navbar-height;
 	background: $navbar-color;
 	border-radius: 0px;
