@@ -164,7 +164,7 @@
 	 color: #d1d1d4;
  }
  
- #dashboard,.adviced-feed-title>a,.shortened-text.strong-text,.shortened-text.list-item, #article-page h2 {
+ #dashboard,.adviced-feed-title>a,.shortened-text.strong-text,.list-item, #article-page h2 {
 	 color: #ff9d00;
  }
  
@@ -188,6 +188,6 @@ input[type="search"]:focus {
   outline: 0 none;
 }
 
-.mobile-email-text {
+.mobile-email-text,.shortened-text {
 	color: #d1d1d4;
 	}
