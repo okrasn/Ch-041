@@ -17,10 +17,6 @@
 		$scope.addingNewFavCategory = false;
 		$window.scrollTo(0, 0);
 
-		articlesService.getAllArticles().then(function () {
-		    $state.go("dashboard." + dashboardService.getViewMode());
-		});		
-
 		if ($stateParams.feed && $stateParams.link) {
 			dashboardService.isReadingArticle = true;
 			articlesService.setReadArticle($scope, $stateParams.feed, $stateParams.link);
@@ -28,7 +24,12 @@
 		else {
 			dashboardService.isReadingArticle = false;
 			if (feedsService.feedsDictionary.length < 1 && !$scope.isFavourites()) {
-				$state.go("dashboard.addFeed");
+			    $state.go("dashboard.addFeed");
+			}
+			else {
+			    articlesService.getAllArticles().then(function () {
+			        $state.go("dashboard." + dashboardService.getViewMode());
+			    });
 			}
 		}
 
