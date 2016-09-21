@@ -59,7 +59,6 @@ module.exports.googleAuth = function (req, res) {
 						user.displayName = user.displayName || profile.name;
 						user.save(function () {
 							var token = createJWT(user);
-							console.log('google: ' + token);
 							res.send({
 								token: token
 							});
@@ -84,7 +83,6 @@ module.exports.googleAuth = function (req, res) {
 					user.displayName = profile.name;
 					user.save(function (err) {
 						var token = createJWT(user);
-						console.log(token + 'server');
 						res.send({
 							token: token,
 							profile: profile,

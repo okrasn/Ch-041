@@ -16,6 +16,7 @@ angular.module('rssreader')
 		}
 		function setString (data) {
 			str = data;
+			str
 		}
 		function getString () {
 			return str;

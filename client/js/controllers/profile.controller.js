@@ -85,7 +85,6 @@
 
 			$scope.changePass = function (form) {
 				if (form.validate()) {
-					console.log("Submit change password");
 					return $http.post('/changePassword', $scope.newUserData, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
@@ -98,7 +97,6 @@
 						});
 					}).error(function (err) {
 						$scope.err = err;
-						console.log(err.message);
 					});
 				}
 			};
@@ -147,7 +145,6 @@
 
 			$scope.updateTheme = function(layout) {
 				themeService.changeTheme(layout.url).error(function(error) {
-					console.log("theme not changed" + error);
 				}).then(function(response) {
 					profileService.getProfile();
 				});

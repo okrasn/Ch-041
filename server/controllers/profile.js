@@ -40,7 +40,6 @@ module.exports.upload = function(req, res) {
 };
 
 module.exports.changeColorTheme = function(req, res) {
-	console.log(req.body.colorTheme);
 	req.user.colorTheme = req.body.colorTheme;
 	req.user.save(function(err, user) {
 		if (err) {         

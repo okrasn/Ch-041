@@ -49,7 +49,7 @@ function createJWT(user) {
 
 function createEmailJWT (email) {
 	var payload = {
-		verifEmail: email.email,
+		verifEmail: email,
 		iat: moment().unix(),
 		exp: moment().add(1, 'hours').unix()
 	};
@@ -87,7 +87,7 @@ module.exports.register = function (req, res) {
 				
 				if (!req.body.verifyEmail && req.body.counter === 0) {
 					userEmail = req.body.email;
-					emailToken = createEmailJWT(userEmail);
+					emailToken = createEmailJWT(req.body.email);
 					host = req.get('host');
 					link = "http://" + req.get('host') + "/#/verify/" + emailToken;
 					mailOptions = {
@@ -95,7 +95,6 @@ module.exports.register = function (req, res) {
 						subject : "Please confirm your Email account",
 						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email.<br>"	
 					}
-					console.log(mailOptions);
 
 					var user = new User({
 						emailVerification: false,
@@ -106,14 +105,11 @@ module.exports.register = function (req, res) {
 						emailToken: emailToken
 					});
 
-
 					if(req.body.email !== arrayOfEmails[0]){
 						smtpTransport.sendMail(mailOptions, function(error, response){
 							if(error){
-								console.log(error);
 								res.end("error");
 							} else {
-								console.log("Message sent: " + response.message);
 								arrayOfEmails.push(req.body.email);
 								res.end("sent");
 							}
@@ -201,10 +197,8 @@ module.exports.login = function (req, res) {
 module.exports.forgotPass = function(req, res) {
 	async.waterfall([
 		function(done) {
-			crypto.randomBytes(10, function(err, buf) {
-				var token = buf.toString('hex');
-				done(err, token);
-			});
+			var token = createEmailJWT(req.body.email);
+			done(null, token);
 		},
 	function(token, done) { 
 			User.findOne({email: req.body.email }, function(err, user) {
@@ -235,7 +229,7 @@ module.exports.forgotPass = function(req, res) {
 			subject: 'Node.js Password Reset',
 			html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 			  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-			  '<a href="http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '">http://' + req.headers.host + '/#/reset/' + token + '/' + user.email + '</a>\n\n' +
+			  '<a href="http://' + req.headers.host + '/#/reset/' + token +  '">http://' + req.headers.host + '/#/reset/' + token + '</a>\n\n' +
 			  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 		};
 		smtpTransport.sendMail(mailOptions, function(err) {
@@ -252,7 +246,7 @@ module.exports.forgotPass = function(req, res) {
 
 module.exports.reset = function(req, res) {
 	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-		res.redirect('/#/reset/'+ req.params.token + '/' + req.params.user.email);
+		res.redirect('/#/reset/'+ req.params.token);
 	});
 }
 

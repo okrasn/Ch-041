@@ -15,9 +15,9 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			counter : 0
 		};
 		transfer.setString("");
-		// $scope.setEmail = function () {
-		// 	return transfer.getEmail();
-		// }
+		$scope.setEmail = function () {
+			return transfer.getEmail().verifEmail;
+		}
 		$scope.password = {
 			token : transfer.getObj(),
 			email : transfer.getEmail()
@@ -39,7 +39,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			if (form.validate()) {
 				dashboardService.loadingIcon = true;
 				if($scope.user.verifyEmail){
-					$scope.user.email = transfer.getEmail();
+					$scope.user.email = transfer.getEmail().verifEmail;
 				}
 				authService.register($scope.user).error(function (error) {
 					$scope.error = error;
