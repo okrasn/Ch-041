@@ -22,6 +22,14 @@
 			}
 		}
 
+		$scope.getFirstArticle = function (id) {
+		    for (var i = 0, array = articlesService.articles; i < array.length; i++) {
+		        if (array[i].feed == id) {
+		            return array[i];
+		        }
+		    }
+		}
+
 		$scope.IgnoreDoubleClick = function () {
 		    return false;
 		}
@@ -137,6 +145,10 @@
 				}
 					break;
 			}
+		}
+		$scope.readArticle = function (article) {
+		    dashboardService.displayLoading();
+		    $state.go("dashboard.article", { feed: article.feed, link: article.link });
 		}
 	}]);
 })();

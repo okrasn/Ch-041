@@ -61,6 +61,17 @@
 	}
 }
 
+.navbar-mobile-btn{
+	height: 100%;
+	position: absolute;
+	margin-top: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	margin-left: 1em;
+	background-color: transparent;
+	border-color: transparent;
+}
+
 .navbar-nav > .user-menu > .dropdown-toggle {
 	background: #3949ab;
 
@@ -166,4 +177,8 @@ li.dropdown > a.dropdown-toggle {
 
 .sidebar-icon{
 	height: 18px;
+}
+
+#menu-toggle{
+	right: 0;
 }

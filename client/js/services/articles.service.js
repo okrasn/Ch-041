@@ -3,15 +3,15 @@
 	String.prototype.replaceAll = function (target, replacement) {
 		return this.split(target).join(replacement);
 	};
-	angular.module('rssreader').factory('articlesService', ['$http', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $state, $q, authService, $timeout, dashboardService, feedsService) {
+	angular.module('rssreader').factory('articlesService', ['$http', '$rootScope', '$state', '$q', 'authService', '$timeout', 'dashboardService', 'feedsService', function ($http, $rootScope, $state, $q, authService, $timeout, dashboardService, feedsService) {
 		var ARTICLES_NUM = 50,
 			loadDelay = 350,
 			temp_articles = [],
 			defer = $q.defer(),
 			promises = [],
 			obj = {
-			    articles: [],
-			    advicedArticles: [],
+				articles: [],
+				advicedArticles: [],
 				articleForRead: null,
 				isFavourites: false,
 				displayedIncrement: 20,
@@ -36,7 +36,6 @@
 									$scope.articleForRead = temp_articles[i];
 								}
 							}
-							dashboardService.hideLoading();
 							if (!$scope.articleForRead) {
 								dashboardService.displayLoading();
 								obj.resetArticles();
@@ -54,6 +53,7 @@
 								}
 								else $state.go("dashboard." + dashboardService.getViewMode());
 							}
+							dashboardService.hideLoading();
 						});
 					}).catch(function (err) {
 						obj.resetArticles();
@@ -87,14 +87,14 @@
 						dashboardService.hideLoading();
 					});
 				},
-				getArticlesByFeed: function (feed) {
-				    obj.resetArticles();
-				    dashboardService.readSingleFeed.state = true;
-				    dashboardService.setSortParam('date', 1);
+				getArticlesByFeed: function (feed, num) {
+					obj.resetArticles();
+					dashboardService.readSingleFeed.state = true;
+					dashboardService.setSortParam('date', 1);
 					dashboardService.setTitle(feed.title);
 					dashboardService.setFeedId(feed);
-					return fetchArticles(feed).then(function () {
-					    obj.articles = temp_articles;
+					return fetchArticles(feed, num).then(function () {
+						obj.articles = temp_articles;
 						dashboardService.hideLoading();
 					});
 				},
@@ -113,37 +113,51 @@
 						dashboardService.hideLoading();
 					});
 				},
+				getAdvicedArticlesByCat: function (cat) {
+				    obj.resetArticles();
+					angular.forEach(feedsService.advicedDictionary, function (value, key) {
+						if (value.category === cat) {
+							angular.forEach(value.feeds, function (value, key) {
+								promises.push(fetchArticles(value, 1));
+							});
+						}
+					});
+					return $q.all(promises).then(function () {
+						obj.articles = temp_articles;
+						dashboardService.hideLoading();
+					});
+				},
 				getFavourites: function () {
-				    return $timeout(function () {
-					    obj.resetArticles();
-					    obj.isFavourites = true;
-					    dashboardService.setTitle("Favourites");
-					    angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						    angular.forEach(value.articles, function (value, key) {
-							    obj.articles.push(value);
-						    });
-					    });
-					    dashboardService.hideLoading();
-				    }, loadDelay);
+					return $timeout(function () {
+						obj.resetArticles();
+						obj.isFavourites = true;
+						dashboardService.setTitle("Favourites");
+						angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+							angular.forEach(value.articles, function (value, key) {
+								obj.articles.push(value);
+							});
+						});
+						dashboardService.hideLoading();
+					}, loadDelay);
 				},
 				getFavArticlesByCat: function (cat) {
-				    return $timeout(function () {
-					    obj.resetArticles();
-					    obj.isFavourites = true;
-					    dashboardService.setTitle("Favourites: " + cat);
-					    angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-						    if (value.category === cat) {
-							    angular.forEach(value.articles, function (value, key) {
-								    obj.articles.push(value);
-							    });
-						    }
-					    });
-					    dashboardService.hideLoading();
-				    }, loadDelay);
+					return $timeout(function () {
+						obj.resetArticles();
+						obj.isFavourites = true;
+						dashboardService.setTitle("Favourites: " + cat);
+						angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+							if (value.category === cat) {
+								angular.forEach(value.articles, function (value, key) {
+									obj.articles.push(value);
+								});
+							}
+						});
+						dashboardService.hideLoading();
+					}, loadDelay);
 				},
 				getFavArticle: function (article) {
-				    obj.resetArticles();
-				    dashboardService.hideSortList.state = true;
+					obj.resetArticles();
+					dashboardService.hideSortList.state = true;
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
 					obj.articles.push(article);
@@ -171,20 +185,32 @@
 					});
 				},
 				getAdvicedArticles: function () {
-				    obj.advicedArticles.length = 0;
-				    return $http.get('/users/' + authService.userID() + "/advicedArticles", {
-				        headers: {
-				            Authorization: 'Bearer ' + authService.getToken()
-				        }
-				    }).then(function (res) {
-				        angular.copy(res.data, obj.advicedArticles);
-				    }, function (err) {
-				        console.log(err);
-				    });
+					obj.advicedArticles.length = 0;
+					return $http.get('/users/' + authService.userID() + "/advicedArticles", {
+						headers: {
+							Authorization: 'Bearer ' + authService.getToken()
+						}
+					}).then(function (res) {
+						angular.copy(res.data, obj.advicedArticles);
+					}, function (err) {
+						console.log(err);
+					});
+				},
+				getAdvicedFeedsArticles: function () {
+					obj.advicedArticles.length = 0;
+					return $http.get('/users/' + authService.userID() + "/advicedArticles", {
+						headers: {
+							Authorization: 'Bearer ' + authService.getToken()
+						}
+					}).then(function (res) {
+						angular.copy(res.data, obj.advicedArticles);
+					}, function (err) {
+						console.log(err);
+					});
 				},
 				resetArticles: function () {
-				    dashboardService.hideSortList.state = false;
-				    dashboardService.readSingleFeed.state = false;
+					dashboardService.hideSortList.state = false;
+					dashboardService.readSingleFeed.state = false;
 					this.totalDisplayed = this.displayedIncrement;
 					dashboardService.displayLoading();
 					temp_articles.length = 0;
@@ -242,36 +268,46 @@
 					} catch (err) {
 					}
 				} else if (format === "ATOM") {
-				    content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
+					content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
 
 				}
 				if (typeof content !== 'string') {
-				    return "";
+					return "";
 				}
 				else return content.toString();
 			},
-			fetchArticles = function (feed) {
-				return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + ARTICLES_NUM + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml")
+			fetchArticles = function (feed, num, from) {
+				var articlesNum = ARTICLES_NUM;
+				if (num) {
+					articlesNum = num;
+				}
+				if (!from || from > num - 1) {
+					from = 0;
+				}
+				return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articlesNum + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml")
 					.then(function (response) {
 						var parser = new DOMParser(),
 							xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml"),
 							items = [];
 						if (feed.format === "RSS") {
-						    items = xmlDoc.getElementsByTagName('item');
-						    for (var i = 0; i < items.length; i++) {
-						        var articleObj = {
-						            title: items[i].getElementsByTagName('title')[0].innerHTML,
-						            link: items[i].getElementsByTagName('link')[0].textContent,
-						            img: getImage(items[i], feed.format),
-						            content: getContent(items[i], feed.format),
-						            feed: feed._id
-						        };
-						        if (articleObj.title) {
-						            articleObj.title.replaceAll("apos;", '\'')
+							items = xmlDoc.getElementsByTagName('item');
+							if (from > items.length) {
+								from = 0;
+							}
+							for (var i = from; i < items.length; i++) {
+								var articleObj = {
+									title: items[i].getElementsByTagName('title')[0].innerHTML,
+									link: items[i].getElementsByTagName('link')[0].textContent,
+									img: getImage(items[i], feed.format),
+									content: getContent(items[i], feed.format),
+									feed: feed._id
+								};
+								if (articleObj.title) {
+									articleObj.title.replaceAll("apos;", '\'')
 													.replaceAll("&apos;", '\'')
 													.replaceAll("&amp;", '')
 													.replaceAll("&#8217;", 'bb');
-						        }
+								}
 								if (items[i].getElementsByTagName('pubDate')[0]) {
 									articleObj.date = Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent);
 								}
@@ -283,7 +319,10 @@
 							}
 						} else if (feed.format === "ATOM") {
 							items = xmlDoc.getElementsByTagName('entry');
-							for (var i = 0; i < items.length; i++) {
+							if (from > items.length) {
+								from = 0;
+							}
+							for (var i = from; i < items.length; i++) {
 								var articleObj = {
 									title: items[i].getElementsByTagName('title')[0].textContent,
 									link: angular.element(items[i].getElementsByTagName('link'))[0].attributes["href"].value,
@@ -297,7 +336,7 @@
 							}
 						}
 						dashboardService.loadingIcon = false;
-						return response.data;
+						return temp_articles;
 					});
 			},
 			getFeedDataById = function (id) {

@@ -98,10 +98,7 @@
 						feedPromise: ['feedsService', function (feedsService) {
 							return feedsService.getAllFeeds();
 						}]
-					},
-					onEnter: ['articlesService', function (articlesService) {
-						articlesService.getAllArticles();
-					}]
+					}
 				})
 				.state("dashboard.list", {
 					url: '/list',
@@ -136,8 +133,10 @@
 					templateUrl: './partials/dashboard/adviced.html',
 					controller: 'FeedsController',
 					resolve: {
-						feedPromise: ['feedsService', function (feedsService) {
-							return feedsService.getAdvicedFeeds();
+					    feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
+					        return feedsService.getAdvicedFeeds().then(function (res) {
+					            return articlesService.getAdvicedArticlesByCat($stateParams.category);
+					        })
 						}]
 					}
 				})

@@ -15,8 +15,11 @@
 		$scope.articleForShare = null;
 		$scope.articleForRead = null;
 		$scope.addingNewFavCategory = false;
-
 		$window.scrollTo(0, 0);
+
+		articlesService.getAllArticles().then(function () {
+		    $state.go("dashboard." + dashboardService.getViewMode());
+		});		
 
 		if ($stateParams.feed && $stateParams.link) {
 			dashboardService.isReadingArticle = true;
@@ -86,8 +89,6 @@
 		
 		$scope.confirmAddFavourite = function () {
 		    $scope.error = '';
-		    //console.log($scope.obj.category);
-		    //console.log($scope.newCategory.category);
 			if ($scope.newCategory.category) {
 				$scope.obj.category = $scope.newCategory.category;
 			}
@@ -160,7 +161,23 @@
 		}
 
 		$scope.readArticle = function (article) {
+		    dashboardService.displayLoading();
 			$state.go("dashboard.article", {feed: article.feed, link: article.link});
 		}
+
+		angular.element(document.body).bind('click', function (e) {
+		    var popups = document.querySelectorAll('.popover');
+		    if (popups) {
+		        for (var i = 0; i < popups.length; i++) {
+		            var popup = popups[i];
+		            var popupElement = angular.element(popup);
+		            console.log(2);
+		            if (popupElement[0].previousSibling != e.target) {
+		                popupElement.scope().$parent.isOpen = false;
+		                popupElement.scope().$parent.$apply();
+		            }
+		        }
+		    }
+		});
 	}]);
 })();
