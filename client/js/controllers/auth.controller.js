@@ -15,9 +15,9 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			counter : 0
 		};
 		transfer.setString("");
-		$scope.setEmail = function () {
-			return transfer.getEmail();
-		}
+		// $scope.setEmail = function () {
+		// 	return transfer.getEmail();
+		// }
 		$scope.password = {
 			token : transfer.getObj(),
 			email : transfer.getEmail()

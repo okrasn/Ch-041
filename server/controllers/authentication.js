@@ -47,6 +47,15 @@ function createJWT(user) {
 	return jwt.encode(payload, config.TOKEN_SECRET);
 }
 
+function createEmailJWT (email) {
+	var payload = {
+		verifEmail: email.email,
+		iat: moment().unix(),
+		exp: moment().add(1, 'hours').unix()
+	};
+	return jwt.encode(payload, config.TOKEN_SECRET);
+}
+
 module.exports.register = function (req, res) {
 	var passAccepted = false;
 
@@ -78,13 +87,13 @@ module.exports.register = function (req, res) {
 				
 				if (!req.body.verifyEmail && req.body.counter === 0) {
 					userEmail = req.body.email;
-					emailToken = randomtoken.generate(16);
+					emailToken = createEmailJWT(userEmail);
 					host = req.get('host');
-					link = "http://" + req.get('host') + "/#/verify/" + emailToken +"/" + userEmail;
+					link = "http://" + req.get('host') + "/#/verify/" + emailToken;
 					mailOptions = {
 						to : req.body.email,
 						subject : "Please confirm your Email account",
-						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email <strong>" + userEmail + "</strong>.<br>"	
+						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email.<br>"	
 					}
 					console.log(mailOptions);
 
