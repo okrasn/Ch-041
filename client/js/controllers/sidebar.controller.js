@@ -15,6 +15,9 @@
 				dashboardService.hideLoading();
 			});
 		}
+		$scope.IgnoreDoubleClick = function () {
+		    return false;
+		}
 		$scope.onFavsDrag = function (index) {
 			dashboardService.displayLoading();
 			$scope.favs.splice(index, 1);
@@ -23,6 +26,7 @@
 			});
 		}
 		$scope.getAll = function ($event) {
+		    dashboardService.sidebar = false;
 			setArticlesType(angular.element($event.currentTarget).parent(), 'all');
 			// if there is only one category and feed, return this feed articles
 			if ($scope.feeds.length === 1 && $scope.feeds[0].feeds.length === 1) {
@@ -36,12 +40,14 @@
 			}
 		}
 		$scope.getByFeed = function ($event, feed) {
+		    dashboardService.sidebar = false;
 			setArticlesType(angular.element($event.currentTarget).parent());
 			articlesService.getArticlesByFeed(feed).then(function () {
 				$state.go("dashboard." + dashboardService.getViewMode());
 			});
 		}
 		$scope.getByCat = function ($event, cat, index) {
+		    dashboardService.sidebar = false;
 			setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
 			if ($event.currentTarget.attributes[4]) {
 				if ($event.currentTarget.attributes[4].value == 'true') {
@@ -111,6 +117,7 @@
 			$state.go("dashboard." + dashboardService.getViewMode());
 		}
 		$scope.getFavArticle = function ($event, article) {
+		    dashboardService.sidebar = false;
 			setArticlesType(angular.element($event.currentTarget).parent());
 			articlesService.getFavArticle(article);
 			$state.go("dashboard." + dashboardService.getViewMode());
@@ -125,6 +132,10 @@
 			} else return true;
 		}
 		$scope.toggle = false;
+		$scope.toAddFeed = function () {
+		    dashboardService.sidebar = false;
+		    $state.go("dashboard.addFeed", { reload: true });
+		}
 		var setArticlesType = function (element, type, value) {
 			if (type && value) {
 				dashboardService.setCurrentArticlesType(type, value);

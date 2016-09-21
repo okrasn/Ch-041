@@ -46,6 +46,7 @@ router.post('/users/:user/addFavArticle', articlesCtrl.addFavArticle);
 router.post('/users/:user/getFavArticle', articlesCtrl.getFavArticle);
 router.post('/users/:user/getFeedData', feedsCtrl.getFeedData);
 router.post('/users/:user/upload', profCtrl.upload);
+router.post('/users/:user/changeFeedCategory', feedsCtrl.changeFeedCategory);
 
 // remove feed
 router.delete('/users/:user/deleteFeed/:id/:category', feedsCtrl.remove);

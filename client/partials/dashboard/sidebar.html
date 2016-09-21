@@ -3,7 +3,7 @@
 		<div ng-click="getAll($event)"><span class="glyphicon glyphicon-align-justify all-icon" aria-hidden="true"></span><span class="all-text">All</span></div>
 	</div>
 	<div class="sidebar-item" ng-show="hideFavourites()">
-		<a class="glyphFeeds" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites($event)">
+		<a class="glyphFeeds fav-dropdown" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites($event)">
 			<span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-star"></span><span>Favourites</span>
 		</a>
 		<div class="collapse" id="favourites">
@@ -15,13 +15,13 @@
 					dnd-type="'favs'"
 					dnd-moved="onFavsDrag($index)"
 					dnd-effect-allowed="move">
-					<a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" ng-click="getFavArticlesByCat($event, category.category)" class="glyphFeeds">
+					<a class="glyphFeeds fav-dropdown" data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" ng-click="getFavArticlesByCat($event, category.category)">
 						<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 					</a>
 					<div class="collapse" id="{{ $index + 'fav' + category.category.split(' ').join('')}}">
 						<ul>
 							<li class="sidebar-sub-item" ng-repeat="article in category.articles | orderBy: 'title'">
-								<a class="shortened-text" ng-click="getFavArticle($event, article)">
+								<a class="shortened-text fav-dropdown" ng-click="getFavArticle($event, article)">
 									<img ng-src="{{article.link|favicon}}">
 									<span ng-bind="article.title"></span>
 								</a>
@@ -42,7 +42,7 @@
 			dnd-type="'feeds'"
 			dnd-moved="onFeedsDrag($index)"
 			dnd-effect-allowed="move">
-			<div><span class="eye-view-btn glyphicon glyphicon-eye-open" ng-click="getByCat($event, category.category, $index)"></span></div>
+			<div><span class="eye-view-btn my-hidden" ng-click="getByCat($event, category.category, $index)" ng-dblclick="IgnoreDoubleClick()">view</span></div>
 			<a data-toggle="collapse" data-target="{{ '#' + $index + category.category.split(' ').join('') }}" class="glyphFeeds" ng-click="shevronToggle($event)">
 				<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 			</a>
@@ -59,7 +59,7 @@
 		</li>
 	</ul>
 	<div class="col-sm-12 center-children">
-		<button id="add-feed-test-btn" type="button" class="app-btn app-btn-blue" ui-sref=".addFeed">
+		<button id="add-feed-test-btn" type="button" class="app-btn app-btn-blue" ng-click="toAddFeed()">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add feed
 		</button>
 	</div>

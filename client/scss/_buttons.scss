@@ -54,13 +54,13 @@
 }
 
 .subscribe-btn{
-	height: 40px;
-	width: 40px;
-	border-radius: 8px;
-	color: $blue-btn-active-color;
+	height: 3em;
+	width: 3em;
+	border: none;
+	border-radius: $main-border-radius;
+	color: white;
 	font-weight: 500;
-	background-color: white;
-	border: 5px solid $blue-btn-active-color;
+	background-color: $blue-btn-active-color;
 	transition: all 0.3s ease;
 }
 
@@ -69,7 +69,6 @@
 	background-color: #33c23e;
 	border: none;
 	transition: all 0.3s ease;
-	border: 5px solid #33c23e;
 }
 
 .app-btn-red {
