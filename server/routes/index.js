@@ -1,13 +1,14 @@
 var mongoose = require('mongoose'),
 	express = require('express'),
 	router = express.Router(),
-	passport = require('passport'),
-	jwt = require('jwt-simple'),
 	Article = mongoose.model('Article'),
 	Feed = mongoose.model('Feed'),
-	User = mongoose.model('User'),
-	config = require('../config/config'),
 	googleAuth = require('../controllers/googleAuth'),
+	facebookAuth = require('../controllers/facebookAuth'),
+	twitterAuth = require('../controllers/twitterAuth'),
+	linkedInAuth = require('../controllers/linkedInAuth'),
+	unlink = require('../controllers/unlink'),
+	userInfo = require('../controllers/userInfo'),
 	authCtrl = require('../controllers/authentication'),
 	articlesCtrl = require('../controllers/articles'),
 	feedsCtrl = require('../controllers/feeds'),
@@ -22,12 +23,12 @@ router.post('/changePassword', authCtrl.changePassword);
 //Auth
 router.post('/users/:user/changeColorTheme', profCtrl.changeColorTheme);
 router.post('/auth/google', googleAuth.googleAuth);
-router.post('/auth/facebook', authCtrl.facebookAuth);
-router.post('/auth/twitter', authCtrl.twitterAuth);
-router.post('/auth/linkedin', authCtrl.linkedIdAuth);
-router.post('/auth/unlink', authCtrl.unlink);
-router.get('/api/me', authCtrl.getUserInfo);
-router.put('/api/me', authCtrl.putUserInfo);
+router.post('/auth/facebook', facebookAuth.facebookAuth);
+router.post('/auth/twitter', twitterAuth.twitterAuth);
+router.post('/auth/linkedin', linkedInAuth.linkedInAuth);
+router.post('/auth/unlink', unlink.unlink);
+router.get('/api/me', userInfo.getUserInfo);
+router.put('/api/me', userInfo.putUserInfo);
 
 // define user param
 router.param('user', feedsCtrl.userParam);
