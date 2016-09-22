@@ -33,7 +33,7 @@
 			$scope.newUserData = {
 				email: profileService.refreshProfileData().email,
 				currentPass: "",
-				newPass: "",
+				password: "",
 				newPassRepeat: ""
 			};
 

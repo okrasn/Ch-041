@@ -73,7 +73,8 @@
 					<div class="row">
 						<label class="col-sm-5 capitalize" for="newPassword">new password:</label>
 						<div class="col-sm-7">
-							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.newPass" ng-required>
+							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.password" ng-required>
+							<ul id="strength" check-strength="newUserData.password" myuser="newUserData"></ul>
 						</div>
 					</div>
 				</div>

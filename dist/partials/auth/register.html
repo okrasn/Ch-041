@@ -14,7 +14,7 @@
 						<div class="form-group login">
 							<label class="capitalize" for="enterPassword">password</label>
 							<input type="password" name="pwd" class="form-control" id="enterPassword" placeholder="Enter your Password" ng-model="user.password" ng-required>
-							<ul id="strength" check-strength="user.password"></ul>
+							<ul id="strength" check-strength="user.password" myuser="user"></ul>
 						</div>
 						<div class="form-group login">
 							<label class="capitalize" for="repeatPassword">repeat password</label>

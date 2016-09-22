@@ -14,7 +14,7 @@
 						<div class="form-group login">
 							<label class="capitalize" for="enterPassword">password</label>
 							<input type="password" name="pwd" class="form-control" id="enterPassword"  autocomplete="off" placeholder="Enter your Password" ng-model="user.password" ng-required>
-							<ul id="strength" check-strength="user.password"></ul>
+							<ul id="strength" check-strength="user.password" myuser="user"></ul>
 						</div>
 						<button id="sub_btn" type="submit" class="app-btn app-btn-blue center-block" >sign up</button>
 						<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
