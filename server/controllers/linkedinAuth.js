@@ -42,7 +42,7 @@ module.exports.linkedInAuth = function(req, res) {
 						user.picture = user.picture || profile.pictureUrl;
 						user.displayName = user.displayName || profile.firstName + ' ' + profile.lastName;
 						user.save(function () {
-							var token = createJWT(user);
+							var token = config.createJWT(user);
 								res.send({ 
 									token: token 
 								});
@@ -53,7 +53,9 @@ module.exports.linkedInAuth = function(req, res) {
 
 				User.findOne({ linkedin: profile.id }, function(err, existingUser) {
 					if (existingUser) {
-						return res.send({ token: createJWT(existingUser) });
+						return res.send({ 
+							token: config.createJWT(existingUser) 
+						});
 					}
 					var user = new User();
 					user.linkedin = profile.id;
@@ -61,7 +63,7 @@ module.exports.linkedInAuth = function(req, res) {
 					user.picture = profile.pictureUrl;
 					user.displayName = profile.firstName + ' ' + profile.lastName;
 					user.save(function () {
-						var token = createJWT(user);
+						var token = config.createJWT(user);
 						res.send({ 
 							token: token,
 							profile : profile	
@@ -72,13 +74,3 @@ module.exports.linkedInAuth = function(req, res) {
 		});
 	});
 };
-
-function createJWT(user) {
-	var payload = {
-		sub: user._id,
-		email: user.email,
-		iat: moment().unix(),
-		exp: moment().add(1, 'days').unix()
-	};
-	return jwt.encode(payload, config.TOKEN_SECRET);
-}

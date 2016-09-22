@@ -58,7 +58,7 @@ module.exports.googleAuth = function (req, res) {
 						user.picture = user.picture || profile.picture.replace('sz=100', 'sz=100');
 						user.displayName = user.displayName || profile.name;
 						user.save(function () {
-							var token = createJWT(user);
+							var token = config.createJWT(user);
 							res.send({
 								token: token
 							});
@@ -72,7 +72,7 @@ module.exports.googleAuth = function (req, res) {
 				}, function (err, existingUser) {
 					if (existingUser) {
 						return res.send({
-							token: createJWT(existingUser),
+							token: config.createJWT(existingUser),
 							profile: profile
 						});
 					}
@@ -82,7 +82,7 @@ module.exports.googleAuth = function (req, res) {
 					user.picture = profile.picture.replace('sz=50', 'sz=200');
 					user.displayName = profile.name;
 					user.save(function (err) {
-						var token = createJWT(user);
+						var token = config.createJWT(user);
 						res.send({
 							token: token,
 							profile: profile,
@@ -93,14 +93,4 @@ module.exports.googleAuth = function (req, res) {
 			}
 		});
 	});
-}
-
-function createJWT(user) {
-	var payload = {
-		sub: user._id,
-		email: user.email,
-		iat: moment().unix(),
-		exp: moment().add(1, 'days').unix()
-	};
-	return jwt.encode(payload, config.TOKEN_SECRET);
-}
+};

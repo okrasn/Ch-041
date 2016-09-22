@@ -58,7 +58,7 @@ module.exports.facebookAuth = function (req, res) {
 						user.picture = user.picture || 'https://graph.facebook.com/v2.3/' + profile.id + '/picture?type=large';
 						user.displayName = user.displayName || profile.name;
 						user.save(function () {
-							var token = createJWT(user);
+							var token = config.createJWT(user);
 							res.send({
 								token: token
 							});
@@ -71,7 +71,7 @@ module.exports.facebookAuth = function (req, res) {
 					facebook: profile.id
 				}, function (err, existingUser) {
 					if (existingUser) {
-						var token = createJWT(existingUser);
+						var token = config.createJWT(existingUser);
 						return res.send({
 							token: token,
 							profile: profile
@@ -83,7 +83,7 @@ module.exports.facebookAuth = function (req, res) {
 					user.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
 					user.displayName = profile.name;
 					user.save(function () {
-						var token = createJWT(user);
+						var token = config.createJWT(user);
 						res.send({
 							token: token,
 							profile: profile
@@ -94,14 +94,3 @@ module.exports.facebookAuth = function (req, res) {
 		});
 	});
 };
-
-function createJWT(user) {
-	var payload = {
-		sub: user._id,
-		email: user.email,
-		iat: moment().unix(),
-		exp: moment().add(1, 'days').unix()
-	};
-	return jwt.encode(payload, config.TOKEN_SECRET);
-}
-

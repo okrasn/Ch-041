@@ -62,7 +62,7 @@ module.exports.twitterAuth = function(req, res) {
 						user.displayName = user.displayName || profile.name;
 						user.picture = user.picture || profile.profile_image_url_https.replace('_normal', '');
 						user.save(function () {
-							var token = createJWT(user);
+							var token = config.createJWT(user);
 							res.send({
 								token: token,
 								profile: profile  
@@ -73,7 +73,9 @@ module.exports.twitterAuth = function(req, res) {
 			} else {
 				User.findOne({ twitter: profile.id }, function(err, existingUser) {
 					if (existingUser) {
-						return res.send({ token: createJWT(existingUser) });
+						return res.send({ 
+							token: config.createJWT(existingUser) 
+						});
 					}
 
 					var user = new User();
@@ -82,7 +84,7 @@ module.exports.twitterAuth = function(req, res) {
 					user.displayName = profile.name;
 					user.picture = profile.profile_image_url_https.replace('_normal', '');
 					user.save(function () {
-						var token = createJWT(user);
+						var token = config.createJWT(user);
 						res.send({ 
 							token: token,
 							profile : profile
@@ -94,13 +96,3 @@ module.exports.twitterAuth = function(req, res) {
 		});
 	}
 };
-
-function createJWT(user) {
-	var payload = {
-		sub: user._id,
-		email: user.email,
-		iat: moment().unix(),
-		exp: moment().add(1, 'days').unix()
-	};
-	return jwt.encode(payload, config.TOKEN_SECRET);
-}

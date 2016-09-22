@@ -7,7 +7,6 @@ var express = require('express'),
 	favicon = require('serve-favicon'),
 	path = require('path'),
 	morgan = require('morgan'),
-	// passport = require('passport'),
 	multer = require('multer'),
 	cors = require('cors'),
 	logger = require('morgan'),
@@ -20,7 +19,7 @@ require('./server/models/Feeds');
 require('./server/models/Articles');
 require('./server/models/Users');
 require('./server/models/Advised');
-// require('./server/config/passport');
+
 
 var routes = require('./server/routes/index');
 
@@ -52,7 +51,7 @@ app.use(session({
 
 // app.use(passport.initialize());
 // app.use(passport.session());
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/client'));
 app.use('/', routes);
 
  //catch 404 and forward to error handler
