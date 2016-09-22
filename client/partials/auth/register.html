@@ -34,6 +34,9 @@
 							<span class="sr-only">Error:</span>
 							<span id="error" ng-bind="error.message"></span>
 						</div>
+						<div ng-show='linkProvider' class="text-center">
+							<a class="link" href="http://{{linkProvider}}" target="_self">Click to move on you mail provider site</a>
+						</div>
 						<div class="row">
 							<div class="col-xs-12 center-text">
 								<p>Already have an account? <a ui-sref="login"> Sign In</a></p>

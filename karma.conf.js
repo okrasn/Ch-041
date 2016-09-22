@@ -37,13 +37,13 @@ module.exports = function (config) {
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/js/app.min.js",
-			"./client/tests/unit/registerNewUser.spec.js",
-			"./client/tests/unit/profileController.spec.js",
-			"./client/tests/unit/resetPassword.spec.js", 
-			"./client/tests/unit/emailApproving.spec.js",
-			"./client/tests/unit/dashboard.service.spec.js",
-			"./client/tests/unit/feeds.service.spec.js",
-			"./client/tests/unit/articles.service.spec.js"
+			"./tests/unit/registerNewUser.spec.js",
+			"./tests/unit/profileController.spec.js",
+			"./tests/unit/resetPassword.spec.js", 
+			"./tests/unit/emailApproving.spec.js",
+			"./tests/unit/dashboard.service.spec.js",
+			"./tests/unit/feeds.service.spec.js",
+			"./tests/unit/articles.service.spec.js"
 		],
 
 		// list of files to exclude

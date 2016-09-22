@@ -34,7 +34,8 @@ ERRORS = {
 	email_not_found: 'User with this email not found',
 	not_local_user: 'User with this email not a local created',
 	email_verification: 'First you have to approve you email. We are send verification link to your email',
-	not_verifyed: 'This email have not approved yet'
+	not_verifyed: 'This email have not approved yet',
+	email_taken_or_not_approved: 'Email is already taken or not approved yet'
 };
 
 function createJWT(user) {
@@ -118,7 +119,7 @@ module.exports.register = function (req, res) {
 					user.save(function (err, result) {
 						if (err) {
 							return res.status(409).send({
-								message: 'Email is already taken'
+								message: ERRORS.email_taken_or_not_approved
 							});
 						}
 						return res.status(400).json({

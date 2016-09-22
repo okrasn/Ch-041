@@ -37,11 +37,16 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 
 		$scope.register = function (form) {
 			if (form.validate()) {
-				dashboardService.loadingIcon = true;
+				dashboardService.loadingIcon = false;
 				if($scope.user.verifyEmail){
 					$scope.user.email = transfer.getEmail().verifEmail;
+
 				}
 				authService.register($scope.user).error(function (error) {
+					var symbol = $scope.user.email.indexOf('@');
+					var emailAgent = $scope.user.email.slice(symbol + 1);
+					$scope.linkProvider = emailAgent;
+					console.log(emailAgent);
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
@@ -56,7 +61,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 
 		$scope.logIn = function (form) {
 		    if (form.validate()) {
-		        dashboardService.loadingIcon = true;
+		        dashboardService.loadingIcon = false;
 		        authService.logIn($scope.user, $scope.session).error(function (error) {
 		            dashboardService.loadingIcon = false;
 					$scope.error = error;
@@ -107,7 +112,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				authService.saveToken(response.data.token);
 				toasterService.success('You have successfully authenticated');
 				$state.go('dashboard.' + dashboardService.getViewMode());
-			},function (response) {
+			},function (error) {
+				$scope.error = error.data.message;
 				toasterService.error(response.data.message);
 			})
 		};
