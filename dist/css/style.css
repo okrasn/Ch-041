@@ -815,7 +815,7 @@ a.cstmblock {
   height: 58px;
   margin-bottom: 0; }
 
-.change-pass:nth-child(1), .change-pass:nth-child(2) {
+.change-pass {
   height: 64px;
   margin-bottom: 15px; }
 
@@ -845,6 +845,7 @@ label.error {
   float: right; }
 
 #profile .msg-error {
+  margin-top: 0;
   font-size: 17px;
   line-height: 30px; }
 
@@ -1129,6 +1130,10 @@ a.sharing-btn {
 .soc-btn {
   width: 145px;
   margin: 5px 5px 5px 0px; }
+
+#sub_btn {
+  margin-top: 1em;
+  margin-bottom: 1em; }
 
 .toaster-window {
   border-radius: 2px;
@@ -1842,4 +1847,8 @@ label.error {
     text-align: center; }
   .read-article-img {
     width: 360px;
-    height: 280px; } }
+    height: 280px; }
+  .change-pass:nth-child(1), .change-pass:nth-child(2) {
+    height: 85px; }
+  .change-pass:nth-child(3) {
+    height: 110px; } }
