@@ -147,6 +147,9 @@
 		}
 
 		$scope.readArticle = function (article, type) {
+		    if ($scope.checkIfFavourites(article)) {
+		        type = 'favourite';
+		    }
 		    articlesService.articleForRead = article;
 		    $state.go("dashboard.article", { feed: article.feed, link: article.link, type: type });
 		}

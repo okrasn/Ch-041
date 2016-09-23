@@ -79,8 +79,11 @@
 					feedsService.getAllFeeds();
 					$state.go("dashboard." + dashboardService.getViewMode(), { type: "feed", value1: res.data._id });
 				}, function (err) {
-					dashboardService.loadingIcon = false;
-					if (err.data.id) {
+				    dashboardService.loadingIcon = false;
+				    if (typeof err === 'string') {
+				        $scope.error = err;
+				    }
+					if (err.data) {
 						changeCatObj = {
 							id: err.data.id,
 							category: err.data.category,
@@ -92,9 +95,14 @@
 							confirm: "switchCategory"
 						}, $scope);
 					}
-					if (!err.data)
-						$scope.error = err.message;
-					else $scope.error = err.data.message;
+					if (!err.data) {
+					    if (err.message) {
+					        $scope.error = err.message;
+					    }
+					}
+					else {
+					    $scope.error = err.data.message;
+					}
 				});
 		}
 		$scope.switchCategory = function () {

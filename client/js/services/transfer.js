@@ -1,40 +1,42 @@
-angular.module('rssreader')
+(function () {
+	angular.module('rssreader')
 	.factory('transfer', [function () {
 		var obj = {}, str = '', providerString = '', email = '';
 
-		function setEmail (data) {
+		function setEmail(data) {
 			email = data;
 		}
-		function getEmail () {
+		function getEmail() {
 			return email;
 		}
-		function setProviderString (data) {
+		function setProviderString(data) {
 			providerString = data;
 		}
-		function getProviderString () {
+		function getProviderString() {
 			return providerString;
 		}
-		function setString (data) {
+		function setString(data) {
 			str = data;
 		}
-		function getString () {
+		function getString() {
 			return str;
 		}
-		function setObj (data) {
+		function setObj(data) {
 			obj = data;
 		}
-		function getObj () {
+		function getObj() {
 			return obj;
 		}
 		return {
-		  
-			setObj : setObj,
-			getObj : getObj,
-			setString : setString,
-			getString : getString,
-			setProviderString : setProviderString,
-			getProviderString : getProviderString,
-			setEmail : setEmail,
-			getEmail : getEmail
+
+			setObj: setObj,
+			getObj: getObj,
+			setString: setString,
+			getString: getString,
+			setProviderString: setProviderString,
+			getProviderString: getProviderString,
+			setEmail: setEmail,
+			getEmail: getEmail
 		}
 	}]);
+})();
