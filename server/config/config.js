@@ -35,23 +35,7 @@ module.exports = {
 	};
 	return jwt.encode(payload, this.TOKEN_SECRET);
 	},
-	ERRORS: {
-		fill_out_fields: 'Please fill out all fields',
-		user_not_found: 'User not found',
-		pass_or_token_not_match: 'Passwords or tokens does\'t match',
-		pass_not_match: 'Passwords does\'t match',
-		same_pass: 'Please enter new password',
-		pass_incorrect: 'Entered password is incorrect',
-		user_exist: 'That user already exists',
-		invalid_data: 'Invalid email or password',
-		email_not_found: 'User with this email not found',
-		not_local_user: 'User with this email not a local created',
-		email_verification: 'First you have to approve you email. We are send verification link to your email',
-		not_verifyed: 'This email have not approved yet',
-		email_taken_or_not_approved: 'Email is already taken or not approved yet',
-		check_your_email: 'Please check your email to continue registration',
-		email_taken: 'Email is already taken'
-	},
+	
 	smtpTransport : nodemailer.createTransport("SMTP",{
 	service: "Gmail",
 		auth: {

@@ -48,7 +48,9 @@ module.exports.twitterAuth = function(req, res) {
 			if (req.header('Authorization')) {
 				User.findOne({ twitter: profile.id }, function(err, existingUser) {
 					if (existingUser) {
-						return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
+						return res.status(409).send({ 
+							message: config.ERRORS.twitter_account_belongs 
+						});
 					}
 
 					var token = req.header('Authorization').split(' ')[1];
@@ -56,7 +58,9 @@ module.exports.twitterAuth = function(req, res) {
 
 					User.findById(payload.sub, function(err, user) {
 						if (!user) {
-							return res.status(400).send({ message: 'User not found' });
+							return res.status(400).send({ 
+								message: config.ERRORS.user_not_found 
+							});
 						}
 						user.twitter = profile.id;
 						user.displayName = user.displayName || profile.name;

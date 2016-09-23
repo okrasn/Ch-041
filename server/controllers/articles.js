@@ -3,19 +3,13 @@ var passport = require('passport'),
 	User = mongoose.model('User'),
 	Feed = mongoose.model('Feed'),
 	Article = mongoose.model('Article'),
-	ERRORS = {
-		choose_cat: 'Choose category',
-		fav_article_already_added: 'You have already added this article to favourites',
-		article_not_found: 'Article not found',
-		enter_article_url: 'Enter article link',
-		cant_delete_article_no_such_cat: "Cant delete such article, no such category found within your account",
-		cant_delete_article_no_such_article: "Cant delete such article, no such article found within your account"
-	}
+	config = require('../config/config'),
+	msg = require('../config/msg');
 
 module.exports.addFavArticle = function (req, res, next) {
 	if (req.body.link === undefined) {
 		return res.status(400).json({
-			message: ERRORS.enter_article_url
+			message: config.ERRORS.enter_article_url
 		});
 	}
 	if (req.body.category === undefined) {
@@ -36,7 +30,7 @@ module.exports.addFavArticle = function (req, res, next) {
 				for (var j = 0; j < req.user.favouritesDictionary[i].articles.length; j++) {
 					if (req.user.favouritesDictionary[i].articles[j].link === req.body.link) {
 						return res.status(400).json({
-							message: ERRORS.fav_article_already_added
+							message: config.ERRORS.fav_article_already_added
 						});
 					}
 				}
@@ -121,13 +115,13 @@ module.exports.removeFavArticle = function (req, res, next) {
 
 		if (!foundCategory) {
 			return res.send({
-				error: ERRORS.cant_delete_article_no_such_cat
+				error: config.ERRORS.cant_delete_article_no_such_cat
 			});
 		}
 
 		if (!foundArticle) {
 			return res.send({
-				error: ERRORS.cant_delete_article_no_such_article
+				error: config.ERRORS.cant_delete_article_no_such_article
 			});
 		}
 		Article.findById(foundCategory.articles[foundArticleIndex], function (err, article) {
@@ -135,7 +129,7 @@ module.exports.removeFavArticle = function (req, res, next) {
 				return next(err);
 			}
 			if (!article) {
-				return next(new Error(ERRORS.article_not_found));
+				return next(new Error(config.ERRORS.article_not_found));
 			}
 			if (article.currentSubscriptions > 0) {
 				article.currentSubscriptions--;
@@ -163,11 +157,12 @@ module.exports.removeFavArticle = function (req, res, next) {
 module.exports.getFavArticle = function (req, res, next) {
 	Article.findOne({ link: req.body.link }, function (err, article) {
 		if (err) {
-			console.log("ERROR: " + err);
 			return next(err);
 		}
 		if (!article) {
-			res.status(404).send('Not found');
+			res.status(404).send({
+				message: config.ERRORS.article_not_found
+			});
 			return;
 		}
 		res.json(article);
@@ -181,7 +176,7 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		}
 		if (!articles) {
 			if (!article) {
-				res.status(404).send('Not found');
+				res.status(404).send('Article not found');
 				return;
 			}
 		}

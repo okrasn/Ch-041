@@ -43,7 +43,7 @@ module.exports.facebookAuth = function (req, res) {
 				}, function (err, existingUser) {
 					if (existingUser) {
 						return res.status(409).send({
-							message: 'There is already a Facebook account that belongs to you'
+							message: config.ERRORS.fs_account_belongs
 						});
 					}
 					var token = req.header('Authorization').split(' ')[1];
@@ -51,7 +51,7 @@ module.exports.facebookAuth = function (req, res) {
 					User.findById(payload.sub, function (err, user) {
 						if (!user) {
 							return res.status(400).send({
-								message: 'User not found'
+								message: config.ERRORS.user_not_found
 							});
 						}
 						user.facebook = profile.id;

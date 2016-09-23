@@ -16,6 +16,7 @@ module.exports = function (config) {
 			"./client/bower_components/bootstrap/dist/js/bootstrap.min.js",
 
 			"./client/bower_components/angular/angular.min.js",
+			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/bower_components/angular-animate/angular-animate.min.js",
 			"./client/bower_components/angular-aria/angular-aria.min.js",
 			"./client/bower_components/angular-messages/angular-messages.min.js",
@@ -35,8 +36,7 @@ module.exports = function (config) {
 			'./client/bower_components/angular-toastr/dist/angular-toastr.js',
 			'./client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
-			"./client/bower_components/angular-mocks/angular-mocks.js",
-			"./client/js/app.min.js",
+			"./client/js/app.js",
 			"./tests/unit/registerNewUser.spec.js",
 			"./tests/unit/profileController.spec.js",
 			"./tests/unit/resetPassword.spec.js", 

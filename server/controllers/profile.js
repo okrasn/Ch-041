@@ -2,7 +2,8 @@ var multer = require('multer'),
 	fs = require('fs'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	storage = multer.diskStorage({ //multers disk storage settings
+	config = require('../config/config'),
+	storage = multer.diskStorage({ 
 		destination: function(req, file, cb) {
 			cb(null, './dist/uploads/');
 		},
@@ -12,11 +13,9 @@ var multer = require('multer'),
 		}
 	});
 
-var upload = multer({ //multer settings
+var upload = multer({ 
 	storage: storage
 }).single('file');
-
-/** API path that will upload the files */
 
 module.exports.upload = function(req, res) {
 	upload(req, res, function(err) {
@@ -35,7 +34,9 @@ module.exports.upload = function(req, res) {
 				res.json({ error_code: 1, err_desc: err });
 				return;
 			}
-		} else return res.status(500).json("File is wrong");
+		} else return res.status(500).json({
+			message: config.ERRORS.file_not_found
+		});
 	});
 };
 

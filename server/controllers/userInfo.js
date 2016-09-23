@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	config = require('../config/config');
 
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {
@@ -12,7 +13,7 @@ module.exports.putUserInfo = function (req, res) {
 	User.findById(req.user, function (err, user) {
 		if (!user) {
 			return res.status(400).send({
-				message: 'User not found'
+				message: config.ERRORS.user_not_found
 			});
 		}
 		user.displayName = req.body.displayName || user.displayName;

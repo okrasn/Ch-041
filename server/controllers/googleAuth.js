@@ -42,7 +42,7 @@ module.exports.googleAuth = function (req, res) {
 				}, function (err, existingUser) {
 					if (existingUser) {
 						return res.status(409).send({
-							message: 'There is already a Google account that belongs to you'
+							message: config.ERRORS.google_account_belongs
 						});
 					}
 					var token = req.header('Authorization').split(' ')[1],
@@ -50,7 +50,7 @@ module.exports.googleAuth = function (req, res) {
 					User.findById(payload.sub, function (err, user) {
 						if (!user) {
 							return res.status(400).send({
-								message: 'User not found'
+								message: config.ERRORS.user_not_found
 							});
 						}
 						user.google = profile.sub;

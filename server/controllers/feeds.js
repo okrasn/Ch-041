@@ -5,18 +5,7 @@ var passport = require('passport'),
 	Feed = mongoose.model('Feed'),
 	Article = mongoose.model('Article'),
 	Advice = mongoose.model('Advice'),
-	ERRORS = {
-		choose_cat: 'Choose category',
-		cant_find_user: 'Can\'t find user',
-		feed_already_added: 'You have already added this feed',
-		feed_not_found: 'Feed not found',
-		enter_feed_url: 'Enter feed url',
-		article_not_found: 'Article not found',
-		server_error: 'Server error',
-		internal_error: 'Internal error(%d): %s',
-		cant_delete_feed_no_such_cat: "Cant delete such feed, no such category found within your account",
-		cant_delete_feed_no_such_feed: "Cant delete such feed, no such feed found within your account"
-	}
+	config = require('../config/config');
 
 module.exports.userParam = function (req, res, next, id) {
 	var query = User.findById(id);
@@ -25,7 +14,7 @@ module.exports.userParam = function (req, res, next, id) {
 			return next(err);
 		}
 		if (!user) {
-			return next(new Error(ERRORS.cant_find_user));
+			return next(new Error(config.ERRORS.cant_find_user));
 		}
 		req.user = user;
 		return next();
@@ -57,7 +46,9 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 			});
 		}
 		else {
-			res.status(404).send('Not found');
+			res.status(404).send({
+				message: config.ERRORS.feed_not_found
+			});
 			return;
 		}
 	});
@@ -65,7 +56,9 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 
 module.exports.getFeedData = function (req, res, next) {
 	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-	res.status(404).send('Invalid feed');
+	res.status(404).send({
+		message: config.ERRORS.invalid_feed
+	});
 		return;
 	}
 	Feed.findById(req.body.id, function (err, feed) {
@@ -73,7 +66,9 @@ module.exports.getFeedData = function (req, res, next) {
 			return next(err);
 		}
 		if (!feed) {
-			res.status(404).send('Not found');
+			res.status(404).send({
+				message: config.ERRORS.feed_not_found
+			});
 			return;
 		}
 		else {
@@ -85,12 +80,12 @@ module.exports.getFeedData = function (req, res, next) {
 module.exports.add = function (req, res, next) {
 	if (req.body.rsslink === undefined) {
 		return res.status(400).json({
-			message: ERRORS.enter_feed_url
+			message: config.ERRORS.enter_feed_url
 		});
 	}
 	if (req.body.category === undefined) {
 		return res.status(400).json({
-			message: ERRORS.choose_cat
+			message: config.ERRORS.choose_cat
 		});
 	}
 
@@ -108,7 +103,7 @@ module.exports.add = function (req, res, next) {
 				for (var j = 0; j < user.feedsDictionary[i].feeds.length; j++) {
 					if (user.feedsDictionary[i].feeds[j].rsslink === req.body.rsslink) {
 						return res.status(400).json({
-							message: ERRORS.feed_already_added,
+							message: config.ERRORS.feed_already_added,
 							id: user.feedsDictionary[i].feeds[j]._id,
 							category: user.feedsDictionary[i].category
 						});
@@ -234,13 +229,13 @@ module.exports.remove = function (req, res, next) {
 
 		if (!foundCategory) {
 			return res.send({
-				error: ERRORS.cant_delete_feed_no_such_cat
+				error: config.ERRORS.cant_delete_feed_no_such_cat
 			});
 		}
 
 		if (!foundFeed) {
 			return res.send({
-				error: ERRORS.cant_delete_feed_no_such_feed
+				error: config.ERRORS.cant_delete_feed_no_such_feed
 			});
 		}
 
@@ -249,7 +244,7 @@ module.exports.remove = function (req, res, next) {
 				return next(err);
 			}
 			if (!feed) {
-				return next(new Error(ERRORS.feed_not_found));
+				return next(new Error(config.ERRORS.feed_not_found));
 			}
 			if (feed.currentSubscriptions > 0) {
 				feed.currentSubscriptions--;
@@ -312,7 +307,9 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
 
 module.exports.changeFeedCategory = function (req, res, next) {
 	if (!req.body.id || !req.body.category || !req.body.newCategory) {
-		res.status(404).send('Not found');
+		res.status(404).send({
+			message: config.ERRORS.category_not_found
+		});
 	}
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		var lookup = {};

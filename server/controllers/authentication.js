@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 	moment = require('moment'),
 	jwt = require('jwt-simple'),
 	config = require('../config/config'),
+	msg = require('../config/msg'),
 	request = require('request'),
 	nev = require('email-verification')(mongoose),
 	async = require('async'),
@@ -23,12 +24,12 @@ module.exports.register = function (req, res) {
 
 	if (!req.body.email || !req.body.password || !req.body.repPassword) {
 		return res.status(400).json({
-			message: config.ERRORS.fill_out_fields
+			message: msg.ERRORS.fill_out_fields
 		});
 	}
 	if (req.body.password !== req.body.repPassword) {
 		return res.status(400).json({
-			message: config.ERRORS.pass_not_match
+			message: msg.ERRORS.pass_not_match
 		});
 	}
 	if (config.regExp.test(req.body.password)) {
@@ -36,7 +37,7 @@ module.exports.register = function (req, res) {
 	}
 	else {
 		return res.status(400).json({
-			message: config.ERRORS.pass_not_match
+			message: msg.ERRORS.pass_not_match
 		});
 	}
 	if (passAccepted) {
@@ -76,11 +77,11 @@ module.exports.register = function (req, res) {
 					user.save(function (err, result) {
 						if (err) {
 							return res.status(409).send({
-								message: config.ERRORS.email_taken_or_not_approved
+								message: msg.ERRORS.email_taken_or_not_approved
 							});
 						}
 						return res.status(400).json({
-							message: config.ERRORS.email_verification,
+							message: msg.ERRORS.email_verification,
 							user : user
 						});
 					});
@@ -88,12 +89,12 @@ module.exports.register = function (req, res) {
 				
 				if(existingUser && !req.body.verifyEmail && req.body.counter !== 0){
 					return res.status(400).json({
-						message : config.ERRORS.check_your_email
+						message : msg.ERRORS.check_your_email
 					});
 				}
 				if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
 					return res.status(409).json({
-						message: config.ERRORS.email_taken
+						message: msg.ERRORS.email_taken
 					});
 				}
 
@@ -115,7 +116,7 @@ module.exports.register = function (req, res) {
 						});	
 					} else {
 						res.status(400).json({
-							message : config.ERRORS.pass_or_token_not_match
+							message : msg.ERRORS.pass_or_token_not_match
 						});
 					}
 				}
@@ -129,19 +130,19 @@ module.exports.login = function (req, res) {
 	}, '+password', function (err, user) {
 		if (!user) {
 			return res.status(401).send({
-				message: config.ERRORS.invalid_data
+				message: msg.ERRORS.invalid_data
 			});
 		}
 		if (!user.emailVerification) {
 			return res.status(401).send({
-				message: config.ERRORS.not_verifyed
+				message: msg.ERRORS.not_verifyed
 			});		
 		}
 		user.comparePassword(req.body.password, function (err, isMatch) {
 			if (!isMatch) {
 				return res.status(401).send({
 					pwd: user.password,
-					message: config.ERRORS.invalid_data
+					message: msg.ERRORS.invalid_data
 				});
 			}
 			res.send({
@@ -162,7 +163,7 @@ module.exports.forgotPass = function(req, res) {
 			User.findOne({email: req.body.email }, function(err, user) {
 				if(!user){
 					return res.status(404).send({
-						message: config.ERRORS.email_not_found
+						message: msg.ERRORS.email_not_found
 					});
 				}
 				user.resetPasswordToken = token;
@@ -208,8 +209,13 @@ module.exports.resetPost = function(req, res) {
 			User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 				if(req.body.pas !== req.body.confirm){
 					return res.status(400).send({
-						message: ERRORS.pass_not_match
+						message: msg.ERRORS.pass_not_match
 					})	
+				}
+				if(!req.body.pas || !req.body.confirm) {
+					return res.status(400).json({
+						message : msg.ERRORS.fill_out_fields
+					})
 				}
 				if (passRequirements.test(req.body.pas)) {
 					user.password = req.body.pas;
@@ -221,7 +227,7 @@ module.exports.resetPost = function(req, res) {
 					});
 				} else {
 					return res.status(400).json({
-						message: config.ERRORS.pass_not_match
+						message: msg.ERRORS.pass_not_match
 					});
 				}
 			});
@@ -246,18 +252,18 @@ module.exports.resetPost = function(req, res) {
 module.exports.changePassword = function (req, res, next) {
 	if (!req.body.currentPass || !req.body.newPass || !req.body.newPassRepeat) {
 		return res.status(400).json({
-			message: config.ERRORS.fill_out_fields
+			message: msg.ERRORS.fill_out_fields
 		});
 	}
 
 	if (req.body.newPass !== req.body.newPassRepeat) {
 		return res.status(400).json({
-			message: config.ERRORS.pass_not_match
+			message: msg.ERRORS.pass_not_match
 		});
 	}
 	if (req.body.newPass == req.body.newPassRepeat && req.body.newPass == req.body.currentPass) {
 		return res.status(400).json({
-			message: config.ERRORS.same_pass
+			message: msg.ERRORS.same_pass
 		});
 	}
 
@@ -266,7 +272,7 @@ module.exports.changePassword = function (req, res, next) {
 	}, function (err, user) {
 		if (user === undefined) {
 			return res.status(400).json({
-				message: config.ERRORS.user_not_found
+				message: msg.ERRORS.user_not_found
 			});
 		} else {
 			if (req.body.currentPass) {
@@ -284,7 +290,7 @@ module.exports.changePassword = function (req, res, next) {
 				});
 			} else {
 				return res.status(400).json({
-					message: config.ERRORS.pass_incorrect
+					message: msg.ERRORS.pass_incorrect
 				});
 			}
 		}

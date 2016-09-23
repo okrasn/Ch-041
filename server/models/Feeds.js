@@ -11,7 +11,7 @@ var feedSchema = new mongoose.Schema({
 		type: String,
 		enum: ["RSS", "ATOM"],
 		required: true
-	}   // format can be eather RSS or ATOM
+	}
 });
 
 mongoose.model('Feed', feedSchema);

@@ -30,13 +30,17 @@ module.exports.linkedInAuth = function(req, res) {
 			if (req.header('Authorization')) {
 				User.findOne({ linkedin: profile.id }, function(err, existingUser) {
 					if (existingUser) {
-						return res.status(409).send({ message: 'There is already a LinkedIn account that belongs to you' });
+						return res.status(409).send({ 
+							message: config.ERRORS.linkedin_account_belongs 
+						});
 					}
 					var token = req.header('Authorization').split(' ')[1];
 					var payload = jwt.decode(token, config.TOKEN_SECRET);
 					User.findById(payload.sub, function(err, user) {
 						if (!user) {
-							return res.status(400).send({ message: 'User not found' });
+							return res.status(400).send({ 
+								message: config.ERRORS.user_not_found 
+							});
 						}
 						user.linkedin = profile.id;
 						user.picture = user.picture || profile.pictureUrl;
