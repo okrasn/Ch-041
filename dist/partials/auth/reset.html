@@ -1,0 +1,35 @@
+
+<div class="container-fluid">
+	<h1>Reset Password</h1>
+	<hr>
+	 <label class="email-label">User Email: <span class="user-email" ng-bind='password.email'></span> </label>
+	<form name='resetform' class="forgot_from" ng-submit='reset(resetform)' ng-validate="validationRegistrOptions"">
+			<div class="form-group login">
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+					<label class="control-label" for="enter-pwd"> New Password: </label>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+					<input class="form-control reset" type="password" id='enter-pwd' ng-model="password.password" name="pwd" autofocus="true" ng-required placeholder="Enter your Password" ng-required>
+					<ul id="strength" check-strength="password.password" myuser="password"></ul>
+				</div>
+			</div>
+			<div class="form-group login">
+				<div class="clearfix"></div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+					<label for='Reppwd'> Confirm Password: </label>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+					<input class='form-control reset' type="password" id='Reppwd' ng-model="password.confirm" name="reppwd" placeholder="Repeat your Password" ng-required pw-check="enter-pwd">
+					<span class="msg-error"  ng-show="resetform.reppwd.$error.pwmatch">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="clearfix"></div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+					<input type="submit" class="app-btn app-btn-blue" value="Update Password">
+				</div>
+			</div>
+	</form>
+</div>	
