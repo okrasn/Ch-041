@@ -2,6 +2,9 @@ angular.module('rssreader').directive('checkStrength', [function() {
 	return {
 		replace: false,
 		restrict: 'EACM',
+		scope: {
+			myuser: '='
+		},
 		link: function(scope, iElement, iAttrs) {
 			var strength = {
 				colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
@@ -41,19 +44,18 @@ angular.module('rssreader').directive('checkStrength', [function() {
 					return { idx: idx + 1, col: this.colors[idx] };
 				}
 			};
-			scope.$watch(iAttrs.checkStrength, function() {
-
-				if (!scope.user.password && !scope.password.pas) {
+			scope.$watch("myuser", function() {
+				if (!scope.myuser.password && !scope.myuser.pas ) {
 					iElement.css({ "display": "none" });
 				} else {
-					var c = strength.getColor(strength.mesureStrength(scope.user.password || scope.password.pas));
+					var c = strength.getColor(strength.mesureStrength(scope.myuser.password || scope.myuser.pas));
 					iElement.css({ "display": "block" });
 					iElement.children('li')
 						.css({ "background": "#DDD" })
 						.slice(0, c.idx)
 						.css({ "background": c.col });
 				}
-			});
+			}, true);
 		},
 		template: '<li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>'
 	};

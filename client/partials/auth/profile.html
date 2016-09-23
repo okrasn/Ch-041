@@ -5,11 +5,11 @@
 			</div>
 			<div class="col-xs-12 col-md-5">
 				<div class="profile-name text-center-mobile">
-					<h4 ng-show="currentUser().displayName"><span ng-bind="currentUser().displayName"></h4>
-					<h5 ng-show="currentUser().date_of_signup">Joined: <span ng-bind="currentUser().date_of_signup | date : 'mediumDate'"></h5>
+					<h4 ng-show="currentUser().displayName"><span ng-bind="currentUser().displayName"></span></h4>
+					<h5 ng-show="currentUser().date_of_signup">Joined: <span ng-bind="currentUser().date_of_signup | date : 'mediumDate'"></span></h5>
 				</div>
 				<div class="profile-email text-center-mobile">
-					<h5><span class="info" ng-bind="currentUser().email"></h5>
+					<h5><span class="info" ng-bind="currentUser().email"></span></h5>
 				</div>
 			</div>
 		</div>
@@ -73,21 +73,22 @@
 					<div class="row">
 						<label class="col-sm-5 capitalize" for="newPassword">new password:</label>
 						<div class="col-sm-7">
-							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.newPass" ng-required>
+							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.password" ng-required>
+							<ul id="strength" check-strength="newUserData.password" myuser="newUserData"></ul>
 						</div>
 					</div>
 				</div>
-				<div class="form-group change-pass">
-					<div class="row">
-						<label class="col-sm-5 capitalize" for="repeatNewPassword">confirm password:</label>
-						<div class="col-sm-7">
-							<input name="repeatNewPassword" id="repeatNewPassword" class="form-control" type="password" ng-model="newUserData.newPassRepeat" ng-required pw-check="newPassword">
-							<span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
-								Passwords does't match
-							</span>
+					<div class="form-group change-pass">
+						<div class="row">
+							<label class="col-sm-5 capitalize" for="repeatNewPassword">confirm password:</label>
+							<div class="col-sm-7">
+								<input name="repeatNewPassword" id="repeatNewPassword" class="form-control" type="password" ng-model="newUserData.newPassRepeat" ng-required pw-check="newPassword">
+								<span class="msg-error" ng-show="changePassForm.repeatNewPassword.$error.pwmatch">
+									Passwords doesn't match!
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
 				<div class="center-children">
 					<button type="submit" class="app-btn app-btn-blue margin-right">save</button>
 					<button type="reset" ng-click="resetPass()" class="app-btn app-btn-blue margin-left">reset</button>

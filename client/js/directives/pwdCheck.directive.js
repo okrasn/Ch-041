@@ -6,7 +6,9 @@ angular.module('rssreader').directive('pwCheck', [function() {
 				elem.add(firstPassword).on('keyup', function() {
 					scope.$apply(function() {
 						if (elem.val() === "") {
-							return;
+							angular.element('span.msg-error').addClass('error-hidden');
+						}else{
+							angular.element('span.msg-error').removeClass('error-hidden');
 						}
 						var v = elem.val() === $(firstPassword).val();
 						ctrl.$setValidity('pwmatch', v);

@@ -112,6 +112,10 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			})
 		};
 
+		
+		$scope.defaultAgreeWith = function () {
+			$scope.agreeWith = false;
+		}
 
 		$scope.validationLoginOptions = {
 			rules: {
