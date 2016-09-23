@@ -21,6 +21,10 @@ $desktop-res: 1200px;
 }
 
 @media screen and (min-width: $desktop-res) {
+    .also-read-header{
+        margin-top: 0;
+    }
+
     .adviced-articles-wrapper {
         padding-left: 0;
     }
@@ -43,6 +47,13 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $tablet-res) {
+    .third-layer {
+        height: 65em;
+        .top-offset-mobile{
+            margin-top: 5em;
+        }
+    }
+
     .center-children-tablet {
         display: flex;
         justify-content: center;
@@ -104,7 +115,7 @@ $desktop-res: 1200px;
     }
 
     #cards-wrapper {
-        padding: 0;
+        padding: 0 0 $main-app-offset 0;
         // Must use !important, because even strong selector do not help.
         // This class is from 3d party library where !important key word was specified.
         div.popover {
@@ -123,7 +134,6 @@ $desktop-res: 1200px;
     }
 
     #list {
-        padding: 0;
         // Must use !important, because even strong selector do not help.
         // This class is from 3d party library where !important key word was specified.
         div.popover {
@@ -163,25 +173,59 @@ $desktop-res: 1200px;
         animation: 0.3s slideLeft ease;
     }
 
-    #home_container {
-        height: 80%;
-    }
-
     .home-image {
         width: 80%;
     }
 }
 
 @media screen and (max-width: $phone-res - 1) {
-
     #cards-wrapper {
         .article-title {
             height: 110px;
         }
     }
+    .home-image {
+        margin-top: 8em;
+        width: 21em;
+    }
+
+    #home_container {
+        background-size: cover;
+        height: 45em;
+
+        .welcometo {
+            font-size: 30px;
+        }
+    }
+
+    .home-small-img-mobile {
+        width: 90%;
+    }
+
+    .second-layer {
+        height: 25em;
+        padding-top: 5em;
+    }
+
+    .third-layer {
+        height: 60em;
+        .top-offset-mobile{
+            margin-top: 5em;
+        }
+    }
+
+    .container-fluid>.navbar-header>.logo_wrapper>a, .navbar>.container .navbar-brand {
+        margin-left: 0;
+    }
 }
 
 @media screen and (max-width: $phone-res) {
+    #cards-wrapper {
+        .fav-indicator {
+            margin-top: -$main-app-offset/2;
+        }
+    }
+
     #cards-wrapper .app-panel {
         height: 10em;
         padding: $main-app-offset/2;
@@ -197,14 +241,6 @@ $desktop-res: 1200px;
 
     .hide-modal-btn {
         right: 1.5em;
-    }
-
-    .home-small-img-mobile {
-        width: 90%;
-    }
-
-    .home-image {
-        width: 21em;
     }
 
     .alert-danger-app {
@@ -309,14 +345,7 @@ $desktop-res: 1200px;
         margin-bottom: 10px;
     }
 
-    #home_container {
-        background-size: cover;
-        height: 50em;
-
-        .welcometo {
-            font-size: 30px;
-        }
-    }
+    
 
     #article-page {
         padding: $main-app-offset/2;

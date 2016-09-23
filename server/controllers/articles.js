@@ -107,29 +107,22 @@ module.exports.removeFavArticle = function (req, res, next) {
 			foundArticle = null;
 
 		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
-			if (array[i].category == req.params.category) {
-				foundCategory = array[i];
-				foundCategoryIndex = i;
-				for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
-					if (articles[j]._id == req.params.id) {
-						foundArticle = articles[j];
-						foundArticleIndex = j;
-					}
+			for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
+				if (articles[j]._id == req.params.id) {
+					foundArticle = articles[j];
+					foundArticleIndex = j;
+					foundCategory = array[i];
+					foundCategoryIndex = i;
 				}
 			}
 		}
 
-		if (!foundCategory) {
-			return res.send({
-				error: ERRORS.cant_delete_article_no_such_cat
-			});
+		if (!foundArticle) {
+		    return res.status(404).json({
+		        message: ERRORS.cant_delete_article_no_such_article,
+		    });
 		}
 
-		if (!foundArticle) {
-			return res.send({
-				error: ERRORS.cant_delete_article_no_such_article
-			});
-		}
 		Article.findById(foundCategory.articles[foundArticleIndex], function (err, article) {
 			if (err) {
 				return next(err);
@@ -197,12 +190,12 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		if (num > 50 && num < 101) {
 		    result = articles.slice(0, 20);
 		    result.sort(function () { return 0.5 - Math.random() });
-		    result.slice(0, 10);
+		    result = result.slice(0, 10);
 		}
 		if (num > 100 && num < 1001) {
 		    result = articles.slice(0, 100);
 		    result.sort(function () { return 0.5 - Math.random() });
-		    result.slice(0, 10);
+		    result = result.slice(0, 10);
 		}
 		res.json(result);
 	});

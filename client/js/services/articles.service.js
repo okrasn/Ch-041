@@ -10,69 +10,38 @@
 			defer = $q.defer(),
 			promises = [],
 			obj = {
-				articles: [],
-				advicedArticles: [],
-				articleForRead: null,
-				isFavourites: false,
-				displayedIncrement: 20,
-				totalDisplayed: 20,
-				checkIfFavourites: function () {
-					return obj.isFavourites;
-				},
-				setReadArticle: function ($scope, feed, link) {
-					for (var i = 0; i < obj.articles.length; i++) {
-						if (obj.articles[i].link === link) {
-							$scope.articleForRead = obj.articles[i];
-							dashboardService.hideLoading();
-							return;
-						}
-					}
-					return getFeedDataById(feed).success(function (res) {
-						obj.resetArticles();
-						var feedObj = res;
-						return fetchArticles(feedObj).then(function (res) {
-							for (var i = 0; i < temp_articles.length; i++) {
-								if (temp_articles[i].link === link) {
-									$scope.articleForRead = temp_articles[i];
-								}
-							}
-							if (!$scope.articleForRead) {
-								dashboardService.displayLoading();
-								obj.resetArticles();
-								return getArticleDataByLink(link).then(function (res) {
-									dashboardService.hideLoading();
-									$scope.articleForRead = res.data;
-								}).catch(function (err) {
-									dashboardService.hideLoading();
-									if (err.status === 404) {
-										$state.go("404");
-									}
-								});
-								if (err.status === 404) {
-									$state.go("404");
-								}
-								else $state.go("dashboard." + dashboardService.getViewMode());
-							}
-							dashboardService.hideLoading();
-						});
-					}).catch(function (err) {
-						obj.resetArticles();
-						return getArticleDataByLink(link).then(function (res) {
-							dashboardService.hideLoading();
-							$scope.articleForRead = res.data;
-							dashboardService.hideLoading();
-						}).catch(function (err) {
-							dashboardService.hideLoading();
-							if (err.status === 404) {
-								$state.go("404");
-							}
-						});
-						if (err.status === 404) {
-							$state.go("404");
-							dashboardService.hideLoading();
-						}
-						else $state.go("dashboard." + dashboardService.getViewMode());
-					});
+			    articles: [],
+			    advicedArticles: [],
+			    articleForRead: null,
+			    isFavourites: false,
+			    displayedIncrement: 20,
+			    totalDisplayed: 20,
+			    checkIfFavourites: function () {
+			        return obj.isFavourites;
+			    },
+			    setReadArticle: function (feed, link, type) {
+			        var someObj = obj.articleForRead;
+			        if(!type){
+			            return this.getFeedDataById(feed).then(function (res) {
+			                obj.resetArticles();
+			                var feedObj = res.data;
+			                return fetchArticles(feedObj).then(function (res) {
+			                    for (var i = 0; i < res.length; i++) {
+			                        if (res[i].link === link) {
+			                            obj.articleForRead = res[i];
+			                            return;
+			                        }
+			                    }
+			                    obj.articleForRead = null;
+			                });
+			            });
+			        }
+			        else if (type === 'adviced' || type === 'favourite') {
+				        return getArticleDataByLink(link).then(function (res) {
+				            obj.resetArticles();
+				            obj.articleForRead = res.data;
+				        });
+				    }
 				},
 				getAllArticles: function () {
 					obj.resetArticles();
@@ -89,32 +58,44 @@
 				},
 				getArticlesByFeed: function (feed, num) {
 					obj.resetArticles();
-					dashboardService.readSingleFeed.state = true;
-					dashboardService.setSortParam('date', 1);
-					dashboardService.setTitle(feed.title);
-					dashboardService.setFeedId(feed);
-					return fetchArticles(feed, num).then(function () {
+					return fetchArticles(feed, num).then(function (res) {
+						dashboardService.setFeed(feed);
+						dashboardService.setTitle(feed.title);
+						dashboardService.readSingleFeed.state = true;
+						dashboardService.setSortParam('date', 1);
 						obj.articles = temp_articles;
 						dashboardService.hideLoading();
+					}, function (err) {
+						dashboardService.hideLoading();
+						console.log(err);
+						$state.go("404");
 					});
 				},
 				getArticlesByCat: function (cat) {
+					var found = false;
 					obj.resetArticles();
-					dashboardService.setTitle(cat);
 					angular.forEach(feedsService.feedsDictionary, function (value, key) {
 						if (value.category === cat) {
+							found = true;
 							angular.forEach(value.feeds, function (value, key) {
 								promises.push(fetchArticles(value));
 							});
 						}
 					});
+					if (!found) {
+						return $q.reject().catch(function (err) {
+							dashboardService.hideLoading();
+							$state.go("404");
+						});
+					}
 					return $q.all(promises).then(function () {
+						dashboardService.setTitle(cat);
 						obj.articles = temp_articles;
 						dashboardService.hideLoading();
 					});
 				},
 				getAdvicedArticlesByCat: function (cat) {
-				    obj.resetArticles();
+					obj.resetArticles();
 					angular.forEach(feedsService.advicedDictionary, function (value, key) {
 						if (value.category === cat) {
 							angular.forEach(value.feeds, function (value, key) {
@@ -165,44 +146,30 @@
 				},
 				addFavourite: function (article) {
 					dashboardService.displayLoading();
-					return $http.post('/users/' + authService.userID() + '/addFavArticle', article, {
-						headers: {
-							Authorization: 'Bearer ' + authService.getToken()
-						}
-					}).then(function (res) {
+					return $http.post('/users/' + authService.userID() + '/addFavArticle', article).then(function (res) {
 						feedsService.getAllFavourites();
 						dashboardService.hideLoading();
 					});
 				},
 				removeFavourite: function (article) {
 					dashboardService.displayLoading();
-					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id + '/' + article.category, {
-						headers: {
-							Authorization: 'Bearer ' + authService.getToken()
-						}
-					}).then(function (res) {
+					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id).then(function (res) {
 						dashboardService.hideLoading();
 					});
 				},
 				getAdvicedArticles: function () {
+				    dashboardService.displayLoading();
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles", {
-						headers: {
-							Authorization: 'Bearer ' + authService.getToken()
-						}
-					}).then(function (res) {
-						angular.copy(res.data, obj.advicedArticles);
+					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					    angular.copy(res.data, obj.advicedArticles);
+					    dashboardService.hideLoading();
 					}, function (err) {
 						console.log(err);
 					});
 				},
 				getAdvicedFeedsArticles: function () {
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles", {
-						headers: {
-							Authorization: 'Bearer ' + authService.getToken()
-						}
-					}).then(function (res) {
+					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
 						angular.copy(res.data, obj.advicedArticles);
 					}, function (err) {
 						console.log(err);
@@ -216,8 +183,11 @@
 					temp_articles.length = 0;
 					obj.articles.length = 0;
 					obj.isFavourites = false;
-					dashboardService.resetFeedId();
+					dashboardService.resetFeed();
 					promises.length = 0;
+				},
+				getFeedDataById: function (id) {
+					return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id });
 				},
 				// Additional method for unit testing
 				getArticlesFetcher: function () {
@@ -339,19 +309,8 @@
 						return temp_articles;
 					});
 			},
-			getFeedDataById = function (id) {
-				return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id }, {
-					headers: {
-						Authorization: 'Bearer ' + authService.getToken()
-					}
-				});
-			},
 			getArticleDataByLink = function (link) {
-				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link }, {
-					headers: {
-						Authorization: 'Bearer ' + authService.getToken()
-					}
-				});
+				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link });
 			}
 		return obj;
 	}]);

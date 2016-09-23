@@ -15,7 +15,7 @@
 					dnd-type="'favs'"
 					dnd-moved="onFavsDrag($index)"
 					dnd-effect-allowed="move">
-					<a class="glyphFeeds fav-dropdown" data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" ng-click="getFavArticlesByCat($event, category.category)">
+					<a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" class="glyphFeeds fav-dropdown" ng-click="getFavArticlesByCat($event, category.category)">
 						<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 					</a>
 					<div class="collapse" id="{{ $index + 'fav' + category.category.split(' ').join('')}}">

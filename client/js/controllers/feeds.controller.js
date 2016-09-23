@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
 		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-			dashboardService.isReadingArticle = true;
+		    dashboardService.isReadingArticle = true;
 		}
 		var changeCatObj = {};
 		$scope.advicedCategory = $stateParams.category;
@@ -73,9 +73,11 @@
 			}
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
+				    dashboardService.loadingIcon = false;
 					$scope.addingNewCategory = false;
 					toasterService.success("Feed successfully added");
-					$state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
+					feedsService.getAllFeeds();
+					$state.go("dashboard." + dashboardService.getViewMode(), { type: "feed", value1: res.data._id });
 				}, function (err) {
 					dashboardService.loadingIcon = false;
 					if (err.data.id) {
@@ -89,7 +91,6 @@
 							message: "Switch category?",
 							confirm: "switchCategory"
 						}, $scope);
-
 					}
 					if (!err.data)
 						$scope.error = err.message;
@@ -97,13 +98,9 @@
 				});
 		}
 		$scope.switchCategory = function () {
-			return $http.post('/users/' + authService.userID() + '/changeFeedCategory', changeCatObj, {
-				headers: {
-					Authorization: 'Bearer ' + authService.getToken()
-				}
-			}).success(function (res) {
+			return $http.post('/users/' + authService.userID() + '/changeFeedCategory', changeCatObj).success(function (res) {
 			    console.log(res);
-			    $state.go('dashboard.' + dashboardService.getViewMode(), {}, { reload: true });
+			    $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
 			}
 			).error(function (err) {
 			    console.log(err);

@@ -52,7 +52,7 @@ gulp.task('scripts', function () {
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest('./client/js/'))
 		.pipe(sourcemaps.init())
-		// .pipe(uglify())
+	    .pipe(uglify())
 		.pipe(rename({
 			suffix: '.min'
 		}))

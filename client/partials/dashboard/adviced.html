@@ -16,7 +16,7 @@
 					<div class="list-item" ng-click="readArticle(article)"><span ng-bind="article.title"></span></div>
 				</div>
 				<div class="img-responsive adviced-article-img center-block offset-top" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}"></div>
-				<div class="img-responsive adviced-no-img center-block offset-top" ng-hide="article.img"></div>
+				<div class="img-responsive adviced-article-img adviced-no-img center-block offset-top" ng-hide="article.img"></div>
 				<div class="advice-feed-stats offset-top">
 					<div class="col-xs-3 stats-block">
 						<div class="center-block readers-num" ng-bind="feed.currentSubscriptions"></div>

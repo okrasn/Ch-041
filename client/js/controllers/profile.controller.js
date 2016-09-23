@@ -3,7 +3,7 @@
 	angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer',
 		function (Upload, $http, $state, profileService, $scope, authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
-		    dashboardService.isReadingArticle = true;
+			dashboardService.isReadingArticle = true;
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
 			$scope.sameProvider = transfer.getProviderString();
@@ -107,7 +107,7 @@
 				angular.element('label.error').remove();
 			};
 			
-            $scope.changePassValidation = {
+			$scope.changePassValidation = {
 				rules: {
 					currentPassword: {
 						required: true

@@ -36,10 +36,7 @@
 			$scope.onEmblem = function () {
 				$scope.hideMobileNavbar();
 				if (authService.isLoggedIn()) {
-					if ($state.current.name === "dashboard.list" || $state.current.name === "dashboard.th-list" || $state.current.name === "dashboard.th-large") {
-						$state.reload('dashboard');
-					}
-					else $state.go("dashboard." + dashboardService.getViewMode());
+					$state.go("dashboard." + dashboardService.getViewMode(), { type: 'all' });
 				} else {
 					$state.go("home");
 				}

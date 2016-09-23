@@ -1,6 +1,8 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
+	    var queryTypes = ['all', 'category', 'feed', 'favourites'];
+	    analizeRouting();
 		$scope.articleData = articlesService;
 		$scope.obj = {};
 		$scope.newCategory = {};
@@ -9,30 +11,13 @@
 		$scope.modalShown = false;
 		$scope.articles = $scope.articleData.articles;
 		$scope.adviced = $scope.articleData.advicedArticles;
-		$scope.isFavourites = $scope.articleData.checkIfFavourites;
+		$scope.isFavourites = articlesService.checkIfFavourites;
 		$scope.favForAdd = null;
 		$scope.favForRemove = null;
 		$scope.articleForShare = null;
-		$scope.articleForRead = null;
+		$scope.articleForRead = articlesService.articleForRead;
 		$scope.addingNewFavCategory = false;
 		$window.scrollTo(0, 0);
-
-		if ($stateParams.feed && $stateParams.link) {
-			dashboardService.isReadingArticle = true;
-			articlesService.setReadArticle($scope, $stateParams.feed, $stateParams.link);
-		}
-		else {
-			dashboardService.isReadingArticle = false;
-			if (feedsService.feedsDictionary.length < 1 && !$scope.isFavourites()) {
-			    $state.go("dashboard.addFeed");
-			}
-			else {
-			    articlesService.getAllArticles().then(function () {
-			        $state.go("dashboard." + dashboardService.getViewMode());
-			    });
-			}
-		}
-
 		$scope.checkIfFavourites = function (article) {
 			if (!article) {
 				return false;
@@ -161,9 +146,9 @@
 			return dateFilter(new Date(date), "dd/MM/yy HH:mm");
 		}
 
-		$scope.readArticle = function (article) {
-		    dashboardService.displayLoading();
-			$state.go("dashboard.article", {feed: article.feed, link: article.link});
+		$scope.readArticle = function (article, type) {
+		    articlesService.articleForRead = article;
+		    $state.go("dashboard.article", { feed: article.feed, link: article.link, type: type });
 		}
 
 		angular.element(document.body).bind('click', function (e) {
@@ -172,7 +157,6 @@
 		        for (var i = 0; i < popups.length; i++) {
 		            var popup = popups[i];
 		            var popupElement = angular.element(popup);
-		            console.log(2);
 		            if (popupElement[0].previousSibling != e.target) {
 		                popupElement.scope().$parent.isOpen = false;
 		                popupElement.scope().$parent.$apply();
@@ -180,5 +164,78 @@
 		        }
 		    }
 		});
+		function analizeRouting() {
+		    dashboardService.displayLoading();
+		    var routeType = $stateParams.type;
+		    var exist = queryTypes.filter(function (elem, i, array) {
+		        return elem === routeType;
+		    });
+		    if (!routeType || !exist.length) {
+		        if ($stateParams.feed && $stateParams.link) {
+		            dashboardService.isReadingArticle = true;
+		            if (articlesService.articleForRead) {
+		                if ($stateParams.link === articlesService.articleForRead.link) {
+		                    dashboardService.hideLoading();
+		                    return;
+		                }
+		            }
+		            return articlesService.setReadArticle($stateParams.feed, $stateParams.link, $stateParams.type).then(function (res) {
+		                dashboardService.hideLoading();
+		                if (articlesService.articleForRead === null) {
+		                    $state.go("404");
+		                    return;
+		                }
+		                $scope.articleForRead = articlesService.articleForRead;
+		            }, function (err) {		                
+		                dashboardService.hideLoading();
+		                if (err.status === 404) {
+		                    $state.go("404");
+		                }
+		            });
+		        }
+		        else {
+		            dashboardService.isReadingArticle = false;
+		            if (feedsService.feedsDictionary.length < 1) {
+		                $state.go("dashboard.addFeed");
+		            }
+		            else {
+		                $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' });
+		            }
+		        }
+		    }
+		    else {
+		        dashboardService.isReadingArticle = false;
+		        switch (routeType) {
+		            case 'all': {
+		                if (feedsService.feedsDictionary.length < 1) {
+		                    $state.go("dashboard.addFeed");
+		                }
+		                else {
+		                    articlesService.getAllArticles();
+		                }
+		            }
+		                break;
+		            case 'feed': {
+		                articlesService.getFeedDataById($stateParams.value1).then(function (res) {
+		                    articlesService.getArticlesByFeed(res.data);
+		                });
+		            }
+		                break;
+		            case 'category': {
+		                articlesService.getArticlesByCat($stateParams.value1);
+		            }
+		                break;
+		            case 'favourites': {
+		                if ($stateParams.value1 === 'category' && $stateParams.value2) {
+		                    articlesService.getFavArticlesByCat($stateParams.value2);
+		                }
+		                if (!$stateParams.value1 && !$stateParams.value2) {
+		                    articlesService.getFavourites();
+		                }
+		            }
+		                break;
+		        }
+		    }
+		}
 	}]);
 })();
