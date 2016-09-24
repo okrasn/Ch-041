@@ -1,4 +1,4 @@
-<html ng-app="rssreader">
+<html lang={{lang}} ng-app="rssreader">
 
 <head ng-controller="IndexController">
 	<title>Rss Reader</title>
@@ -51,8 +51,14 @@
 		<script src="./bower_components/angular-socialshare/dist/angular-socialshare.min.js"></script>
 		<script src="./bower_components/angular-scroll-animate/dist/angular-scroll-animate.js"></script>
 		<script src="./bower_components/angular-mocks/angular-mocks.js"></script>
+		<script src="./bower_components/angular-translate/angular-translate.min.js"></script>
+		<script src="./bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
+		<script src="./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+		<script src='./bower_components/angular-cookies/angular-cookies.js'></script>
+    	<script src='./bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js'></script>
+    	<script src='./bower_components/angular-translate-storage-local/angular-translate-storage-local.js'></script>
 
-		<script src="js/app.min.js"></script>
+		<script src="./js/app.min.js"></script>
 
 		<script src='./bower_components/satellizer/dist/satellizer.min.js'></script>
 		<script src='./bower_components/angular-jwt/dist/angular-jwt.min.js'></script>

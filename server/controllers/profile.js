@@ -3,6 +3,7 @@ var multer = require('multer'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	config = require('../config/config'),
+	msg = require('../config/msg'),
 	storage = multer.diskStorage({ 
 		destination: function(req, file, cb) {
 			cb(null, './dist/uploads/');
@@ -35,7 +36,7 @@ module.exports.upload = function(req, res) {
 				return;
 			}
 		} else return res.status(500).json({
-			message: config.ERRORS.file_not_found
+			message: msg.ERRORS.file_not_found
 		});
 	});
 };

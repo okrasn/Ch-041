@@ -76,9 +76,7 @@ module.exports.register = function (req, res) {
 					}	
 					user.save(function (err, result) {
 						if (err) {
-							return res.status(409).send({
-								message: msg.ERRORS.email_taken_or_not_approved
-							});
+							return res.end('error');
 						}
 						return res.status(400).json({
 							message: msg.ERRORS.email_verification,
@@ -94,7 +92,7 @@ module.exports.register = function (req, res) {
 				}
 				if (existingUser && existingUser.verifiedUser && (!existingUser.google || !existingUser.facebook || !existingUser.twitter || !existingUser.linkedin )) {
 					return res.status(409).json({
-						message: msg.ERRORS.email_taken
+						message: msg.ERRORS.email_taken_or_not_approved
 					});
 				}
 

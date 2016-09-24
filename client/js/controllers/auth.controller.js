@@ -6,7 +6,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}, "Password must contain (a-z,A-Z,0-9,!@#)");
 		$validatorProvider.addMethod("email", function (value, element) {
 		    return this.optional(element) || /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
-		}, "This email is not valid")
+		}, "Please enter a valid email address.")
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {

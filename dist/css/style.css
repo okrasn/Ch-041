@@ -1142,6 +1142,10 @@ a.sharing-btn {
 .close:hover {
   color: #3949ab; }
 
+.lang_btn {
+  padding: 0;
+  margin: 10px 0 0 57em; }
+
 .toaster-window {
   border-radius: 2px;
   z-index: 1000;

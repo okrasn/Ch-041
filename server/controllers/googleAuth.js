@@ -3,7 +3,8 @@ var jwt = require('jwt-simple'),
 	request = require('request'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
-	config = require('../config/config');
+	config = require('../config/config'),
+	msg = require('../config/msg');
 
 module.exports.googleAuth = function (req, res) {
 	var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token',
@@ -42,7 +43,7 @@ module.exports.googleAuth = function (req, res) {
 				}, function (err, existingUser) {
 					if (existingUser) {
 						return res.status(409).send({
-							message: config.ERRORS.google_account_belongs
+							message: msg.ERRORS.google_account_belongs
 						});
 					}
 					var token = req.header('Authorization').split(' ')[1],
@@ -50,7 +51,7 @@ module.exports.googleAuth = function (req, res) {
 					User.findById(payload.sub, function (err, user) {
 						if (!user) {
 							return res.status(400).send({
-								message: config.ERRORS.user_not_found
+								message: msg.ERRORS.user_not_found
 							});
 						}
 						user.google = profile.sub;

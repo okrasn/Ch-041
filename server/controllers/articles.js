@@ -9,7 +9,7 @@ var passport = require('passport'),
 module.exports.addFavArticle = function (req, res, next) {
 	if (req.body.link === undefined) {
 		return res.status(400).json({
-			message: config.ERRORS.enter_article_url
+			message: msg.ERRORS.enter_article_url
 		});
 	}
 	if (req.body.category === undefined) {
@@ -30,7 +30,7 @@ module.exports.addFavArticle = function (req, res, next) {
 				for (var j = 0; j < req.user.favouritesDictionary[i].articles.length; j++) {
 					if (req.user.favouritesDictionary[i].articles[j].link === req.body.link) {
 						return res.status(400).json({
-							message: config.ERRORS.fav_article_already_added
+							message: msg.ERRORS.fav_article_already_added
 						});
 					}
 				}
@@ -115,13 +115,13 @@ module.exports.removeFavArticle = function (req, res, next) {
 
 		if (!foundCategory) {
 			return res.send({
-				error: config.ERRORS.cant_delete_article_no_such_cat
+				error: msg.ERRORS.cant_delete_article_no_such_cat
 			});
 		}
 
 		if (!foundArticle) {
 			return res.send({
-				error: config.ERRORS.cant_delete_article_no_such_article
+				error: msg.ERRORS.cant_delete_article_no_such_article
 			});
 		}
 		Article.findById(foundCategory.articles[foundArticleIndex], function (err, article) {
@@ -129,7 +129,7 @@ module.exports.removeFavArticle = function (req, res, next) {
 				return next(err);
 			}
 			if (!article) {
-				return next(new Error(config.ERRORS.article_not_found));
+				return next(new Error(msg.ERRORS.article_not_found));
 			}
 			if (article.currentSubscriptions > 0) {
 				article.currentSubscriptions--;
@@ -161,7 +161,7 @@ module.exports.getFavArticle = function (req, res, next) {
 		}
 		if (!article) {
 			res.status(404).send({
-				message: config.ERRORS.article_not_found
+				message: msg.ERRORS.article_not_found
 			});
 			return;
 		}
@@ -176,7 +176,9 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		}
 		if (!articles) {
 			if (!article) {
-				res.status(404).send('Article not found');
+				res.status(404).send({
+					message: msg.ERRORS.article_not_found
+				});
 				return;
 			}
 		}

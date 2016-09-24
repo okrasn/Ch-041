@@ -36,7 +36,6 @@ module.exports = {
 		feed_already_added: 'You have already added this feed',
 		feed_not_found: 'Feed not found',
 		enter_feed_url: 'Enter feed url',
-		article_not_found: 'Article not found',
 		server_error: 'Server error',
 		internal_error: 'Internal error(%d): %s',
 		invalid_feed: 'Invalid feed',

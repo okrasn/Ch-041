@@ -1,7 +1,8 @@
 
 var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	config = require('../config/config');
+	config = require('../config/config'),
+	msg = require('../config/msg');
 
 
 module.exports.unlink = function (req, res) {
@@ -9,14 +10,14 @@ module.exports.unlink = function (req, res) {
 	providers = ['facebook', 'google', 'linkedin','twitter'];
 	if (providers.indexOf(provider) === -1) {
 		return res.status(400).send({
-			message: config.ERRORS.unknown_oauth_provider
+			message: msg.ERRORS.unknown_oauth_provider
 		});
 	}
 
 	User.findById(req.body.id, function (err, user) {
 		if (!user) {
 			return res.status(400).send({
-				message: config.ERRORS.user_not_found
+				message: msg.ERRORS.user_not_found
 			});
 		}
 		user[provider] = undefined;

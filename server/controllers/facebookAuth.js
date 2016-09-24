@@ -3,7 +3,8 @@ var jwt = require('jwt-simple'),
 	request = require('request'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
-	config = require('../config/config');
+	config = require('../config/config'),
+	msg = require('../config/msg');
 
 module.exports.facebookAuth = function (req, res) {
 	var fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'],
@@ -43,7 +44,7 @@ module.exports.facebookAuth = function (req, res) {
 				}, function (err, existingUser) {
 					if (existingUser) {
 						return res.status(409).send({
-							message: config.ERRORS.fs_account_belongs
+							message: msg.ERRORS.fs_account_belongs
 						});
 					}
 					var token = req.header('Authorization').split(' ')[1];
@@ -51,7 +52,7 @@ module.exports.facebookAuth = function (req, res) {
 					User.findById(payload.sub, function (err, user) {
 						if (!user) {
 							return res.status(400).send({
-								message: config.ERRORS.user_not_found
+								message: msg.ERRORS.user_not_found
 							});
 						}
 						user.facebook = profile.id;

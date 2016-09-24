@@ -16,27 +16,27 @@ module.exports = function (config) {
 			"./client/bower_components/bootstrap/dist/js/bootstrap.min.js",
 
 			"./client/bower_components/angular/angular.min.js",
-			"./client/bower_components/angular-mocks/angular-mocks.js",
 			"./client/bower_components/angular-animate/angular-animate.min.js",
 			"./client/bower_components/angular-aria/angular-aria.min.js",
 			"./client/bower_components/angular-messages/angular-messages.min.js",
 			"./client/bower_components/angular-touch/angular-touch.min.js",
 
 			"./client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-
 			"./client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
 			"./client/bower_components/ng-file-upload/ng-file-upload.min.js",
 			"./client/bower_components/ng-file-upload/ng-file-upload-shim.min.js",
 			"./client/bower_components/angular-favicon/angular-favicon.min.js",
 			"./client/bower_components/jpkleemans-angular-validate/dist/angular-validate.min.js",
 			"./client/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
-
-			'./client/bower_components/satellizer/dist/satellizer.js',
-			'./client/bower_components/angular-jwt/dist/angular-jwt.min.js',
-			'./client/bower_components/angular-toastr/dist/angular-toastr.js',
-			'./client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
-			"./client/js/app.js",
+			"./client/bower_components/angular-scroll-animate/dist/angular-scroll-animate.js",
+			"./client/bower_components/angular-mocks/angular-mocks.js",
+
+			"./client/js/app.min.js",
+
+			"./client/bower_components/satellizer/dist/satellizer.min.js",
+			"./client/bower_components/angular-jwt/dist/angular-jwt.min.js",
+				
 			"./tests/unit/registerNewUser.spec.js",
 			"./tests/unit/profileController.spec.js",
 			"./tests/unit/resetPassword.spec.js", 
@@ -62,7 +62,7 @@ module.exports = function (config) {
 		reporters: ['spec', 'coverage'],
 		coverageReporter: {
 			type : 'html',
-			dir : 'tests/coverage'
+			dir : 'client/tests/coverage'
 		},
 
 		// web server port
@@ -80,7 +80,7 @@ module.exports = function (config) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome'],
+		browsers: ['Chrome','Firefox'],
 
 		browserify: {
 			debug: true,

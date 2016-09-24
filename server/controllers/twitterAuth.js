@@ -4,7 +4,8 @@ var jwt = require('jwt-simple'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
 	qs = require('querystring'),
-	config = require('../config/config');
+	config = require('../config/config'),
+	msg = require('../config/msg');
 
 module.exports.twitterAuth = function(req, res) {
 	var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
@@ -49,7 +50,7 @@ module.exports.twitterAuth = function(req, res) {
 				User.findOne({ twitter: profile.id }, function(err, existingUser) {
 					if (existingUser) {
 						return res.status(409).send({ 
-							message: config.ERRORS.twitter_account_belongs 
+							message: msg.ERRORS.twitter_account_belongs 
 						});
 					}
 
@@ -59,7 +60,7 @@ module.exports.twitterAuth = function(req, res) {
 					User.findById(payload.sub, function(err, user) {
 						if (!user) {
 							return res.status(400).send({ 
-								message: config.ERRORS.user_not_found 
+								message: msg.ERRORS.user_not_found 
 							});
 						}
 						user.twitter = profile.id;

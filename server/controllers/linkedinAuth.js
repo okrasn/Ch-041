@@ -3,7 +3,8 @@ var jwt = require('jwt-simple'),
 	request = require('request'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
-	config = require('../config/config');
+	config = require('../config/config'),
+	msg = require('../config/msg');
 
 module.exports.linkedInAuth = function(req, res) {
 	var accessTokenUrl = 'https://www.linkedin.com/uas/oauth2/accessToken';
@@ -31,7 +32,7 @@ module.exports.linkedInAuth = function(req, res) {
 				User.findOne({ linkedin: profile.id }, function(err, existingUser) {
 					if (existingUser) {
 						return res.status(409).send({ 
-							message: config.ERRORS.linkedin_account_belongs 
+							message: msg.ERRORS.linkedin_account_belongs 
 						});
 					}
 					var token = req.header('Authorization').split(' ')[1];
@@ -39,7 +40,7 @@ module.exports.linkedInAuth = function(req, res) {
 					User.findById(payload.sub, function(err, user) {
 						if (!user) {
 							return res.status(400).send({ 
-								message: config.ERRORS.user_not_found 
+								message: msg.ERRORS.user_not_found 
 							});
 						}
 						user.linkedin = profile.id;
