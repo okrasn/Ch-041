@@ -2,21 +2,21 @@
 	<div id="register" class="mobile-half-padding col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-3 col-md-6">
 		<div class="cstmform-border card">
 			<h2 class="header uppercase">
-				<span class="orange">rss</span><span>|Final Step</span>
+				<span class="orange">rss</span><span translate>|Finishing Registration</span>
 			</h2>
 			<div class="row">
 				<div class="col-xs-12">
 					<form name="verifyForm" ng-submit="register(verifyForm)" ng-validate="validationRegistrOptions">
 						<div class="form-group login">
-							<label class="capitalize" for="enterEmail">email</label>
+							<label translate class="capitalize" for="enterEmail">email</label>
 							<input type="email" name="mail" class="form-control" id="enterEmail" placeholder="jacksparrow@gmail.com" ng-value='setEmail()' ng-model="user.email" ng-disabled='setEmail()'>
 						</div>
 						<div class="form-group login">
-							<label class="capitalize" for="enterPassword">password</label>
-							<input type="password" name="pwd" class="form-control" id="enterPassword"  autocomplete="off" placeholder="Enter your Password" ng-model="user.password" ng-required>
+							<label translate class="capitalize" for="enterPassword">password</label>
+							<input type="password" name="pwd" class="form-control" id="enterPassword"  autocomplete="off" translate-attr="{placeholder : 'Enter your Password'}" placeholder="Enter your Password" ng-model="user.password" ng-required>
 							<ul id="strength" check-strength="user.password"></ul>
 						</div>
-						<button id="sub_btn" type="submit" class="app-btn app-btn-blue center-block" >Sign up</button>
+						<button translate id="sub_btn" type="submit" class="app-btn app-btn-blue center-block" >Sign Up</button>
 						<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							<span class="sr-only">Error:</span>
