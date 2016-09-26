@@ -31,7 +31,7 @@
 			<div class="alert alert-danger alert-danger-app text-center fading-anim" role="alert" ng-show="error">
 				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				<span class="sr-only">Error:</span>
-				<span ng-bind="error"></span>
+				<span ng-bind="error | translate "></span>
 			</div>
 		</form>
 	</div>
@@ -39,8 +39,8 @@
 		<div id="adviced-cards-wrapper" class="desktop-grow clearfix feeds">
 			<h4 translate class="explore-header uppercase">Explore popular</h4>
 			<div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat="item in adviced">
-				<a class="adviced-card" ui-sref="dashboard.adviced({category: '{{item.category | translate}}'})">
-					<h4 class="advice-header text-center center-absolute" ng-bind="item.category | translate"></h4>
+				<a class="adviced-card" ui-sref="dashboard.adviced({category: '{{item.category}}'})">
+					<h4 class="advice-header text-center center-absolute" ng-bind="item.category"></h4>
 					<div class="img-responsive adviced-img" ng-style="setCoverImage(item)">
 					</div>
 					<div class="gradient"></div>

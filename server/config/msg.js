@@ -30,7 +30,6 @@ module.exports = {
 		cant_delete_article_no_such_cat: "Cant delete such article, no such category found within your account",
 		cant_delete_article_no_such_article: "Cant delete such article, no such article found within your account",
 		//feeds ctrl
-		choose_cat: 'Choose category',
 		cant_find_user: 'Can\'t find user',
 		category_not_found: 'Category not found',
 		feed_already_added: 'You have already added this feed',
