@@ -147,7 +147,7 @@
 		}
 
 		$scope.readArticle = function (article, type) {
-		    if ($scope.checkIfFavourites(article)) {
+		    if (type !== 'favourite' &&  $scope.checkIfFavourites(article)) {
 		        type = 'favourite';
 		    }
 		    articlesService.articleForRead = article;
