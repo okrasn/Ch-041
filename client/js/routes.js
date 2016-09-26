@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate'])
-		.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
 				.state('home', {
@@ -166,6 +166,7 @@
 						}
 					}]
 				});
+			$httpProvider.interceptors.push('sessionInjector');
 			$authProvider.twitter({
 			    clientId: '768721225971560448',
 			    url: '/auth/twitter',
