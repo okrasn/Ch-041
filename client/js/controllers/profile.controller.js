@@ -34,7 +34,7 @@
 			$scope.newUserData = {
 				email: profileService.refreshProfileData().email,
 				currentPass: "",
-				newPass: "",
+				password: "",
 				newPassRepeat: ""
 			};
 
@@ -104,6 +104,7 @@
 
 			$scope.resetPass = function () {
 				angular.element('label.error').remove();
+				angular.element('span.msg-error').addClass('error-hidden');
 			};
 			
             $scope.changePassValidation = {

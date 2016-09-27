@@ -13,8 +13,6 @@ var mongoose = require('mongoose'),
 	emailToken, mailOptions, host, link, userEmail,
 	arrayOfEmails = [];
 
-
-
 module.exports.register = function (req, res) {
 	var passAccepted = false;
 
@@ -152,7 +150,8 @@ module.exports.login = function (req, res) {
 };
 
 module.exports.forgotPass = function(req, res) {
-	async.waterfall([
+
+    async.waterfall([
 		function(done) {
 			var token = config.createEmailJWT(req.body.email);
 			done(null, token);
@@ -191,7 +190,6 @@ module.exports.forgotPass = function(req, res) {
 			res.status(200);
 			return res.redirect('/#/forgot');
 	});
-	
 };
 
 module.exports.reset = function(req, res) {

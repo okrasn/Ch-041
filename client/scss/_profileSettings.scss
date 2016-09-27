@@ -55,9 +55,9 @@ a.cstmblock {
     margin-bottom: 0;
 }
 
-.change-pass:nth-child(1), .change-pass:nth-child(2) {
-    height: 64px;
-    margin-bottom: 15px;
+.change-pass {
+	height: 64px;
+	margin-bottom: 15px;
 }
 
 .change-pass:nth-child(1) {
@@ -92,8 +92,9 @@ label.error {
 }
 
 #profile .msg-error {
-    font-size: 17px;
-    line-height: 30px;
+	margin-top: 0;
+	font-size: 17px;
+	line-height: 30px;
 }
 
 .error-hidden {
