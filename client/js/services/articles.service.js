@@ -109,32 +109,34 @@
 					});
 				},
 				getFavourites: function () {
-					return $timeout(function () {
-						obj.resetArticles();
-						obj.isFavourites = true;
-						dashboardService.setTitle("Favourites");
-						angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-							angular.forEach(value.articles, function (value, key) {
-								obj.articles.push(value);
-							});
+					obj.resetArticles();
+					obj.isFavourites = true;
+					dashboardService.setTitle("Favourites");
+					var tempCategory = '';
+					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+					    tempCategory = value.category;
+					    angular.forEach(value.articles, function (value, key) {
+					        value.category = tempCategory;
+							obj.articles.push(value);
 						});
-						dashboardService.hideLoading();
-					}, loadDelay);
+					});
+					dashboardService.hideLoading();
 				},
 				getFavArticlesByCat: function (cat) {
-					return $timeout(function () {
-						obj.resetArticles();
-						obj.isFavourites = true;
-						dashboardService.setTitle("Favourites: " + cat);
-						angular.forEach(feedsService.favouritesDictionary, function (value, key) {
-							if (value.category === cat) {
-								angular.forEach(value.articles, function (value, key) {
-									obj.articles.push(value);
-								});
-							}
-						});
-						dashboardService.hideLoading();
-					}, loadDelay);
+					obj.resetArticles();
+					obj.isFavourites = true;
+					dashboardService.setTitle("Favourites: " + cat);
+					var tempCategory = '';
+					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
+					    if (value.category === cat){
+					        tempCategory = cat;
+						    angular.forEach(value.articles, function (value, key) {
+						        value.category = tempCategory;
+								obj.articles.push(value);
+							});
+						}
+					});
+					dashboardService.hideLoading();
 				},
 				getFavArticle: function (article) {
 					obj.resetArticles();
@@ -147,14 +149,17 @@
 				addFavourite: function (article) {
 					dashboardService.displayLoading();
 					return $http.post('/users/' + authService.userID() + '/addFavArticle', article).then(function (res) {
-						feedsService.getAllFavourites();
-						dashboardService.hideLoading();
+					    angular.copy(res.data, feedsService.favouritesDictionary);
+					    dashboardService.hideLoading();
+					    return res;
 					});
 				},
 				removeFavourite: function (article) {
 					dashboardService.displayLoading();
 					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id).then(function (res) {
-						dashboardService.hideLoading();
+					    angular.copy(res.data, feedsService.favouritesDictionary);
+					    dashboardService.hideLoading();
+					    return res;
 					});
 				},
 				getAdvicedArticles: function () {

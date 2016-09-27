@@ -41,35 +41,51 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			return (that.CATEGORIES.indexOf(elem) == -1 && elem != 'Unsorted');
 		});
 	}
+
+	this.getAll = function () {
+	    return that.getAllFeeds().then(function (res) {
+	        return that.getAllFavourites();
+	    }, function (err) {
+	        console.log(err);
+	    });
+	}
+
 	this.getAllFeeds = function () {
 		return $http.get('/users/' + authService.userID()).then(function (res) {
 			for (var i = 0; i < res.data.length; i++) {
 				for (var j = 0; j < res.data[i].feeds.length; j++) {
 					res.data[i].feeds[j].category = res.data[i].category;
 				}
-			}
-			
+			}		
 			angular.copy(res.data, that.feedsDictionary);
-			that.getAllFavourites();
+		}, function (err) {
+		    console.log(err);
 		});
 	}
+
+	this.getAllFavourites = function () {
+	    return $http.get('/users/' + authService.userID() + "/favourites").then(function (res) {
+	        for (var i = 0; i < res.data.length; i++) {
+	            for (var j = 0; j < res.data[i].articles.length; j++) {
+	                res.data[i].articles[j].category = res.data[i].category;
+	            }
+	        }
+	        angular.copy(res.data, that.favouritesDictionary);
+	    }, function (err) {
+	        console.log(err);
+	    });
+	}
+
 	this.getAdvicedFeeds = function () {
 	    dashboardService.displayLoading();
 		return $http.get('/users/' + authService.userID() + "/advicedFeeds").then(function (res) {
 			angular.copy(res.data, that.advicedDictionary);
 			dashboardService.hideLoading();
+		}, function (err) {
+		    console.log(err);
 		});
 	}
-	this.getAllFavourites = function () {
-		return $http.get('/users/' + authService.userID() + "/favourites").then(function (res) {
-			for (var i = 0; i < res.data.length; i++) {
-				for (var j = 0; j < res.data[i].articles.length; j++) {
-					res.data[i].articles[j].category = res.data[i].category;
-				}
-			}
-			angular.copy(res.data, that.favouritesDictionary);
-		});
-	}
+
 	var checkRssFormat = function (xmlDoc) {
 		//Determine if RSS
 		if (xmlDoc.getElementsByTagName('rss').length) {
@@ -135,9 +151,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.removeFeed = function () {
-	    console.log(dashboardService.getFeed());
 	    return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + dashboardService.getFeed()._id).then(function (res) {
-	        console.log(res);
 	    }, function (err) {
 	        console.log(err);
 	    });

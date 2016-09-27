@@ -25,7 +25,7 @@
 		</div>
 		<div class="col-lg-3 adviced-articles-wrapper">
 			<h3 class="also-read-header">Also read</h3>
-			<div class="card adviced-article-card col-lg-12 col-md-4 col-xs-6" ng-repeat="article in adviced">
+			<div class="card adviced-article-card col-lg-12 col-md-4 col-xs-6" ng-repeat="article in articleData.advicedArticles">
 				<div class="adviced-article-title">
 					<div class="list-item" ng-click="readArticle(article, 'adviced')"><span ng-bind="article.title"></span></div>
 				</div>
@@ -51,7 +51,7 @@
 		</select>
 	</div>
 	<div class="modal-row">
-		<input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCatObj.category" ng-show="addingNewFavCategory" maxlength="25">
+		<input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCategory.category" ng-show="addingNewFavCategory" maxlength="25">
 		</input>
 	</div>
 	<div class="modal-row">

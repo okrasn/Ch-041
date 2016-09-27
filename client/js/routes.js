@@ -96,7 +96,7 @@
 							return profileService.getProfile();
 						}],
 						feedPromise: ['feedsService', function (feedsService) {
-							return feedsService.getAllFeeds();
+							return feedsService.getAll();
 						}]
 					}
 				})
@@ -166,7 +166,7 @@
 						}
 					}]
 				});
-			$httpProvider.interceptors.push('sessionInjector');
+			//$httpProvider.interceptors.push('sessionInjector');
 			$authProvider.twitter({
 			    clientId: '768721225971560448',
 			    url: '/auth/twitter',

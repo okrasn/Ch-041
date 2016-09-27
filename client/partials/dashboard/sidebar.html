@@ -10,7 +10,7 @@
 			<ul dnd-list="favs"
 				dnd-allowed-types="favsListDragableTypes">
 				<li class="sidebar-sub-item"
-					ng-repeat="category in favs"
+					ng-repeat="category in feedsData.favouritesDictionary"
 					dnd-draggable="category"
 					dnd-type="'favs'"
 					dnd-moved="onFavsDrag($index)"
