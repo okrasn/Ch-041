@@ -8,7 +8,8 @@
   				})
 			  	.preferredLanguage('en')
 			  	.useLocalStorage()
-			  	.useMissingTranslationHandlerLog();
+			  	.useMissingTranslationHandlerLog()
+			 	.useSanitizeValueStrategy('escape');
 		}])
 		.run(['$rootScope', function($rootScope) {
   			$rootScope.lang = 'en';
