@@ -99,7 +99,8 @@
   "Cant delete such feed, no such category found within your account": "Cant delete such feed, no such category found within your account",
   "Cant delete such feed, no such feed found within your account": "Cant delete such feed, no such feed found within your account",
   "Files not found": "Files not found",
-  "Unknown OAuth Provider": "Unknown OAuth Provider"
+  "Unknown OAuth Provider": "Unknown OAuth Provider",
+  "Enter Rss feed link": "Enter Rss feed link"
 
   
  

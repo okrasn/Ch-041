@@ -11,7 +11,7 @@
   "reset": "скидання",
   "Joined:": "Приєднався: ",
   "Add feed": "Додати Фід",
-  "Add new feed": "Додати нову стрічку",
+  "Add new feed": "Додати новий фід",
   "Url:": "Посилання: ",
   "Category": "Категорії: ",
   "Choose": "Обрати",
@@ -99,7 +99,8 @@
   "Cant delete such feed, no such category found within your account": "Не можна видалити фід, не знайдено даної категорії в вашому аккаунті",
   "Cant delete such feed, no such feed found within your account": "Не можна видалити фід, не знайдено данного фіда в вашому аккаунті",
   "Files not found": "Файли не знайдені",
-  "Unknown OAuth Provider": "Невідомий OAuth провайдер"
+  "Unknown OAuth Provider": "Невідомий OAuth провайдер",
+  "Enter Rss feed link": "Введіть Rss фід посилання"
   
 
 }
