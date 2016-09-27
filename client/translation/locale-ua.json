@@ -32,7 +32,7 @@
   "Science": "Наука",
   "Custom": "Користувацька",
   "IT": "IT",
-  "To enter custom category choose 'custom'": "Щоб ввести користувацьку категорію виберіть 'користувацька'",
+  "To enter custom category choose custom": "Щоб ввести користувацьку категорію виберіть користувацька",
   "Profile": "Профіль",
   "Sign out": "Вийти",
   "Sign In": " Ввійти",
@@ -100,7 +100,21 @@
   "Cant delete such feed, no such feed found within your account": "Не можна видалити фід, не знайдено данного фіда в вашому аккаунті",
   "Files not found": "Файли не знайдені",
   "Unknown OAuth Provider": "Невідомий OAuth провайдер",
-  "Enter Rss feed link": "Введіть Rss фід посилання"
+  "Enter Rss feed link": "Введіть Rss фід посилання",
+  "All": "Всі",
+  "Newest": "Новіші",
+  "Oldest": "Старіші",
+  "By Feed": "По фідах",
+  "add to favourites": "додати до улюбленних",
+  "confirm": "підтвердити",
+  "read": "читати",
+  "Continue reading": "Продовжити читання",
+  "Also read": "Також читайте",
+  "You have successfully login": "Ви успішно увійшли",
+  "Page you are looking for doesnt exist": "Сторінка яку ви шукаєте не існує",
+  "You have successfully authenticated": "Ви успішно увійшли",
+  "": "",
+  "": ""
   
 
 }

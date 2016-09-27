@@ -24,9 +24,9 @@
 		</div>
 	</div>
 	<modal show='modalShown'>
-		<h4 class="uppercase">add to favourites</h4>
+		<h4 translate class="uppercase">add to favourites</h4>
 		<div class="modal-row">
-			<select id="category"
+			<select translate id="category"
 					class="form-control form-input"
 					ng-model="obj.category"
 					ng-options="category for category in categories()"
@@ -34,7 +34,7 @@
 					uib-tooltip="To enter custom category choose 'custom'"
 					tooltip-trigger="'focus'"
 					tooltip-placement="top-left">
-				<option value="" disabled selected hidden>Choose</option>
+				<option value="" disabled selected hidden translate>Choose</option>
 			</select>
 		</div>
 		<div class="modal-row">
@@ -42,14 +42,14 @@
 		</div>
 		<div class="modal-row">
 			<div class="center-children">
-				<button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+				<button translate type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
 			</div>
 		</div>
 		<div class="modal-row" ng-show="error">
 			<div class="alert alert-danger text-center fading-anim" role="alert">
 				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				<span class="sr-only">Error:</span>
-				<span ng-bind="error"></span>
+				<span ng-bind="error | translate"></span>
 			</div>
 		</div>
 	</modal>

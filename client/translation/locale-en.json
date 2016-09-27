@@ -32,7 +32,7 @@
   "Science": "Science",
   "Custom": "Custom",
   "IT": "IT",
-  "To enter custom category choose 'custom'": "To enter custom category choose 'custom'",
+  "To enter custom category choose custom": "To enter custom category choose custom",
   "Profile": "Profile",
   "Sign out": "Sign out",
   "Sign In": "Sign In",
@@ -100,7 +100,21 @@
   "Cant delete such feed, no such feed found within your account": "Cant delete such feed, no such feed found within your account",
   "Files not found": "Files not found",
   "Unknown OAuth Provider": "Unknown OAuth Provider",
-  "Enter Rss feed link": "Enter Rss feed link"
+  "Enter Rss feed link": "Enter Rss feed link",
+  "All": "All",
+  "Newest": "Newest",
+  "Oldest": "Oldest",
+  "By Feed": "By Feed",
+  "add to favourites": "add to favourites",
+  "confirm": "confirm",
+  "read": "read",
+  "Continue reading": "Continue reading",
+  "Also read": "Also read",
+  "You have successfully login": "You have successfully login",
+  "Page you are looking for doesnt exist": "Page you are looking for doesnt exist",
+  "You have successfully authenticated": "You have successfully authenticated",
+  "": "",
+  "": ""
 
   
  
