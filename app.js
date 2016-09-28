@@ -26,8 +26,7 @@ var routes = require('./server/routes/index');
 app.set('port', process.env.PORT || 8080);
 app.set('base url', process.env.URL || 'http://localhost');
 
-//mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
-mongoose.connect('mongodb://localhost/feeds');
+mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB');
 });
@@ -49,8 +48,6 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
 app.use(express.static(__dirname + '/dist'));
 app.use('/', routes);
 
