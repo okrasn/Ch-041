@@ -49,6 +49,7 @@ describe('AuthController', function () {
 			});
 		
 			$httpBackend.expect('GET', './partials/home.html').respond(200);
+			$httpBackend.whenGET("/translation/locale-en.json").respond(200);
 			$httpBackend.when('POST', '/forgot').respond(200,{html : "<html ng-app='rssreader'></html>"});
 			$httpBackend.when('POST', '/reset').respond(200,{html : "<html ng-app='rssreader'></html>"});
 			expect($httpBackend.flush).not.toThrow();

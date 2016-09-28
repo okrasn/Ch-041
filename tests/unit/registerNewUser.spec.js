@@ -28,6 +28,7 @@ describe('authService', function () {
 			});
 		
 		$httpBackend.expect('GET', './partials/home.html').respond(200);
+		$httpBackend.whenGET("/translation/locale-en.json").respond(200);
 		$httpBackend.when('POST', '/register', $scope.user).respond(200, {
 			data: $scope.user
 		}, {

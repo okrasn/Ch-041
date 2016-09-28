@@ -14,13 +14,11 @@ module.exports = function (config) {
 			"./client/bower_components/jquery-validation/dist/jquery.validate.min.js",
 			"./client/bower_components/jquery-validation/dist/additional-methods.min.js",
 			"./client/bower_components/bootstrap/dist/js/bootstrap.min.js",
-
 			"./client/bower_components/angular/angular.min.js",
 			"./client/bower_components/angular-animate/angular-animate.min.js",
 			"./client/bower_components/angular-aria/angular-aria.min.js",
 			"./client/bower_components/angular-messages/angular-messages.min.js",
 			"./client/bower_components/angular-touch/angular-touch.min.js",
-
 			"./client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
 			"./client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
 			"./client/bower_components/ng-file-upload/ng-file-upload.min.js",
@@ -31,6 +29,12 @@ module.exports = function (config) {
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
 			"./client/bower_components/angular-scroll-animate/dist/angular-scroll-animate.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
+			"./client/bower_components/angular-translate/angular-translate.min.js",
+			"./client/bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js",
+			"./client/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+			"./client/bower_components/angular-cookies/angular-cookies.js",
+    		"./client/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js",
+    		"./client/bower_components/angular-translate-storage-local/angular-translate-storage-local.js",
 
 			"./client/js/app.js",
 
@@ -53,7 +57,7 @@ module.exports = function (config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			"./client/js/app.min.js" : ['coverage']
+			"./client/js/app.js" : ['coverage']
 		},
 
 		// test results reporter to use
@@ -62,7 +66,7 @@ module.exports = function (config) {
 		reporters: ['spec', 'coverage'],
 		coverageReporter: {
 			type : 'html',
-			dir : 'client/tests/coverage'
+			dir : 'tests/coverage'
 		},
 
 		// web server port
@@ -80,7 +84,7 @@ module.exports = function (config) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome','Firefox'],
+		browsers: ['Chrome'],
 
 		browserify: {
 			debug: true,

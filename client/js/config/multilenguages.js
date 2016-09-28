@@ -8,7 +8,6 @@
   				})
 			  	.preferredLanguage('en')
 			  	.useLocalStorage()
-			  	.useMissingTranslationHandlerLog()
 			 	.useSanitizeValueStrategy('escape');
 		}])
 		.run(['$rootScope', function($rootScope) {

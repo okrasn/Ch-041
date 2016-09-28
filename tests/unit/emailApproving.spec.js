@@ -37,6 +37,7 @@ describe('AuthController', function () {
 			})
 		
 			$httpBackend.expect('GET', './partials/home.html').respond(200);
+			$httpBackend.whenGET("/translation/locale-en.json").respond(200);
 			$httpBackend.when('POST', '/reset').respond(400,{message : "First you have to approve you email. We are send verification link to your email"});
 			expect($httpBackend.flush).not.toThrow();
 			expect($scope.errorMsg).toEqual(errorMsg);
