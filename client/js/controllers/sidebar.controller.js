@@ -11,6 +11,7 @@
 		$scope.favs = $scope.feedsData.favouritesDictionary;
 
 		$scope.onFeedsDrag = function (parent, index) {
+		    dashboardService.displayLoading();
 			$scope.feeds[parent].feeds.splice(index, 1);
 			feedsService.setInnerFeedsOrder().then(function (resp) {
 			    dashboardService.hideLoading();
