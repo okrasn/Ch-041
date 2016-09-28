@@ -107,7 +107,7 @@
 				angular.element('span.msg-error').addClass('error-hidden');
 			};
 			
-            $scope.changePassValidation = {
+			$scope.changePassValidation = {
 				rules: {
 					currentPassword: {
 						required: true

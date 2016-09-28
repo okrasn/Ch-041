@@ -10,18 +10,18 @@
 			<ul dnd-list="favs"
 				dnd-allowed-types="favsListDragableTypes">
 				<li class="sidebar-sub-item"
-					ng-repeat="category in favs"
+					ng-repeat="category in feedsData.favouritesDictionary"
 					dnd-draggable="category"
 					dnd-type="'favs'"
 					dnd-moved="onFavsDrag($index)"
 					dnd-effect-allowed="move">
-					<a class="glyphFeeds fav-dropdown" data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" ng-click="getFavArticlesByCat($event, category.category)">
+					<a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" class="glyphFeeds fav-dropdown" ng-click="getFavArticlesByCat($event, category.category)">
 						<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 					</a>
 					<div class="collapse" id="{{ $index + 'fav' + category.category.split(' ').join('')}}">
 						<ul>
 							<li class="sidebar-sub-item" ng-repeat="article in category.articles | orderBy: 'title'">
-								<a class="shortened-text fav-dropdown" ng-click="getFavArticle($event, article)">
+								<a class="shortened-text fav-dropdown" ng-click="getFavArticle($event, article)" ng-dblclick="IgnoreDoubleClick()">
 									<img ng-src="{{article.link|favicon}}">
 									<span ng-bind="article.title"></span>
 								</a>
@@ -49,7 +49,7 @@
 			<div class="collapse" id="{{ $index + category.category.split(' ').join('')}}">
 				<ul>
 					<li class="sidebar-sub-item" ng-repeat="feed in category.feeds | orderBy: 'title'">
-						<a class="shortened-text" ng-click="getByFeed($event, feed)">
+						<a class="shortened-text" ng-click="getByFeed($event, feed)" ng-dblclick="IgnoreDoubleClick()">
 							<img ng-src="{{feed.link|favicon}}">
 							<span ng-bind="feed.title"></span>
 						</a>

@@ -216,14 +216,12 @@ module.exports.remove = function (req, res, next) {
 			foundFeed = null;
 
 		for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
-			if (array[i].category == req.params.category) {
-				foundCategory = array[i];
-				foundCategoryIndex = i;
-				for (var j = 0, feeds = array[i].feeds; j < feeds.length; j++) {
-					if (feeds[j]._id == req.params.id) {
-						foundFeed = feeds[j];
-						foundFeedIndex = j;
-					}
+			for (var j = 0, feeds = array[i].feeds; j < feeds.length; j++) {
+				if (feeds[j]._id == req.params.id) {
+					foundFeed = feeds[j];
+					foundFeedIndex = j;
+					foundCategory = array[i];
+					foundCategoryIndex = i;
 				}
 			}
 		}
@@ -240,7 +238,7 @@ module.exports.remove = function (req, res, next) {
 			});
 		}
 
-		Feed.findById(foundCategory.feeds[foundFeedIndex]._id, function (err, feed) {
+		Feed.findById(req.params.id, function (err, feed) {
 			if (err) {
 				return next(err);
 			}
@@ -262,7 +260,7 @@ module.exports.remove = function (req, res, next) {
 			foundCategory.feeds.splice(foundFeedIndex, 1);
 		}
 
-		req.user.save(function (err) {
+		req.user.save(function (err, user) {
 			if (err) return next(err);
 			res.statusCode = 200;
 			return res.send();

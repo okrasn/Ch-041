@@ -137,6 +137,14 @@ p {
 	background-color: #cecece;
 }
 
+.offset-top{
+	margin-top: 1em;
+}
+
+.not-important{
+	color: #888;
+}
+
 @import "navbar";
 @import "addFeed";
 @import "feedList";

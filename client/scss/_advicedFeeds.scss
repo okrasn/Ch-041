@@ -36,6 +36,10 @@
 	border-radius: $main-border-radius 0 0 $main-border-radius;
 }
 
+.adviced-no-img {
+	background-image: url(/assets/images/noimage.png);
+}
+
 .advice-content{
 	display: block;
 	cursor: pointer;
@@ -94,7 +98,7 @@
 .adviced-feed{
 	padding: $main-app-offset;
 	border-radius: $main-border-radius;
-	height: 20em;
+	height: 29em;
 }
 
 .adviced-feed-title{
@@ -121,8 +125,4 @@
 .readers-num{
 	font-weight: 600;
 	margin: 0;
-}
-
-.readers-word{
-	opacity: 0.5;
 }

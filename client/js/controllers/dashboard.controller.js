@@ -3,7 +3,7 @@
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.headTitle = dashboardService.getTitle;
-		$scope.feed = dashboardService.getFeedId;
+		$scope.feed = dashboardService.getFeed;
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
 		$scope.readSingleFeed = dashboardService.readSingleFeed;
@@ -54,7 +54,7 @@
 					dashboardService.setViewMode(2);
 					break;
 			}
-			$state.go('dashboard.' + dashboardService.getViewMode());
+			$state.go('dashboard.' + dashboardService.getViewMode(), { type: $state.params.type, value1: $state.params.value1, value2: $state.params.value2});
 		}
 		var timer;
 		$scope.onFeedDelete = function () {
@@ -65,11 +65,10 @@
 		}
 		$scope.confirmFeedDelete = function () {
 			dashboardService.loadingIcon = true;
-			feedsService.removeFeed(dashboardService.getFeedId())
+			feedsService.removeFeed()
 				.then(function (res) {
-					dashboardService.loadingIcon = false;
 					toasterService.info("Feed has been deleted");
-					$state.reload("dashboard");
+					$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
 				}, function (err) {
 					dashboardService.loadingIcon = false;
 					console.log(err);

@@ -111,9 +111,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				$auth.removeToken();
 				authService.saveToken(response.data.token);
 				toasterService.success('You have successfully authenticated');
-				$state.go('dashboard.' + dashboardService.getViewMode());
-			},function (error) {
-				$scope.error = error.data.message;
+				$state.go('dashboard.' + dashboardService.getViewMode(), {type: 'all'});
+			},function (response) {
 				toasterService.error(response.data.message);
 			})
 		};

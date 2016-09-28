@@ -140,6 +140,15 @@ ul[dnd-list] .dndPlaceholder {
     min-height: 3em;
 }
 
+ul[dnd-list] .dndPlaceholder:after {
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    content: "\e234";
+}
+
 #sidebar-wrapper.toggled {
     display: block;
 }

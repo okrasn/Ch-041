@@ -58,7 +58,9 @@ module.exports.addFavArticle = function (req, res, next) {
 						if (err) {
 							return next(err);
 						}
-						res.json(currentArticle);
+						user.populate("favouritesDictionary.articles", function (err, user) {
+							res.json(user.favouritesDictionary);
+						});
 					});
 				});
 			}
@@ -85,7 +87,9 @@ module.exports.addFavArticle = function (req, res, next) {
 						if (err) {
 							return next(err);
 						}
-						res.json(article);
+						user.populate("favouritesDictionary.articles", function (err, user) {
+							res.json(user.favouritesDictionary);
+						});
 					});
 				});
 			}
@@ -101,14 +105,12 @@ module.exports.removeFavArticle = function (req, res, next) {
 			foundArticle = null;
 
 		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
-			if (array[i].category == req.params.category) {
-				foundCategory = array[i];
-				foundCategoryIndex = i;
-				for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
-					if (articles[j]._id == req.params.id) {
-						foundArticle = articles[j];
-						foundArticleIndex = j;
-					}
+			for (var j = 0, articles = array[i].articles; j < articles.length; j++) {
+				if (articles[j]._id == req.params.id) {
+					foundArticle = articles[j];
+					foundArticleIndex = j;
+					foundCategory = array[i];
+					foundCategoryIndex = i;
 				}
 			}
 		}
@@ -124,6 +126,7 @@ module.exports.removeFavArticle = function (req, res, next) {
 				error: msg.ERRORS.cant_delete_article_no_such_article
 			});
 		}
+
 		Article.findById(foundCategory.articles[foundArticleIndex], function (err, article) {
 			if (err) {
 				return next(err);
@@ -146,10 +149,11 @@ module.exports.removeFavArticle = function (req, res, next) {
 			foundCategory.articles.splice(foundArticleIndex, 1);
 		}
 
-		req.user.save(function (err) {
+		req.user.save(function (err, user) {
 			if (err) return next(err);
-			res.statusCode = 200;
-			return res.send();
+			user.populate("favouritesDictionary.articles", function (err, user) {
+				res.json(user.favouritesDictionary);
+			});
 		});
 	});
 }
@@ -185,21 +189,21 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		var result;
 		var num = articles.length;
 		if (num < 11) {
-		    result = articles;
+			result = articles;
 		}
 		if (num > 10 && num < 51) {
-		    result = articles.slice(0, 10);
-		    result.sort(function () { return 0.5 - Math.random() });
+			result = articles.slice(0, 10);
+			result.sort(function () { return 0.5 - Math.random() });
 		}
 		if (num > 50 && num < 101) {
-		    result = articles.slice(0, 20);
-		    result.sort(function () { return 0.5 - Math.random() });
-		    result.slice(0, 10);
+			result = articles.slice(0, 20);
+			result.sort(function () { return 0.5 - Math.random() });
+			result = result.slice(0, 10);
 		}
 		if (num > 100 && num < 1001) {
-		    result = articles.slice(0, 100);
-		    result.sort(function () { return 0.5 - Math.random() });
-		    result.slice(0, 10);
+			result = articles.slice(0, 100);
+			result.sort(function () { return 0.5 - Math.random() });
+			result = result.slice(0, 10);
 		}
 		res.json(result);
 	});

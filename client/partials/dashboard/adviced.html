@@ -1,21 +1,28 @@
 ﻿<div id="adviced-feeds-wrapper" class="clearfix col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
-    <h3 id="feeds-title" class="uppercase">Best #<span ng-bind="advicedCategory"></span> resources</h3>
-    <div ng-repeat="item in adviced | filter:{category: advicedCategory}">
-        <div class="col-lg-4 col-sm-6 col-xs-12" ng-repeat="feed in item.feeds">
-            <div class="adviced-feed app-panel fade-in-anim"">
-                <div class="adviced-feed-title">
-                    <a ng-href="{{feed.link}}"><img class="favicon" ng-src="{{feed.link|favicon}}"><span ng-bind="feed.title"></span></a>
-                </div>
-                <div class="adviced-feed-content">
-                    <span ng-bind="feed.description"></span>
-                </div>
-                <div class="advice-feed-stats">
-                    <div class="col-xs-3 stats-block">
-                        <div class="center-block readers-num" ng-bind="feed.currentSubscriptions"></div>
-                        <div class="center-block readers-word">readers</div>
-                    </div>
-                    <div class="col-xs-7">
-
+	<h3 id="feeds-title" class="uppercase">Best #<span ng-bind="advicedCategory"></span> resources</h3>
+	<div ng-repeat="item in adviced | filter:{category: advicedCategory}">
+		<div class="col-lg-4 col-sm-6 col-xs-12" ng-repeat="feed in item.feeds" ng-init="article = getFirstArticle(feed._id)">
+			<div class="adviced-feed app-panel fade-in-anim">
+				<div class="adviced-feed-title">
+					<a ng-href="{{feed.link}}"><img class="favicon" ng-src="{{feed.link|favicon}}"><span ng-bind="feed.title"></span></a>
+				</div>
+				<div class="adviced-feed-content" ng-show="feed.description">
+					<span ng-bind="feed.description"></span>
+				</div>
+				<div class="adviced-feed-content" ng-hide="feed.description">
+					<span>No description available</span>
+				</div>
+				<div class="adviced-article-title offset-top">
+					<div class="list-item" ng-click="readArticle(article)"><span ng-bind="article.title"></span></div>
+				</div>
+				<div class="img-responsive adviced-article-img center-block offset-top" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}"></div>
+				<div class="img-responsive adviced-article-img adviced-no-img center-block offset-top" ng-hide="article.img"></div>
+				<div class="advice-feed-stats offset-top">
+					<div class="col-xs-3 stats-block">
+						<div class="center-block readers-num" ng-bind="feed.currentSubscriptions"></div>
+						<div class="center-block readers-word not-important">subscribers</div>
+					</div>
+					<div class="col-xs-7">
                     </div>
                     <div class="col-xs-2 stats-block center-children">
                         <button class="subscribe-btn" ng-click="addFeedByAdvice(feed)"><span class="glyphicon glyphicon-plus"></span></button>
@@ -57,15 +64,15 @@
 </div>
 
 <div class="mobile-zero-padding col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
-    <div id="adviced-cards-wrapper" class="desktop-grow clearfix feeds">
-        <h4 class="explore-header uppercase">Explore popular</h4>
-        <div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat="item in adviced">
-            <a class="adviced-card" ui-sref="dashboard.adviced({category: '{{item.category}}'})">
-                <h4 class="advice-header text-center center-absolute" ng-bind="item.category"></h4>
-                <div class="img-responsive adviced-img" ng-style="setCoverImage(item)">
-                </div>
-                <div class="gradient"></div>
-            </a>
-        </div>
-    </div>
+	<div id="adviced-cards-wrapper" class="desktop-grow clearfix feeds">
+		<h4 class="explore-header uppercase">Explore popular</h4>
+		<div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat="item in adviced">
+			<a class="adviced-card" ui-sref="dashboard.adviced({category: '{{item.category}}'})">
+				<h4 class="advice-header text-center center-absolute" ng-bind="item.category"></h4>
+				<div class="img-responsive adviced-img" ng-style="setCoverImage(item)">
+				</div>
+				<div class="gradient"></div>
+			</a>
+		</div>
+	</div>
 </div>

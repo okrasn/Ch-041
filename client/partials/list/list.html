@@ -1,6 +1,6 @@
 <!--Table feeds-->
 <div id="list" class="feeds">
-	<div class="table-feed" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
+	<div class="table-feed" ng-repeat="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
 		<div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
 		</div>
 		<div class="col-lg-11 col-xs-10 col-same-height">

@@ -1,6 +1,6 @@
 <!--Detailed table feeds-->
 <div id="cards-wrapper" class="clearfix feeds">
-    <div class="col-md-12 col-lg-12" ng-repeat="article in getArticles() | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
+    <div class="col-md-12 col-lg-12" ng-repeat="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
         <div class="app-panel fade-in-anim">
             <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
             </div>
@@ -69,3 +69,39 @@
             Load more
         </button>
     </div>
+    <modal show='modalShown'>
+        <h4 class="uppercase">add to favourites</h4>
+        <div class="modal-row">
+            <select id="category"
+                    class="form-control form-input"
+                    ng-model="obj.category"
+                    ng-options="category for category in categories()"
+                    ng-change="checkIfNew()"
+                    uib-tooltip="To enter custom category choose 'custom'"
+                    tooltip-trigger="'focus'"
+                    tooltip-placement="top-left">
+                <option value="" disabled selected hidden>Choose</option>
+            </select>
+        </div>
+        <div class="modal-row">
+            <input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCategory.category" ng-show="addingNewFavCategory" maxlength="25">
+        </div>
+        <div class="modal-row">
+            <div class="center-children">
+                <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+            </div>
+        </div>
+        <div class="modal-row" ng-show="error">
+            <div class="alert alert-danger text-center fading-anim" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <span ng-bind="error"></span>
+            </div>
+        </div>
+    </modal>
+</div>
+<div class="load-btn-wrap center-children fading-anim" ng-hide="isAllDisplayed()">
+    <button class="app-btn app-btn-blue" ng-click="loadMore()">
+        Load more
+    </button>
+</div>

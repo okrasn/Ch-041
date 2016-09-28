@@ -32,7 +32,7 @@ module.exports = function (config) {
 			"./client/bower_components/angular-scroll-animate/dist/angular-scroll-animate.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
 
-			"./client/js/app.min.js",
+			"./client/js/app.js",
 
 			"./client/bower_components/satellizer/dist/satellizer.min.js",
 			"./client/bower_components/angular-jwt/dist/angular-jwt.min.js",
