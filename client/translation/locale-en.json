@@ -1,6 +1,6 @@
 {
-  "BUTTON_LANG_UA": "Ukrainian",
-  "BUTTON_LANG_EN": "English",
+  "button-lang-ua": "Ukrainian",
+  "button-lang-en": "English",
   "change theme": "change theme",
   "change password": "change password",
   "current password:":"current password:",
@@ -114,7 +114,7 @@
   "Page you are looking for doesnt exist": "Page you are looking for doesnt exist",
   "You have successfully authenticated": "You have successfully authenticated",
   "Load more": "Load more",
-  "": ""
+  "Click to apply": "Click to apply"
 
   
  

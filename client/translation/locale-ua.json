@@ -1,6 +1,6 @@
 {
-  "BUTTON_LANG_UA": "Українська",
-  "BUTTON_LANG_EN": "Англійська",
+  "button-lang-ua": "Українська",
+  "button-lang-en": "Англійська",
   "change theme": "Зміна теми",
   "change password": "зміна пароля",
   "current password:": "поточний пароль:",
@@ -114,5 +114,5 @@
   "Page you are looking for doesnt exist": "Сторінка яку ви шукаєте не існує",
   "You have successfully authenticated": "Ви успішно увійшли",
   "Load more": "Завантажити більше",
-  "": ""
+  "Click to apply": "Змінити"
 }

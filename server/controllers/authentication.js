@@ -98,7 +98,7 @@ module.exports.register = function (req, res) {
 					existingUser.emailVerification = true;
 					existingUser.verifiedUser = true;
 					existingUser.date_of_signup = new Date();
-					if( (req.body.password === existingUser.tempPassword)  && (existingUser.emailToken === req.body.verifyEmail)){
+					if((req.body.password === existingUser.tempPassword)  && (existingUser.emailToken === req.body.verifyEmail)){
 						existingUser.tempPassword = '';	
 						existingUser.save(function (err, result) {
 							if (err) {
@@ -246,18 +246,18 @@ module.exports.resetPost = function(req, res) {
 };
 
 module.exports.changePassword = function (req, res, next) {
-	if (!req.body.currentPass || !req.body.newPass || !req.body.newPassRepeat) {
+	if (!req.body.currentPass || !req.body.password || !req.body.newPassRepeat) {
 		return res.status(400).json({
 			message: msg.ERRORS.fill_out_fields
 		});
 	}
 
-	if (req.body.newPass !== req.body.newPassRepeat) {
+	if (req.body.password !== req.body.newPassRepeat) {
 		return res.status(400).json({
 			message: msg.ERRORS.pass_not_match
 		});
 	}
-	if (req.body.newPass == req.body.newPassRepeat && req.body.newPass == req.body.currentPass) {
+	if (req.body.password == req.body.newPassRepeat && req.body.password == req.body.currentPass) {
 		return res.status(400).json({
 			message: msg.ERRORS.same_pass
 		});
@@ -272,7 +272,7 @@ module.exports.changePassword = function (req, res, next) {
 			});
 		} else {
 			if (req.body.currentPass) {
-				user.password = req.body.newPass;
+				user.password = req.body.password;
 
 				user.save(function (err) {
 					if (err) {

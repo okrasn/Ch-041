@@ -9,7 +9,7 @@
 					<h5 ng-show="currentUser().date_of_signup"><span translate>Joined:</span><span ng-bind="currentUser().date_of_signup | date : 'mediumDate'"></h5>
 				</div>
 				<div class="profile-email text-center-mobile">
-					<h5><span class="info" ng-bind="currentUser().email"></span></h5>
+					<h5><span class="info" ng-bind="currentUser().email"></h5>
 				</div>
 			</div>
 		</div>
@@ -51,10 +51,10 @@
 			<hr>
 			<div class="row">
 				<div class="col-xs-12 center-children-mobile">
-					<button class="app-btn app-btn-blue pull-right upload-btn" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span translate >change theme</span></button>
+					<button class="app-btn app-btn-blue pull-right upload-btn" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
 					
-	  				<button class="btn btn-default" ng-show="lang == 'en'" ng-click="changeLanguage('ua')" translate="BUTTON_LANG_UA"></button>
-	  				<button class="btn btn-default" ng-show="lang == 'ua'" ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></button>
+	  				<button class="btn btn-default ua" ng-show="lang == 'en'" ng-click="changeLanguage('ua')" translate="button-lang-ua"></button>
+	  				<button class="btn btn-default en" ng-show="lang == 'ua'" ng-click="changeLanguage('en')" translate="button-lang-en"></button>
 				
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 						<label class="col-sm-5 capitalize" for="newPassword"><span translate>new password:</span></label>
 						<div class="col-sm-7">
 							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.password" ng-required>
-							<ul id="strength" check-strength="newUserData.password" myuser="newUserData"></ul>
+ 							<ul id="strength" check-strength="newUserData.password" myuser="newUserData"></ul>
 						</div>
 					</div>
 				</div>
@@ -92,6 +92,7 @@
 							</span>
 						</div>
 					</div>
+				</div>
 				<div class="center-children">
 					<button type="submit" class="app-btn app-btn-blue margin-right"><span translate>save</span></button>
 					<button type="reset" ng-click="resetPass()" class="app-btn app-btn-blue margin-left"><span translate>reset</span></button>
@@ -136,7 +137,7 @@
 </div>
 <modal id="profile-modal" show='modalShown' class="carousel">
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		<div class="text-center clickme center-absolute">Click to apply</div>
+		<div translate class="text-center clickme center-absolute">Click to apply</div>
 		<ol class="carousel-indicators">
 			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 			<li data-target="#myCarousel" data-slide-to="1"></li>

@@ -161,8 +161,8 @@
 			$rootScope.$on('$translateChangeSuccess', function(event, data) {
       			var language = data.language;
       			$rootScope.lang = language;
-				$rootScope.default_direction = language === 'ua' ? 'rtl' : 'ltr';
-      			$rootScope.default_float = language === 'ua' ? 'right' : 'left';
+				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
+      			$rootScope.default_float = language === 'en' ? 'right' : 'left';
     		});
 		}
 	]);
