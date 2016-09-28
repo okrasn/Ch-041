@@ -136,8 +136,10 @@
 					resolve: {
 					    feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
 					        return feedsService.getAdvicedFeeds().then(function (res) {
-					            return articlesService.getAdvicedArticlesByCat($stateParams.category);
-					        })
+					            if ($stateParams.category) {
+					                return articlesService.getAdvicedArticlesByCat($stateParams.category);
+					            }
+					        });
 						}]
 					}
 				})

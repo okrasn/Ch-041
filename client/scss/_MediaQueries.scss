@@ -43,9 +43,6 @@ $desktop-res: 1200px;
 	}
 }
 
-@media screen and (min-width: $phone-res) and (max-width: $desktop-res) {
-}
-
 @media screen and (max-width: $tablet-res) {
 	.third-layer {
 		height: 65em;
@@ -189,7 +186,7 @@ $desktop-res: 1200px;
 		width: 21em;
 	}
 
-	#home_container {
+	#home {
 		background-size: cover;
 		height: 45em;
 

@@ -22,7 +22,7 @@
 			    setReadArticle: function (feed, link, type) {
 			        var someObj = obj.articleForRead;
 			        if(!type){
-			            return this.getFeedDataById(feed).then(function (res) {
+			            return feedsService.getSingleFeed(feed).then(function (res) {
 			                obj.resetArticles();
 			                var feedObj = res.data;
 			                return fetchArticles(feedObj).then(function (res) {
@@ -68,7 +68,6 @@
 					}, function (err) {
 						dashboardService.hideLoading();
 						console.log(err);
-						$state.go("404");
 					});
 				},
 				getArticlesByCat: function (cat) {
@@ -148,7 +147,7 @@
 				},
 				addFavourite: function (article) {
 					dashboardService.displayLoading();
-					return $http.post('/users/' + authService.userID() + '/addFavArticle', article).then(function (res) {
+					return $http.post("/addFavArticle", article).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
 					    dashboardService.hideLoading();
 					    return res;
@@ -156,7 +155,7 @@
 				},
 				removeFavourite: function (article) {
 					dashboardService.displayLoading();
-					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id).then(function (res) {
+					return $http.delete("/deleteFavFeed/" + article._id).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
 					    dashboardService.hideLoading();
 					    return res;
@@ -165,7 +164,7 @@
 				getAdvicedArticles: function () {
 				    dashboardService.displayLoading();
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					return $http.get("/advicedArticles").then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
 					    dashboardService.hideLoading();
 					}, function (err) {
@@ -174,7 +173,7 @@
 				},
 				getAdvicedFeedsArticles: function () {
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					return $http.get("/advicedArticles").then(function (res) {
 						angular.copy(res.data, obj.advicedArticles);
 					}, function (err) {
 						console.log(err);
@@ -190,9 +189,6 @@
 					obj.isFavourites = false;
 					dashboardService.resetFeed();
 					promises.length = 0;
-				},
-				getFeedDataById: function (id) {
-					return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id });
 				},
 				// Additional method for unit testing
 				getArticlesFetcher: function () {
@@ -315,7 +311,7 @@
 					});
 			},
 			getArticleDataByLink = function (link) {
-				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link });
+				return $http.post("/getFavArticle", { link: link });
 			}
 		return obj;
 	}]);

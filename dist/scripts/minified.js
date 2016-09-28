@@ -3933,8 +3933,10 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					resolve: {
 					    feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
 					        return feedsService.getAdvicedFeeds().then(function (res) {
-					            return articlesService.getAdvicedArticlesByCat($stateParams.category);
-					        })
+					            if ($stateParams.category) {
+					                return articlesService.getAdvicedArticlesByCat($stateParams.category);
+					            }
+					        });
 						}]
 					}
 				})
@@ -4023,143 +4025,6 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 	}]);
 })();
 
-angular.module('rssreader').directive('modal', [function () {
-	return {
-		restrict: 'E',
-		scope: {
-			show: '='
-		},
-		replace: true,
-		transclude: true,
-		link: function (scope, element, attrs, ctrl) {
-			scope.modalStyle = {};
-
-			scope.hideModal = function () {
-				scope.show = false;
-			};
-		},
-		templateUrl: '../partials/modals/modal.html'
-	};
-}]);
-
-angular.module('rssreader').directive('pwCheck', [function() {
-		return {
-			require: 'ngModel',
-			link: function(scope, elem, attrs, ctrl) {
-				var firstPassword = '#' + attrs.pwCheck;
-				elem.add(firstPassword).on('keyup', function() {
-					scope.$apply(function() {
-						if (elem.val() === "") {
-							angular.element('span.msg-error').addClass('error-hidden');
-						}else{
-							angular.element('span.msg-error').removeClass('error-hidden');
-						}
-						var v = elem.val() === $(firstPassword).val();
-						ctrl.$setValidity('pwmatch', v);
-					});
-				});
-			}
-		}
-	}]);
-angular.module('rssreader').directive('checkStrength', [function() {
-	return {
-		replace: false,
-		restrict: 'EACM',
-		scope: {
-			myuser: '='
-		},
-		link: function(scope, iElement, iAttrs) {
-			var strength = {
-				colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
-				mesureStrength: function(p) {
-					if (p) {
-						var _force = 0,
-							_regex = /[#@$-/:-?-~!"^_`]/g,
-							_lowerLetters = /[a-z]+/.test(p),
-							_upperLetters = /[A-Z]+/.test(p),
-							_numbers = /[0-9]+/.test(p),
-							_symbols = _regex.test(p),
-							_flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
-							_passedMatches = $.grep(_flags, function(el) {
-								return el === true;
-							}).length;
-
-							_force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
-							_force += _passedMatches * 10;
-
-							// penality (short password)
-							_force = (p.length <= 5) ? Math.min(_force, 10) : _force;
-							// penality (poor variety of characters)
-							_force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
-							_force = (_passedMatches == 2) ? Math.min(_force, 20) : _force;
-							_force = (_passedMatches == 3) ? Math.min(_force, 40) : _force;
-
-						return _force;
-
-					} else {
-						return scope.user.password = '';
-					}
-				},
-				getColor: function(s) {
-					var idx = 0;
-					if (s <= 10) { idx = 0; } else if (s <= 20) { idx = 1; } else if (s <= 30) { idx = 2; } else if (s <= 40) { idx = 3; } else { idx = 4; }
-
-					return { idx: idx + 1, col: this.colors[idx] };
-				}
-			};
-			scope.$watch("myuser", function() {
-				if (!scope.myuser.password && !scope.myuser.pas ) {
-					iElement.css({ "display": "none" });
-				} else {
-					var c = strength.getColor(strength.mesureStrength(scope.myuser.password || scope.myuser.pas));
-					iElement.css({ "display": "block" });
-					iElement.children('li')
-						.css({ "background": "#DDD" })
-						.slice(0, c.idx)
-						.css({ "background": c.col });
-				}
-			}, true);
-		},
-		template: '<li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>'
-	};
-}]);
-angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', function ($timeout, toasterService) {
-	return {
-		restrict: 'E',
-		transclude: true,
-		link: function (scope, element, attrs) { 
-			if (attrs.overlay) {
-				scope.overlay = true;
-			}
-			else {
-				scope.overlay = false;
-			}
-			if (attrs.delay) {
-				scope.delay = attrs.delay;
-			}
-			else {
-				scope.delay = 3000;
-			}
-			scope.toasterStyle = {};
-			scope.confirm = function () {
-				scope.$parent[attrs.confirm]();
-				scope.hideToaster();
-			}
-			scope.reject = function () {
-				scope.hideToaster();
-			}
-			scope.hideToaster = function () {
-				$timeout.cancel(scope.timer);
-				scope.$destroy();
-				toasterService.removeToaster(element);
-			};
-			scope.timer = $timeout(function () {
-				scope.hideToaster();
-			}, scope.delay);
-		},
-		templateUrl: '../partials/modals/toaster.html'
-	};
-}]);
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
@@ -4231,7 +4096,6 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 			if ($scope.newCategory.category) {
 				$scope.obj.category = $scope.newCategory.category;
 			}
-			console.log($scope.obj.category);
 			if ($scope.obj.category) {
 				if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 					$scope.error = "Enter new category name";
@@ -4265,8 +4129,8 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 			    toasterService.info("Article removed from favourites");
 				for (var i = 0, array = res.data; i < array.length; i++) {
 				    if (array[i].category === $scope.favForRemove.category) {
-						if (array[i].articles.length > 0) {
-						    $state.go("dashboard." + dashboardService.getViewMode(), { type: 'favourites', value1: 'category', value2: $scope.favForRemove.category }, {reload: true});
+				        if (array[i].articles.length > 0) {
+				            articlesService.getFavArticlesByCat($stateParams.value2);
 							return;
 						}
 						else {
@@ -4334,7 +4198,6 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 			}
 		});
 		function analizeRouting() {
-			dashboardService.displayLoading();
 			var routeType = $stateParams.type;
 			var exist = queryTypes.filter(function (elem, i, array) {
 				return elem === routeType;
@@ -4385,9 +4248,11 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 					}
 						break;
 					case 'feed': {
-						articlesService.getFeedDataById($stateParams.value1).then(function (res) {
-							articlesService.getArticlesByFeed(res.data);
-						});
+					    feedsService.getSingleFeed($stateParams.value1).success(function (res) {
+					        articlesService.getArticlesByFeed(res);
+					    }).error(function (err) {
+					        console.log(err);
+					    });
 					}
 						break;
 					case 'category': {
@@ -4395,7 +4260,7 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 					}
 						break;
 				    case 'favourites': {
-					    if ($stateParams.value1 === 'category' && $stateParams.value2) {
+				        if ($stateParams.value1 === 'category' && $stateParams.value2) {
 							articlesService.getFavArticlesByCat($stateParams.value2);
 						}
 						if (!$stateParams.value1 && !$stateParams.value2) {
@@ -4451,7 +4316,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				if($scope.user.verifyEmail){
 					$scope.user.email = transfer.getEmail();
 				}
-				authService.register($scope.user).error(function (error) {
+			    authService.register($scope.user).error(function (error) {
+			        dashboardService.loadingIcon = false;
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
@@ -4470,7 +4336,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		        authService.logIn($scope.user, $scope.session).error(function (error) {
 		            dashboardService.loadingIcon = false;
 					$scope.error = error;
-				}).then(function () {
+				}).then(function (res) {
 					if (!$scope.session) {
 						$scope.onExit = function () {
 							auth.logOut();
@@ -4492,12 +4358,12 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		};
 		
 		$scope.forgot = function(form){
-			authService.forgot($scope.confirm_email).error(function (error) {
-				$scope.error = error;	
-				toasterService.error(error.message);
-			}).then(function (response) {
-				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
-			})
+		    authService.forgot($scope.confirm_email).error(function (error) {
+		        $scope.error = error;
+		        toasterService.error(error.message);
+		    }).then(function (response) {
+		        toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');
+		    })
 		}
 
 		$scope.reset = function(form){
@@ -4521,7 +4387,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				toasterService.error(response.data.message);
 			})
 		};
-
 		
 		$scope.defaultAgreeWith = function () {
 			$scope.agreeWith = false;
@@ -4694,7 +4559,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 	'use strict';
 	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
 		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-		    dashboardService.isReadingArticle = true;
+			dashboardService.isReadingArticle = true;
 		}
 		var changeCatObj = {};
 		$scope.advicedCategory = $stateParams.category;
@@ -4705,25 +4570,25 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
 
-		if ($state.current.name === "dashboard.adviced") {
+		if ($state.current.name === 'dashboard.adviced') {
 			var invalidCategory = $scope.adviced.filter(function (elem, i) {
 				return elem.category == $stateParams.category;
 			});
 			if (!invalidCategory.length) {
-				$state.go("404", {reload: true});
+				$state.go('404', {reload: true});
 			}
 		}
 
 		$scope.getFirstArticle = function (id) {
-		    for (var i = 0, array = articlesService.articles; i < array.length; i++) {
-		        if (array[i].feed == id) {
-		            return array[i];
-		        }
-		    }
+			for (var i = 0, array = articlesService.articles; i < array.length; i++) {
+				if (array[i].feed == id) {
+					return array[i];
+				}
+			}
 		}
 
 		$scope.IgnoreDoubleClick = function () {
-		    return false;
+			return false;
 		}
 
 		$scope.checkIfNew = function () {
@@ -4735,28 +4600,27 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				$scope.newCategory = {};
 			}
 		}
+
 		$scope.addFeed = function () {
 			dashboardService.loadingIcon = true;
 			$scope.error = '';
 			if (!$scope.obj.link) {
-				$scope.error = "Enter Rss feed link";
+				$scope.error = 'Enter Rss feed link';
 				dashboardService.loadingIcon = false;
 				return;
 			}
 			if ($scope.newCategory.category) {
 				$scope.obj.category = $scope.newCategory.category;
 			}
-
 			if (!$scope.obj.category) {
 				if (!$scope.advicedCategory) {
-					$scope.error = "Choose category";
+					$scope.error = 'Choose category';
 					dashboardService.loadingIcon = false;
 					return;
 				}
 			}
-
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-				$scope.error = "Enter new category name";
+				$scope.error = 'Enter new category name';
 				dashboardService.loadingIcon = false;
 				return;
 			}
@@ -4765,16 +4629,19 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			}
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
-				    dashboardService.loadingIcon = false;
+					dashboardService.loadingIcon = false;
 					$scope.addingNewCategory = false;
-					toasterService.success("Feed successfully added");
-					feedsService.getAllFeeds();
-					$state.go("dashboard." + dashboardService.getViewMode(), { type: "feed", value1: res.data._id });
+					toasterService.success('Feed successfully added');
+					var feedId = res.data._id;
+					feedsService.getAllFeeds().then(function (res) {
+						$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'feed', value1: feedId });
+					});
+
 				}, function (err) {
-				    dashboardService.loadingIcon = false;
-				    if (typeof err === 'string') {
-				        $scope.error = err;
-				    }
+					dashboardService.loadingIcon = false;
+					if (typeof err === 'string') {
+						$scope.error = err;
+					}
 					if (err.data) {
 						changeCatObj = {
 							id: err.data.id,
@@ -4783,29 +4650,35 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 						};
 
 						toasterService.confirm({
-							message: "Switch category?",
-							confirm: "switchCategory"
+							message: 'Switch category?',
+							confirm: 'switchCategory'
 						}, $scope);
 					}
 					if (!err.data) {
-					    if (err.message) {
-					        $scope.error = err.message;
-					    }
+						if (err.message) {
+							$scope.error = err.message;
+						}
 					}
 					else {
-					    $scope.error = err.data.message;
+						$scope.error = err.data.message;
 					}
 				});
 		}
+
 		$scope.switchCategory = function () {
 			return $http.post('/users/' + authService.userID() + '/changeFeedCategory', changeCatObj).success(function (res) {
-			    console.log(res);
-			    $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
+				console.log(res);
+				$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
 			}
 			).error(function (err) {
-			    console.log(err);
+				console.log(err);
 			});
 		}
+
+		$scope.toAdvicedCategory = function (cat) {
+		    $state.go('dashboard.adviced', {category: cat})
+		}
+
 		$scope.addFeedByAdvice = function (feed) {
 			$scope.addingNewCategory = false;
 			$scope.obj.link = feed.rsslink;
@@ -4813,39 +4686,41 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			$scope.obj.category = '';
 			$scope.modalShown = !$scope.modalShown;
 		}
+
 		$scope.setCoverImage = function (item) {
-			var coverImage = "";
+			var coverImage = '';
 			switch (item.category) {
-				case "IT": {
+				case 'IT': {
 					coverImage = '/assets/images/it.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "Gaming": {
+				case 'Gaming': {
 					coverImage = '/assets/images/gaming.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "News": {
+				case 'News': {
 					coverImage = '/assets/images/news.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "Sport": {
+				case 'Sport': {
 					coverImage = '/assets/images/sport.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "Food": {
+				case 'Food': {
 					coverImage = '/assets/images/food.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
 			}
 		}
+
 		$scope.readArticle = function (article) {
-		    dashboardService.displayLoading();
-		    $state.go("dashboard.article", { feed: article.feed, link: article.link });
+			dashboardService.displayLoading();
+			$state.go('dashboard.article', { feed: article.feed, link: article.link });
 		}
 	}]);
 })();
@@ -5019,7 +4894,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				}
 				if (file) {
 					Upload.upload({
-						url: '/users/' + authService.userID() + '/upload', //webAPI exposed to upload the file
+						url: "/upload", //webAPI exposed to upload the file
 						data: {
 							file: file,
 							user: authService.userID()
@@ -5149,7 +5024,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		    });
 		}
 		$scope.IgnoreDoubleClick = function () {
-		    console.log("dblclick");
 		    return false;
 		}
 		$scope.getAll = function ($event) {
@@ -5239,6 +5113,143 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 	}]);
 })();
+angular.module('rssreader').directive('modal', [function () {
+	return {
+		restrict: 'E',
+		scope: {
+			show: '='
+		},
+		replace: true,
+		transclude: true,
+		link: function (scope, element, attrs, ctrl) {
+			scope.modalStyle = {};
+
+			scope.hideModal = function () {
+				scope.show = false;
+			};
+		},
+		templateUrl: '../partials/modals/modal.html'
+	};
+}]);
+
+angular.module('rssreader').directive('pwCheck', [function() {
+		return {
+			require: 'ngModel',
+			link: function(scope, elem, attrs, ctrl) {
+				var firstPassword = '#' + attrs.pwCheck;
+				elem.add(firstPassword).on('keyup', function() {
+					scope.$apply(function() {
+						if (elem.val() === "") {
+							angular.element('span.msg-error').addClass('error-hidden');
+						}else{
+							angular.element('span.msg-error').removeClass('error-hidden');
+						}
+						var v = elem.val() === $(firstPassword).val();
+						ctrl.$setValidity('pwmatch', v);
+					});
+				});
+			}
+		}
+	}]);
+angular.module('rssreader').directive('checkStrength', [function() {
+	return {
+		replace: false,
+		restrict: 'EACM',
+		scope: {
+			myuser: '='
+		},
+		link: function(scope, iElement, iAttrs) {
+			var strength = {
+				colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
+				mesureStrength: function(p) {
+					if (p) {
+						var _force = 0,
+							_regex = /[#@$-/:-?-~!"^_`]/g,
+							_lowerLetters = /[a-z]+/.test(p),
+							_upperLetters = /[A-Z]+/.test(p),
+							_numbers = /[0-9]+/.test(p),
+							_symbols = _regex.test(p),
+							_flags = [_lowerLetters, _upperLetters, _numbers, _symbols],
+							_passedMatches = $.grep(_flags, function(el) {
+								return el === true;
+							}).length;
+
+							_force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+							_force += _passedMatches * 10;
+
+							// penality (short password)
+							_force = (p.length <= 5) ? Math.min(_force, 10) : _force;
+							// penality (poor variety of characters)
+							_force = (_passedMatches == 1) ? Math.min(_force, 10) : _force;
+							_force = (_passedMatches == 2) ? Math.min(_force, 20) : _force;
+							_force = (_passedMatches == 3) ? Math.min(_force, 40) : _force;
+
+						return _force;
+
+					} else {
+						return scope.user.password = '';
+					}
+				},
+				getColor: function(s) {
+					var idx = 0;
+					if (s <= 10) { idx = 0; } else if (s <= 20) { idx = 1; } else if (s <= 30) { idx = 2; } else if (s <= 40) { idx = 3; } else { idx = 4; }
+
+					return { idx: idx + 1, col: this.colors[idx] };
+				}
+			};
+			scope.$watch("myuser", function() {
+				if (!scope.myuser.password && !scope.myuser.pas ) {
+					iElement.css({ "display": "none" });
+				} else {
+					var c = strength.getColor(strength.mesureStrength(scope.myuser.password || scope.myuser.pas));
+					iElement.css({ "display": "block" });
+					iElement.children('li')
+						.css({ "background": "#DDD" })
+						.slice(0, c.idx)
+						.css({ "background": c.col });
+				}
+			}, true);
+		},
+		template: '<li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>'
+	};
+}]);
+angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', function ($timeout, toasterService) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		link: function (scope, element, attrs) { 
+			if (attrs.overlay) {
+				scope.overlay = true;
+			}
+			else {
+				scope.overlay = false;
+			}
+			if (attrs.delay) {
+				scope.delay = attrs.delay;
+			}
+			else {
+				scope.delay = 3000;
+			}
+			scope.toasterStyle = {};
+			scope.confirm = function () {
+				scope.$parent[attrs.confirm]();
+				scope.hideToaster();
+			}
+			scope.reject = function () {
+				scope.hideToaster();
+			}
+			scope.hideToaster = function () {
+				$timeout.cancel(scope.timer);
+				scope.$destroy();
+				toasterService.removeToaster(element);
+			};
+			scope.timer = $timeout(function () {
+				scope.hideToaster();
+			}, scope.delay);
+		},
+		templateUrl: '../partials/modals/toaster.html'
+	};
+}]);
 (function () {
 	'use strict';
 	angular.module('rssreader')
@@ -5277,7 +5288,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			    setReadArticle: function (feed, link, type) {
 			        var someObj = obj.articleForRead;
 			        if(!type){
-			            return this.getFeedDataById(feed).then(function (res) {
+			            return feedsService.getSingleFeed(feed).then(function (res) {
 			                obj.resetArticles();
 			                var feedObj = res.data;
 			                return fetchArticles(feedObj).then(function (res) {
@@ -5323,7 +5334,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					}, function (err) {
 						dashboardService.hideLoading();
 						console.log(err);
-						$state.go("404");
 					});
 				},
 				getArticlesByCat: function (cat) {
@@ -5403,7 +5413,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				},
 				addFavourite: function (article) {
 					dashboardService.displayLoading();
-					return $http.post('/users/' + authService.userID() + '/addFavArticle', article).then(function (res) {
+					return $http.post("/addFavArticle", article).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
 					    dashboardService.hideLoading();
 					    return res;
@@ -5411,7 +5421,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				},
 				removeFavourite: function (article) {
 					dashboardService.displayLoading();
-					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id).then(function (res) {
+					return $http.delete("/deleteFavFeed/" + article._id).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
 					    dashboardService.hideLoading();
 					    return res;
@@ -5420,7 +5430,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				getAdvicedArticles: function () {
 				    dashboardService.displayLoading();
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					return $http.get("/advicedArticles").then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
 					    dashboardService.hideLoading();
 					}, function (err) {
@@ -5429,7 +5439,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				},
 				getAdvicedFeedsArticles: function () {
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					return $http.get("/advicedArticles").then(function (res) {
 						angular.copy(res.data, obj.advicedArticles);
 					}, function (err) {
 						console.log(err);
@@ -5445,9 +5455,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					obj.isFavourites = false;
 					dashboardService.resetFeed();
 					promises.length = 0;
-				},
-				getFeedDataById: function (id) {
-					return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id });
 				},
 				// Additional method for unit testing
 				getArticlesFetcher: function () {
@@ -5570,7 +5577,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					});
 			},
 			getArticleDataByLink = function (link) {
-				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link });
+				return $http.post("/getFavArticle", { link: link });
 			}
 		return obj;
 	}]);
@@ -5799,46 +5806,56 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.getAll = function () {
-	    return that.getAllFeeds().then(function (res) {
-	        return that.getAllFavourites();
-	    }, function (err) {
-	        console.log(err);
-	    });
+		return that.getAllFeeds().then(function (res) {
+			return that.getAllFavourites();
+		}, function (err) {
+			console.log(err);
+		});
 	}
 
 	this.getAllFeeds = function () {
-		return $http.get('/users/' + authService.userID()).then(function (res) {
+		return $http.get("/feeds").then(function (res) {
 			for (var i = 0; i < res.data.length; i++) {
 				for (var j = 0; j < res.data[i].feeds.length; j++) {
 					res.data[i].feeds[j].category = res.data[i].category;
 				}
-			}		
+			}
 			angular.copy(res.data, that.feedsDictionary);
+			return res;
 		}, function (err) {
-		    console.log(err);
+			console.log(err);
 		});
 	}
 
-	this.getAllFavourites = function () {
-	    return $http.get('/users/' + authService.userID() + "/favourites").then(function (res) {
-	        for (var i = 0; i < res.data.length; i++) {
-	            for (var j = 0; j < res.data[i].articles.length; j++) {
-	                res.data[i].articles[j].category = res.data[i].category;
-	            }
-	        }
-	        angular.copy(res.data, that.favouritesDictionary);
-	    }, function (err) {
-	        console.log(err);
+	this.getSingleFeed = function (id) {
+	    return $http.get("/getSingleFeed/" + id).success(function (res) {
+	        return res;
+	    }).error(function (err) {
+	        return err;
 	    });
 	}
 
+	this.getAllFavourites = function () {
+		return $http.get("/favourites").then(function (res) {
+			for (var i = 0; i < res.data.length; i++) {
+				for (var j = 0; j < res.data[i].articles.length; j++) {
+					res.data[i].articles[j].category = res.data[i].category;
+				}
+			}
+			angular.copy(res.data, that.favouritesDictionary);
+			return res;
+		}, function (err) {
+			console.log(err);
+		});
+	}
+
 	this.getAdvicedFeeds = function () {
-	    dashboardService.displayLoading();
-		return $http.get('/users/' + authService.userID() + "/advicedFeeds").then(function (res) {
+		dashboardService.displayLoading();
+		return $http.get("/advicedFeeds").then(function (res) {
 			angular.copy(res.data, that.advicedDictionary);
 			dashboardService.hideLoading();
 		}, function (err) {
-		    console.log(err);
+			console.log(err);
 		});
 	}
 
@@ -5885,19 +5902,22 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 						return $q.reject("Enter Rss feed link");
 					}
 					if (feed.category === undefined) {
-					    return $q.reject("Choose category");
+						return $q.reject("Choose category");
 					}
 					if (response.data.responseData === null) {
-					    return $q.reject("URL is incorrect or does not contain RSS Feed data");
+						return $q.reject("URL is incorrect or does not contain RSS Feed data");
 					}
 					var parser = new DOMParser();
 					xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
 					var format = checkRssFormat(xmlDoc);
 					if (format === -1) {
-					    return $q.reject("URL is incorrect or does not contain RSS Feed data");
+						return $q.reject("URL is incorrect or does not contain RSS Feed data");
 					} else {
 						var feedObj = generateFeed(xmlDoc, feed, format);
-						return $http.post('/users/' + authService.userID() + '/addFeed', feedObj).error(function (err) {
+						return $http.post("/addFeed", feedObj).success(function (res) {
+							dashboardService.hideLoading();
+							return res;
+						}).error(function (err) {
 							console.log(err);
 							dashboardService.hideLoading();
 						});
@@ -5907,10 +5927,10 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.removeFeed = function () {
-	    return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + dashboardService.getFeed()._id).then(function (res) {
-	    }, function (err) {
-	        console.log(err);
-	    });
+		return $http.delete("/deleteFeed/" + dashboardService.getFeed()._id).then(function (res) {
+		}, function (err) {
+			console.log(err);
+		});
 	}
 
 	this.setFeedsOrder = function () {
@@ -5920,7 +5940,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 		for (var i = 0; i < that.feedsDictionary.length; i++) {
 			obj.newCategories.push(that.feedsDictionary[i].category);
 		}
-		return $http.post('/users/' + authService.userID() + '/setCategoryOrder', obj);
+		return $http.post("/setCategoryOrder", obj);
 	}
 
 	this.setFavsOrder = function () {
@@ -5930,7 +5950,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 		for (var i = 0; i < that.favouritesDictionary.length; i++) {
 			obj.newCategories.push(that.favouritesDictionary[i].category);
 		}
-		return $http.post('/users/' + authService.userID() + '/setFavsCategoryOrder', obj);
+		return $http.post("/setFavsCategoryOrder", obj);
 	}
 }]);
 
@@ -5982,12 +6002,13 @@ function FeedsToJson(array) {
     'use strict';
     angular.module('rssreader').factory('sessionInjector', ['$injector', function ($injector) {
         var sessionInjector = {
-            request: function (config) {
-                var auth = $injector.get('authService');
-                if (auth.isLoggedIn()) {
-                    config.headers['Authorization'] = 'Bearer ' + auth.getToken();
+            responseError: function (res) {
+                var $state = $injector.get('$state'),
+                $q = $injector.get('$q');
+                if (res.status == 404) {
+                    $state.go('404', { reload: true });
                 }
-                return config;
+                return $q.reject(res);
             }
         };
         return sessionInjector;
@@ -6016,7 +6037,7 @@ function FeedsToJson(array) {
 					src: 'assets/images/theme4.jpg'
 				},],
 				changeTheme: function(theme) {
-					return $http.post('/users/' + authService.userID() + '/changeColorTheme', {
+					return $http.post("/changeColorTheme", {
 						colorTheme: theme
 					}, {
 						headers: {
@@ -6202,7 +6223,6 @@ function FeedsToJson(array) {
 			return obj;
 		}
 		return {
-
 			setObj: setObj,
 			getObj: getObj,
 			setString: setString,

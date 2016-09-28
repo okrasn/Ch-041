@@ -159,6 +159,10 @@ module.exports.removeFavArticle = function (req, res, next) {
 }
 
 module.exports.getFavArticle = function (req, res, next) {
+	if (!req.body.link) {
+		res.status(404).send('Not found');
+		return;
+	}
 	Article.findOne({ link: req.body.link }, function (err, article) {
 		if (err) {
 			console.log("ERROR: " + err);

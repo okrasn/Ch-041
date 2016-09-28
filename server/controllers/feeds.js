@@ -9,7 +9,7 @@ var passport = require('passport'),
 		choose_cat: 'Choose category',
 		cant_find_user: 'Can\'t find user',
 		feed_already_added: 'You have already added this feed',
-		feed_not_found: 'Feed not found',
+		not_found: 'Not found',
 		enter_feed_url: 'Enter feed url',
 		article_not_found: 'Article not found',
 		server_error: 'Server error',
@@ -17,20 +17,6 @@ var passport = require('passport'),
 		cant_delete_feed_no_such_cat: "Cant delete such feed, no such category found within your account",
 		cant_delete_feed_no_such_feed: "Cant delete such feed, no such feed found within your account"
 	}
-
-module.exports.userParam = function (req, res, next, id) {
-	var query = User.findById(id);
-	query.exec(function (err, user) {
-		if (err) {
-			return next(err);
-		}
-		if (!user) {
-			return next(new Error(ERRORS.cant_find_user));
-		}
-		req.user = user;
-		return next();
-	});
-};
 
 module.exports.allFeed = function (req, res, next) {
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
@@ -63,18 +49,20 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 	});
 }
 
-module.exports.getFeedData = function (req, res, next) {
-	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-	res.status(404).send('Invalid feed');
-		return;
+module.exports.getSingleFeed = function (req, res, next) {
+	if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+	    return res.status(404).json({
+	        message: ERRORS.not_found
+	    });
 	}
-	Feed.findById(req.body.id, function (err, feed) {
+	Feed.findById(req.params.id, function (err, feed) {
 		if (err) {
 			return next(err);
 		}
 		if (!feed) {
-			res.status(404).send('Not found');
-			return;
+		    return res.status(404).json({
+		        message: ERRORS.not_found
+		    });
 		}
 		else {
 			res.json(feed);
@@ -231,9 +219,9 @@ module.exports.remove = function (req, res, next) {
 		}
 
 		if (!foundFeed) {
-		    return res.status(404).json({
-		        message: ERRORS.cant_delete_feed_no_such_feed,
-		    });
+			return res.status(404).json({
+				message: ERRORS.cant_delete_feed_no_such_feed,
+			});
 		}
 
 		Feed.findById(req.params.id, function (err, feed) {

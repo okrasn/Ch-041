@@ -41,7 +41,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				if($scope.user.verifyEmail){
 					$scope.user.email = transfer.getEmail();
 				}
-				authService.register($scope.user).error(function (error) {
+			    authService.register($scope.user).error(function (error) {
+			        dashboardService.loadingIcon = false;
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
@@ -60,7 +61,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		        authService.logIn($scope.user, $scope.session).error(function (error) {
 		            dashboardService.loadingIcon = false;
 					$scope.error = error;
-				}).then(function () {
+				}).then(function (res) {
 					if (!$scope.session) {
 						$scope.onExit = function () {
 							auth.logOut();
@@ -82,12 +83,12 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		};
 		
 		$scope.forgot = function(form){
-			authService.forgot($scope.confirm_email).error(function (error) {
-				$scope.error = error;	
-				toasterService.error(error.message);
-			}).then(function (response) {
-				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
-			})
+		    authService.forgot($scope.confirm_email).error(function (error) {
+		        $scope.error = error;
+		        toasterService.error(error.message);
+		    }).then(function (response) {
+		        toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');
+		    })
 		}
 
 		$scope.reset = function(form){
@@ -111,7 +112,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				toasterService.error(response.data.message);
 			})
 		};
-
 		
 		$scope.defaultAgreeWith = function () {
 			$scope.agreeWith = false;

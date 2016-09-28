@@ -43,55 +43,47 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); // support encoded bodies
 
-app.use(session({
-	secret: 'MY_SECRET',
-	resave: false,
-	saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.static(__dirname + '/dist'));
 app.use('/', routes);
 
- //catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-});
+// //catch 404 and forward to error handler
+//app.use(function (req, res, next) {
+//	var err = new Error('Not Found');
+//	err.status = 404;
+//	next(err);
+//});
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res, next) {
-	res.status(err.status || 500);
-	res.render('error', {
-		message: err.message,
-		error: {}
-	});
-});
+//// production error handler
+//// no stacktraces leaked to user
+//app.use(function (err, req, res, next) {
+//	res.status(err.status || 500);
+//	res.render('error', {
+//		message: err.message,
+//		error: {}
+//	});
+//});
 
-// error handlers
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-	console.log("development");
-	app.use(function (err, req, res, next) {
-		res.status(err.status || 500);
-		res.render('error', {
-			message: err.message,
-			error: err
-		});
-	});
-}
+//// error handlers
+//// development error handler
+//// will print stacktrace
+//if (app.get('env') === 'development') {
+//	console.log("development");
+//	app.use(function (err, req, res, next) {
+//		res.status(err.status || 500);
+//		res.render('error', {
+//			message: err.message,
+//			error: err
+//		});
+//	});
+//}
 
-if (app.get('env') === 'production') {
-	console.log("production");
-	app.use(function (req, res, next) {
-		var protocol = req.get('x-forwarded-proto');
-		protocol === 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
-	});
-}
+//if (app.get('env') === 'production') {
+//	console.log("production");
+//	app.use(function (req, res, next) {
+//		var protocol = req.get('x-forwarded-proto');
+//		protocol === 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
+//	});
+//}
 
 app.listen(app.get('port'));
 module.exports = app;

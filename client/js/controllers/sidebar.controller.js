@@ -23,7 +23,6 @@
 		    });
 		}
 		$scope.IgnoreDoubleClick = function () {
-		    console.log("dblclick");
 		    return false;
 		}
 		$scope.getAll = function ($event) {

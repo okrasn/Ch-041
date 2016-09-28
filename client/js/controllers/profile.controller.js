@@ -53,7 +53,7 @@
 				}
 				if (file) {
 					Upload.upload({
-						url: '/users/' + authService.userID() + '/upload', //webAPI exposed to upload the file
+						url: "/upload", //webAPI exposed to upload the file
 						data: {
 							file: file,
 							user: authService.userID()

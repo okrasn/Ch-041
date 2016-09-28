@@ -16,10 +16,10 @@
 				<span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange pointer" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || isFavourites()">
 				</span>
 				<span class="list-item-btn-top glyphicon glyphicon-trash onhover-red pointer" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
-				<span class="list-item-btn">
-					<span class="fa fa-share-alt onhover-green pointer" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right" popover-elem>
+				<div class="list-item-btn">
+					<span class="fa fa-share-alt onhover-green pointer" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right">
 					</span>
-				</span>
+				</div>
 			</div>
 		</div>
 	</div>

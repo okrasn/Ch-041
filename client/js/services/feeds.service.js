@@ -43,46 +43,56 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.getAll = function () {
-	    return that.getAllFeeds().then(function (res) {
-	        return that.getAllFavourites();
-	    }, function (err) {
-	        console.log(err);
-	    });
+		return that.getAllFeeds().then(function (res) {
+			return that.getAllFavourites();
+		}, function (err) {
+			console.log(err);
+		});
 	}
 
 	this.getAllFeeds = function () {
-		return $http.get('/users/' + authService.userID()).then(function (res) {
+		return $http.get("/feeds").then(function (res) {
 			for (var i = 0; i < res.data.length; i++) {
 				for (var j = 0; j < res.data[i].feeds.length; j++) {
 					res.data[i].feeds[j].category = res.data[i].category;
 				}
-			}		
+			}
 			angular.copy(res.data, that.feedsDictionary);
+			return res;
 		}, function (err) {
-		    console.log(err);
+			console.log(err);
 		});
 	}
 
-	this.getAllFavourites = function () {
-	    return $http.get('/users/' + authService.userID() + "/favourites").then(function (res) {
-	        for (var i = 0; i < res.data.length; i++) {
-	            for (var j = 0; j < res.data[i].articles.length; j++) {
-	                res.data[i].articles[j].category = res.data[i].category;
-	            }
-	        }
-	        angular.copy(res.data, that.favouritesDictionary);
-	    }, function (err) {
-	        console.log(err);
+	this.getSingleFeed = function (id) {
+	    return $http.get("/getSingleFeed/" + id).success(function (res) {
+	        return res;
+	    }).error(function (err) {
+	        return err;
 	    });
 	}
 
+	this.getAllFavourites = function () {
+		return $http.get("/favourites").then(function (res) {
+			for (var i = 0; i < res.data.length; i++) {
+				for (var j = 0; j < res.data[i].articles.length; j++) {
+					res.data[i].articles[j].category = res.data[i].category;
+				}
+			}
+			angular.copy(res.data, that.favouritesDictionary);
+			return res;
+		}, function (err) {
+			console.log(err);
+		});
+	}
+
 	this.getAdvicedFeeds = function () {
-	    dashboardService.displayLoading();
-		return $http.get('/users/' + authService.userID() + "/advicedFeeds").then(function (res) {
+		dashboardService.displayLoading();
+		return $http.get("/advicedFeeds").then(function (res) {
 			angular.copy(res.data, that.advicedDictionary);
 			dashboardService.hideLoading();
 		}, function (err) {
-		    console.log(err);
+			console.log(err);
 		});
 	}
 
@@ -129,19 +139,22 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 						return $q.reject("Enter Rss feed link");
 					}
 					if (feed.category === undefined) {
-					    return $q.reject("Choose category");
+						return $q.reject("Choose category");
 					}
 					if (response.data.responseData === null) {
-					    return $q.reject("URL is incorrect or does not contain RSS Feed data");
+						return $q.reject("URL is incorrect or does not contain RSS Feed data");
 					}
 					var parser = new DOMParser();
 					xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
 					var format = checkRssFormat(xmlDoc);
 					if (format === -1) {
-					    return $q.reject("URL is incorrect or does not contain RSS Feed data");
+						return $q.reject("URL is incorrect or does not contain RSS Feed data");
 					} else {
 						var feedObj = generateFeed(xmlDoc, feed, format);
-						return $http.post('/users/' + authService.userID() + '/addFeed', feedObj).error(function (err) {
+						return $http.post("/addFeed", feedObj).success(function (res) {
+							dashboardService.hideLoading();
+							return res;
+						}).error(function (err) {
 							console.log(err);
 							dashboardService.hideLoading();
 						});
@@ -151,10 +164,10 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.removeFeed = function () {
-	    return $http.delete('/users/' + authService.userID() + '/deleteFeed/' + dashboardService.getFeed()._id).then(function (res) {
-	    }, function (err) {
-	        console.log(err);
-	    });
+		return $http.delete("/deleteFeed/" + dashboardService.getFeed()._id).then(function (res) {
+		}, function (err) {
+			console.log(err);
+		});
 	}
 
 	this.setFeedsOrder = function () {
@@ -164,7 +177,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 		for (var i = 0; i < that.feedsDictionary.length; i++) {
 			obj.newCategories.push(that.feedsDictionary[i].category);
 		}
-		return $http.post('/users/' + authService.userID() + '/setCategoryOrder', obj);
+		return $http.post("/setCategoryOrder", obj);
 	}
 
 	this.setFavsOrder = function () {
@@ -174,7 +187,7 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 		for (var i = 0; i < that.favouritesDictionary.length; i++) {
 			obj.newCategories.push(that.favouritesDictionary[i].category);
 		}
-		return $http.post('/users/' + authService.userID() + '/setFavsCategoryOrder', obj);
+		return $http.post("/setFavsCategoryOrder", obj);
 	}
 }]);
 

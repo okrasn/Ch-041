@@ -69,7 +69,6 @@
 			if ($scope.newCategory.category) {
 				$scope.obj.category = $scope.newCategory.category;
 			}
-			console.log($scope.obj.category);
 			if ($scope.obj.category) {
 				if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 					$scope.error = "Enter new category name";
@@ -103,8 +102,8 @@
 			    toasterService.info("Article removed from favourites");
 				for (var i = 0, array = res.data; i < array.length; i++) {
 				    if (array[i].category === $scope.favForRemove.category) {
-						if (array[i].articles.length > 0) {
-						    $state.go("dashboard." + dashboardService.getViewMode(), { type: 'favourites', value1: 'category', value2: $scope.favForRemove.category }, {reload: true});
+				        if (array[i].articles.length > 0) {
+				            articlesService.getFavArticlesByCat($stateParams.value2);
 							return;
 						}
 						else {
@@ -172,7 +171,6 @@
 			}
 		});
 		function analizeRouting() {
-			dashboardService.displayLoading();
 			var routeType = $stateParams.type;
 			var exist = queryTypes.filter(function (elem, i, array) {
 				return elem === routeType;
@@ -223,9 +221,11 @@
 					}
 						break;
 					case 'feed': {
-						articlesService.getFeedDataById($stateParams.value1).then(function (res) {
-							articlesService.getArticlesByFeed(res.data);
-						});
+					    feedsService.getSingleFeed($stateParams.value1).success(function (res) {
+					        articlesService.getArticlesByFeed(res);
+					    }).error(function (err) {
+					        console.log(err);
+					    });
 					}
 						break;
 					case 'category': {
@@ -233,7 +233,7 @@
 					}
 						break;
 				    case 'favourites': {
-					    if ($stateParams.value1 === 'category' && $stateParams.value2) {
+				        if ($stateParams.value1 === 'category' && $stateParams.value2) {
 							articlesService.getFavArticlesByCat($stateParams.value2);
 						}
 						if (!$stateParams.value1 && !$stateParams.value2) {

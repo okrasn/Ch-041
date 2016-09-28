@@ -2,7 +2,7 @@
 	'use strict';
 	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
 		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-		    dashboardService.isReadingArticle = true;
+			dashboardService.isReadingArticle = true;
 		}
 		var changeCatObj = {};
 		$scope.advicedCategory = $stateParams.category;
@@ -13,25 +13,25 @@
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
 
-		if ($state.current.name === "dashboard.adviced") {
+		if ($state.current.name === 'dashboard.adviced') {
 			var invalidCategory = $scope.adviced.filter(function (elem, i) {
 				return elem.category == $stateParams.category;
 			});
 			if (!invalidCategory.length) {
-				$state.go("404", {reload: true});
+				$state.go('404', {reload: true});
 			}
 		}
 
 		$scope.getFirstArticle = function (id) {
-		    for (var i = 0, array = articlesService.articles; i < array.length; i++) {
-		        if (array[i].feed == id) {
-		            return array[i];
-		        }
-		    }
+			for (var i = 0, array = articlesService.articles; i < array.length; i++) {
+				if (array[i].feed == id) {
+					return array[i];
+				}
+			}
 		}
 
 		$scope.IgnoreDoubleClick = function () {
-		    return false;
+			return false;
 		}
 
 		$scope.checkIfNew = function () {
@@ -43,28 +43,27 @@
 				$scope.newCategory = {};
 			}
 		}
+
 		$scope.addFeed = function () {
 			dashboardService.loadingIcon = true;
 			$scope.error = '';
 			if (!$scope.obj.link) {
-				$scope.error = "Enter Rss feed link";
+				$scope.error = 'Enter Rss feed link';
 				dashboardService.loadingIcon = false;
 				return;
 			}
 			if ($scope.newCategory.category) {
 				$scope.obj.category = $scope.newCategory.category;
 			}
-
 			if (!$scope.obj.category) {
 				if (!$scope.advicedCategory) {
-					$scope.error = "Choose category";
+					$scope.error = 'Choose category';
 					dashboardService.loadingIcon = false;
 					return;
 				}
 			}
-
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-				$scope.error = "Enter new category name";
+				$scope.error = 'Enter new category name';
 				dashboardService.loadingIcon = false;
 				return;
 			}
@@ -73,16 +72,19 @@
 			}
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
-				    dashboardService.loadingIcon = false;
+					dashboardService.loadingIcon = false;
 					$scope.addingNewCategory = false;
-					toasterService.success("Feed successfully added");
-					feedsService.getAllFeeds();
-					$state.go("dashboard." + dashboardService.getViewMode(), { type: "feed", value1: res.data._id });
+					toasterService.success('Feed successfully added');
+					var feedId = res.data._id;
+					feedsService.getAllFeeds().then(function (res) {
+						$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'feed', value1: feedId });
+					});
+
 				}, function (err) {
-				    dashboardService.loadingIcon = false;
-				    if (typeof err === 'string') {
-				        $scope.error = err;
-				    }
+					dashboardService.loadingIcon = false;
+					if (typeof err === 'string') {
+						$scope.error = err;
+					}
 					if (err.data) {
 						changeCatObj = {
 							id: err.data.id,
@@ -91,29 +93,35 @@
 						};
 
 						toasterService.confirm({
-							message: "Switch category?",
-							confirm: "switchCategory"
+							message: 'Switch category?',
+							confirm: 'switchCategory'
 						}, $scope);
 					}
 					if (!err.data) {
-					    if (err.message) {
-					        $scope.error = err.message;
-					    }
+						if (err.message) {
+							$scope.error = err.message;
+						}
 					}
 					else {
-					    $scope.error = err.data.message;
+						$scope.error = err.data.message;
 					}
 				});
 		}
+
 		$scope.switchCategory = function () {
 			return $http.post('/users/' + authService.userID() + '/changeFeedCategory', changeCatObj).success(function (res) {
-			    console.log(res);
-			    $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
+				console.log(res);
+				$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
 			}
 			).error(function (err) {
-			    console.log(err);
+				console.log(err);
 			});
 		}
+
+		$scope.toAdvicedCategory = function (cat) {
+		    $state.go('dashboard.adviced', {category: cat})
+		}
+
 		$scope.addFeedByAdvice = function (feed) {
 			$scope.addingNewCategory = false;
 			$scope.obj.link = feed.rsslink;
@@ -121,39 +129,41 @@
 			$scope.obj.category = '';
 			$scope.modalShown = !$scope.modalShown;
 		}
+
 		$scope.setCoverImage = function (item) {
-			var coverImage = "";
+			var coverImage = '';
 			switch (item.category) {
-				case "IT": {
+				case 'IT': {
 					coverImage = '/assets/images/it.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "Gaming": {
+				case 'Gaming': {
 					coverImage = '/assets/images/gaming.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "News": {
+				case 'News': {
 					coverImage = '/assets/images/news.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "Sport": {
+				case 'Sport': {
 					coverImage = '/assets/images/sport.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
-				case "Food": {
+				case 'Food': {
 					coverImage = '/assets/images/food.jpeg'
 					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
 				}
 					break;
 			}
 		}
+
 		$scope.readArticle = function (article) {
-		    dashboardService.displayLoading();
-		    $state.go("dashboard.article", { feed: article.feed, link: article.link });
+			dashboardService.displayLoading();
+			$state.go('dashboard.article', { feed: article.feed, link: article.link });
 		}
 	}]);
 })();
