@@ -575,10 +575,10 @@ ul[dnd-list] .dndPlaceholder:after {
 .eye-view-btn {
   opacity: 0.3;
   position: absolute;
-  right: 2em;
-  transition: opacity 0.2s ease; }
+  right: 2em; }
   .eye-view-btn:hover {
-    transition: opacity 0.2s ease;
+    transform: scale(1.1);
+    color: #3949ab;
     opacity: 1; }
 
 .all-icon {

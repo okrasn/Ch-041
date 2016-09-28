@@ -10,6 +10,7 @@ var passport = require('passport'),
 		cant_find_user: 'Can\'t find user',
 		feed_already_added: 'You have already added this feed',
 		not_found: 'Not found',
+		not_valid: 'Not valid data',
 		enter_feed_url: 'Enter feed url',
 		article_not_found: 'Article not found',
 		server_error: 'Server error',
@@ -51,18 +52,18 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 
 module.exports.getSingleFeed = function (req, res, next) {
 	if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-	    return res.status(404).json({
-	        message: ERRORS.not_found
-	    });
+		return res.status(404).json({
+			message: ERRORS.not_found
+		});
 	}
 	Feed.findById(req.params.id, function (err, feed) {
 		if (err) {
 			return next(err);
 		}
 		if (!feed) {
-		    return res.status(404).json({
-		        message: ERRORS.not_found
-		    });
+			return res.status(404).json({
+				message: ERRORS.not_found
+			});
 		}
 		else {
 			res.json(feed);
@@ -265,6 +266,16 @@ module.exports.setCategoryOrder = function (req, res, next) {
 		newFeedsDictionary.push(lookup[req.body.newCategories[i]]);
 	}
 	req.user.feedsDictionary = newFeedsDictionary;
+	req.user.save(function (err) {
+		if (err) return next(err);
+		res.statusCode = 200;
+		return res.send();
+	});
+}
+
+module.exports.setFeedsOrder = function (req, res, next) {
+	req.user.feedsDictionary = req.body;
+	console.log(req.user);
 	req.user.save(function (err) {
 		if (err) return next(err);
 		res.statusCode = 200;

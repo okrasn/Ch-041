@@ -212,10 +212,9 @@ ul[dnd-list] .dndPlaceholder:after {
     opacity: 0.3;
     position: absolute;
     right: 2em;
-    transition: opacity 0.2s ease;
-
     &:hover {
-        transition: opacity 0.2s ease;
+        transform: scale(1.1);
+        color: $blue-btn-active-color;
         opacity: 1;
     }
 }

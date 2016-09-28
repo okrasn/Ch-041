@@ -38,6 +38,7 @@ router.get('/advicedArticles', auth, articlesCtrl.getAdvicedArticles);
 
 router.post('/addFeed', auth, feedsCtrl.add);
 router.post('/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
+router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
 router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
 router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
 router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);

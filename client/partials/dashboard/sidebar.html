@@ -13,7 +13,7 @@
 					ng-repeat="category in feedsData.favouritesDictionary"
 					dnd-draggable="category"
 					dnd-type="'favs'"
-					dnd-moved="onFavsDrag($index)"
+					dnd-moved="onFavsCatDrag($index)"
 					dnd-effect-allowed="move">
 					<a data-toggle="collapse" data-target="{{ '#' + $index + 'fav' + category.category.split(' ').join('') }}" class="glyphFeeds fav-dropdown" ng-click="getFavArticlesByCat($event, category.category)">
 						<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
@@ -34,21 +34,26 @@
 	</div>
 
 	<ul dnd-list="feeds"
-		dnd-allowed-types="feedsListDragableTypes"
+		dnd-allowed-types="feedsList"
 		ng-show="checkIfEmpty()">
 		<li class="sidebar-item shortened-text"
 			ng-repeat="category in feeds"
 			dnd-draggable="category"
-			dnd-type="'feeds'"
-			dnd-moved="onFeedsDrag($index)"
+			dnd-type="'cat'"
+			dnd-moved="onFeedsCatDrag($index)"
 			dnd-effect-allowed="move">
 			<div><span class="eye-view-btn my-hidden" ng-click="getByCat($event, category.category, $index)">view</span></div>
 			<a data-toggle="collapse" data-target="{{ '#' + $index + category.category.split(' ').join('') }}" class="glyphFeeds" ng-click="shevronToggle($event)">
 				<span class="glyphicon glyphicon-chevron-right"></span><span ng-bind="category.category"></span>
 			</a>
 			<div class="collapse" id="{{ $index + category.category.split(' ').join('')}}">
-				<ul>
-					<li class="sidebar-sub-item" ng-repeat="feed in category.feeds | orderBy: 'title'">
+				<ul dnd-list="category.feeds"
+					dnd-allowed-types="feedsInnerList">
+					<li class="sidebar-sub-item" ng-repeat="feed in category.feeds"
+						dnd-draggable="feed"
+						dnd-type="'feeds'"
+						dnd-effect-allowed="move"
+						dnd-moved="onFeedsDrag($parent.$index, $index)">
 						<a class="shortened-text" ng-click="getByFeed($event, feed)">
 							<img ng-src="{{feed.link|favicon}}">
 							<span ng-bind="feed.title"></span>

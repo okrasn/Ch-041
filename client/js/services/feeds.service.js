@@ -65,11 +65,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.getSingleFeed = function (id) {
-	    return $http.get("/getSingleFeed/" + id).success(function (res) {
-	        return res;
-	    }).error(function (err) {
-	        return err;
-	    });
+		return $http.get("/getSingleFeed/" + id).success(function (res) {
+			return res;
+		}).error(function (err) {
+			return err;
+		});
 	}
 
 	this.getAllFavourites = function () {
@@ -92,6 +92,14 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			angular.copy(res.data, that.advicedDictionary);
 			dashboardService.hideLoading();
 		}, function (err) {
+			console.log(err);
+		});
+	}
+
+	this.switchCategory = function () {
+		return $http.post('/changeFeedCategory', changeCatObj).success(function (res) {
+			$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+		}).error(function (err) {
 			console.log(err);
 		});
 	}
@@ -178,6 +186,35 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			obj.newCategories.push(that.feedsDictionary[i].category);
 		}
 		return $http.post("/setCategoryOrder", obj);
+	}
+
+	this.setInnerFeedsOrder = function () {
+		var targetDict = [],
+			k = 0;
+		for (var i = 0, array = that.feedsDictionary; i < array.length; i++) {
+			if (!array[i].feeds.length) {
+				continue;
+			}
+			targetDict.push({
+				category: array[i].category,
+				feeds: []
+			});
+			for (var j = 0; j < array[i].feeds.length; j++) {
+				targetDict[k].feeds.push(array[i].feeds[j]._id);
+			}
+			k++;
+		}
+//	    console.log(targetDict);
+		//var iterator = 0;
+		//angular.forEach(that.feedsDictionary, function (value, key) {
+		//    targetDict.push(value);
+		//	angular.forEach(targetDict[key], function (value, key) {
+		//	    targetDict[iterator].feeds.push(value);
+		//	});
+		//	iterator++;
+		//});
+		console.log(targetDict);
+		return $http.post("/setFeedsOrder", targetDict);
 	}
 
 	this.setFavsOrder = function () {

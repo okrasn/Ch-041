@@ -91,7 +91,6 @@
 							category: err.data.category,
 							newCategory: $scope.obj.category
 						};
-
 						toasterService.confirm({
 							message: 'Switch category?',
 							confirm: 'switchCategory'
@@ -109,13 +108,7 @@
 		}
 
 		$scope.switchCategory = function () {
-			return $http.post('/users/' + authService.userID() + '/changeFeedCategory', changeCatObj).success(function (res) {
-				console.log(res);
-				$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
-			}
-			).error(function (err) {
-				console.log(err);
-			});
+		    feedsService.switchCategory(changeCatObj);
 		}
 
 		$scope.toAdvicedCategory = function (cat) {
