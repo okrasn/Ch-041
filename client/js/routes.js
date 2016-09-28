@@ -1,7 +1,8 @@
 (function () {
 	'use strict';
 	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate'])
-		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function ($stateProvider, $urlRouterProvider, $authProvider) {
+		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
+		    $httpProvider.interceptors.push('sessionInjector');
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
 				.state('home', {
@@ -96,25 +97,22 @@
 							return profileService.getProfile();
 						}],
 						feedPromise: ['feedsService', function (feedsService) {
-							return feedsService.getAllFeeds();
+							return feedsService.getAll();
 						}]
-					},
-					onEnter: ['articlesService', function (articlesService) {
-						articlesService.getAllArticles();
-					}]
+					}
 				})
 				.state("dashboard.list", {
-					url: '/list',
+				    url: '/list/?type&value1&value2',
 					templateUrl: './partials/list/list.html',
 					controller: 'ArticlesController'
 				})
 				.state("dashboard.th-list", {
-					url: '/th-list',
+				    url: '/th-list/?type&value1&value2',
 					templateUrl: './partials/list/th-list.html',
 					controller: 'ArticlesController'
 				})
 				.state("dashboard.th-large", {
-					url: '/th-large',
+				    url: '/th-large/?type&value1&value2',
 					templateUrl: './partials/list/th-large.html',
 					controller: 'ArticlesController'
 				})
@@ -136,13 +134,15 @@
 					templateUrl: './partials/dashboard/adviced.html',
 					controller: 'FeedsController',
 					resolve: {
-						feedPromise: ['feedsService', function (feedsService) {
-							return feedsService.getAdvicedFeeds();
+					    feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
+					        return feedsService.getAdvicedFeeds().then(function (res) {
+					            return articlesService.getAdvicedArticlesByCat($stateParams.category);
+					        })
 						}]
 					}
 				})
 				.state("dashboard.article", {
-					url: '/article/:feed/:link',
+					url: '/article/?feed&link&type',
 					templateUrl: './partials/dashboard/article.html',
 					controller: 'ArticlesController',
 					resolve: {
@@ -167,62 +167,61 @@
 						}
 					}]
 				});
-			
 			$authProvider.twitter({
-				clientId: '768721225971560448',
-				url: '/auth/twitter',
-				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-				redirectUri: window.location.origin,
-				oauthType: '1.0',
-				popupOptions: {
-					width: 495,
-					height: 645
-				}
+			    clientId: '768721225971560448',
+			    url: '/auth/twitter',
+			    authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+			    redirectUri: window.location.origin,
+			    oauthType: '1.0',
+			    popupOptions: {
+			        width: 495,
+			        height: 645
+			    }
 			});
 			$authProvider.linkedin({
-				clientId: '78ffzenowt180q',
-				url: '/auth/linkedin',
-				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-				redirectUri: window.location.origin,
-				requiredUrlParams: ['state'],
-				scopeDelimiter: ' ',
-				state: 'STATE',
-				oauthType: '2.0',
-				popupOptions: { width: 527, height: 582 }
+			    clientId: '78ffzenowt180q',
+			    url: '/auth/linkedin',
+			    authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
+			    redirectUri: window.location.origin,
+			    requiredUrlParams: ['state'],
+			    scopeDelimiter: ' ',
+			    state: 'STATE',
+			    oauthType: '2.0',
+			    popupOptions: { width: 527, height: 582 }
 			});
 			$authProvider.facebook({
-				clientId: '173686319709284',
-				name: 'facebook',
-				url: '/auth/facebook',
-				authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
-				redirectUri: window.location.origin + '/',
-				requiredUrlParams: ['display', 'scope'],
-				scope: ['email'],
-				scopeDelimiter: ',',
-				display: 'popup',
-				oauthType: '2.0',
-				popupOptions: {
-					width: 580,
-					height: 400
-				}
+			    clientId: '173686319709284',
+			    name: 'facebook',
+			    url: '/auth/facebook',
+			    authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
+			    redirectUri: window.location.origin + '/',
+			    requiredUrlParams: ['display', 'scope'],
+			    scope: ['email'],
+			    scopeDelimiter: ',',
+			    display: 'popup',
+			    oauthType: '2.0',
+			    popupOptions: {
+			        width: 580,
+			        height: 400
+			    }
 			});
 
 			$authProvider.google({
-				clientId: '806677097865-va2i3kq96mmu8i00t9k6q92ks1s9tg0l.apps.googleusercontent.com',
-				url: '/auth/google',
-				authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-				redirectUri: window.location.origin,
-				requiredUrlParams: ['scope'],
-				optionalUrlParams: ['display'],
-				scope: ['profile', 'email'],
-				scopePrefix: 'openid',
-				scopeDelimiter: ' ',
-				display: 'popup',
-				oauthType: '2.0',
-				popupOptions: {
-					width: 452,
-					height: 633
-				}
+			    clientId: '806677097865-va2i3kq96mmu8i00t9k6q92ks1s9tg0l.apps.googleusercontent.com',
+			    url: '/auth/google',
+			    authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+			    redirectUri: window.location.origin,
+			    requiredUrlParams: ['scope'],
+			    optionalUrlParams: ['display'],
+			    scope: ['profile', 'email'],
+			    scopePrefix: 'openid',
+			    scopeDelimiter: ' ',
+			    display: 'popup',
+			    oauthType: '2.0',
+			    popupOptions: {
+			        width: 452,
+			        height: 633
+			    }
 			});
 	}]);
 })();

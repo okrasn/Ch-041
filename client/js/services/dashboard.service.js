@@ -100,7 +100,7 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.title = '';
 	this.setTitle = function (title) {
 		if (title == "Add Feed") {
-			this.resetFeedId();
+			this.resetFeed();
 		}
 		that.title = title;
 	}
@@ -108,14 +108,14 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 		return that.title;
 	}
 
-	this.currentFeed = null;
-	this.getFeedId = function () {
+	this.currentFeed = '';
+	this.getFeed = function () {
 		return that.currentFeed;
 	}
-	this.setFeedId = function (feed) {
+	this.setFeed = function (feed) {
 		that.currentFeed = feed;
 	}
-	this.resetFeedId = function () {
+	this.resetFeed = function () {
 		that.currentFeed = '';
 	}
 }]);

@@ -13,7 +13,7 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 				scope.delay = attrs.delay;
 			}
 			else {
-				scope.delay = 5000;
+				scope.delay = 3000;
 			}
 			scope.toasterStyle = {};
 			scope.confirm = function () {

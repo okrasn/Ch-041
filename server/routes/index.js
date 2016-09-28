@@ -47,7 +47,7 @@ router.post('/users/:user/upload', profCtrl.upload);
 router.post('/users/:user/changeFeedCategory', feedsCtrl.changeFeedCategory);
 
 // remove feed
-router.delete('/users/:user/deleteFeed/:id/:category', feedsCtrl.remove);
-router.delete('/users/:user/deleteFavFeed/:id/:category', articlesCtrl.removeFavArticle);
+router.delete('/users/:user/deleteFeed/:id', feedsCtrl.remove);
+router.delete('/users/:user/deleteFavFeed/:id', articlesCtrl.removeFavArticle);
 
 module.exports = router;

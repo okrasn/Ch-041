@@ -10,7 +10,6 @@ var exec = require('child_process').exec,
 	cssmin = require("gulp-cssmin"),
 	rename = require("gulp-rename"),
 	sourcemaps = require('gulp-sourcemaps'),
-	ngHtml2Js = require("gulp-ng-html2js"),
 	ngAnnotate = require('gulp-ng-annotate'),
 	mkdirp = require('mkdirp');
 
@@ -53,7 +52,7 @@ gulp.task('scripts', function () {
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest('./client/js/'))
 		.pipe(sourcemaps.init())
-		// .pipe(uglify())
+	    .pipe(uglify())
 		.pipe(rename({
 			suffix: '.min'
 		}))

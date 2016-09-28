@@ -11,13 +11,13 @@
 #add-feed:before {
 	content: ' ';
 	display: block;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
 	opacity: 0.4;
-	background-image: url('http://bdwhw.com/images/2/newsletter-background/newsletter-background-01.jpg');
+	background-image: url('/assets/images/newsletterbackground.jpg');
 	background-repeat: no-repeat;
 	background-position: 50% 0;
 	-ms-background-size: cover;
