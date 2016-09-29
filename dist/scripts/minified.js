@@ -3799,7 +3799,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 	'use strict';
 	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
-		    $httpProvider.interceptors.push('sessionInjector');
+			$httpProvider.interceptors.push('sessionInjector');
 			$urlRouterProvider.otherwise('home');
 			$stateProvider
 				.state('home', {
@@ -3899,17 +3899,17 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					}
 				})
 				.state("dashboard.list", {
-				    url: '/list/?type&value1&value2',
+					url: '/list/?type&value1&value2',
 					templateUrl: './partials/list/list.html',
 					controller: 'ArticlesController'
 				})
 				.state("dashboard.th-list", {
-				    url: '/th-list/?type&value1&value2',
+					url: '/th-list/?type&value1&value2',
 					templateUrl: './partials/list/th-list.html',
 					controller: 'ArticlesController'
 				})
 				.state("dashboard.th-large", {
-				    url: '/th-large/?type&value1&value2',
+					url: '/th-large/?type&value1&value2',
 					templateUrl: './partials/list/th-large.html',
 					controller: 'ArticlesController'
 				})
@@ -3931,12 +3931,12 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					templateUrl: './partials/dashboard/adviced.html',
 					controller: 'FeedsController',
 					resolve: {
-					    feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
-					        return feedsService.getAdvicedFeeds().then(function (res) {
-					            if ($stateParams.category) {
-					                return articlesService.getAdvicedArticlesByCat($stateParams.category);
-					            }
-					        });
+						feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
+							return feedsService.getAdvicedFeeds().then(function (res) {
+								if ($stateParams.category) {
+									return articlesService.getAdvicedArticlesByCat($stateParams.category);
+								}
+							});
 						}]
 					}
 				})
@@ -3945,8 +3945,11 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					templateUrl: './partials/dashboard/article.html',
 					controller: 'ArticlesController',
 					resolve: {
-						articlePromise: ['articlesService', function (articlesService) {
-							return articlesService.getAdvicedArticles();
+						articlePromise: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
+						    dashboardService.displayLoading();
+						    return articlesService.getAdvicedArticles().finally(function () {
+						        dashboardService.hideLoading();
+						    });
 						}]
 					}
 				})
@@ -3967,60 +3970,60 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					}]
 				});
 			$authProvider.twitter({
-			    clientId: '768721225971560448',
-			    url: '/auth/twitter',
-			    authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-			    redirectUri: window.location.origin,
-			    oauthType: '1.0',
-			    popupOptions: {
-			        width: 495,
-			        height: 645
-			    }
+				clientId: '768721225971560448',
+				url: '/auth/twitter',
+				authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
+				redirectUri: window.location.origin,
+				oauthType: '1.0',
+				popupOptions: {
+					width: 495,
+					height: 645
+				}
 			});
 			$authProvider.linkedin({
-			    clientId: '78ffzenowt180q',
-			    url: '/auth/linkedin',
-			    authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
-			    redirectUri: window.location.origin,
-			    requiredUrlParams: ['state'],
-			    scopeDelimiter: ' ',
-			    state: 'STATE',
-			    oauthType: '2.0',
-			    popupOptions: { width: 527, height: 582 }
+				clientId: '78ffzenowt180q',
+				url: '/auth/linkedin',
+				authorizationEndpoint: 'https://www.linkedin.com/uas/oauth2/authorization',
+				redirectUri: window.location.origin,
+				requiredUrlParams: ['state'],
+				scopeDelimiter: ' ',
+				state: 'STATE',
+				oauthType: '2.0',
+				popupOptions: { width: 527, height: 582 }
 			});
 			$authProvider.facebook({
-			    clientId: '173686319709284',
-			    name: 'facebook',
-			    url: '/auth/facebook',
-			    authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
-			    redirectUri: window.location.origin + '/',
-			    requiredUrlParams: ['display', 'scope'],
-			    scope: ['email'],
-			    scopeDelimiter: ',',
-			    display: 'popup',
-			    oauthType: '2.0',
-			    popupOptions: {
-			        width: 580,
-			        height: 400
-			    }
+				clientId: '173686319709284',
+				name: 'facebook',
+				url: '/auth/facebook',
+				authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
+				redirectUri: window.location.origin + '/',
+				requiredUrlParams: ['display', 'scope'],
+				scope: ['email'],
+				scopeDelimiter: ',',
+				display: 'popup',
+				oauthType: '2.0',
+				popupOptions: {
+					width: 580,
+					height: 400
+				}
 			});
 
 			$authProvider.google({
-			    clientId: '806677097865-va2i3kq96mmu8i00t9k6q92ks1s9tg0l.apps.googleusercontent.com',
-			    url: '/auth/google',
-			    authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-			    redirectUri: window.location.origin,
-			    requiredUrlParams: ['scope'],
-			    optionalUrlParams: ['display'],
-			    scope: ['profile', 'email'],
-			    scopePrefix: 'openid',
-			    scopeDelimiter: ' ',
-			    display: 'popup',
-			    oauthType: '2.0',
-			    popupOptions: {
-			        width: 452,
-			        height: 633
-			    }
+				clientId: '806677097865-va2i3kq96mmu8i00t9k6q92ks1s9tg0l.apps.googleusercontent.com',
+				url: '/auth/google',
+				authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+				redirectUri: window.location.origin,
+				requiredUrlParams: ['scope'],
+				optionalUrlParams: ['display'],
+				scope: ['profile', 'email'],
+				scopePrefix: 'openid',
+				scopeDelimiter: ' ',
+				display: 'popup',
+				oauthType: '2.0',
+				popupOptions: {
+					width: 452,
+					height: 633
+				}
 			});
 	}]);
 })();
@@ -4029,7 +4032,9 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
 		var queryTypes = ['all', 'category', 'feed', 'favourites'];
+		$window.scrollTo(0, 0);
 		analizeRouting();
+
 		$scope.articleData = articlesService;
 		$scope.obj = {};
 		$scope.newCategory = {};
@@ -4042,7 +4047,11 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 		$scope.articleForShare = null;
 		$scope.articleForRead = articlesService.articleForRead;
 		$scope.addingNewFavCategory = false;
-		$window.scrollTo(0, 0);
+
+		$scope.firstListItem = {
+			title: ''
+		}
+
 		$scope.checkIfFavourites = function (article) {
 			if (!article) {
 				return false;
@@ -4062,7 +4071,7 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 		}
 
 		$scope.isAllDisplayed = function () {
-			return $scope.articleData.totalDisplayed > $scope.articleData.articles.length;
+			return $scope.articleData.totalDisplayed >= $scope.articleData.articles.length;
 		}
 
 		$scope.getSortParam = function () {
@@ -4083,41 +4092,84 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 			}
 		}
 		
-		$scope.addFavourite = function (article) {
-			$scope.addingNewFavCategory = false;
-			$scope.error = null;
-			$scope.modalShown = !$scope.modalShown;
-			$scope.favForAdd = article;
-			$scope.obj = {};
-		}
-		
-		$scope.confirmAddFavourite = function () {
-			$scope.error = '';
-			if ($scope.newCategory.category) {
-				$scope.obj.category = $scope.newCategory.category;
+		$scope.getTitle = function (article, index) {
+			if (index == articlesService.articles.length - 1) {
+				return '';
 			}
-			if ($scope.obj.category) {
-				if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-					$scope.error = "Enter new category name";
-					return;
+
+			for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
+				for (var j = 0; j < array[i].feeds.length; j++) {
+					if (array[i].feeds[j]._id == article.feed) {
+						return array[i].feeds[j].title;
+					}
 				}
 			}
-			$scope.favForAdd.category = $scope.obj.category;
-			articlesService.addFavourite($scope.favForAdd).then(function (res) {
-				$scope.resetAddFavValues();
-				$scope.cancelAddFavourite();
-				toasterService.success("Article marked as favourite");
-			}, function (err) {
-				$scope.resetAddFavValues();
-				console.log(err);
-				if (!err.data)
-					$scope.error = err.message;
-				else $scope.error = err.data.message;
-			});
+			return "ending";
 		}
 
+		$scope.checkIfFirst = function () {
+			if (dashboardService.getSortParam().type === 'feed') {
+				return $scope.firstListItem.title;
+			}
+			return false;
+		}
+
+		$scope.setFirstTitle = function (article, flag) {
+			if (!article) {
+				return false;
+			}
+			if (flag) {
+				for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
+					for (var j = 0; j < array[i].feeds.length; j++) {
+						if (array[i].feeds[j]._id == article.feed) {
+							$scope.firstListItem.title = array[i].feeds[j].title;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		$scope.toShowTitle = function (current, next, $index) {
+			if (!next) {
+				return false;
+			}
+			if (current.feed !== next.feed) {
+				if (dashboardService.getSortParam().type === 'feed') {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		$scope.addFavourite = function (article) {
+			dashboardService.displayLoading();
+			$scope.favForAdd = article;
+			feedsService.getSingleFeed(article.feed).then(function (res) {
+				$scope.favForAdd.category = res.data.title;
+				return articlesService.addFavourite($scope.favForAdd).then(function (res) {
+					$scope.resetAddFavValues();
+					$scope.cancelAddFavourite();
+					toasterService.success("Article marked as favourite");
+					return res;
+				}, function (err) {
+					$scope.resetAddFavValues();
+					console.log(err);
+					if (!err.data)
+						$scope.error = err.message;
+					else $scope.error = err.data.message;
+					return err;
+				});
+			}, function (err) {
+				console.log(err);
+				return err;
+			}).finally(function () {
+				dashboardService.hideLoading();
+			});
+		}
+		
 		$scope.removeFavourite = function (article, cat) {
-		    $scope.favForRemove = article;
+			$scope.favForRemove = article;
 			toasterService.confirm({
 				message: "Remove this article?",
 				confirm: "confirmRemoveFavourite"
@@ -4125,27 +4177,32 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 		}
 
 		$scope.confirmRemoveFavourite = function () {
+			dashboardService.displayLoading();
 			articlesService.removeFavourite($scope.favForRemove).then(function (res) {
-			    toasterService.info("Article removed from favourites");
+				toasterService.info("Article removed from favourites");
 				for (var i = 0, array = res.data; i < array.length; i++) {
-				    if (array[i].category === $scope.favForRemove.category) {
-				        if (array[i].articles.length > 0) {
-				            articlesService.getFavArticlesByCat($stateParams.value2);
-							return;
+					if (array[i].category === $scope.favForRemove.category && array[i].articles.length > 0) {
+						if ($stateParams.value2) {
+							articlesService.getFavArticlesByCat($stateParams.value2);
 						}
 						else {
-							break;
+							articlesService.getFavourites();
 						}
+						return;
 					}
 				}
 				if (!res.data.length) {
-				    $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all', value1: '', value2: '' });
+					$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all', value1: '', value2: '' });
 				}
 				else {
-				    $state.go("dashboard." + dashboardService.getViewMode(), { type: "favourites", value1: '', value2: '' });
+					$state.go("dashboard." + dashboardService.getViewMode(), { type: "favourites", value1: '', value2: '' }, {reload: true});
 				}
+				return res;
 			}, function (err) {
 				console.log(err);
+				return err;
+			}).finally(function () {
+				dashboardService.hideLoading();
 			});
 		}
 
@@ -4198,31 +4255,31 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 			}
 		});
 		function analizeRouting() {
+		    dashboardService.displayLoading();
 			var routeType = $stateParams.type;
 			var exist = queryTypes.filter(function (elem, i, array) {
 				return elem === routeType;
 			});
 			if (!routeType || !exist.length) {
-				if ($stateParams.feed && $stateParams.link) {
+			    if ($stateParams.feed && $stateParams.link) {
 					dashboardService.isReadingArticle = true;
-					if (articlesService.articleForRead) {
-						if ($stateParams.link === articlesService.articleForRead.link) {
-							dashboardService.hideLoading();
-							return;
-						}
-					}
-					return articlesService.setReadArticle($stateParams.feed, $stateParams.link, $stateParams.type).then(function (res) {
+					if (articlesService.articleForRead && $stateParams.link === articlesService.articleForRead.link) {
 						dashboardService.hideLoading();
+						return;
+					}
+					return articlesService.setReadArticle($stateParams.feed, $stateParams.link, $stateParams.type)
+					.then(function (res) {
 						if (articlesService.articleForRead === null) {
 							$state.go("404");
-							return;
+							return res;
 						}
 						$scope.articleForRead = articlesService.articleForRead;
+						return res;
 					}, function (err) {		                
+						console.log(err);
+						return err;
+					}).finally(function () {
 						dashboardService.hideLoading();
-						if (err.status === 404) {
-							$state.go("404");
-						}
 					});
 				}
 				else {
@@ -4233,232 +4290,243 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					else {
 						$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' });
 					}
+					dashboardService.hideLoading();
+					return;
 				}
 			}
 			else {
-			    dashboardService.isReadingArticle = false;
+				dashboardService.isReadingArticle = false;
 				switch (routeType) {
 					case 'all': {
 						if (feedsService.feedsDictionary.length < 1) {
-							$state.go("dashboard.addFeed");
+						    $state.go("dashboard.addFeed");
+						    dashboardService.hideLoading();
 						}
 						else {
-							articlesService.getAllArticles();
+						    articlesService.getAllArticles().finally(function () {
+						        dashboardService.hideLoading();
+						    });
 						}
 					}
 						break;
 					case 'feed': {
-					    feedsService.getSingleFeed($stateParams.value1).success(function (res) {
-					        articlesService.getArticlesByFeed(res);
-					    }).error(function (err) {
-					        console.log(err);
-					    });
+						feedsService.getSingleFeed($stateParams.value1).then(function (res) {
+							return articlesService.getArticlesByFeed(res.data);
+						}, function (err) {
+						    console.log(err);
+						    return err;
+						}).finally(function () {
+						    dashboardService.hideLoading();
+						});
 					}
 						break;
 					case 'category': {
-						articlesService.getArticlesByCat($stateParams.value1);
+					    articlesService.getArticlesByCat($stateParams.value1).finally(function () {
+					        dashboardService.hideLoading();
+					    });
 					}
 						break;
 				    case 'favourites': {
-				        if ($stateParams.value1 === 'category' && $stateParams.value2) {
+						if ($stateParams.value1 === 'category' && $stateParams.value2) {
 							articlesService.getFavArticlesByCat($stateParams.value2);
 						}
-						if (!$stateParams.value1 && !$stateParams.value2) {
+						else if (!$stateParams.value1 && !$stateParams.value2) {
 							articlesService.getFavourites();
 						}
+						dashboardService.hideLoading();
 					}
 						break;
-				}
-			}
-		}
-	}]);
-})();
-(function() {
-	
-angular.module('rssreader').config(['$validatorProvider', function($validatorProvider) {
-		$validatorProvider.addMethod("pattern", function(value, element) {
-			return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
-		}, "Password must contain (a-z,A-Z,0-9,!@#)");
-		$validatorProvider.addMethod("email", function (value, element) {
-		    return this.optional(element) || /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
-		}, "text")
-	}]).
-	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
-		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
-		$scope.user = {
-			verifyEmail : transfer.getString(),
-			counter : 0
-		};
-		transfer.setString("");
-		$scope.setEmail = function () {
-			return transfer.getEmail();
-		}
-		$scope.password = {
-			token : transfer.getObj(),
-			email : transfer.getEmail()
-		};
-		$scope.confirm_email = {};
-		$scope.session;
-		$scope.test = 5;
-
-		var ERRORS = {
-			field_required: 'This field is required',
-			email_example: 'Please, use example: jacksparrow@gmail.com',
-			min_6symbl: 'Please, enter at least 6 characters',
-			min_9symbl: 'Please, enter at least 9 characters',
-			max_20symbl: 'Please, enter no more then 40 characters',
-			reg_exp: 'Password must contain (a-z,A-Z,0-9,!@#)'
-		}
-
-		$scope.register = function (form) {
-			if (form.validate()) {
-				dashboardService.loadingIcon = true;
-				if($scope.user.verifyEmail){
-					$scope.user.email = transfer.getEmail();
-				}
-			    authService.register($scope.user).error(function (error) {
-			        dashboardService.loadingIcon = false;
-					$scope.error = error;
-				}).then(function (response) {
-				    dashboardService.loadingIcon = false;
-					toasterService.success('You have successfully registered');
-					$state.go('dashboard.' + dashboardService.getViewMode(), {
-						id: authService.userID()
-					});
-					$scope.user.counter ++;
-				});
-			}
-		};
-
-		$scope.logIn = function (form) {
-		    if (form.validate()) {
-		        dashboardService.loadingIcon = true;
-		        authService.logIn($scope.user, $scope.session).error(function (error) {
-		            dashboardService.loadingIcon = false;
-					$scope.error = error;
-				}).then(function (res) {
-					if (!$scope.session) {
-						$scope.onExit = function () {
-							auth.logOut();
-						};
-						dashboardService.loadingIcon = false;
-						$state.go('dashboard.' + dashboardService.getViewMode(), {
-							id: authService.userID()
-						});
-						toasterService.success('You have successfully login');
-						$window.onbeforeunload = $scope.onExit;
-					} else {
-						$state.go('dashboard.' + dashboardService.getViewMode(), {
-							id: authService.userID()
-						});
-						toasterService.success('You have successfully login');
-					}
-				});
-			}
-		};
-		
-		$scope.forgot = function(form){
-		    authService.forgot($scope.confirm_email).error(function (error) {
-		        $scope.error = error;
-		        toasterService.error(error.message);
-		    }).then(function (response) {
-		        toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');
-		    })
-		}
-
-		$scope.reset = function(form){
-				authService.reset($scope.password).error(function (error) {
-					$scope.error = error;
-					toasterService.error(error.message);
-				}).then(function (response) {
-					toasterService.success('You have successfully changed password');
-					$state.go('login');	
-				})
-		};	
-
-		$scope.authenticate = function (provider) {
-			transfer.setProviderString(provider);
-			$auth.authenticate(provider).then(function (response) {
-				$auth.removeToken();
-				authService.saveToken(response.data.token);
-				toasterService.success('You have successfully authenticated');
-				$state.go('dashboard.' + dashboardService.getViewMode(), {type: 'all'});
-			},function (response) {
-				toasterService.error(response.data.message);
-			})
-		};
-		
-		$scope.defaultAgreeWith = function () {
-			$scope.agreeWith = false;
-		}
-
-		$scope.validationLoginOptions = {
-			rules: {
-				mail: {
-					required: true,
-					email: true
-				},
-				pwd: {
-					required: true
-				}
-			},
-			messages: {
-				mail: {
-					required: ERRORS.field_required,
-					email: ERRORS.email_example
-				},
-
-				pwd: {
-					required: ERRORS.field_required
-				}
-			}
-		};
-
-		$scope.validationRegistrOptions = {
-			rules: {
-				mail: {
-					required: true,
-					email: true,
-					minlength: 9,
-					maxlength: 40,
-				},
-				pwd: {
-					required: true,
-					minlength: 6,
-					maxlength: 20,
-					pattern: true
-				},
-				reppwd: {
-					required: true
-				}
-			},
-			messages: {
-				mail: {
-					required: ERRORS.field_required,
-					email: ERRORS.email_example,
-					minlength: ERRORS.min_9symbl,
-					maxlength: ERRORS.max_20symbl
-				},
-
-				pwd: {
-					required: ERRORS.field_required,
-					minlength: ERRORS.min_6symbl,
-					maxlength: ERRORS.max_20symbl,
-					pattern: ERRORS.reg_exp
-				},
-
-				reppwd: {
-					required: ERRORS.field_required
 				}
 			}
 		}
 	}]);
 })();
 (function () {
+
+    angular.module('rssreader').config(['$validatorProvider', function ($validatorProvider) {
+        $validatorProvider.addMethod("pattern", function (value, element) {
+            return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
+        }, "Password must contain (a-z,A-Z,0-9,!@#)");
+        $validatorProvider.addMethod("email", function (value, element) {
+            return this.optional(element) || /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
+        }, "text")
+    }]).
+        controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService',
+            function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
+                $scope.user = {
+                    verifyEmail: transfer.getString(),
+                    counter: 0
+                };
+                transfer.setString("");
+                $scope.setEmail = function () {
+                    return transfer.getEmail();
+                }
+                $scope.password = {
+                    token: transfer.getObj(),
+                    email: transfer.getEmail()
+                };
+                $scope.confirm_email = {};
+                $scope.session;
+                $scope.test = 5;
+
+                var ERRORS = {
+                    field_required: 'This field is required',
+                    email_example: 'Please, use example: jacksparrow@gmail.com',
+                    min_6symbl: 'Please, enter at least 6 characters',
+                    min_9symbl: 'Please, enter at least 9 characters',
+                    max_20symbl: 'Please, enter no more then 40 characters',
+                    reg_exp: 'Password must contain (a-z,A-Z,0-9,!@#)'
+                }
+
+                $scope.register = function (form) {
+                    if (form.validate()) {
+                        dashboardService.displayLoading();
+                        if ($scope.user.verifyEmail) {
+                            $scope.user.email = transfer.getEmail();
+                        }
+                        authService.register($scope.user).error(function (error) {
+                            dashboardService.hideLoading();
+                            $scope.error = error;
+                        }).then(function (response) {
+                            dashboardService.hideLoading();
+                            toasterService.success('You have successfully registered');
+                            $state.go('dashboard.' + dashboardService.getViewMode(), {
+                                id: authService.userID()
+                            });
+                            $scope.user.counter++;
+                        });
+                    }
+                };
+
+                $scope.logIn = function (form) {
+                    if (form.validate()) {
+                        dashboardService.displayLoading();
+                        authService.logIn($scope.user, $scope.session).error(function (error) {
+                            dashboardService.hideLoading();
+                            $scope.error = error;
+                        }).then(function (res) {
+                            if (!$scope.session) {
+                                $scope.onExit = function () {
+                                    auth.logOut();
+                                };
+                                dashboardService.hideLoading();
+                                $state.go('dashboard.' + dashboardService.getViewMode(), {
+                                    id: authService.userID()
+                                });
+                                toasterService.success('You have successfully login');
+                                $window.onbeforeunload = $scope.onExit;
+                            } else {
+                                $state.go('dashboard.' + dashboardService.getViewMode(), {
+                                    id: authService.userID()
+                                });
+                                toasterService.success('You have successfully login');
+                            }
+                        });
+                    }
+                };
+
+                $scope.forgot = function (form) {
+                    authService.forgot($scope.confirm_email).error(function (error) {
+                        $scope.error = error;
+                        toasterService.error(error.message);
+                    }).then(function (response) {
+                        toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');
+                    })
+                }
+
+                $scope.reset = function (form) {
+                    authService.reset($scope.password).error(function (error) {
+                        $scope.error = error;
+                        toasterService.error(error.message);
+                    }).then(function (response) {
+                        toasterService.success('You have successfully changed password');
+                        $state.go('login');
+                    })
+                };
+
+                $scope.authenticate = function (provider) {
+                    transfer.setProviderString(provider);
+                    $auth.authenticate(provider).then(function (response) {
+                        $auth.removeToken();
+                        authService.saveToken(response.data.token);
+                        toasterService.success('You have successfully authenticated');
+                        $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' });
+                    }, function (response) {
+                        toasterService.error(response.data.message);
+                    })
+                };
+
+                $scope.defaultAgreeWith = function () {
+                    $scope.agreeWith = false;
+                }
+
+                $scope.validationLoginOptions = {
+                    rules: {
+                        mail: {
+                            required: true,
+                            email: true
+                        },
+                        pwd: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        mail: {
+                            required: ERRORS.field_required,
+                            email: ERRORS.email_example
+                        },
+
+                        pwd: {
+                            required: ERRORS.field_required
+                        }
+                    }
+                };
+
+                $scope.validationRegistrOptions = {
+                    rules: {
+                        mail: {
+                            required: true,
+                            email: true,
+                            minlength: 9,
+                            maxlength: 40,
+                        },
+                        pwd: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 20,
+                            pattern: true
+                        },
+                        reppwd: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        mail: {
+                            required: ERRORS.field_required,
+                            email: ERRORS.email_example,
+                            minlength: ERRORS.min_9symbl,
+                            maxlength: ERRORS.max_20symbl
+                        },
+
+                        pwd: {
+                            required: ERRORS.field_required,
+                            minlength: ERRORS.min_6symbl,
+                            maxlength: ERRORS.max_20symbl,
+                            pattern: ERRORS.reg_exp
+                        },
+
+                        reppwd: {
+                            required: ERRORS.field_required
+                        }
+                    }
+                }
+            }]);
+})();
+(function () {
 	'use strict';
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+	    $scope.dashboardData = dashboardService;
 		$scope.sidebar = dashboardService.checkSidebar;
-		$scope.headTitle = dashboardService.getTitle;
 		$scope.feed = dashboardService.getFeed;
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
@@ -4479,13 +4547,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			dashboardService.sidebar = true;
 		}
 
-		$scope.hideViewBtns = function () {
-			if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
-				return true;
-			}
-			return false;
-			
-		}
 		$scope.checkIfToggled = function (mode) {
 			return dashboardService.getViewMode() === mode;
 		}
@@ -4558,10 +4619,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
-		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-			dashboardService.isReadingArticle = true;
-		}
 		var changeCatObj = {};
+
 		$scope.advicedCategory = $stateParams.category;
 		$scope.obj = {};
 		$scope.feeds = feedsService.feedsDictionary;
@@ -4570,13 +4629,17 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
 
+		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
+		    dashboardService.isReadingArticle = true;
+		}
+
 		if ($state.current.name === 'dashboard.adviced') {
-			var invalidCategory = $scope.adviced.filter(function (elem, i) {
-				return elem.category == $stateParams.category;
-			});
-			if (!invalidCategory.length) {
-				$state.go('404', {reload: true});
-			}
+		    var invalidCategory = $scope.adviced.filter(function (elem, i) {
+		        return elem.category == $stateParams.category;
+		    });
+		    if (!invalidCategory.length) {
+		        $state.go('404', { reload: true });
+		    }
 		}
 
 		$scope.getFirstArticle = function (id) {
@@ -4602,11 +4665,9 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 
 		$scope.addFeed = function () {
-			dashboardService.loadingIcon = true;
 			$scope.error = '';
 			if (!$scope.obj.link) {
 				$scope.error = 'Enter Rss feed link';
-				dashboardService.loadingIcon = false;
 				return;
 			}
 			if ($scope.newCategory.category) {
@@ -4615,13 +4676,11 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			if (!$scope.obj.category) {
 				if (!$scope.advicedCategory) {
 					$scope.error = 'Choose category';
-					dashboardService.loadingIcon = false;
 					return;
 				}
 			}
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
 				$scope.error = 'Enter new category name';
-				dashboardService.loadingIcon = false;
 				return;
 			}
 			if (!$scope.obj.category) {
@@ -4629,7 +4688,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			}
 			feedsService.addFeed($scope.obj)
 				.then(function (res) {
-					dashboardService.loadingIcon = false;
 					$scope.addingNewCategory = false;
 					toasterService.success('Feed successfully added');
 					var feedId = res.data._id;
@@ -4638,7 +4696,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					});
 
 				}, function (err) {
-					dashboardService.loadingIcon = false;
 					if (typeof err === 'string') {
 						$scope.error = err;
 					}
@@ -4669,7 +4726,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 
 		$scope.toAdvicedCategory = function (cat) {
-		    $state.go('dashboard.adviced', {category: cat})
+		    $state.go('dashboard.adviced', { category: cat });
 		}
 
 		$scope.addFeedByAdvice = function (feed) {
@@ -4712,8 +4769,11 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 
 		$scope.readArticle = function (article) {
-			dashboardService.displayLoading();
 			$state.go('dashboard.article', { feed: article.feed, link: article.link });
+		}
+
+		$scope.addPopular = function () {
+		    $scope.modalShown = !$scope.modalShown;
 		}
 	}]);
 })();
@@ -4994,7 +5054,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('SidebarController', ['$scope', '$state', '$log', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $log, feedsService, articlesService, dashboardService) {
+	angular.module('rssreader').controller('SidebarController', ['$scope', '$state', '$log', '$q', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $log, $q, feedsService, articlesService, dashboardService) {
 		$scope.feedsList = ['cat'];
 		$scope.feedsInnerList = ['feeds'];
 		$scope.favsListDragableTypes = ['favs'];
@@ -5005,27 +5065,45 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		$scope.favs = $scope.feedsData.favouritesDictionary;
 
 		$scope.onFeedsDrag = function (parent, index) {
+			dashboardService.displayLoading();
 			$scope.feeds[parent].feeds.splice(index, 1);
-			feedsService.setInnerFeedsOrder().then(function (resp) {
-			    dashboardService.hideLoading();
+			feedsService.setInnerFeedsOrder().then(function (res) {
+				angular.forEach($scope.feeds, function (value, key) {
+					if (!value.feeds.length) {
+						feedsService.getAllFeeds();
+					}
+				});
+				return res;
 			}, function (err) {
 			    console.log(err);
+			    return err;
+			}).finally(function () {
+				dashboardService.hideLoading();
 			});
 		}
 		
 		$scope.onFeedsCatDrag = function (index) {
 			dashboardService.displayLoading();
 			$scope.feeds.splice(index, 1);
-			feedsService.setFeedsOrder().then(function (resp) {
-				dashboardService.hideLoading();
+			feedsService.setFeedsOrder().then(function (res) {
+			    return res;
+			}, function (err) {
+			    console.log(err);
+			    return err;
+			}).finally(function () {
+			    dashboardService.hideLoading();
 			});
 		}
 
 		$scope.onFavsCatDrag = function (index) {
 			dashboardService.displayLoading();
 			$scope.favs.splice(index, 1);
-			feedsService.setFavsOrder().then(function (resp) {
-				dashboardService.hideLoading();
+			feedsService.setFavsOrder().then(function (res) {
+			}, function (err) {
+			    console.log(err);
+			    return err;
+			}).finally(function () {
+			    dashboardService.hideLoading();
 			});
 		}
 
@@ -5034,7 +5112,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 
 		$scope.getAll = function ($event) {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			setArticlesType(angular.element($event.currentTarget).parent(), 'all');
 			// if there is only one category and feed, return this feed articles
 			if ($scope.feeds.length === 1 && $scope.feeds[0].feeds.length === 1) {
@@ -5045,13 +5123,13 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 
 		$scope.getByFeed = function ($event, feed) {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			setArticlesType(angular.element($event.currentTarget).parent());
 			$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'feed', value1: feed._id, value2: '' });
 		}
 
 		$scope.getByCat = function ($event, cat, index) {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
 			$scope.shevronToggle($event);
 			// if there is only one feed within selected category, return its articles
@@ -5075,8 +5153,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}
 
 		$scope.getFavArticle = function ($event, article) {
+		    dashboardService.hideSidebar();
 			articlesService.articleForRead = article;
-			dashboardService.sidebar = false;
 			setArticlesType(angular.element($event.currentTarget).parent());
 			$state.go('dashboard.article', { feed: article.feed, link: article.link, type: 'favourite'});
 		}
@@ -5095,17 +5173,15 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			}
 		}
 		$scope.hideFavourites = function () {
-			return $scope.feedsData.favouritesDictionary.length;
+			return feedsService.favouritesDictionary.length;
 		}
 
 		$scope.checkIfEmpty = function () {
-			if (feedsService.feedsDictionary.length == 0) {
-				return false;
-			} else return true;
+			return feedsService.feedsDictionary.length;
 		}
 		$scope.toggle = false;
 		$scope.toAddFeed = function () {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			$state.go('dashboard.addFeed', { reload: true });
 		}
 		var setArticlesType = function (element, type, value) {
@@ -5326,9 +5402,9 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 							promises.push(fetchArticles(value));
 						});
 					});
-					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+					return $q.all(promises).then(function (res) {
+					    obj.articles = temp_articles;
+					    return res;
 					});
 				},
 				getArticlesByFeed: function (feed, num) {
@@ -5339,10 +5415,10 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 						dashboardService.readSingleFeed.state = true;
 						dashboardService.setSortParam('date', 1);
 						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+						return res;
 					}, function (err) {
-						dashboardService.hideLoading();
-						console.log(err);
+					    console.log(err);
+					    return err;
 					});
 				},
 				getArticlesByCat: function (cat) {
@@ -5358,14 +5434,14 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 					});
 					if (!found) {
 						return $q.reject().catch(function (err) {
-							dashboardService.hideLoading();
-							$state.go("404");
+						    $state.go("404");
+						    return err;
 						});
 					}
-					return $q.all(promises).then(function () {
+					return $q.all(promises).then(function (res) {
 						dashboardService.setTitle(cat);
 						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+						return res;
 					});
 				},
 				getAdvicedArticlesByCat: function (cat) {
@@ -5377,9 +5453,10 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 							});
 						}
 					});
-					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+					return $q.all(promises).then(function (res) {
+					    console.log("finished work");
+					    obj.articles = temp_articles;
+					    return res;
 					});
 				},
 				getFavourites: function () {
@@ -5394,7 +5471,6 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 							obj.articles.push(value);
 						});
 					});
-					dashboardService.hideLoading();
 				},
 				getFavArticlesByCat: function (cat) {
 					obj.resetArticles();
@@ -5410,7 +5486,6 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 							});
 						}
 					});
-					dashboardService.hideLoading();
 				},
 				getFavArticle: function (article) {
 					obj.resetArticles();
@@ -5418,32 +5493,29 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
 					obj.articles.push(article);
-					dashboardService.hideLoading();
 				},
 				addFavourite: function (article) {
-					dashboardService.displayLoading();
+					
 					return $http.post("/addFavArticle", article).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
-					    dashboardService.hideLoading();
 					    return res;
 					});
 				},
 				removeFavourite: function (article) {
-					dashboardService.displayLoading();
+					
 					return $http.delete("/deleteFavFeed/" + article._id).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
-					    dashboardService.hideLoading();
 					    return res;
 					});
 				},
 				getAdvicedArticles: function () {
-				    dashboardService.displayLoading();
 					obj.advicedArticles.length = 0;
 					return $http.get("/advicedArticles").then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
-					    dashboardService.hideLoading();
+					    return res;
 					}, function (err) {
-						console.log(err);
+					    console.log(err);
+					    return err;
 					});
 				},
 				getAdvicedFeedsArticles: function () {
@@ -5457,12 +5529,12 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 				resetArticles: function () {
 					dashboardService.hideSortList.state = false;
 					dashboardService.readSingleFeed.state = false;
+					
+					dashboardService.resetFeed();
 					this.totalDisplayed = this.displayedIncrement;
-					dashboardService.displayLoading();
 					temp_articles.length = 0;
 					obj.articles.length = 0;
 					obj.isFavourites = false;
-					dashboardService.resetFeed();
 					promises.length = 0;
 				},
 				// Additional method for unit testing
@@ -5577,11 +5649,16 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 									date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
 									feed: feed._id
 								};
+								if (articleObj.title) {
+								    articleObj.title.replaceAll("apos;", '\'')
+													.replaceAll("&apos;", '\'')
+													.replaceAll("&amp;", '')
+													.replaceAll("&#8217;", 'bb');
+								}
 								articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
 								temp_articles.push(articleObj);
 							}
 						}
-						dashboardService.loadingIcon = false;
 						return temp_articles;
 					});
 			},
@@ -5592,61 +5669,61 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 	}]);
 })();
 (function () {
-	'use strict';
-	angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService) {
-		var auth = {
-			saveToken: function (token) {
-				$auth.setToken(token);
-			},
-			getToken: function () {
-				return $auth.getToken();
-			},
-			isLoggedIn: function () {
-				return $auth.isAuthenticated();
-			},
-			currentUser: function () {
-				return  profileService.refreshProfileData().email;
-			},
-			userID: function () {
-				if (auth.isLoggedIn()) {
-					var payload = $auth.getPayload();
-					return payload.sub;
-				}
-			},
-			register: function (user) {
-				return $http.post('/register', user).success(function (data) {
-					auth.saveToken(data.token);
-				}).error(function (err) {
-					console.log(err.message);
-				})
-			},
-			forgot: function(confirm_email) {
-				return $http.post('/forgot', confirm_email).success(function (data) {
-				}).error(function (err) {
-					console.log(err.message);		
-				})
+    'use strict';
+    angular.module('rssreader').factory('authService', ['$http', '$window', '$auth', 'transfer', 'jwtHelper', 'toasterService', 'profileService', function ($http, $window, $auth, transfer, jwtHelper, toasterService, profileService) {
+        var auth = {
+            saveToken: function (token) {
+                $auth.setToken(token);
+            },
+            getToken: function () {
+                return $auth.getToken();
+            },
+            isLoggedIn: function () {
+                return $auth.isAuthenticated();
+            },
+            currentUser: function () {
+                return profileService.refreshProfileData().email;
+            },
+            userID: function () {
+                if (auth.isLoggedIn()) {
+                    var payload = $auth.getPayload();
+                    return payload.sub;
+                }
+            },
+            register: function (user) {
+                return $http.post('/register', user).success(function (data) {
+                    auth.saveToken(data.token);
+                }).error(function (err) {
+                    console.log(err.message);
+                })
+            },
+            forgot: function (confirm_email) {
+                return $http.post('/forgot', confirm_email).success(function (data) {
+                }).error(function (err) {
+                    console.log(err.message);
+                })
 
-			}, 
-			reset: function(password) {
-				return $http.post('/reset/:token', password).success(function (data) {
-				}).error(function (err) {
-					console.log(err.message);	
-				})
-			},
-			logIn: function (user) {
-				return $http.post('/login', user).success(function (data) {
-					auth.saveToken(data.token);
-				}).error(function (err) {
-					console.log(err.message);
-				});
-			},
-			logOut: function () {
-				$auth.removeToken();
-				$auth.logout();
-			}
-		}
-		return auth;
-	}]);
+            },
+            reset: function (password) {
+                return $http.post('/reset/:token', password).success(function (data) {
+                }).error(function (err) {
+                    console.log(err.message);
+                })
+            },
+            logIn: function (user) {
+                return $http.post('/login', user).success(function (data) {
+                    auth.saveToken(data.token);
+                }).error(function (err) {
+                    console.log(err.message);
+                });
+            },
+            logOut: function () {
+                $auth.removeToken();
+                $auth.logout();
+            }
+        }
+        return auth;
+    }]);
 })();
 
 angular.module('rssreader').service('dashboardService', ['$window', function ($window) {
@@ -5656,6 +5733,12 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.currentArticlesValue = $window.localStorage.category;
 	this.isReadingArticle = false;
 	this.loadingIcon = false;
+	this.sidebar = false;
+	this.modalShown = false;
+	this.title = '';
+	this.currentFeed = '';
+	this.currentViewMode = $window.localStorage.viewMode;
+
 	this.readSingleFeed = {
 	    state: false
 	};
@@ -5671,36 +5754,21 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.hideLoading = function () {
 	    that.loadingIcon = false;
 	}
+
 	this.sortParam = {
 		type: 'date',
 		order: 1
 	};
-	if ($window.localStorage.sortType) {
-		this.sortParam.type = $window.localStorage.sortType;
-		if ($window.localStorage.sortOrder) {
-			this.sortParam.order = +$window.localStorage.sortOrder;
-		}
-	}
-	else {
-		$window.localStorage.sortType = this.sortParam.type;
-		$window.localStorage.sortOrder = this.sortParam.order;
-	}
+
 	this.setSortParam = function (type, order) {
 		this.sortParam.type = type;
 		this.sortParam.order = order;
 		$window.localStorage.sortType = this.sortParam.type;
 		$window.localStorage.sortOrder = this.sortParam.order;
 	}
+
 	this.getSortParam = function () {
 		return that.sortParam;
-	}
-
-	if (!$window.localStorage.articlesType) {
-		$window.localStorage.articlesType = that.currentArticlesType;
-	}
-
-	if ($window.localStorage.category) {
-		currentArticlesValue = $window.localStorage.category;
 	}
 
 	this.setCurrentArticlesType = function (type, value) {
@@ -5712,30 +5780,34 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 			$window.localStorage.category = that.currentArticlesValue;
 		}
 	}
+
 	this.getCurrentArticlesType = function () {
 		that.currentArticlesType = $window.localStorage.articlesType;
 		return that.currentArticlesType;
 	}
-	if (!$window.localStorage.viewMode) {
-		$window.localStorage.viewMode = this.DEFAULT_VIEW;
-	}
+
 	this.isLoading = function () {
 		return that.loadingIcon;
 	};
-	this.sidebar = false;
+
 	this.checkSidebar = function () {
 		return that.sidebar;
 	}
-	this.modalShown = false;
-	this.currentViewMode = $window.localStorage.viewMode;
+
+	this.hideSidebar = function () {
+	    return that.sidebar = false;
+	}
+
 	this.viewModes = [
 		'list',
 		'th-list',
 		'th-large'
 	];
+
 	this.resetViewMode = function () {
 		$window.localStorage.viewMode = this.DEFAULT_VIEW;
 	}
+
 	this.setViewMode = function (index) {
 		$window.localStorage.viewMode = index;
 		if (index > that.viewModes.length - 1) {
@@ -5744,81 +5816,81 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 			that.currentViewMode = $window.localStorage.viewMode;
 		}
 	}
+
 	this.getViewMode = function () {
 		that.currentViewMode = $window.localStorage.viewMode;
 		return that.viewModes[that.currentViewMode];
 	}
-	this.title = '';
+
 	this.setTitle = function (title) {
 		if (title == "Add Feed") {
 			this.resetFeed();
 		}
 		that.title = title;
 	}
-	this.getTitle = function () {
-		return that.title;
-	}
 
-	this.currentFeed = '';
 	this.getFeed = function () {
 		return that.currentFeed;
 	}
+
 	this.setFeed = function (feed) {
 		that.currentFeed = feed;
 	}
+
 	this.resetFeed = function () {
 		that.currentFeed = '';
 	}
+
+	if (!$window.localStorage.articlesType) {
+	    $window.localStorage.articlesType = that.currentArticlesType;
+	}
+
+	if ($window.localStorage.category) {
+	    currentArticlesValue = $window.localStorage.category;
+	}
+
+	if (!$window.localStorage.viewMode) {
+	    $window.localStorage.viewMode = this.DEFAULT_VIEW;
+	}
+
+	if ($window.localStorage.sortType) {
+	    this.sortParam.type = $window.localStorage.sortType;
+	    if ($window.localStorage.sortOrder) {
+	        this.sortParam.order = +$window.localStorage.sortOrder;
+	    }
+	}
+	else {
+	    $window.localStorage.sortType = this.sortParam.type;
+	    $window.localStorage.sortOrder = this.sortParam.order;
+	}	
 }]);
 angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'authService', 'dashboardService', function ($http, $state, $q, authService, dashboardService) {
-	that = this;
+	var that = this;
 	this.feedsDictionary = [];
 	this.favouritesDictionary = [];
 	this.advicedDictionary = [];
 	this.advicedFeeds = [];
 	this.allArticles = [];
 	this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Gaming", "Food", "Economics", "Science"];
+
 	this.allCategories = function () {
 		var res = that.CATEGORIES.concat(getCustomCategories());
 		res.push("Custom");
 		return res;
 	}
+
 	this.allFavsCategories = function () {
 		var res = that.CATEGORIES.concat(getFavsCustomCategories());
 		res.push("Custom");
 		return res;
-	}
-	var getCustomCategories = function () {
-		var currentFeedsCats = (function () {
-			var res = [];
-			for (var i = 0; i < that.feedsDictionary.length; i++) {
-				res.push(that.feedsDictionary[i].category);
-			}
-			return res;
-		})();
-		return currentFeedsCats.filter(function (elem, i, array) {
-			return that.CATEGORIES.indexOf(elem) == -1;
-		});
-	}
-
-	var getFavsCustomCategories = function () {
-		var currentFeedsCats = (function () {
-			var res = [];
-			for (var i = 0; i < that.favouritesDictionary.length; i++) {
-				res.push(that.favouritesDictionary[i].category);
-			}
-			return res;
-		})();
-		return currentFeedsCats.filter(function (elem, i, array) {
-			return (that.CATEGORIES.indexOf(elem) == -1 && elem != 'Unsorted');
-		});
 	}
 
 	this.getAll = function () {
 		return that.getAllFeeds().then(function (res) {
 			return that.getAllFavourites();
 		}, function (err) {
-			console.log(err);
+		    console.log(err);
+		    return err;
 		});
 	}
 
@@ -5832,7 +5904,8 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			angular.copy(res.data, that.feedsDictionary);
 			return res;
 		}, function (err) {
-			console.log(err);
+		    console.log(err);
+		    return err;
 		});
 	}
 
@@ -5854,65 +5927,40 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			angular.copy(res.data, that.favouritesDictionary);
 			return res;
 		}, function (err) {
-			console.log(err);
+		    console.log(err);
+		    return err;
 		});
 	}
 
 	this.getAdvicedFeeds = function () {
-		dashboardService.displayLoading();
 		return $http.get("/advicedFeeds").then(function (res) {
-			angular.copy(res.data, that.advicedDictionary);
-			dashboardService.hideLoading();
+		    angular.copy(res.data, that.advicedDictionary);
+		    return res;
 		}, function (err) {
-			console.log(err);
+		    console.log(err);
+		    return err;
 		});
 	}
 
-	this.switchCategory = function () {
+	this.switchCategory = function (changeCatObj) {
 		return $http.post('/changeFeedCategory', changeCatObj).success(function (res) {
-			$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+		    $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+		    return res;
 		}).error(function (err) {
-			console.log(err);
+		    console.log(err);
+		    return err;
 		});
 	}
 
-	var checkRssFormat = function (xmlDoc) {
-		//Determine if RSS
-		if (xmlDoc.getElementsByTagName('rss').length) {
-			return 'RSS';
-			//Determine if ATOM
-		} else if (xmlDoc.getElementsByTagName('feed').length) {
-			return 'ATOM';
-		}
-		return -1;
-	}
-	var generateFeed = function (doc, feed, format) {
-		var feedObj = {};
-		if (format === 'RSS') {
-			var channel = doc.getElementsByTagName('channel')[0];
-			feedObj.title = channel.getElementsByTagName('title')[0].childNodes[0].nodeValue;
-			feedObj.description = channel.getElementsByTagName('description')[0].childNodes[0] ? channel.getElementsByTagName('description')[0].childNodes[0].nodeValue : '';
-			feedObj.link = channel.getElementsByTagName("link")[0].childNodes[0].nodeValue;
-			feedObj.rsslink = feed.link;
-			feedObj.category = feed.category;
-		} else if (format === 'ATOM') {
-			feedObj.title = doc.getElementsByTagName('title')[0].childNodes[0].nodeValue;
-			feedObj.description = '';
-			feedObj.link = doc.getElementsByTagName('link')[0].getAttribute('href');
-			feedObj.rsslink = feed.link;
-			feedObj.category = feed.category;
-		}
-		feedObj.format = format;
-		return feedObj;
-	}
 	this.getFeedGenerator = function () {
 		return generateFeed;
 	}
+
 	this.getRssChecker = function () {
 		return checkRssFormat;
 	}
+
 	this.addFeed = function (feed) {
-		dashboardService.displayLoading();
 		return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
 			.then(function (response) {
 					if (feed.link === undefined) {
@@ -5932,11 +5980,11 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 					} else {
 						var feedObj = generateFeed(xmlDoc, feed, format);
 						return $http.post("/addFeed", feedObj).success(function (res) {
-							dashboardService.hideLoading();
+							
 							return res;
 						}).error(function (err) {
 							console.log(err);
-							dashboardService.hideLoading();
+							
 						});
 					}
 				return response.data;
@@ -5976,16 +6024,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			}
 			k++;
 		}
-//	    console.log(targetDict);
-		//var iterator = 0;
-		//angular.forEach(that.feedsDictionary, function (value, key) {
-		//    targetDict.push(value);
-		//	angular.forEach(targetDict[key], function (value, key) {
-		//	    targetDict[iterator].feeds.push(value);
-		//	});
-		//	iterator++;
-		//});
-		console.log(targetDict);
 		return $http.post("/setFeedsOrder", targetDict);
 	}
 
@@ -5997,6 +6035,63 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 			obj.newCategories.push(that.favouritesDictionary[i].category);
 		}
 		return $http.post("/setFavsCategoryOrder", obj);
+	}
+
+	function getCustomCategories() {
+	    var currentFeedsCats = (function () {
+	        var res = [];
+	        for (var i = 0; i < that.feedsDictionary.length; i++) {
+	            res.push(that.feedsDictionary[i].category);
+	        }
+	        return res;
+	    })();
+	    return currentFeedsCats.filter(function (elem, i, array) {
+	        return that.CATEGORIES.indexOf(elem) == -1;
+	    });
+	}
+
+	function getFavsCustomCategories() {
+	    var currentFeedsCats = (function () {
+	        var res = [];
+	        for (var i = 0; i < that.favouritesDictionary.length; i++) {
+	            res.push(that.favouritesDictionary[i].category);
+	        }
+	        return res;
+	    })();
+	    return currentFeedsCats.filter(function (elem, i, array) {
+	        return (that.CATEGORIES.indexOf(elem) == -1 && elem != 'Unsorted');
+	    });
+	}
+
+	function checkRssFormat(xmlDoc) {
+	    //Determine if RSS
+	    if (xmlDoc.getElementsByTagName('rss').length) {
+	        return 'RSS';
+	        //Determine if ATOM
+	    } else if (xmlDoc.getElementsByTagName('feed').length) {
+	        return 'ATOM';
+	    }
+	    return -1;
+	}
+
+	function generateFeed(doc, feed, format) {
+	    var feedObj = {};
+	    if (format === 'RSS') {
+	        var channel = doc.getElementsByTagName('channel')[0];
+	        feedObj.title = channel.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+	        feedObj.description = channel.getElementsByTagName('description')[0].childNodes[0] ? channel.getElementsByTagName('description')[0].childNodes[0].nodeValue : '';
+	        feedObj.link = channel.getElementsByTagName("link")[0].childNodes[0].nodeValue;
+	        feedObj.rsslink = feed.link;
+	        feedObj.category = feed.category;
+	    } else if (format === 'ATOM') {
+	        feedObj.title = doc.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+	        feedObj.description = '';
+	        feedObj.link = doc.getElementsByTagName('link')[0].getAttribute('href');
+	        feedObj.rsslink = feed.link;
+	        feedObj.category = feed.category;
+	    }
+	    feedObj.format = format;
+	    return feedObj;
 	}
 }]);
 
@@ -6157,7 +6252,7 @@ function FeedsToJson(array) {
 				message: message,
 				type: 'toaster-success',
 				iconClass: 'fa fa-check',
-				delay: 5000
+				delay: 3000
 			},
 			options;
 			if (typeof customOptions === 'object') {
@@ -6189,7 +6284,7 @@ function FeedsToJson(array) {
 				message: message,
 				type: 'toaster-error',
 				iconClass: 'fa fa-exclamation-triangle',
-				delay: 5000
+				delay: 3000
 			},
 			options;
 			if (typeof arguments[1] === 'object') {

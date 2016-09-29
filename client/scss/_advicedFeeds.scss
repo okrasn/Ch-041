@@ -10,6 +10,10 @@
 	border-radius: $main-border-radius;
 }
 
+.add-adviced-card{
+	border: 5px solid $blue-btn-active-color;
+}
+
 .advice-cover-image{
 	z-index: 0;
 	position: absolute;
@@ -76,6 +80,10 @@
 	z-index: 3;
 	color: white;
 	margin: 0;
+}
+
+.add-advice-header{
+	color: $blue-btn-active-color;
 }
 
 .explore-header{

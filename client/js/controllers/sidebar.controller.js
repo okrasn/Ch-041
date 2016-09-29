@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('SidebarController', ['$scope', '$state', '$log', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $log, feedsService, articlesService, dashboardService) {
+	angular.module('rssreader').controller('SidebarController', ['$scope', '$state', '$log', '$q', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $log, $q, feedsService, articlesService, dashboardService) {
 		$scope.feedsList = ['cat'];
 		$scope.feedsInnerList = ['feeds'];
 		$scope.favsListDragableTypes = ['favs'];
@@ -11,28 +11,45 @@
 		$scope.favs = $scope.feedsData.favouritesDictionary;
 
 		$scope.onFeedsDrag = function (parent, index) {
-		    dashboardService.displayLoading();
+			dashboardService.displayLoading();
 			$scope.feeds[parent].feeds.splice(index, 1);
-			feedsService.setInnerFeedsOrder().then(function (resp) {
-			    dashboardService.hideLoading();
+			feedsService.setInnerFeedsOrder().then(function (res) {
+				angular.forEach($scope.feeds, function (value, key) {
+					if (!value.feeds.length) {
+						feedsService.getAllFeeds();
+					}
+				});
+				return res;
 			}, function (err) {
 			    console.log(err);
+			    return err;
+			}).finally(function () {
+				dashboardService.hideLoading();
 			});
 		}
 		
 		$scope.onFeedsCatDrag = function (index) {
 			dashboardService.displayLoading();
 			$scope.feeds.splice(index, 1);
-			feedsService.setFeedsOrder().then(function (resp) {
-				dashboardService.hideLoading();
+			feedsService.setFeedsOrder().then(function (res) {
+			    return res;
+			}, function (err) {
+			    console.log(err);
+			    return err;
+			}).finally(function () {
+			    dashboardService.hideLoading();
 			});
 		}
 
 		$scope.onFavsCatDrag = function (index) {
 			dashboardService.displayLoading();
 			$scope.favs.splice(index, 1);
-			feedsService.setFavsOrder().then(function (resp) {
-				dashboardService.hideLoading();
+			feedsService.setFavsOrder().then(function (res) {
+			}, function (err) {
+			    console.log(err);
+			    return err;
+			}).finally(function () {
+			    dashboardService.hideLoading();
 			});
 		}
 
@@ -41,7 +58,7 @@
 		}
 
 		$scope.getAll = function ($event) {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			setArticlesType(angular.element($event.currentTarget).parent(), 'all');
 			// if there is only one category and feed, return this feed articles
 			if ($scope.feeds.length === 1 && $scope.feeds[0].feeds.length === 1) {
@@ -52,13 +69,13 @@
 		}
 
 		$scope.getByFeed = function ($event, feed) {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			setArticlesType(angular.element($event.currentTarget).parent());
 			$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'feed', value1: feed._id, value2: '' });
 		}
 
 		$scope.getByCat = function ($event, cat, index) {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			setArticlesType(angular.element($event.currentTarget).parent(), 'category', cat);
 			$scope.shevronToggle($event);
 			// if there is only one feed within selected category, return its articles
@@ -82,8 +99,8 @@
 		}
 
 		$scope.getFavArticle = function ($event, article) {
+		    dashboardService.hideSidebar();
 			articlesService.articleForRead = article;
-			dashboardService.sidebar = false;
 			setArticlesType(angular.element($event.currentTarget).parent());
 			$state.go('dashboard.article', { feed: article.feed, link: article.link, type: 'favourite'});
 		}
@@ -102,17 +119,15 @@
 			}
 		}
 		$scope.hideFavourites = function () {
-			return $scope.feedsData.favouritesDictionary.length;
+			return feedsService.favouritesDictionary.length;
 		}
 
 		$scope.checkIfEmpty = function () {
-			if (feedsService.feedsDictionary.length == 0) {
-				return false;
-			} else return true;
+			return feedsService.feedsDictionary.length;
 		}
 		$scope.toggle = false;
 		$scope.toAddFeed = function () {
-			dashboardService.sidebar = false;
+			dashboardService.hideSidebar();
 			$state.go('dashboard.addFeed', { reload: true });
 		}
 		var setArticlesType = function (element, type, value) {

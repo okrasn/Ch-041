@@ -162,7 +162,7 @@ ul[dnd-list] .dndPlaceholder:after {
 
     a {
         text-overflow: ellipsis;
-        padding-right: 4em;
+        padding-right: 0.5em;
         overflow: hidden;
     }
 
@@ -174,8 +174,11 @@ ul[dnd-list] .dndPlaceholder:after {
 
     &:hover {
         transition: background 0.2s ease;
-        border-right: 0.7em solid $blue-btn-active-color;
         background-color: $item-hover-color;
+
+        &>.hover-feed-shrink{
+            padding-right: 4em;
+        }
 
         .eye-view-btn {
             right: 1.3em;
@@ -190,13 +193,20 @@ ul[dnd-list] .dndPlaceholder:after {
     }
 }
 
-.sidebar-item .sidebar-sub-item {
+.sidebar-sub-item {
     padding-left: 2em;
     box-sizing: border-box;
     cursor: pointer;
     width: 100%;
     line-height: 3em;
     border-right: 0em solid;
+
+    &:hover {
+        border-right: 0.7em solid rgba(57, 73, 171, 0.60);
+        .sidebar-item{
+            border: none;
+        }
+    }
 }
 
 .sidebar-item.selected, .sidebar-sub-item .selected {

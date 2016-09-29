@@ -12,48 +12,13 @@ var mongoose = require('mongoose'),
 	feedsCtrl = require('../controllers/feeds'),
 	profCtrl = require('../controllers/profile');
 
-router.get('/reset/:token', authCtrl.reset);
-router.post('/register', authCtrl.register);
-router.post('/forgot', authCtrl.forgotPass);
-router.post('/reset/:token', authCtrl.resetPost);
-router.post('/login', authCtrl.login);
-router.post('/changePassword', authCtrl.changePassword);
 
-//Secure routes
-router.post('/changeColorTheme', auth, profCtrl.changeColorTheme);
-router.post('/auth/google', auth, authCtrl.googleAuth);
-router.post('/auth/facebook', auth, authCtrl.facebookAuth);
-router.post('/auth/twitter', auth, authCtrl.twitterAuth);
-router.post('/auth/linkedin', auth, authCtrl.linkedIdAuth);
-router.post('/auth/unlink', auth, authCtrl.unlink);
-router.get('/api/me', auth, authCtrl.getUserInfo);
-router.put('/api/me', auth, authCtrl.putUserInfo);
-
-// get user and feeds
-router.get('/feeds', auth, feedsCtrl.allFeed);
-router.get('/getSingleFeed/:id', auth, feedsCtrl.getSingleFeed);
-router.get('/favourites', auth, articlesCtrl.allFavourites);
-router.get('/advicedFeeds', auth, feedsCtrl.getAdvicedFeeds);
-router.get('/advicedArticles', auth, articlesCtrl.getAdvicedArticles);
-
-router.post('/addFeed', auth, feedsCtrl.add);
-router.post('/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
-router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
-router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
-router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
-router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
-router.post('/upload', auth, profCtrl.upload);
-router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
-
-// remove feed
-router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
-router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
-
-function auth(req, res, next) {
+var auth = function (req, res, next) {
+	console.log("auth");
 	var token = req.body.token || req.params.token || req.headers['authorization'];
 	// decode token
 	if (token) {
-	    token = token.replace('Bearer ', '');
+		token = token.replace('Bearer ', '');
 		var decoded = jwt.decode(token, config.TOKEN_SECRET);
 		// verifies secret and checks exp
 		if (decoded) {
@@ -85,5 +50,43 @@ function auth(req, res, next) {
 		});
 	}
 }
+
+router.get('/reset/:token', authCtrl.reset);
+router.post('/register', authCtrl.register);
+router.post('/forgot', authCtrl.forgotPass);
+router.post('/reset/:token', authCtrl.resetPost);
+router.post('/login', authCtrl.login);
+router.post('/changePassword', authCtrl.changePassword);
+
+//Secure routes
+router.post('/auth/google', authCtrl.googleAuth);
+router.post('/auth/facebook', authCtrl.facebookAuth);
+router.post('/auth/twitter', authCtrl.twitterAuth);
+router.post('/auth/linkedin', authCtrl.linkedIdAuth);
+router.post('/auth/unlink', authCtrl.unlink);
+router.get('/api/me', authCtrl.getUserInfo);
+router.put('/api/me', authCtrl.putUserInfo);
+
+router.post('/changeColorTheme', auth, profCtrl.changeColorTheme);
+
+// get user and feeds
+router.get('/feeds', auth, feedsCtrl.allFeed);
+router.get('/getSingleFeed/:id', auth, feedsCtrl.getSingleFeed);
+router.get('/favourites', auth, articlesCtrl.allFavourites);
+router.get('/advicedFeeds', auth, feedsCtrl.getAdvicedFeeds);
+router.get('/advicedArticles', auth, articlesCtrl.getAdvicedArticles);
+
+router.post('/addFeed', auth, feedsCtrl.add);
+router.post('/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
+router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
+router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
+router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
+router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
+router.post('/upload', auth, profCtrl.upload);
+router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
+
+// remove feed
+router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
+router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
 
 module.exports = router;

@@ -1,6 +1,13 @@
 <!--Detailed table feeds-->
 <div id="cards-wrapper" class="clearfix feeds">
-    <div class="col-md-12 col-lg-12" ng-repeat="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
+    <div class="clearfix feed-title-wrap" ng-show="checkIfFirst()">
+        <div class="col-xs-12 list-feed-title first-title">
+            <h3 class="text-center" ng-bind="firstListItem.title"></h3>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-12" ng-repeat-start="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
+        <div class="hidden" ng-show="setFirstTitle(articleData.articles[$index+1], $first)">
+        </div>
         <div class="app-panel fade-in-anim">
             <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
             </div>
@@ -10,9 +17,7 @@
             </div>
             <div class="content">
                 <div class="article-title">
-                    <div class="list-item" ng-click="readArticle(article)">
-                        <img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span>
-                    </div>
+                    <div class="list-item" ng-click="readArticle(article)"><img class="favicon" ng-src="{{article.link|favicon}}"><span ng-bind="article.title"></span></div>
                 </div>
                 <div class="article-content hidden-xs">
                     <span class="hidden-lg pointer" ng-bind="article.content" ng-click="readArticle(article)"></span>
@@ -23,13 +28,20 @@
                         <button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)">
                             read
                         </button>
-                        <span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-click="addFavourite(article);" ng-hide="checkIfFavourites(article) || isFavourites()"></span>
+                        <span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || isFavourites()" ng-click="addFavourite(article)"></span>
                         <span class="article-footer-item fa fa-share-alt extra-btn onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
                     </span>
-                    <span class="trash-icon glyphicon glyphicon-trash onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
+                    <span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
                     <span class="article-footer-item article-date not-important" ng-bind="getArticleDate(article.date)"></span>
                     <span class="article-footer-item article-time-icon glyphicon glyphicon-time not-important"></span>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="toShowTitle(articleData.articles[$index], articleData.articles[$index+1], $index)" ng-repeat-end>
+        <div class="clearfix feed-title-wrap">
+            <div class="col-xs-12 list-feed-title">
+                <h3 class="text-center" ng-bind="getTitle(articleData.articles[$index+1], $index)"></h3>
             </div>
         </div>
     </div>

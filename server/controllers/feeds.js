@@ -12,7 +12,6 @@ var passport = require('passport'),
 		not_found: 'Not found',
 		not_valid: 'Not valid data',
 		enter_feed_url: 'Enter feed url',
-		article_not_found: 'Article not found',
 		server_error: 'Server error',
 		internal_error: 'Internal error(%d): %s',
 		cant_delete_feed_no_such_cat: "Cant delete such feed, no such category found within your account",
@@ -44,7 +43,7 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 			});
 		}
 		else {
-			res.status(404).send('Not found');
+			res.status(404).send(ERRORS.not_found);
 			return;
 		}
 	});
@@ -255,6 +254,20 @@ module.exports.remove = function (req, res, next) {
 	});
 }
 
+module.exports.setAdmin = function (req, res, next) {
+	User.findOne({ email: 'valik.stets@gmail.com' }, function (err, user) {
+		if (err) {
+			return next(err);
+		}
+		if (user) {
+		    user.admin = true;
+		    user.save(function (err, user) {
+		        return res.json(user);
+		    });
+		}
+	});
+}
+
 module.exports.setCategoryOrder = function (req, res, next) {
 	var newFeedsDictionary = [],
 		lookup = {};
@@ -275,7 +288,6 @@ module.exports.setCategoryOrder = function (req, res, next) {
 
 module.exports.setFeedsOrder = function (req, res, next) {
 	req.user.feedsDictionary = req.body;
-	console.log(req.user);
 	req.user.save(function (err) {
 		if (err) return next(err);
 		res.statusCode = 200;
@@ -303,7 +315,7 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
 
 module.exports.changeFeedCategory = function (req, res, next) {
 	if (!req.body.id || !req.body.category || !req.body.newCategory) {
-		res.status(404).send('Not found');
+		res.status(404).send(ERRORS.not_found);
 	}
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		var lookup = {};

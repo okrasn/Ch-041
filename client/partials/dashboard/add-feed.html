@@ -19,6 +19,12 @@
 					</select>
 				</div>
 			</div>
+			<div class="form-group">
+				<label for="category" class="col-sm-3 control-label">Mark popular</label>
+				<div class="col-sm-7">
+					<input type="checkbox" class="form-control popular-checkbox" />
+				</div>
+			</div>
 			<div id="add-new-category" class="form-group fading-anim" ng-show="addingNewCategory">
 				<label for="new-category" class="col-sm-3 control-label">New Category</label>
 				<div class="col-sm-7">
@@ -38,14 +44,59 @@
 	<div class="mobile-zero-padding col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
 		<div id="adviced-cards-wrapper" class="desktop-grow clearfix feeds">
 			<h4 class="explore-header uppercase">Explore popular</h4>
-			<div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat="item in adviced">
-				<a class="adviced-card" ng-click="toAdvicedCategory(item.category)">
+			<div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat-start="item in adviced">
+				<a class="adviced-card pointer" ng-click="toAdvicedCategory(item.category)">
 					<h4 class="advice-header text-center center-absolute" ng-bind="item.category"></h4>
 					<div class="img-responsive adviced-img" ng-style="setCoverImage(item)">
 					</div>
 					<div class="gradient"></div>
 				</a>
 			</div>
+			<div ng-if="$last" ng-repeat-end>
+				<div class="col-lg-3 col-sm-4 col-xs-6">
+					<a class="adviced-card add-adviced-card pointer" ng-click="addPopular()">
+						<h1 class="advice-header add-advice-header text-center center-absolute">+</h1>
+						<div class="img-responsive adviced-img">
+						</div>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
+	<modal show='modalShown'>
+		<form class="form-horizontal add-feed-form" role="form" ng-submit="addFeed()">
+			<h3 class="text-center uppercase">add popular</h3>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="url">Url:</label>
+				<div class="col-sm-7">
+					<input type="url" id="url" class="form-control form-input" placeholder="Enter url" ng-model="obj.link"
+						   uib-tooltip="ex: http://www.cnet.com/rss/news/"
+						   tooltip-trigger="'focus'"
+						   tooltip-placement="top-left">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="category" class="col-sm-3 control-label">Category</label>
+				<div class="col-sm-7">
+					<select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" tooltip-trigger="'focus'" tooltip-placement="top-left">
+						<option value="" disabled selected hidden>Choose</option>
+					</select>
+				</div>
+			</div>
+			<div id="add-new-category" class="form-group fading-anim" ng-show="addingNewCategory">
+				<label for="new-category" class="col-sm-3 control-label">New Category</label>
+				<div class="col-sm-7">
+					<input id="new-category" class="form-control form-input" placeholder="Enter category name" ng-model="newCategory.category" maxlength="25">
+				</div>
+			</div>
+			<div class="center-children">
+				<button type="submit" id="add-feed-btn-submit" class="app-btn app-btn-blue" ng-dblclick="IgnoreDoubleClick()">Add feed</button>
+			</div>
+			<div class="alert alert-danger alert-danger-app text-center fading-anim" role="alert" ng-show="error">
+				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				<span class="sr-only">Error:</span>
+				<span ng-bind="error"></span>
+			</div>
+		</form>
+	</modal>
 </div>

@@ -1,8 +1,8 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+	    $scope.dashboardData = dashboardService;
 		$scope.sidebar = dashboardService.checkSidebar;
-		$scope.headTitle = dashboardService.getTitle;
 		$scope.feed = dashboardService.getFeed;
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
@@ -23,13 +23,6 @@
 			dashboardService.sidebar = true;
 		}
 
-		$scope.hideViewBtns = function () {
-			if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
-				return true;
-			}
-			return false;
-			
-		}
 		$scope.checkIfToggled = function (mode) {
 			return dashboardService.getViewMode() === mode;
 		}

@@ -51,9 +51,9 @@
 							promises.push(fetchArticles(value));
 						});
 					});
-					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+					return $q.all(promises).then(function (res) {
+					    obj.articles = temp_articles;
+					    return res;
 					});
 				},
 				getArticlesByFeed: function (feed, num) {
@@ -64,10 +64,10 @@
 						dashboardService.readSingleFeed.state = true;
 						dashboardService.setSortParam('date', 1);
 						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+						return res;
 					}, function (err) {
-						dashboardService.hideLoading();
-						console.log(err);
+					    console.log(err);
+					    return err;
 					});
 				},
 				getArticlesByCat: function (cat) {
@@ -83,14 +83,14 @@
 					});
 					if (!found) {
 						return $q.reject().catch(function (err) {
-							dashboardService.hideLoading();
-							$state.go("404");
+						    $state.go("404");
+						    return err;
 						});
 					}
-					return $q.all(promises).then(function () {
+					return $q.all(promises).then(function (res) {
 						dashboardService.setTitle(cat);
 						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+						return res;
 					});
 				},
 				getAdvicedArticlesByCat: function (cat) {
@@ -102,9 +102,10 @@
 							});
 						}
 					});
-					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+					return $q.all(promises).then(function (res) {
+					    console.log("finished work");
+					    obj.articles = temp_articles;
+					    return res;
 					});
 				},
 				getFavourites: function () {
@@ -119,7 +120,6 @@
 							obj.articles.push(value);
 						});
 					});
-					dashboardService.hideLoading();
 				},
 				getFavArticlesByCat: function (cat) {
 					obj.resetArticles();
@@ -135,7 +135,6 @@
 							});
 						}
 					});
-					dashboardService.hideLoading();
 				},
 				getFavArticle: function (article) {
 					obj.resetArticles();
@@ -143,32 +142,29 @@
 					obj.isFavourites = true;
 					dashboardService.setTitle("Favourites");
 					obj.articles.push(article);
-					dashboardService.hideLoading();
 				},
 				addFavourite: function (article) {
-					dashboardService.displayLoading();
+					
 					return $http.post("/addFavArticle", article).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
-					    dashboardService.hideLoading();
 					    return res;
 					});
 				},
 				removeFavourite: function (article) {
-					dashboardService.displayLoading();
+					
 					return $http.delete("/deleteFavFeed/" + article._id).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
-					    dashboardService.hideLoading();
 					    return res;
 					});
 				},
 				getAdvicedArticles: function () {
-				    dashboardService.displayLoading();
 					obj.advicedArticles.length = 0;
 					return $http.get("/advicedArticles").then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
-					    dashboardService.hideLoading();
+					    return res;
 					}, function (err) {
-						console.log(err);
+					    console.log(err);
+					    return err;
 					});
 				},
 				getAdvicedFeedsArticles: function () {
@@ -182,12 +178,12 @@
 				resetArticles: function () {
 					dashboardService.hideSortList.state = false;
 					dashboardService.readSingleFeed.state = false;
+					
+					dashboardService.resetFeed();
 					this.totalDisplayed = this.displayedIncrement;
-					dashboardService.displayLoading();
 					temp_articles.length = 0;
 					obj.articles.length = 0;
 					obj.isFavourites = false;
-					dashboardService.resetFeed();
 					promises.length = 0;
 				},
 				// Additional method for unit testing
@@ -302,11 +298,16 @@
 									date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
 									feed: feed._id
 								};
+								if (articleObj.title) {
+								    articleObj.title.replaceAll("apos;", '\'')
+													.replaceAll("&apos;", '\'')
+													.replaceAll("&amp;", '')
+													.replaceAll("&#8217;", 'bb');
+								}
 								articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
 								temp_articles.push(articleObj);
 							}
 						}
-						dashboardService.loadingIcon = false;
 						return temp_articles;
 					});
 			},
