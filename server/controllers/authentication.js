@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 	moment = require('moment'),
 	jwt = require('jwt-simple'),
 	config = require('../config/config'),
+	emailConf = require('../config/emailConf'),
 	msg = require('../config/msg'),
 	request = require('request'),
 	nev = require('email-verification')(mongoose),
@@ -49,7 +50,7 @@ module.exports.register = function (req, res) {
 					link = "http://" + req.get('host') + "/#/verify/" + emailToken;
 					mailOptions = {
 						to : req.body.email,
-						subject : "Please confirm your Email account",
+						subject : emailConf.nodemailer.confirm,
 						html : "Hello,<br> Please Click on the <a href=" + link + ">link verification</a> to verify your email.<br>"	
 					}
 

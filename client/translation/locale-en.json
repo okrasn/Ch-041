@@ -1,6 +1,7 @@
 {
   "button-lang-ua": "Ukrainian",
   "button-lang-en": "English",
+  "button-lang-pl": "Polish",
   "change theme": "change theme",
   "change password": "change password",
   "current password:":"current password:",
@@ -35,8 +36,8 @@
   "To enter custom category choose custom": "To enter custom category choose custom",
   "Profile": "Profile",
   "Sign out": "Sign out",
-  "Sign In": "Sign In",
-  "Sign Up": "Sign Up",
+  "Sign In": " Sign In",
+  "Sign Up": " Sign Up",
   "Show Feeds": "Show Feeds",
   "Welcome to": "Welcome to",
   "All of your favourites news feeds in one place": "All of your favourites news feeds in one place",
