@@ -47,9 +47,11 @@
 		}
 
 		$scope.addFeed = function () {
+		    dashboardService.displayLoading();
 			$scope.error = '';
 			if (!$scope.obj.link) {
-				$scope.error = 'Enter Rss feed link';
+			    $scope.error = 'Enter Rss feed link';
+			    dashboardService.hideLoading();
 				return;
 			}
 			if ($scope.newCategory.category) {
@@ -57,18 +59,20 @@
 			}
 			if (!$scope.obj.category) {
 				if (!$scope.advicedCategory) {
-					$scope.error = 'Choose category';
+				    $scope.error = 'Choose category';
+				    dashboardService.hideLoading();
 					return;
 				}
 			}
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-				$scope.error = 'Enter new category name';
+			    $scope.error = 'Enter new category name';
+			    dashboardService.hideLoading();
 				return;
 			}
 			if (!$scope.obj.category) {
 				$scope.obj.category = $scope.advicedCategory;
 			}
-			feedsService.addFeed($scope.obj)
+		    feedsService.addFeed($scope.obj)
 				.then(function (res) {
 					$scope.addingNewCategory = false;
 					toasterService.success('Feed successfully added');
@@ -100,6 +104,8 @@
 					else {
 						$scope.error = err.data.message;
 					}
+				}).finally(function () {
+				    dashboardService.hideLoading();
 				});
 		}
 

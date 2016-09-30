@@ -24,14 +24,6 @@ module.exports.allFeed = function (req, res, next) {
 	});
 }
 
-module.exports.advicedFeeds = function (req, res, next) {
-	Advice.find({}, function (err, adviced) {
-		adviced[0].populate("feedsDictionary.feeds", function (err, adviced) {
-			res.json(adviced.feedsDictionary);
-		});
-	});
-}
-
 module.exports.getAdvicedFeeds = function (req, res, next) {
 	Advice.find({}, function (err, advice) {
 		if (err) {
@@ -254,20 +246,6 @@ module.exports.remove = function (req, res, next) {
 	});
 }
 
-module.exports.setAdmin = function (req, res, next) {
-	User.findOne({ email: 'valik.stets@gmail.com' }, function (err, user) {
-		if (err) {
-			return next(err);
-		}
-		if (user) {
-		    user.admin = true;
-		    user.save(function (err, user) {
-		        return res.json(user);
-		    });
-		}
-	});
-}
-
 module.exports.setCategoryOrder = function (req, res, next) {
 	var newFeedsDictionary = [],
 		lookup = {};
@@ -359,3 +337,106 @@ module.exports.changeFeedCategory = function (req, res, next) {
 		}
 	});
 }
+
+module.exports.advicedFeeds = function (req, res, next) {
+	Advice.findOne({}, function (err, adviced) {
+		adviced.populate("feedsDictionary.feeds", function (err, adviced) {
+			res.json(adviced.feedsDictionary);
+		});
+	});
+}
+
+module.exports.addAdviced = function (req, res, next) {
+	if (req.body.rsslink === undefined) {
+		return res.status(400).json({
+			message: ERRORS.enter_feed_url
+		});
+	}
+	if (req.body.category === undefined) {
+		return res.status(400).json({
+			message: ERRORS.choose_cat
+		});
+	}
+
+	Advice.findOne({}, function (err, adviced) {
+		adviced.populate("feedsDictionary.feeds", function (err, adviced) {
+			Feed.findOne({ rsslink: req.body.rsslink }, function (err, feed) {
+				if (err) {
+					return next(err);
+				}
+				var currentFeed = feed;
+				req.user.populate("feedsDictionary.feeds", function (err, user) {
+					var foundCategory = null;
+					for (var i = 0; i < user.feedsDictionary.length; i++) {
+						if (user.feedsDictionary[i].category === req.body.category) {
+							foundCategory = user.feedsDictionary[i];
+						}
+						for (var j = 0; j < user.feedsDictionary[i].feeds.length; j++) {
+							if (user.feedsDictionary[i].feeds[j].rsslink === req.body.rsslink) {
+								return res.status(400).json({
+									message: ERRORS.feed_already_added,
+									id: user.feedsDictionary[i].feeds[j]._id,
+									category: user.feedsDictionary[i].category
+								});
+							}
+						}
+					}
+
+					if (currentFeed) {
+						currentFeed.totalSubscriptions++;
+						currentFeed.currentSubscriptions++;
+						currentFeed.save(function (err, currentFeed) {
+							if (err) {
+								return next(err);
+							}
+							if (!foundCategory) {
+								var newFeedElement = {
+									category: req.body.category,
+									feeds: []
+								}
+								newFeedElement.feeds.push(currentFeed);
+								req.user.feedsDictionary.push(newFeedElement);
+							}
+							else {
+								foundCategory.feeds.push(currentFeed);
+							}
+							req.user.save(function (err, user) {
+								if (err) {
+									return next(err);
+								}
+								res.json(currentFeed);
+							});
+						});
+					}
+					if (!currentFeed) {
+						var feed = new Feed(req.body);
+						feed.totalSubscriptions = 1;
+						feed.currentSubscriptions = 1;
+						feed.save(function (err, feed) {
+							if (err) {
+								return next(err);
+							}
+							if (!foundCategory) {
+								var newFeedElement = {
+									category: req.body.category,
+									feeds: []
+								}
+								newFeedElement.feeds.push(feed);
+								req.user.feedsDictionary.push(newFeedElement);
+							}
+							else {
+								foundCategory.feeds.push(feed);
+							}
+							req.user.save(function (err, user) {
+								if (err) {
+									return next(err);
+								}
+								res.json(feed);
+							});
+						});
+					}
+				});
+			});
+		});
+	});
+};

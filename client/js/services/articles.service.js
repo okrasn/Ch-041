@@ -103,7 +103,6 @@
 						}
 					});
 					return $q.all(promises).then(function (res) {
-					    console.log("finished work");
 					    obj.articles = temp_articles;
 					    return res;
 					});

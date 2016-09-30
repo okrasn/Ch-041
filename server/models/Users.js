@@ -70,6 +70,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 		cb(null, isMatch);
 	});
 };
+
 userSchema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };

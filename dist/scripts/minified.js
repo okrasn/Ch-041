@@ -4665,9 +4665,11 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 		}
 
 		$scope.addFeed = function () {
+		    dashboardService.displayLoading();
 			$scope.error = '';
 			if (!$scope.obj.link) {
-				$scope.error = 'Enter Rss feed link';
+			    $scope.error = 'Enter Rss feed link';
+			    dashboardService.hideLoading();
 				return;
 			}
 			if ($scope.newCategory.category) {
@@ -4675,18 +4677,20 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 			}
 			if (!$scope.obj.category) {
 				if (!$scope.advicedCategory) {
-					$scope.error = 'Choose category';
+				    $scope.error = 'Choose category';
+				    dashboardService.hideLoading();
 					return;
 				}
 			}
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-				$scope.error = 'Enter new category name';
+			    $scope.error = 'Enter new category name';
+			    dashboardService.hideLoading();
 				return;
 			}
 			if (!$scope.obj.category) {
 				$scope.obj.category = $scope.advicedCategory;
 			}
-			feedsService.addFeed($scope.obj)
+		    feedsService.addFeed($scope.obj)
 				.then(function (res) {
 					$scope.addingNewCategory = false;
 					toasterService.success('Feed successfully added');
@@ -4718,6 +4722,8 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					else {
 						$scope.error = err.data.message;
 					}
+				}).finally(function () {
+				    dashboardService.hideLoading();
 				});
 		}
 
@@ -5454,7 +5460,6 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 						}
 					});
 					return $q.all(promises).then(function (res) {
-					    console.log("finished work");
 					    obj.articles = temp_articles;
 					    return res;
 					});
