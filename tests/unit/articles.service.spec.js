@@ -37,6 +37,7 @@ describe("ArticlesService testing", function () {
 	it('Read article from XML', function () {
 		var res;
 		httpBackend.whenGET("./partials/home.html").respond(200);
+		httpBackend.whenGET("/translation/locale-en.json").respond(200);
 		httpBackend.whenJSONP("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + "50" + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml").respond(RESPOND_SUCCESS);
 		articlesService.getArticlesByFeed(feed).then(function (response) {
 	        article = articlesService.articles[0];

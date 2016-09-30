@@ -1,3 +1,5 @@
+/*----------------Navbar--------------*/
+
 .main-navbar .navbar {
 	background: #3498db;
 }
@@ -6,17 +8,20 @@
 	background: #3498db;
 }
 
-.navbar-nav > .user-menu > .dropdown-toggle:active {
-	background: #3498db;
-}
+	.navbar-nav > .user-menu > .dropdown-toggle:active {
+		background: #3498db;
+	}
 
-.navbar-nav > .user-menu > .dropdown-toggle:hover {
-	background: #3498db;
-}
+	.navbar-nav > .user-menu > .dropdown-toggle:hover {
+		background: #3498db;
+	}
 
-.navbar-nav > .user-menu > .dropdown-toggle > span:hover {
-	color: #ffffff;
-}
+	.navbar-nav > .user-menu > .dropdown-toggle > span:hover {
+		color: #ffffff;
+	}
+
+
+/*-----------------Btn----------------*/
 
 .app-btn-blue {
 	color: white;
@@ -52,6 +57,7 @@
 }
 
 .sidebar-item:hover {
+	-webkit-transition: background 0.2s ease;
 	transition: background 0.2s ease;
 	border-right: 0.7em solid #3498db;
 	background-color: #c1c1c1;

@@ -1,10 +1,10 @@
 <div id="sidebar">
 	<div class="sidebar-item" ng-show="checkIfEmpty()">
-		<div ng-click="getAll($event)" ng-dblclick="IgnoreDoubleClick()"><span class="glyphicon glyphicon-align-justify all-icon" aria-hidden="true"></span><span class="all-text">All</span></div>
+		<div ng-click="getAll($event)"><span class="glyphicon glyphicon-align-justify all-icon" aria-hidden="true"></span><span translate class="all-text">All</span></div>
 	</div>
 	<div class="sidebar-item" ng-show="hideFavourites()">
-		<a class="glyphFeeds fav-dropdown" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites($event)" ng-dblclick="IgnoreDoubleClick()">
-			<span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-star"></span><span>Favourites</span>
+		<a class="glyphFeeds fav-dropdown" data-toggle="collapse" data-target="#favourites" ng-click="getFavourites($event)">
+			<span class="glyphicon glyphicon-chevron-right"></span><span class="glyphicon glyphicon-star"></span><span translate>Favourites</span>
 		</a>
 		<div class="collapse" id="favourites">
 			<ul dnd-list="favs"
@@ -60,7 +60,7 @@
 	</ul>
 	<div class="col-sm-12 center-children">
 		<button id="add-feed-test-btn" type="button" class="app-btn app-btn-blue" ng-click="toAddFeed()">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add feed
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span translate>Add feed</span>
 		</button>
 	</div>
 </div>

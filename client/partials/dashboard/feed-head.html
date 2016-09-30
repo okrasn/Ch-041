@@ -1,6 +1,6 @@
 <div id="feed-head" ng-hide="checkIfReading()">
 	<h2>
-		<span class="title shortened-text-block" ng-bind="headTitle()"></span>
+		<span class="title shortened-text-block" ng-bind="headTitle() | translate "></span>
 	</h2>
 	<div class='clearfix' ng-hide="hideViewBtns()">
 		<div class="row">
@@ -12,12 +12,12 @@
 				</div>
 				<div ng-hide="hideSortList.state" class="btn-group" uib-dropdown is-open="status.isopen">
 					<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled">
-						{{currentSortTitle()}}<span class="caret"></span>
+						{{currentSortTitle() | translate}}<span class="caret"></span>
 					</button>
 					<ul id="sort-dropdown" class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'date', 1)" ng-class="{'selected' : checkSortType('date', 1)}"><a>Newest</a></li>
-						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'date', 0)" ng-class="{'selected' : checkSortType('date', 0)}"><a>Oldest</a></li>
-						<li class="sort-item" role="menuitem" ng-hide="readSingleFeed.state" ng-click="setSortParam($event, 'feed', 1)" ng-class="{'selected' : checkSortType('feed', 1)}"><a>By Feed</a></li>
+						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'date', 1)" ng-class="{'selected' : checkSortType('date', 1)}"><a translate >Newest</a></li>
+						<li class="sort-item" role="menuitem" ng-click="setSortParam($event, 'date', 0)" ng-class="{'selected' : checkSortType('date', 0)}"><a translate >Oldest</a></li>
+						<li class="sort-item" role="menuitem" ng-hide="readSingleFeed.state" ng-click="setSortParam($event, 'feed', 1)" ng-class="{'selected' : checkSortType('feed', 1)}"><a translate >By Feed</a></li>
 					</ul>
 				</div>
 			</div>

@@ -40,6 +40,7 @@ describe('ProfileController', function () {
 			});
 		
 			$httpBackend.expect('GET', './partials/home.html').respond(200);
+			$httpBackend.whenGET("/translation/locale-en.json").respond(200);
 			$httpBackend.when('POST', '/changePassword').respond(200, { token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1N2QzYzM1MzU2NTc2M2FjM2M3OWY3YmUiLCJlbWFpbCI6ImdlbXluaTg1QGdtYWlsLmNvbSIsImlhdCI6MTQ3MzUwOTg5NCwiZXhwIjoxNDczNTk2Mjk0fQ.OSLhxRYB97SwgVnKCIzdolHB8jR1lEUEc8Rxji7TaIE"});
 			$httpBackend.when('POST', '/changePas').respond(404, { error : "msg error"});
 			expect($httpBackend.flush).not.toThrow();

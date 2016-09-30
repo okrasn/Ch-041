@@ -23,45 +23,44 @@
 						<div class="center-block readers-word not-important">subscribers</div>
 					</div>
 					<div class="col-xs-7">
-
-					</div>
-					<div class="col-xs-2 stats-block center-children">
-						<button class="app-btn app-btn-blue subscribe-btn" ng-click="addFeedByAdvice(feed)"><span class="glyphicon glyphicon-plus"></span></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<modal show='modalShown'>
-		<h4 class="uppercase">add new feed</h4>
-		<div class="modal-row">
-			<select id="category" 
-					class="form-control form-input" 
-					ng-model="obj.category" 
-					ng-options="category for category in categories()" 
-					ng-change="checkIfNew()" 
-					uib-tooltip="To enter custom category choose 'custom'" 
-					tooltip-trigger="'focus'" 
-					tooltip-placement="top-left">
-				<option value="" disabled selected hidden>{{advicedCategory}}</option>
-			</select>
-		</div>
-		<div class="modal-row">
-			<input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCategory.category" ng-show="addingNewCategory" maxlength="25">
-		</div>
-		<div class="modal-row">
-			<div class="center-children">
-				<button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="addFeed()">Add Feed</button>
-			</div>
-		</div>
-		<div class="modal-row" ng-show="error">
-			<div class="alert alert-danger text-center fading-anim" role="alert">
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				<span class="sr-only">Error:</span>
-				<span ng-bind="error"></span>
-			</div>
-		</div>
-	</modal>
+                    </div>
+                    <div class="col-xs-2 stats-block center-children">
+                        <button class="subscribe-btn" ng-click="addFeedByAdvice(feed)"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <modal show='modalShown'>
+        <h4 translate class="uppercase">Add new feed</h4>
+        <div class="modal-row">
+            <select id="category" 
+                    class="form-control form-input" 
+                    ng-model="obj.category" 
+                    ng-options="category for category in categories()" 
+                    ng-change="checkIfNew()" 
+                    uib-tooltip="To enter custom category choose 'custom'" 
+                    tooltip-trigger="'focus'" 
+                    tooltip-placement="top-left">
+                <option value="" disabled selected hidden>{{advicedCategory}}</option>
+            </select>
+        </div>
+        <div class="modal-row">
+            <input id="new-category" class="form-control form-input fading-anim" placeholder="Enter category name" ng-model="newCategory.category" ng-show="addingNewCategory" maxlength="25">
+        </div>
+        <div class="modal-row">
+            <div class="center-children">
+                <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="addFeed()"><span translate>Add feed</span></button>
+            </div>
+        </div>
+        <div class="modal-row" ng-show="error">
+            <div class="alert alert-danger text-center fading-anim" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                <span ng-bind="error"></span>
+            </div>
+        </div>
+    </modal>
 </div>
 
 <div class="mobile-zero-padding col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">

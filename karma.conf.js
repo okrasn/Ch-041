@@ -14,36 +14,40 @@ module.exports = function (config) {
 			"./client/bower_components/jquery-validation/dist/jquery.validate.min.js",
 			"./client/bower_components/jquery-validation/dist/additional-methods.min.js",
 			"./client/bower_components/bootstrap/dist/js/bootstrap.min.js",
-
 			"./client/bower_components/angular/angular.min.js",
 			"./client/bower_components/angular-animate/angular-animate.min.js",
 			"./client/bower_components/angular-aria/angular-aria.min.js",
 			"./client/bower_components/angular-messages/angular-messages.min.js",
 			"./client/bower_components/angular-touch/angular-touch.min.js",
-
 			"./client/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-
 			"./client/bower_components/angular-ui-router/release/angular-ui-router.min.js",
 			"./client/bower_components/ng-file-upload/ng-file-upload.min.js",
 			"./client/bower_components/ng-file-upload/ng-file-upload-shim.min.js",
 			"./client/bower_components/angular-favicon/angular-favicon.min.js",
 			"./client/bower_components/jpkleemans-angular-validate/dist/angular-validate.min.js",
 			"./client/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js",
-
-			'./client/bower_components/satellizer/dist/satellizer.js',
-			'./client/bower_components/angular-jwt/dist/angular-jwt.min.js',
-			'./client/bower_components/angular-toastr/dist/angular-toastr.js',
-			'./client/bower_components/angular-toastr/dist/angular-toastr.tpls.js',
 			"./client/bower_components/angular-socialshare/dist/angular-socialshare.min.js",
+			"./client/bower_components/angular-scroll-animate/dist/angular-scroll-animate.js",
 			"./client/bower_components/angular-mocks/angular-mocks.js",
-			"./client/js/app.min.js",
-			"./client/tests/unit/registerNewUser.spec.js",
-			"./client/tests/unit/profileController.spec.js",
-			"./client/tests/unit/resetPassword.spec.js", 
-			"./client/tests/unit/emailApproving.spec.js",
-			"./client/tests/unit/dashboard.service.spec.js",
-			"./client/tests/unit/feeds.service.spec.js",
-			"./client/tests/unit/articles.service.spec.js"
+			"./client/bower_components/angular-translate/angular-translate.min.js",
+			"./client/bower_components/angular-translate-handler-log/angular-translate-handler-log.min.js",
+			"./client/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+			"./client/bower_components/angular-cookies/angular-cookies.js",
+    		"./client/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js",
+    		"./client/bower_components/angular-translate-storage-local/angular-translate-storage-local.js",
+
+			"./client/js/app.js",
+
+			"./client/bower_components/satellizer/dist/satellizer.min.js",
+			"./client/bower_components/angular-jwt/dist/angular-jwt.min.js",
+				
+			"./tests/unit/registerNewUser.spec.js",
+			"./tests/unit/profileController.spec.js",
+			"./tests/unit/resetPassword.spec.js", 
+			"./tests/unit/emailApproving.spec.js",
+			"./tests/unit/dashboard.service.spec.js",
+			"./tests/unit/feeds.service.spec.js",
+			"./tests/unit/articles.service.spec.js"
 		],
 
 		// list of files to exclude
@@ -53,7 +57,7 @@ module.exports = function (config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			"./client/js/app.min.js" : ['coverage']
+			"./client/js/app.js" : ['coverage']
 		},
 
 		// test results reporter to use

@@ -6,7 +6,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		}, "Password must contain (a-z,A-Z,0-9,!@#)");
 		$validatorProvider.addMethod("email", function (value, element) {
 		    return this.optional(element) || /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
-		}, "text")
+		}, "Please enter a valid email address.")
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
@@ -16,7 +16,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		};
 		transfer.setString("");
 		$scope.setEmail = function () {
-			return transfer.getEmail();
+			return transfer.getEmail().verifEmail;
 		}
 		$scope.password = {
 			token : transfer.getObj(),
@@ -37,11 +37,16 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 
 		$scope.register = function (form) {
 			if (form.validate()) {
-				dashboardService.loadingIcon = true;
+				dashboardService.loadingIcon = false;
 				if($scope.user.verifyEmail){
-					$scope.user.email = transfer.getEmail();
+					$scope.user.email = transfer.getEmail().verifEmail;
+
 				}
 				authService.register($scope.user).error(function (error) {
+					var symbol = $scope.user.email.indexOf('@');
+					var emailAgent = $scope.user.email.slice(symbol + 1);
+					$scope.linkProvider = emailAgent;
+					console.log(emailAgent);
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
@@ -56,7 +61,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 
 		$scope.logIn = function (form) {
 		    if (form.validate()) {
-		        dashboardService.loadingIcon = true;
+		        dashboardService.loadingIcon = false;
 		        authService.logIn($scope.user, $scope.session).error(function (error) {
 		            dashboardService.loadingIcon = false;
 					$scope.error = error;

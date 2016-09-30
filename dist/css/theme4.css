@@ -26,6 +26,7 @@
 
 .subscribe-btn {
 	background-color: #060606;
+	border-color: #ff9d00;
 	color: #ff9d00;
 }
 
@@ -72,7 +73,7 @@
 	background-color: #504f54;
 }
 
-#feed-head .selected{
+#sidebar .selected{
 	background-color: white;
 }
 .chevron-down > span.glyphicon.glyphicon-chevron-right,

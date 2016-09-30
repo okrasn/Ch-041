@@ -19,13 +19,13 @@
 					<span class="article-footer-item article-time-icon glyphicon glyphicon-time"></span>
 				</div>
 				<div class="center-children">
-					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}" target="_blank"><span>Continue reading</span></a>
+					<a class="app-btn app-btn-blue" href="{{articleForRead.link}}" target="_blank"><span translate>Continue reading</span></a>
 				</div>
 			</div>
 		</div>
 		<div class="col-lg-3 adviced-articles-wrapper">
-			<h3 class="also-read-header">Also read</h3>
-			<div class="card adviced-article-card col-lg-12 col-md-4 col-xs-6" ng-repeat="article in articleData.advicedArticles">
+			<h3 translate class="also-read-header">Also read</h3>
+			<div class="card adviced-article-card col-lg-12 col-md-4 col-xs-6" ng-repeat="article in adviced">
 				<div class="adviced-article-title">
 					<div class="list-item" ng-click="readArticle(article, 'adviced')"><span ng-bind="article.title"></span></div>
 				</div>
@@ -37,7 +37,7 @@
 	</div>
 </div>
 <modal show='modalShown'>
-	<h4 class="uppercase">add to favourites</h4>
+	<h4 translate class="uppercase">add to favourites</h4>
 	<div class="modal-row">
 		<select id="category"
 				class="form-control form-input"
@@ -47,7 +47,7 @@
 				uib-tooltip="To enter custom category choose 'custom'"
 				tooltip-trigger="'focus'"
 				tooltip-placement="right">
-			<option value="" disabled selected hidden>Choose</option>
+			<option translate value="" disabled selected hidden>Choose</option>
 		</select>
 	</div>
 	<div class="modal-row">
@@ -56,14 +56,14 @@
 	</div>
 	<div class="modal-row">
 		<div class="center-children">
-			<button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+			<button translate type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
 		</div>
 	</div>
 	<div class="modal-row">
 		<div class="alert alert-danger text-center fading-anim" role="alert" ng-show="error">
 			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 			<span class="sr-only">Error:</span>
-			<span ng-bind="error"></span>
+			<span ng-bind="error | translate "></span>
 		</div>
 	</div>
 </modal>
