@@ -1,6 +1,7 @@
 {
   "button-lang-ua": "ukraiński",
   "button-lang-en": "angielski",
+  "button-lang-pl": "polskie",
   "change theme": "Zmień motyw",
   "change password": "Zmień hasło",
   "current password:":"aktualne hasło:",
@@ -116,3 +117,5 @@
   "Load more": "Załaduj więcej",
   "Click to apply": "Kliknij, aby zastosować",
   "Close": "Zamknąć"
+
+}  

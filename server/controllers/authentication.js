@@ -75,7 +75,9 @@ module.exports.register = function (req, res) {
 					}	
 					user.save(function (err, result) {
 						if (err) {
-							return res.end('error');
+							return res.status(400).json({
+								message: msg.ERRORS.check_your_email	
+							});
 						}
 						return res.status(400).json({
 							message: msg.ERRORS.email_verification,
