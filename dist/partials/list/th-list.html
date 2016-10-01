@@ -2,11 +2,11 @@
 <div id="cards-wrapper" class="clearfix feeds">
     <div class="clearfix feed-title-wrap" ng-show="checkIfFirst()">
         <div class="col-xs-12 list-feed-title first-title">
-            <h3 class="text-center" ng-bind="firstListItem.title"></h3>
+            <h3 class="text-center shortened-text" ng-bind="firstListItem.title"></h3>
         </div>
     </div>
     <div class="col-md-12 col-lg-12" ng-repeat-start="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
-        <div class="hidden" ng-show="setFirstTitle(articleData.articles[$index+1], $first)">
+        <div class="hidden" ng-show="setFirstTitle(articleData.articles[$index], $first)">
         </div>
         <div class="app-panel fade-in-anim">
             <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
@@ -41,7 +41,7 @@
     <div ng-if="toShowTitle(articleData.articles[$index], articleData.articles[$index+1], $index)" ng-repeat-end>
         <div class="clearfix feed-title-wrap">
             <div class="col-xs-12 list-feed-title">
-                <h3 class="text-center" ng-bind="getTitle(articleData.articles[$index+1], $index)"></h3>
+                <h3 class="text-center shortened-text" ng-bind="getTitle(articleData.articles[$index+1], $index)"></h3>
             </div>
         </div>
     </div>
