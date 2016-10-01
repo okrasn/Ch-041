@@ -1,8 +1,9 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer',
-		function (Upload, $http, $state, profileService, $scope, authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
+	angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope', '$rootScope',
+		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer', '$translate',
+		function (Upload, $http, $state, profileService, $scope, $rootScope, authService, $window, themeService, dashboardService, $auth, 
+			accountInfo, toasterService, transfer, $translate) {
 			dashboardService.isReadingArticle = true;
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
@@ -85,7 +86,6 @@
 
 			$scope.changePass = function (form) {
 				if (form.validate()) {
-					console.log("Submit change password");
 					return $http.post('/changePassword', $scope.newUserData, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
@@ -98,7 +98,6 @@
 						});
 					}).error(function (err) {
 						$scope.err = err;
-						console.log(err.message);
 					});
 				}
 			};
@@ -154,6 +153,17 @@
 				});
 			};
 			$scope.layouts = themeService.layouts;
+
+			$scope.changeLanguage = function (langKey) {
+				$translate.use(langKey);		
+			}
+
+			$rootScope.$on('$translateChangeSuccess', function(event, data) {
+				var language = data.language;
+				$rootScope.lang = language;
+				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
+				$rootScope.default_float = language === 'en' ? 'right' : 'left';
+			});
 		}
 	]);
 })();

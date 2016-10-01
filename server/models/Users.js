@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-	crypto = require('crypto'),
 	jwt = require('jwt-simple'),
 	bcrypt = require('bcryptjs'),
 	config = require('../config/config'),

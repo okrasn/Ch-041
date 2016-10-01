@@ -160,6 +160,7 @@
 					obj.advicedArticles.length = 0;
 					return $http.get("/advicedArticles").then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
+					    console.log(res.data);
 					    return res;
 					}, function (err) {
 					    console.log(err);

@@ -39,6 +39,10 @@
     "angular-touch": "^1.5.8",
     "angular-mocks": "^1.5.8",
     "angular-scroll-animate": "^0.9.9",
-    "nsPopover": "https://github.com/nohros/nsPopover"
+    "nsPopover": "https://github.com/nohros/nsPopover",
+    "angular-translate": "^2.12.1",
+    "angular-translate-handler-log": "^2.12.1",
+    "angular-translate-loader-static-files": "^2.12.1",
+    "angular-translate-storage-local": "^2.12.1"
   }
 }

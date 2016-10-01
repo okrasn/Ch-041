@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate', 'pascalprecht.translate', 'ngCookies'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
 			$httpProvider.interceptors.push('sessionInjector');
 			$urlRouterProvider.otherwise('home');
@@ -42,22 +42,24 @@
 					controller: 'AuthController'
 				})
 				.state('reset', {
-					url: '/reset/:token/:email',
+					url: '/reset/:token',
 					templateUrl: './partials/auth/reset.html',
 					controller: 'AuthController',
-					onEnter : ['$stateParams', 'transfer', function ($stateParams, transfer) {
+					onEnter : ['$stateParams', 'transfer', '$window', function ($stateParams, transfer, $window) {
+						var payload = JSON.parse($window.atob($stateParams.token.split('.')[1]));
 						transfer.setObj($stateParams.token);
-						transfer.setEmail($stateParams.email);	
+						transfer.setEmail(payload.verifEmail);	
 					}]
 				})
 				.state('verify', {
-					url: '/verify/:token/:email',
+					url: '/verify/:token',
 					templateUrl: './partials/auth/verify.html',
 					controller: 'AuthController',
-					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
-						transfer.setEmail($stateParams.email);
+					onEnter : ['$stateParams', 'transfer', 'toasterService' ,'$window', function ($stateParams, transfer, toasterService, $window) {
+						var payload = JSON.parse($window.atob($stateParams.token.split('.')[1]));
 						transfer.setString($stateParams.token);
-						toasterService.info('You have successfuly approved you email. Please reenter you fields');
+						transfer.setEmail(payload);
+						toasterService.info('You have successfuly approved you email. Please reenter fields');
 					}]
 				})
 				.state('profile', {

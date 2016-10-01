@@ -1,5 +1,4 @@
 (function () {
-
     angular.module('rssreader').config(['$validatorProvider', function ($validatorProvider) {
         $validatorProvider.addMethod("pattern", function (value, element) {
             return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);

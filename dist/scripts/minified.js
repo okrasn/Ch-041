@@ -512,6 +512,162 @@ return o.dndDrop&&(n=u(o.dndDrop,e,i,n),!n)?s():(n!==!0&&a.$apply(function(){a.$
 !function(e){"use strict";var o="socialshare",i="Socialshare",t=["facebook","facebook-messenger","twitter","linkedin","google","pinterest","tumblr","reddit","stumbleupon","buffer","digg","delicious","vk","pocket","wordpress","flipboard","xing","hackernews","evernote","whatsapp","telegram","viber","skype","email","ok"],a=function(){var o=[{provider:"email",conf:{subject:"",body:"",to:"",cc:"",bcc:"",trigger:"click"}},{provider:"facebook",conf:{url:"",text:"",media:"",type:"",via:"",to:"",from:"",ref:"",display:"",source:"",caption:"",redirectUri:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"facebook-messenger",conf:{url:""}},{provider:"twitter",conf:{url:"",text:"",via:"",hashtags:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"linkedin",conf:{url:"",text:"",description:"",source:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"reddit",conf:{url:"",text:"",subreddit:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"vk",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"ok",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"digg",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"delicious",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"stumbleupon",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"pinterest",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"google",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"tumblr",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"buffer",conf:{url:"",text:"",via:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"pocket",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"flipboard",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"hackernews",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"wordpress",conf:{url:"",text:"",media:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"xing",conf:{url:"",text:"",media:"",follow:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"evernote",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"whatsapp",conf:{url:"",text:""}},{provider:"telegram",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}},{provider:"viber",conf:{url:"",text:""}},{provider:"skype",conf:{url:"",text:"",trigger:"click",popupHeight:600,popupWidth:500}}];return{configure:function(i){var a,r,s,h,c=0,p=0,n=e.injector(["ng"]).get("$log");if(i&&i.length>0)for(;c<i.length;c+=1)if(i[c].provider&&t.indexOf(i[c].provider)>-1){for(;p<o.length;p+=1)if(h=o[p],h&&h.provider&&i[c].provider===h.provider){for(a=Object.keys(h.conf),r=0;r<a.length;r+=1)s=a[r],s&&i[c].conf[s]&&(h.conf[s]=i[c].conf[s]);p=0;break}}else n.warn("Invalid provider at element "+c+" with name:"+i[c].provider)},$get:function(){return o}}},r=function(e,o){var i;o.socialshareType&&"feed"===o.socialshareType?(i="https://www.facebook.com/dialog/feed?",o.socialshareVia&&(i+="&app_id="+encodeURIComponent(o.socialshareVia)),o.socialshareRedirectUri&&(i+="&redirect_uri="+encodeURIComponent(o.socialshareRedirectUri)),o.socialshareUrl&&(i+="&link="+encodeURIComponent(o.socialshareUrl)),o.socialshareTo&&(i+="&to="+encodeURIComponent(o.socialshareTo)),o.socialshareDisplay&&(i+="&display="+encodeURIComponent(o.socialshareDisplay)),o.socialshareRef&&(i+="&ref="+encodeURIComponent(o.socialshareRef)),o.socialshareFrom&&(i+="&from="+encodeURIComponent(o.socialshareFrom)),o.socialshareDescription&&(i+="&description="+encodeURIComponent(o.socialshareDescription)),o.socialshareText&&(i+="&name="+encodeURIComponent(o.socialshareText)),o.socialshareCaption&&(i+="&caption="+encodeURIComponent(o.socialshareCaption)),o.socialshareMedia&&(i+="&picture="+encodeURIComponent(o.socialshareMedia)),o.socialshareSource&&(i+="&source="+encodeURIComponent(o.socialshareSource)),e.open(i,"Facebook","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)):o.socialshareType&&"send"===o.socialshareType?(i="https://www.facebook.com/dialog/send?",o.socialshareVia&&(i+="&app_id="+encodeURIComponent(o.socialshareVia)),o.socialshareRedirectUri&&(i+="&redirect_uri="+encodeURIComponent(o.socialshareRedirectUri)),o.socialshareUrl&&(i+="&link="+encodeURIComponent(o.socialshareUrl)),o.socialshareTo&&(i+="&to="+encodeURIComponent(o.socialshareTo)),o.socialshareDisplay&&(i+="&display="+encodeURIComponent(o.socialshareDisplay)),o.socialshareRef&&(i+="&ref="+encodeURIComponent(o.socialshareRef)),e.open(i,"Facebook","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)):e.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(o.socialshareUrl||e.location.href),"Facebook","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},s=function(e,o){var i="mailto:";o.socialshareTo&&(i+=encodeURIComponent(o.socialshareTo)),i+="?",o.socialshareBody&&(i+="body="+o.socialshareBody),o.socialshareSubject&&(i+="&subject="+encodeURIComponent(o.socialshareSubject)),o.socialshareCc&&(i+="&cc="+encodeURIComponent(o.socialshareCc)),o.socialshareBcc&&(i+="&bcc="+encodeURIComponent(o.socialshareBcc)),e.open(i,"_self")},h=function(e,o,i){var t="fb-messenger://share?link="+encodeURIComponent(o.socialshareUrl||e.location.href);i.attr("href",t),i.attr("target","_top")},c=function(e,o){var i="https://www.twitter.com/intent/tweet?";o.socialshareText&&(i+="text="+encodeURIComponent(o.socialshareText)),o.socialshareVia&&(i+="&via="+encodeURIComponent(o.socialshareVia)),o.socialshareHashtags&&(i+="&hashtags="+encodeURIComponent(o.socialshareHashtags)),i+="&url="+encodeURIComponent(o.socialshareUrl||e.location.href),e.open(i,"Twitter","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},p=function(e,o){e.open("https://plus.google.com/share?url="+encodeURIComponent(o.socialshareUrl||e.location.href),"Google+","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},n=function(e,o){var i="https://www.reddit.com/";i+=o.socialshareSubreddit?"r/"+o.socialshareSubreddit+"/submit?url=":"submit?url=",o.socialsharePopupWidth<900&&(o.socialsharePopupWidth=900),o.socialsharePopupHeight<650&&(o.socialsharePopupHeight=650),e.open(i+encodeURIComponent(o.socialshareUrl||e.location.href)+"&title="+encodeURIComponent(o.socialshareText),"Reddit","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},l=function(e,o){e.open("https://www.stumbleupon.com/submit?url="+encodeURIComponent(o.socialshareUrl||e.location.href)+"&title="+encodeURIComponent(o.socialshareText),"StumbleUpon","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},d=function(e,o){var i="https://www.linkedin.com/shareArticle?mini=true";i+="&url="+encodeURIComponent(o.socialshareUrl||e.location.href),o.socialshareText&&(i+="&title="+encodeURIComponent(o.socialshareText)),o.socialshareDescription&&(i+="&summary="+encodeURIComponent(o.socialshareDescription)),o.socialshareSource&&(i+="&source="+encodeURIComponent(o.socialshareSource)),e.open(i,"Linkedin","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},u=function(e,o){e.open("https://www.pinterest.com/pin/create/button/?url="+encodeURIComponent(o.socialshareUrl||e.location.href)+"&media="+encodeURIComponent(o.socialshareMedia)+"&description="+encodeURIComponent(o.socialshareText),"Pinterest","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},g=function(e,o){e.open("https://www.digg.com/submit?url="+encodeURIComponent(o.socialshareUrl||e.location.href)+"&title="+encodeURIComponent(o.socialshareText),"Digg","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},f=function(e,o){if(o.socialshareMedia){var i="https://www.tumblr.com/share/photo?source="+encodeURIComponent(o.socialshareMedia);o.socialshareText&&(i+="&caption="+encodeURIComponent(o.socialshareText)),e.open(i,"Tumblr","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)}else e.open("https://www.tumblr.com/share/link?url="+encodeURIComponent(o.socialshareUrl||e.location.href)+"&description="+encodeURIComponent(o.socialshareText),"Tumblr","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},m=function(e,o){var i="https://www.vk.com/share.php?url="+encodeURIComponent(o.socialshareUrl||e.location.href);o.socialshareText&&(i+="&title="+encodeURIComponent(o.socialshareText)),o.socialshareMedia&&(i+="&image="+encodeURIComponent(o.socialshareMedia)),o.socialshareDescription&&(i+="&description="+encodeURIComponent(o.socialshareDescription)),e.open(i,"Vk","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},b=function(e,o){e.open("http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl="+encodeURIComponent(o.socialshareUrl||e.location.href)+"&st.comments="+encodeURIComponent(o.socialshareText),"Ok","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},k=function(e,o){e.open("https://www.delicious.com/save?v=5&noui&jump=close&url="+encodeURIComponent(o.socialshareUrl||e.location.href)+"&title="+encodeURIComponent(o.socialshareText),"Delicious","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},w=function(e,o){var i="https://bufferapp.com/add?";o.socialshareText&&(i+="text="+encodeURIComponent(o.socialshareText)),o.socialshareVia&&(i+="&via="+encodeURIComponent(o.socialshareVia)),o.socialshareMedia&&(i+="&picture="+encodeURIComponent(o.socialshareMedia)),i+="&url="+encodeURIComponent(o.socialshareUrl||e.location.href),e.open(i,"Buffer","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},U=function(e,o){var i="https://news.ycombinator.com/submitlink?";o.socialshareText&&(i+="t="+encodeURIComponent(o.socialshareText)+"&"),i+="u="+encodeURIComponent(o.socialshareUrl||e.location.href),e.open(i,"Hackernews","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},P=function(e,o){var i="https://share.flipboard.com/bookmarklet/popout?v=2&";o.socialshareText&&(i+="title="+encodeURIComponent(o.socialshareText)+"&"),i+="url="+encodeURIComponent(o.socialshareUrl||e.location.href),e.open(i,"Flipboard","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},H=function(e,o){var i="https://getpocket.com/save?";o.socialshareText&&(i+="text="+encodeURIComponent(o.socialshareText)+"&"),i+="url="+encodeURIComponent(o.socialshareUrl||e.location.href),e.open(i,"Pocket","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},v=function(e,o){var i="http://wordpress.com/press-this.php?";o.socialshareText&&(i+="t="+encodeURIComponent(o.socialshareText)+"&"),o.socialshareMedia&&(i+="i="+encodeURIComponent(o.socialshareMedia)+"&"),i+="u="+encodeURIComponent(o.socialshareUrl||e.location.href),e.open(i,"Wordpress","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},W=function(e,o){var i="";o.socialshareFollow&&(i="&follow_url="+encodeURIComponent(o.socialshareFollow)),e.open("https://www.xing.com/spi/shares/new?url="+encodeURIComponent(o.socialshareUrl||e.location.href)+i,"Xing","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},R=function(e,o){var i="http://www.evernote.com/clip.action?url="+encodeURIComponent(o.socialshareUrl||e.location.href);o.socialshareText&&(i+="&title="+encodeURIComponent(o.socialshareText)),e.open(i,"Evernote","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},C=function(e,o,i){var t="whatsapp://send?text="+encodeURIComponent(o.socialshareText+" ")+encodeURIComponent(o.socialshareUrl||e.location.href);i.attr("href",t),i.attr("target","_top")},I=function(e,o,i){var t="viber://forward?text="+encodeURIComponent(o.socialshareText+" ")+encodeURIComponent(o.socialshareUrl||e.location.href);i.attr("href",t),i.attr("target","_top")},x=function(e,o){var i="https://telegram.me/share/url?url="+encodeURIComponent(o.socialshareUrl||e.location.href);o.socialshareText&&(i+="&text="+encodeURIComponent(o.socialshareText)),e.open(i,"Telegram","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},S=function(e,o){var i="https://web.skype.com/share?source=button&url="+encodeURIComponent(o.socialshareUrl||e.location.href);o.socialshareText&&(i+="&text="+encodeURIComponent(o.socialshareText)),e.open(i,"Skype","toolbar=0,status=0,resizable=yes,width="+o.socialsharePopupWidth+",height="+o.socialsharePopupHeight+",top="+(e.innerHeight-o.socialsharePopupHeight)/2+",left="+(e.innerWidth-o.socialsharePopupWidth)/2)},y=["$window",function(e){this.emailShare=s,this.facebookShare=r,this.twitterShare=c,this.stumbleuponShare=l,this.pinterestShare=u,this.googleShare=p,this.bufferShare=w,this.hackernewsShare=U,this.okShare=b,this.deliciousShare=k,this.pocketShare=H,this.vkShare=m,this.flipboardShare=P,this.xingShare=W,this.diggShare=g,this.linkedinShare=d,this.wordpressShare=v,this.telegramShare=x,this.redditShare=n,this.evernoteShare=R,this.tumblrShare=f,this.skypeShare=S,this.share=function(o){switch(o.provider){case"email":this.emailShare(e,o.attrs);break;case"facebook":this.facebookShare(e,o.attrs);break;case"twitter":this.twitterShare(e,o.attrs);break;case"pinterest":this.pinterestShare(e,o.attrs);break;case"ok":this.okShare(e,o.attrs);break;case"vk":this.vkShare(e,o.attrs);break;case"delicious":this.deliciousShare(e,o.attrs);break;case"digg":this.diggShare(e,o.attrs);break;case"google":this.googleShare(e,o.attrs);break;case"reddit":this.redditShare(e,o.attrs);break;case"hackernews":this.hackernewsShare(e,o.attrs);break;case"skype":this.skypeShare(e,o.attrs);break;case"evernote":this.evernoteShare(e,o.attrs);break;case"pocket":this.pocketShare(e,o.attrs);break;case"tumblr":this.tumblrShare(e,o.attrs);break;case"telegram":this.telegramShare(e,o.attrs);break;case"xing":this.xingShare(e,o.attrs);break;case"buffer":this.bufferShare(e,o.attrs);break;case"stumbleupon":this.stumbleuponShare(e,o.attrs);break;case"linkedin":this.linkedinShare(e,o.attrs);break;case"wordpress":this.wordpressShare(e,o.attrs);break;case"flipboard":this.flipboardShare(e,o.attrs);break;default:return}}}],T=["$window","socialshareConf","Socialshare","$log",function(e,o,i){var a=function(a,r,s){for(var h,c=0,p=(function(){return!(s.socialshareProvider in z)||void z[s.socialshareProvider](e,s,r)});c<o.length;c+=1)if(o[c].provider===s.socialshareProvider){h=o[c];break}t.indexOf(h.provider)===-1&&i.warn("Invalid Provider Name : "+s.socialshareProvider),s.socialshareUrl=s.socialshareUrl||h.conf.url,s.socialshareText=s.socialshareText||h.conf.text,s.socialshareMedia=s.socialshareMedia||h.conf.media,s.socialshareType=s.socialshareType||h.conf.type,s.socialshareVia=s.socialshareVia||h.conf.via,s.socialshareTo=s.socialshareTo||h.conf.to,s.socialshareFrom=s.socialshareFrom||h.conf.from,s.socialshareRef=s.socialshareRef||h.conf.ref,s.socialshareDislay=s.socialshareDislay||h.conf.display,s.socialshareSource=s.socialshareSource||h.conf.source,s.socialshareCaption=s.socialshareCaption||h.conf.caption,s.socialshareRedirectUri=s.socialshareRedirectUri||h.conf.redirectUri,s.socialshareTrigger=s.socialshareTrigger||h.conf.trigger,s.socialsharePopupHeight=s.socialsharePopupHeight||h.conf.popupHeight,s.socialsharePopupWidth=s.socialsharePopupWidth||h.conf.popupWidth,s.socialshareSubreddit=s.socialshareSubreddit||h.conf.subreddit,s.socialshareDescription=s.socialshareDescription||h.conf.description,s.socialshareFollow=s.socialshareFollow||h.conf.follow,s.socialshareHashtags=s.socialshareHashtags||h.conf.hashtags,s.socialshareBody=s.socialshareBody||h.conf.body,s.socialshareSubject=s.socialshareSubject||h.conf.subject,s.socialshareCc=s.socialshareCc||h.conf.cc,s.socialshareBcc=s.socialshareBcc||h.conf.bcc,s.socialshareTrigger?r.bind(s.socialshareTrigger,p):p()};return{restrict:"A",link:a}}],z={email:s,facebook:r,"facebook-messenger":h,twitter:c,google:p,reddit:n,stumbleupon:l,linkedin:d,pinterest:u,digg:g,tumblr:f,vk:m,ok:b,delicious:k,buffer:w,hackernews:U,flipboard:P,pocket:H,wordpress:v,xing:W,evernote:R,whatsapp:C,telegram:x,viber:I,skype:S};e.module("720kb.socialshare",[]).provider(o+"Conf",a).service(i,y).directive(o,T)}(angular);
 //# sourceMappingURL=angular-socialshare.js.map
 
+'use strict';
+angular.module('angular-scroll-animate', []);// Source: src/angular-scroll-animate.js
+/**
+ * @ngdoc directive
+ * @name angular-scroll-animate.directive:when-visible
+ * @restrict A
+ * @param {string} when-not-visible function to execute when element is scrolled into viewport
+ * @param {string=} when-not-visible function to execute when element is scrolled out of viewport
+ * @param {delayPercent=} percentage (of px) to delay animate when visible transition.
+ * @param {bindScrollTo=} override default scroll event binding to another parent container.
+ *
+ * @description
+ * Allows method hooks into the detection of when an element is scrolled into or out of view.
+ *
+ * @example
+ * <example module="angular-scroll-animate">
+ *   <file name="index.html">
+ *     <div ng-controller="ExampleCtrl">
+ *       <div class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
+ *     </div>
+ *   </file>
+ *   <file name="controller.js">
+ *   angular.module('example', []).controller('ExampleCtrl', function($scope) {
+ *
+ *     $scope.animateIn = function($el) {
+ *       $el.removeClass('hidden');
+ *       $el.addClass('fadeIn');
+ *     };
+ *
+ *     $scope.animateOut = function($el) {
+ *      $el.addClass('hidden');
+ *       $el.removeClassClass('fadeIn');
+ *     };
+ *   });
+ *
+ *   </file>
+ *   <file name="animations.css">
+ *     .hidden { visibility: hidden; }
+ *     .fadeIn { transition: all 300ms ease-in 2s; }
+ *   </file>
+ * </example>
+ */
+angular.module('angular-scroll-animate', []).directive('whenVisible', ['$document', '$window',
+ function($document, $window) {
+
+    var determineWhereElementIsInViewport =
+      function($el, viewportHeight, whenVisibleFn, whenNotVisibleFn, delayPercent, scope) {
+
+        var elementBounds = $el[0].getBoundingClientRect();
+
+        var panelTop = elementBounds.top;
+        var panelBottom = elementBounds.bottom;
+
+        // pixel buffer until deciding to show the element
+        var delayPx = delayPercent * elementBounds.height;
+
+        var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
+        var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
+
+        if ($el.data('hidden') && bottomVisible || topVisible) {
+          whenVisibleFn($el, scope);
+          $el.data('hidden', false);
+        }
+
+        // scrolled out from scrolling down or up
+        else if (!($el.data('hidden')) && (panelBottom < 0 || panelTop > viewportHeight)) {
+          whenNotVisibleFn($el, scope);
+          $el.data('hidden', true);
+        }
+      };
+
+    return {
+      restrict: 'A',
+      scope: {
+        whenVisible: '&',
+        whenNotVisible: '&?',
+        delayPercent: '=?',
+        bindScrollTo: '@?'
+      },
+
+      controller: ['$scope', function(scope) {
+        if (!scope.whenVisible || !angular.isFunction(scope.whenVisible())) {
+          throw new Error('Directive: angular-scroll-animate \'when-visible\' attribute must specify a function.');
+        }
+
+        if (scope.whenNotVisible && !angular.isFunction(scope.whenNotVisible())) {
+          throw new Error('Directive: angular-scroll-animate \'when-not-visible\' attribute must specify a function.');
+        }
+        else if (!scope.whenNotVisible) {
+          scope.whenNotVisible = function() {
+            return angular.noop;
+          };
+        }
+
+        if (scope.delayPercent) {
+
+          var delayPercent = parseFloat(scope.delayPercent);
+
+          if (!angular.isNumber(delayPercent) || (delayPercent < 0 || delayPercent > 1)) {
+            throw new Error('Directive: angular-scroll-animate \'delay-percent\' attribute must be a decimal fraction between 0 and 1.');
+          }
+        }
+    }],
+
+      link: function(scope, el, attributes) {
+
+        var delayPercent = attributes.delayPercent || 0.25; // lower = more eager to hide / show, higher = less eager
+        var document = $document[0].documentElement;
+        var checkPending = false;
+
+        var updateVisibility = function() {
+          determineWhereElementIsInViewport(el, document.clientHeight /* viewportHeight */ ,
+            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
+
+          checkPending = false;
+        };
+
+        var onScroll = function() {
+
+          if (!checkPending) {
+            checkPending = true;
+
+            /* globals requestAnimationFrame */
+            requestAnimationFrame(updateVisibility);
+          }
+        };
+
+        var documentListenerEvents = 'scroll';
+
+        /* allows overflow:auto on container element to animate for Safari browsers */
+        if (attributes.bindScrollTo) {
+          angular.element($document[0].querySelector(attributes.bindScrollTo)).on(documentListenerEvents, onScroll);
+        }
+
+        /* always bind to document scroll as well - works for overflow: auto on Chrome, Firefox browsers */
+        $document.on(documentListenerEvents, onScroll);
+
+        scope.$on('$destroy', function() {
+          $document.off(documentListenerEvents, onScroll);
+        });
+
+        var $elWindow = angular.element($window);
+        var windowListenerEvents = 'resize orientationchange';
+        $elWindow.on(windowListenerEvents, onScroll);
+
+        scope.$on('$destroy', function() {
+          $elWindow.off(windowListenerEvents, onScroll);
+        });
+
+        // initialise
+        el.data('hidden', true);
+        scope.$evalAsync(onScroll);
+      }
+    };
+ }]);
+
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -3639,165 +3795,572 @@ angular.mock.$RootScopeDecorator = ['$delegate', function($delegate) {
 
 })(window, window.angular);
 
-'use strict';
-angular.module('angular-scroll-animate', []);// Source: src/angular-scroll-animate.js
-/**
- * @ngdoc directive
- * @name angular-scroll-animate.directive:when-visible
- * @restrict A
- * @param {string} when-not-visible function to execute when element is scrolled into viewport
- * @param {string=} when-not-visible function to execute when element is scrolled out of viewport
- * @param {delayPercent=} percentage (of px) to delay animate when visible transition.
- * @param {bindScrollTo=} override default scroll event binding to another parent container.
- *
- * @description
- * Allows method hooks into the detection of when an element is scrolled into or out of view.
- *
- * @example
- * <example module="angular-scroll-animate">
- *   <file name="index.html">
- *     <div ng-controller="ExampleCtrl">
- *       <div class="car" when-visible="animateIn" when-not-visible="animateOut">Broom</div>
- *     </div>
- *   </file>
- *   <file name="controller.js">
- *   angular.module('example', []).controller('ExampleCtrl', function($scope) {
- *
- *     $scope.animateIn = function($el) {
- *       $el.removeClass('hidden');
- *       $el.addClass('fadeIn');
- *     };
- *
- *     $scope.animateOut = function($el) {
- *      $el.addClass('hidden');
- *       $el.removeClassClass('fadeIn');
- *     };
- *   });
- *
- *   </file>
- *   <file name="animations.css">
- *     .hidden { visibility: hidden; }
- *     .fadeIn { transition: all 300ms ease-in 2s; }
- *   </file>
- * </example>
+/*!
+ * angular-translate - v2.12.1 - 2016-09-15
+ * 
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
  */
-angular.module('angular-scroll-animate', []).directive('whenVisible', ['$document', '$window',
- function($document, $window) {
+!function(a,b){"function"==typeof define&&define.amd?define([],function(){return b()}):"object"==typeof exports?module.exports=b():b()}(this,function(){function a(a){"use strict";var b=a.storageKey(),c=a.storage(),d=function(){var d=a.preferredLanguage();angular.isString(d)?a.use(d):c.put(b,a.use())};d.displayName="fallbackFromIncorrectStorageValue",c?c.get(b)?a.use(c.get(b))["catch"](d):d():angular.isString(a.preferredLanguage())&&a.use(a.preferredLanguage())}function b(){"use strict";var a,b,c,d=null,e=!1,f=!1;c={sanitize:function(a,b){return"text"===b&&(a=h(a)),a},escape:function(a,b){return"text"===b&&(a=g(a)),a},sanitizeParameters:function(a,b){return"params"===b&&(a=j(a,h)),a},escapeParameters:function(a,b){return"params"===b&&(a=j(a,g)),a},sce:function(a,b,c){return"text"===b?a=i(a):"params"===b&&"filter"!==c&&(a=j(a,g)),a},sceParameters:function(a,b){return"params"===b&&(a=j(a,i)),a}},c.escaped=c.escapeParameters,this.addStrategy=function(a,b){return c[a]=b,this},this.removeStrategy=function(a){return delete c[a],this},this.useStrategy=function(a){return e=!0,d=a,this},this.$get=["$injector","$log",function(g,h){var i={},j=function(a,b,d,e){return angular.forEach(e,function(e){if(angular.isFunction(e))a=e(a,b,d);else if(angular.isFunction(c[e]))a=c[e](a,b,d);else{if(!angular.isString(c[e]))throw new Error("pascalprecht.translate.$translateSanitization: Unknown sanitization strategy: '"+e+"'");if(!i[c[e]])try{i[c[e]]=g.get(c[e])}catch(f){throw i[c[e]]=function(){},new Error("pascalprecht.translate.$translateSanitization: Unknown sanitization strategy: '"+e+"'")}a=i[c[e]](a,b,d)}}),a},k=function(){e||f||(h.warn("pascalprecht.translate.$translateSanitization: No sanitization strategy has been configured. This can have serious security implications. See http://angular-translate.github.io/docs/#/guide/19_security for details."),f=!0)};return g.has("$sanitize")&&(a=g.get("$sanitize")),g.has("$sce")&&(b=g.get("$sce")),{useStrategy:function(a){return function(b){a.useStrategy(b)}}(this),sanitize:function(a,b,c,e){if(d||k(),c||null===c||(c=d),!c)return a;e||(e="service");var f=angular.isArray(c)?c:[c];return j(a,b,e,f)}}}];var g=function(a){var b=angular.element("<div></div>");return b.text(a),b.html()},h=function(b){if(!a)throw new Error("pascalprecht.translate.$translateSanitization: Error cannot find $sanitize service. Either include the ngSanitize module (https://docs.angularjs.org/api/ngSanitize) or use a sanitization strategy which does not depend on $sanitize, such as 'escape'.");return a(b)},i=function(a){if(!b)throw new Error("pascalprecht.translate.$translateSanitization: Error cannot find $sce service.");return b.trustAsHtml(a)},j=function(a,b,c){if(angular.isDate(a))return a;if(angular.isObject(a)){var d=angular.isArray(a)?[]:{};if(c){if(c.indexOf(a)>-1)throw new Error("pascalprecht.translate.$translateSanitization: Error cannot interpolate parameter due recursive object")}else c=[];return c.push(a),angular.forEach(a,function(a,e){angular.isFunction(a)||(d[e]=j(a,b,c))}),c.splice(-1,1),d}return angular.isNumber(a)?a:b(a)}}function c(a,b,c,d){"use strict";var e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u={},v=[],w=a,x=[],y="translate-cloak",z=!1,A=!1,B=".",C=!1,D=!1,E=0,F=!0,G="default",H={"default":function(a){return(a||"").split("-").join("_")},java:function(a){var b=(a||"").split("-").join("_"),c=b.split("_");return c.length>1?c[0].toLowerCase()+"_"+c[1].toUpperCase():b},bcp47:function(a){var b=(a||"").split("_").join("-"),c=b.split("-");return c.length>1?c[0].toLowerCase()+"-"+c[1].toUpperCase():b},"iso639-1":function(a){var b=(a||"").split("_").join("-"),c=b.split("-");return c[0].toLowerCase()}},I="2.12.1",J=function(){if(angular.isFunction(d.getLocale))return d.getLocale();var a,c,e=b.$get().navigator,f=["language","browserLanguage","systemLanguage","userLanguage"];if(angular.isArray(e.languages))for(a=0;a<e.languages.length;a++)if(c=e.languages[a],c&&c.length)return c;for(a=0;a<f.length;a++)if(c=e[f[a]],c&&c.length)return c;return null};J.displayName="angular-translate/service: getFirstBrowserLanguage";var K=function(){var a=J()||"";return H[G]&&(a=H[G](a)),a};K.displayName="angular-translate/service: getLocale";var L=function(a,b){for(var c=0,d=a.length;c<d;c++)if(a[c]===b)return c;return-1},M=function(){return this.toString().replace(/^\s+|\s+$/g,"")},N=function(a){if(a){for(var b=[],c=angular.lowercase(a),d=0,e=v.length;d<e;d++)b.push(angular.lowercase(v[d]));if(L(b,c)>-1)return a;if(f){var g;for(var h in f)if(f.hasOwnProperty(h)){var i=!1,j=Object.prototype.hasOwnProperty.call(f,h)&&angular.lowercase(h)===angular.lowercase(a);if("*"===h.slice(-1)&&(i=h.slice(0,-1)===a.slice(0,h.length-1)),(j||i)&&(g=f[h],L(b,angular.lowercase(g))>-1))return g}}var k=a.split("_");return k.length>1&&L(b,angular.lowercase(k[0]))>-1?k[0]:void 0}},O=function(a,b){if(!a&&!b)return u;if(a&&!b){if(angular.isString(a))return u[a]}else angular.isObject(u[a])||(u[a]={}),angular.extend(u[a],P(b));return this};this.translations=O,this.cloakClassName=function(a){return a?(y=a,this):y},this.nestedObjectDelimeter=function(a){return a?(B=a,this):B};var P=function(a,b,c,d){var e,f,g,h;b||(b=[]),c||(c={});for(e in a)Object.prototype.hasOwnProperty.call(a,e)&&(h=a[e],angular.isObject(h)?P(h,b.concat(e),c,e):(f=b.length?""+b.join(B)+B+e:e,b.length&&e===d&&(g=""+b.join(B),c[g]="@:"+f),c[f]=h));return c};P.displayName="flatObject",this.addInterpolation=function(a){return x.push(a),this},this.useMessageFormatInterpolation=function(){return this.useInterpolation("$translateMessageFormatInterpolation")},this.useInterpolation=function(a){return n=a,this},this.useSanitizeValueStrategy=function(a){return c.useStrategy(a),this},this.preferredLanguage=function(a){return a?(Q(a),this):e};var Q=function(a){return a&&(e=a),e};this.translationNotFoundIndicator=function(a){return this.translationNotFoundIndicatorLeft(a),this.translationNotFoundIndicatorRight(a),this},this.translationNotFoundIndicatorLeft=function(a){return a?(q=a,this):q},this.translationNotFoundIndicatorRight=function(a){return a?(r=a,this):r},this.fallbackLanguage=function(a){return R(a),this};var R=function(a){return a?(angular.isString(a)?(h=!0,g=[a]):angular.isArray(a)&&(h=!1,g=a),angular.isString(e)&&L(g,e)<0&&g.push(e),this):h?g[0]:g};this.use=function(a){if(a){if(!u[a]&&!o)throw new Error("$translateProvider couldn't find translationTable for langKey: '"+a+"'");return i=a,this}return i},this.resolveClientLocale=function(){return K()};var S=function(a){return a?(w=a,this):l?l+w:w};this.storageKey=S,this.useUrlLoader=function(a,b){return this.useLoader("$translateUrlLoader",angular.extend({url:a},b))},this.useStaticFilesLoader=function(a){return this.useLoader("$translateStaticFilesLoader",a)},this.useLoader=function(a,b){return o=a,p=b||{},this},this.useLocalStorage=function(){return this.useStorage("$translateLocalStorage")},this.useCookieStorage=function(){return this.useStorage("$translateCookieStorage")},this.useStorage=function(a){return k=a,this},this.storagePrefix=function(a){return a?(l=a,this):a},this.useMissingTranslationHandlerLog=function(){return this.useMissingTranslationHandler("$translateMissingTranslationHandlerLog")},this.useMissingTranslationHandler=function(a){return m=a,this},this.usePostCompiling=function(a){return z=!!a,this},this.forceAsyncReload=function(a){return A=!!a,this},this.uniformLanguageTag=function(a){return a?angular.isString(a)&&(a={standard:a}):a={},G=a.standard,this},this.determinePreferredLanguage=function(a){var b=a&&angular.isFunction(a)?a():K();return e=v.length?N(b)||b:b,this},this.registerAvailableLanguageKeys=function(a,b){return a?(v=a,b&&(f=b),this):v},this.useLoaderCache=function(a){return a===!1?s=void 0:a===!0?s=!0:"undefined"==typeof a?s="$translationCache":a&&(s=a),this},this.directivePriority=function(a){return void 0===a?E:(E=a,this)},this.statefulFilter=function(a){return void 0===a?F:(F=a,this)},this.postProcess=function(a){return t=a?a:void 0,this},this.keepContent=function(a){return D=!!a,this},this.$get=["$log","$injector","$rootScope","$q",function(a,b,c,d){var f,l,G,H=b.get(n||"$translateDefaultInterpolation"),J=!1,T={},U={},V=function(a,b,c,h,j){!i&&e&&(i=e);var m=j&&j!==i?N(j)||j:i;if(j&&ka(j),angular.isArray(a)){var n=function(a){for(var e={},f=[],g=function(a){var f=d.defer(),g=function(b){e[a]=b,f.resolve([a,b])};return V(a,b,c,h,j).then(g,g),f.promise},i=0,k=a.length;i<k;i++)f.push(g(a[i]));return d.all(f).then(function(){return e})};return n(a)}var o=d.defer();a&&(a=M.apply(a));var p=function(){var a=e?U[e]:U[m];if(l=0,k&&!a){var b=f.get(w);if(a=U[b],g&&g.length){var c=L(g,b);l=0===c?1:0,L(g,e)<0&&g.push(e)}}return a}();if(p){var q=function(){j||(m=i),ga(a,b,c,h,m).then(o.resolve,o.reject)};q.displayName="promiseResolved",p["finally"](q)}else ga(a,b,c,h,m).then(o.resolve,o.reject);return o.promise},W=function(a){return q&&(a=[q,a].join(" ")),r&&(a=[a,r].join(" ")),a},X=function(a){i=a,k&&f.put(V.storageKey(),i),c.$emit("$translateChangeSuccess",{language:a}),H.setLocale(i);var b=function(a,b){T[b].setLocale(i)};b.displayName="eachInterpolatorLocaleSetter",angular.forEach(T,b),c.$emit("$translateChangeEnd",{language:a})},Y=function(a){if(!a)throw"No language key specified for loading.";var e=d.defer();c.$emit("$translateLoadingStart",{language:a}),J=!0;var f=s;"string"==typeof f&&(f=b.get(f));var g=angular.extend({},p,{key:a,$http:angular.extend({},{cache:f},p.$http)}),h=function(b){var d={};c.$emit("$translateLoadingSuccess",{language:a}),angular.isArray(b)?angular.forEach(b,function(a){angular.extend(d,P(a))}):angular.extend(d,P(b)),J=!1,e.resolve({key:a,table:d}),c.$emit("$translateLoadingEnd",{language:a})};h.displayName="onLoaderSuccess";var i=function(a){c.$emit("$translateLoadingError",{language:a}),e.reject(a),c.$emit("$translateLoadingEnd",{language:a})};return i.displayName="onLoaderError",b.get(o)(g).then(h,i),e.promise};if(k&&(f=b.get(k),!f.get||!f.put))throw new Error("Couldn't use storage '"+k+"', missing get() or put() method!");if(x.length){var Z=function(a){var c=b.get(a);c.setLocale(e||i),T[c.getInterpolationIdentifier()]=c};Z.displayName="interpolationFactoryAdder",angular.forEach(x,Z)}var $=function(a){var b=d.defer();if(Object.prototype.hasOwnProperty.call(u,a))b.resolve(u[a]);else if(U[a]){var c=function(a){O(a.key,a.table),b.resolve(a.table)};c.displayName="translationTableResolver",U[a].then(c,b.reject)}else b.reject();return b.promise},_=function(a,b,c,e){var f=d.defer(),g=function(d){if(Object.prototype.hasOwnProperty.call(d,b)){e.setLocale(a);var g=d[b];if("@:"===g.substr(0,2))_(a,g.substr(2),c,e).then(f.resolve,f.reject);else{var h=e.interpolate(d[b],c,"service");h=ja(b,d[b],h,c,a),f.resolve(h)}e.setLocale(i)}else f.reject()};return g.displayName="fallbackTranslationResolver",$(a).then(g,f.reject),f.promise},aa=function(a,b,c,d){var e,f=u[a];if(f&&Object.prototype.hasOwnProperty.call(f,b)){if(d.setLocale(a),e=d.interpolate(f[b],c,"filter"),e=ja(b,f[b],e,c,a),"@:"===e.substr(0,2))return aa(a,e.substr(2),c,d);d.setLocale(i)}return e},ba=function(a,c,d){if(m){var e=b.get(m)(a,i,c,d);return void 0!==e?e:a}return a},ca=function(a,b,c,e,f){var h=d.defer();if(a<g.length){var i=g[a];_(i,b,c,e).then(function(a){h.resolve(a)},function(){return ca(a+1,b,c,e,f).then(h.resolve,h.reject)})}else f?h.resolve(f):m?h.resolve(ba(b,c)):h.reject(ba(b,c));return h.promise},da=function(a,b,c,d){var e;if(a<g.length){var f=g[a];e=aa(f,b,c,d),e||(e=da(a+1,b,c,d))}return e},ea=function(a,b,c,d){return ca(G>0?G:l,a,b,c,d)},fa=function(a,b,c){return da(G>0?G:l,a,b,c)},ga=function(a,b,c,e,f){var h=d.defer(),i=f?u[f]:u,j=c?T[c]:H;if(i&&Object.prototype.hasOwnProperty.call(i,a)){var k=i[a];if("@:"===k.substr(0,2))V(k.substr(2),b,c,e,f).then(h.resolve,h.reject);else{var l=j.interpolate(k,b,"service");l=ja(a,k,l,b,f),h.resolve(l)}}else{var n;m&&!J&&(n=ba(a,b,e)),f&&g&&g.length?ea(a,b,j,e).then(function(a){h.resolve(a)},function(a){h.reject(W(a))}):m&&!J&&n?e?h.resolve(e):h.resolve(n):e?h.resolve(e):h.reject(W(a))}return h.promise},ha=function(a,b,c,d){var e,f=d?u[d]:u,h=H;if(T&&Object.prototype.hasOwnProperty.call(T,c)&&(h=T[c]),f&&Object.prototype.hasOwnProperty.call(f,a)){var i=f[a];"@:"===i.substr(0,2)?e=ha(i.substr(2),b,c,d):(e=h.interpolate(i,b,"filter"),e=ja(a,i,e,b,d))}else{var j;m&&!J&&(j=ba(a,b)),d&&g&&g.length?(l=0,e=fa(a,b,h)):e=m&&!J&&j?j:W(a)}return e},ia=function(a){j===a&&(j=void 0),U[a]=void 0},ja=function(a,c,d,e,f){var g=t;return g&&("string"==typeof g&&(g=b.get(g)),g)?g(a,c,d,e,f):d},ka=function(a){u[a]||!o||U[a]||(U[a]=Y(a).then(function(a){return O(a.key,a.table),a}))};V.preferredLanguage=function(a){return a&&Q(a),e},V.cloakClassName=function(){return y},V.nestedObjectDelimeter=function(){return B},V.fallbackLanguage=function(a){if(void 0!==a&&null!==a){if(R(a),o&&g&&g.length)for(var b=0,c=g.length;b<c;b++)U[g[b]]||(U[g[b]]=Y(g[b]));V.use(V.use())}return h?g[0]:g},V.useFallbackLanguage=function(a){if(void 0!==a&&null!==a)if(a){var b=L(g,a);b>-1&&(G=b)}else G=0},V.proposedLanguage=function(){return j},V.storage=function(){return f},V.negotiateLocale=N,V.use=function(a){if(!a)return i;var b=d.defer();c.$emit("$translateChangeStart",{language:a});var e=N(a);return v.length>0&&!e?d.reject(a):(e&&(a=e),j=a,!A&&u[a]||!o||U[a]?U[a]?U[a].then(function(a){return j===a.key&&X(a.key),b.resolve(a.key),a},function(a){return!i&&g&&g.length>0&&g[0]!==a?V.use(g[0]).then(b.resolve,b.reject):b.reject(a)}):(b.resolve(a),X(a)):(U[a]=Y(a).then(function(c){return O(c.key,c.table),b.resolve(c.key),j===a&&X(c.key),c},function(a){return c.$emit("$translateChangeError",{language:a}),b.reject(a),c.$emit("$translateChangeEnd",{language:a}),d.reject(a)}),U[a]["finally"](function(){ia(a)})),b.promise)},V.resolveClientLocale=function(){return K()},V.storageKey=function(){return S()},V.isPostCompilingEnabled=function(){return z},V.isForceAsyncReloadEnabled=function(){return A},V.isKeepContent=function(){return D},V.refresh=function(a){function b(){f.resolve(),c.$emit("$translateRefreshEnd",{language:a})}function e(){f.reject(),c.$emit("$translateRefreshEnd",{language:a})}if(!o)throw new Error("Couldn't refresh translation table, no loader registered!");var f=d.defer();if(c.$emit("$translateRefreshStart",{language:a}),a)if(u[a]){var h=function(c){return O(c.key,c.table),a===i&&X(i),b(),c};h.displayName="refreshPostProcessor",Y(a).then(h,e)}else e();else{var j=[],k={};if(g&&g.length)for(var l=0,m=g.length;l<m;l++)j.push(Y(g[l])),k[g[l]]=!0;i&&!k[i]&&j.push(Y(i));var n=function(a){u={},angular.forEach(a,function(a){O(a.key,a.table)}),i&&X(i),b()};n.displayName="refreshPostProcessor",d.all(j).then(n,e)}return f.promise},V.instant=function(a,b,c,d){var f=d&&d!==i?N(d)||d:i;if(null===a||angular.isUndefined(a))return a;if(d&&ka(d),angular.isArray(a)){for(var h={},j=0,k=a.length;j<k;j++)h[a[j]]=V.instant(a[j],b,c,d);return h}if(angular.isString(a)&&a.length<1)return a;a&&(a=M.apply(a));var l,n=[];e&&n.push(e),f&&n.push(f),g&&g.length&&(n=n.concat(g));for(var o=0,p=n.length;o<p;o++){var s=n[o];if(u[s]&&"undefined"!=typeof u[s][a]&&(l=ha(a,b,c,f)),"undefined"!=typeof l)break}return l||""===l||(q||r?l=W(a):(l=H.interpolate(a,b,"filter"),m&&!J&&(l=ba(a,b)))),l},V.versionInfo=function(){return I},V.loaderCache=function(){return s},V.directivePriority=function(){return E},V.statefulFilter=function(){return F},V.isReady=function(){return C};var la=d.defer();la.promise.then(function(){C=!0}),V.onReady=function(a){var b=d.defer();return angular.isFunction(a)&&b.promise.then(a),C?b.resolve():la.promise.then(b.resolve),b.promise},V.getAvailableLanguageKeys=function(){return v.length>0?v:null};var ma=c.$on("$translateReady",function(){la.resolve(),ma(),ma=null}),na=c.$on("$translateChangeEnd",function(){la.resolve(),na(),na=null});if(o){if(angular.equals(u,{})&&V.use()&&V.use(V.use()),g&&g.length)for(var oa=function(a){return O(a.key,a.table),c.$emit("$translateChangeEnd",{language:a.key}),a},pa=0,qa=g.length;pa<qa;pa++){var ra=g[pa];!A&&u[ra]||(U[ra]=Y(ra).then(oa))}}else c.$emit("$translateReady",{language:V.use()});return V}]}function d(a,b){"use strict";var c,d={},e="default";return d.setLocale=function(a){c=a},d.getInterpolationIdentifier=function(){return e},d.useSanitizeValueStrategy=function(a){return b.useStrategy(a),this},d.interpolate=function(c,d,e){d=d||{},d=b.sanitize(d,"params",void 0,e);var f;return angular.isNumber(c)?f=""+c:angular.isString(c)?(f=a(c)(d),f=b.sanitize(f,"text",void 0,e)):f="",f},d}function e(a,b,c,d,e){"use strict";var g=function(){return this.toString().replace(/^\s+|\s+$/g,"")};return{restrict:"AE",scope:!0,priority:a.directivePriority(),compile:function(h,i){var j=i.translateValues?i.translateValues:void 0,k=i.translateInterpolation?i.translateInterpolation:void 0,l=h[0].outerHTML.match(/translate-value-+/i),m="^(.*)("+b.startSymbol()+".*"+b.endSymbol()+")(.*)",n="^(.*)"+b.startSymbol()+"(.*)"+b.endSymbol()+"(.*)";return function(h,o,p){h.interpolateParams={},h.preText="",h.postText="",h.translateNamespace=f(h);var q={},r=function(a,b,c){if(b.translateValues&&angular.extend(a,d(b.translateValues)(h.$parent)),l)for(var e in c)if(Object.prototype.hasOwnProperty.call(b,e)&&"translateValue"===e.substr(0,14)&&"translateValues"!==e){var f=angular.lowercase(e.substr(14,1))+e.substr(15);a[f]=c[e]}},s=function(a){if(angular.isFunction(s._unwatchOld)&&(s._unwatchOld(),s._unwatchOld=void 0),angular.equals(a,"")||!angular.isDefined(a)){var c=g.apply(o.text()),d=c.match(m);if(angular.isArray(d)){h.preText=d[1],h.postText=d[3],q.translate=b(d[2])(h.$parent);var e=c.match(n);angular.isArray(e)&&e[2]&&e[2].length&&(s._unwatchOld=h.$watch(e[2],function(a){q.translate=a,y()}))}else q.translate=c?c:void 0}else q.translate=a;y()},t=function(a){p.$observe(a,function(b){q[a]=b,y()})};r(h.interpolateParams,p,i);var u=!0;p.$observe("translate",function(a){"undefined"==typeof a?s(""):""===a&&u||(q.translate=a,y()),u=!1});for(var v in p)p.hasOwnProperty(v)&&"translateAttr"===v.substr(0,13)&&v.length>13&&t(v);if(p.$observe("translateDefault",function(a){h.defaultText=a,y()}),j&&p.$observe("translateValues",function(a){a&&h.$parent.$watch(function(){angular.extend(h.interpolateParams,d(a)(h.$parent))})}),l){var w=function(a){p.$observe(a,function(b){var c=angular.lowercase(a.substr(14,1))+a.substr(15);h.interpolateParams[c]=b})};for(var x in p)Object.prototype.hasOwnProperty.call(p,x)&&"translateValue"===x.substr(0,14)&&"translateValues"!==x&&w(x)}var y=function(){for(var a in q)q.hasOwnProperty(a)&&void 0!==q[a]&&z(a,q[a],h,h.interpolateParams,h.defaultText,h.translateNamespace)},z=function(b,c,d,e,f,g){c?(g&&"."===c.charAt(0)&&(c=g+c),a(c,e,k,f,d.translateLanguage).then(function(a){A(a,d,!0,b)},function(a){A(a,d,!1,b)})):A(c,d,!1,b)},A=function(b,d,e,f){if(e||"undefined"!=typeof d.defaultText&&(b=d.defaultText),"translate"===f){(e||!e&&!a.isKeepContent()&&"undefined"==typeof p.translateKeepContent)&&o.empty().append(d.preText+b+d.postText);var g=a.isPostCompilingEnabled(),h="undefined"!=typeof i.translateCompile,j=h&&"false"!==i.translateCompile;(g&&!h||j)&&c(o.contents())(d)}else{var k=p.$attr[f];"data-"===k.substr(0,5)&&(k=k.substr(5)),k=k.substr(15),o.attr(k,b)}};(j||l||p.translateDefault)&&h.$watch("interpolateParams",y,!0),h.$on("translateLanguageChanged",y);var B=e.$on("$translateChangeSuccess",y);o.text().length?s(p.translate?p.translate:""):p.translate&&s(p.translate),y(),h.$on("$destroy",B)}}}}function f(a){"use strict";return a.translateNamespace?a.translateNamespace:a.$parent?f(a.$parent):void 0}function g(a,b){"use strict";return{restrict:"A",priority:a.directivePriority(),link:function(c,d,e){var f,g,i={},j=function(){angular.forEach(f,function(b,f){b&&(i[f]=!0,c.translateNamespace&&"."===b.charAt(0)&&(b=c.translateNamespace+b),a(b,g,e.translateInterpolation,void 0,c.translateLanguage).then(function(a){d.attr(f,a)},function(a){d.attr(f,a)}))}),angular.forEach(i,function(a,b){f[b]||(d.removeAttr(b),delete i[b])})};h(c,e.translateAttr,function(a){f=a},j),h(c,e.translateValues,function(a){g=a},j),e.translateValues&&c.$watch(e.translateValues,j,!0),c.$on("translateLanguageChanged",j);var k=b.$on("$translateChangeSuccess",j);j(),c.$on("$destroy",k)}}}function h(a,b,c,d){"use strict";b&&("::"===b.substr(0,2)?b=b.substr(2):a.$watch(b,function(a){c(a),d()},!0),c(a.$eval(b)))}function i(a,b){"use strict";return{compile:function(c){var d=function(){c.addClass(a.cloakClassName())},e=function(){c.removeClass(a.cloakClassName())};return a.onReady(function(){e()}),d(),function(c,f,g){g.translateCloak&&g.translateCloak.length&&(g.$observe("translateCloak",function(b){a(b).then(e,d)}),b.$on("$translateChangeSuccess",function(){a(g.translateCloak).then(e,d)}))}}}}function j(){"use strict";return{restrict:"A",scope:!0,compile:function(){return{pre:function(a,b,c){a.translateNamespace=f(a),a.translateNamespace&&"."===c.translateNamespace.charAt(0)?a.translateNamespace+=c.translateNamespace:a.translateNamespace=c.translateNamespace}}}}}function f(a){"use strict";return a.translateNamespace?a.translateNamespace:a.$parent?f(a.$parent):void 0}function k(){"use strict";return{restrict:"A",scope:!0,compile:function(){return function(a,b,c){c.$observe("translateLanguage",function(b){a.translateLanguage=b}),a.$watch("translateLanguage",function(){a.$broadcast("translateLanguageChanged")})}}}}function l(a,b){"use strict";var c=function(c,d,e,f){return angular.isObject(d)||(d=a(d)(this)),b.instant(c,d,e,f)};return b.statefulFilter()&&(c.$stateful=!0),c}function m(a){"use strict";return a("translations")}return a.$inject=["$translate"],c.$inject=["$STORAGE_KEY","$windowProvider","$translateSanitizationProvider","pascalprechtTranslateOverrider"],d.$inject=["$interpolate","$translateSanitization"],e.$inject=["$translate","$interpolate","$compile","$parse","$rootScope"],g.$inject=["$translate","$rootScope"],i.$inject=["$translate","$rootScope"],l.$inject=["$parse","$translate"],m.$inject=["$cacheFactory"],angular.module("pascalprecht.translate",["ng"]).run(a),a.displayName="runTranslate",angular.module("pascalprecht.translate").provider("$translateSanitization",b),angular.module("pascalprecht.translate").constant("pascalprechtTranslateOverrider",{}).provider("$translate",c),c.displayName="displayName",angular.module("pascalprecht.translate").factory("$translateDefaultInterpolation",d),d.displayName="$translateDefaultInterpolation",angular.module("pascalprecht.translate").constant("$STORAGE_KEY","NG_TRANSLATE_LANG_KEY"),angular.module("pascalprecht.translate").directive("translate",e),e.displayName="translateDirective",angular.module("pascalprecht.translate").directive("translateAttr",g),g.displayName="translateAttrDirective",angular.module("pascalprecht.translate").directive("translateCloak",i),i.displayName="translateCloakDirective",angular.module("pascalprecht.translate").directive("translateNamespace",j),j.displayName="translateNamespaceDirective",angular.module("pascalprecht.translate").directive("translateLanguage",k),k.displayName="translateLanguageDirective",angular.module("pascalprecht.translate").filter("translate",l),l.displayName="translateFilterFactory",angular.module("pascalprecht.translate").factory("$translationCache",m),m.displayName="$translationCache","pascalprecht.translate"});
+/*!
+ * angular-translate - v2.12.1 - 2016-09-15
+ * 
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
+ */
+!function(a,b){"function"==typeof define&&define.amd?define([],function(){return b()}):"object"==typeof exports?module.exports=b():b()}(this,function(){function a(a){"use strict";return function(b){a.warn("Translation for "+b+" doesn't exist")}}return a.$inject=["$log"],angular.module("pascalprecht.translate").factory("$translateMissingTranslationHandlerLog",a),a.displayName="$translateMissingTranslationHandlerLog","pascalprecht.translate"});
+/*!
+ * angular-translate - v2.12.1 - 2016-09-15
+ * 
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
+ */
+!function(a,b){"function"==typeof define&&define.amd?define([],function(){return b()}):"object"==typeof exports?module.exports=b():b()}(this,function(){function a(a,b){"use strict";return function(c){if(!(c&&(angular.isArray(c.files)||angular.isString(c.prefix)&&angular.isString(c.suffix))))throw new Error("Couldn't load static files, no files and prefix or suffix specified!");c.files||(c.files=[{prefix:c.prefix,suffix:c.suffix}]);for(var d=function(d){if(!d||!angular.isString(d.prefix)||!angular.isString(d.suffix))throw new Error("Couldn't load static file, no prefix or suffix specified!");return b(angular.extend({url:[d.prefix,c.key,d.suffix].join(""),method:"GET",params:""},c.$http)).then(function(a){return a.data},function(){return a.reject(c.key)})},e=[],f=c.files.length,g=0;g<f;g++)e.push(d({prefix:c.files[g].prefix,key:c.key,suffix:c.files[g].suffix}));return a.all(e).then(function(a){for(var b=a.length,c={},d=0;d<b;d++)for(var e in a[d])c[e]=a[d][e];return c})}}return a.$inject=["$q","$http"],angular.module("pascalprecht.translate").factory("$translateStaticFilesLoader",a),a.displayName="$translateStaticFilesLoader","pascalprecht.translate"});
+/**
+ * @license AngularJS v1.5.8
+ * (c) 2010-2016 Google, Inc. http://angularjs.org
+ * License: MIT
+ */
+(function(window, angular) {'use strict';
 
-    var determineWhereElementIsInViewport =
-      function($el, viewportHeight, whenVisibleFn, whenNotVisibleFn, delayPercent, scope) {
+/**
+ * @ngdoc module
+ * @name ngCookies
+ * @description
+ *
+ * # ngCookies
+ *
+ * The `ngCookies` module provides a convenient wrapper for reading and writing browser cookies.
+ *
+ *
+ * <div doc-module-components="ngCookies"></div>
+ *
+ * See {@link ngCookies.$cookies `$cookies`} for usage.
+ */
 
-        var elementBounds = $el[0].getBoundingClientRect();
 
-        var panelTop = elementBounds.top;
-        var panelBottom = elementBounds.bottom;
+angular.module('ngCookies', ['ng']).
+  /**
+   * @ngdoc provider
+   * @name $cookiesProvider
+   * @description
+   * Use `$cookiesProvider` to change the default behavior of the {@link ngCookies.$cookies $cookies} service.
+   * */
+   provider('$cookies', [function $CookiesProvider() {
+    /**
+     * @ngdoc property
+     * @name $cookiesProvider#defaults
+     * @description
+     *
+     * Object containing default options to pass when setting cookies.
+     *
+     * The object may have following properties:
+     *
+     * - **path** - `{string}` - The cookie will be available only for this path and its
+     *   sub-paths. By default, this is the URL that appears in your `<base>` tag.
+     * - **domain** - `{string}` - The cookie will be available only for this domain and
+     *   its sub-domains. For security reasons the user agent will not accept the cookie
+     *   if the current domain is not a sub-domain of this domain or equal to it.
+     * - **expires** - `{string|Date}` - String of the form "Wdy, DD Mon YYYY HH:MM:SS GMT"
+     *   or a Date object indicating the exact date/time this cookie will expire.
+     * - **secure** - `{boolean}` - If `true`, then the cookie will only be available through a
+     *   secured connection.
+     *
+     * Note: By default, the address that appears in your `<base>` tag will be used as the path.
+     * This is important so that cookies will be visible for all routes when html5mode is enabled.
+     *
+     **/
+    var defaults = this.defaults = {};
 
-        // pixel buffer until deciding to show the element
-        var delayPx = delayPercent * elementBounds.height;
+    function calcOptions(options) {
+      return options ? angular.extend({}, defaults, options) : defaults;
+    }
 
-        var bottomVisible = (panelBottom - delayPx > 0) && (panelBottom < viewportHeight);
-        var topVisible = (panelTop + delayPx <= viewportHeight) && (panelTop > 0);
+    /**
+     * @ngdoc service
+     * @name $cookies
+     *
+     * @description
+     * Provides read/write access to browser's cookies.
+     *
+     * <div class="alert alert-info">
+     * Up until Angular 1.3, `$cookies` exposed properties that represented the
+     * current browser cookie values. In version 1.4, this behavior has changed, and
+     * `$cookies` now provides a standard api of getters, setters etc.
+     * </div>
+     *
+     * Requires the {@link ngCookies `ngCookies`} module to be installed.
+     *
+     * @example
+     *
+     * ```js
+     * angular.module('cookiesExample', ['ngCookies'])
+     *   .controller('ExampleController', ['$cookies', function($cookies) {
+     *     // Retrieving a cookie
+     *     var favoriteCookie = $cookies.get('myFavorite');
+     *     // Setting a cookie
+     *     $cookies.put('myFavorite', 'oatmeal');
+     *   }]);
+     * ```
+     */
+    this.$get = ['$$cookieReader', '$$cookieWriter', function($$cookieReader, $$cookieWriter) {
+      return {
+        /**
+         * @ngdoc method
+         * @name $cookies#get
+         *
+         * @description
+         * Returns the value of given cookie key
+         *
+         * @param {string} key Id to use for lookup.
+         * @returns {string} Raw cookie value.
+         */
+        get: function(key) {
+          return $$cookieReader()[key];
+        },
 
-        if ($el.data('hidden') && bottomVisible || topVisible) {
-          whenVisibleFn($el, scope);
-          $el.data('hidden', false);
-        }
+        /**
+         * @ngdoc method
+         * @name $cookies#getObject
+         *
+         * @description
+         * Returns the deserialized value of given cookie key
+         *
+         * @param {string} key Id to use for lookup.
+         * @returns {Object} Deserialized cookie value.
+         */
+        getObject: function(key) {
+          var value = this.get(key);
+          return value ? angular.fromJson(value) : value;
+        },
 
-        // scrolled out from scrolling down or up
-        else if (!($el.data('hidden')) && (panelBottom < 0 || panelTop > viewportHeight)) {
-          whenNotVisibleFn($el, scope);
-          $el.data('hidden', true);
+        /**
+         * @ngdoc method
+         * @name $cookies#getAll
+         *
+         * @description
+         * Returns a key value object with all the cookies
+         *
+         * @returns {Object} All cookies
+         */
+        getAll: function() {
+          return $$cookieReader();
+        },
+
+        /**
+         * @ngdoc method
+         * @name $cookies#put
+         *
+         * @description
+         * Sets a value for given cookie key
+         *
+         * @param {string} key Id for the `value`.
+         * @param {string} value Raw value to be stored.
+         * @param {Object=} options Options object.
+         *    See {@link ngCookies.$cookiesProvider#defaults $cookiesProvider.defaults}
+         */
+        put: function(key, value, options) {
+          $$cookieWriter(key, value, calcOptions(options));
+        },
+
+        /**
+         * @ngdoc method
+         * @name $cookies#putObject
+         *
+         * @description
+         * Serializes and sets a value for given cookie key
+         *
+         * @param {string} key Id for the `value`.
+         * @param {Object} value Value to be stored.
+         * @param {Object=} options Options object.
+         *    See {@link ngCookies.$cookiesProvider#defaults $cookiesProvider.defaults}
+         */
+        putObject: function(key, value, options) {
+          this.put(key, angular.toJson(value), options);
+        },
+
+        /**
+         * @ngdoc method
+         * @name $cookies#remove
+         *
+         * @description
+         * Remove given cookie
+         *
+         * @param {string} key Id of the key-value pair to delete.
+         * @param {Object=} options Options object.
+         *    See {@link ngCookies.$cookiesProvider#defaults $cookiesProvider.defaults}
+         */
+        remove: function(key, options) {
+          $$cookieWriter(key, undefined, calcOptions(options));
         }
       };
+    }];
+  }]);
+
+angular.module('ngCookies').
+/**
+ * @ngdoc service
+ * @name $cookieStore
+ * @deprecated
+ * @requires $cookies
+ *
+ * @description
+ * Provides a key-value (string-object) storage, that is backed by session cookies.
+ * Objects put or retrieved from this storage are automatically serialized or
+ * deserialized by angular's toJson/fromJson.
+ *
+ * Requires the {@link ngCookies `ngCookies`} module to be installed.
+ *
+ * <div class="alert alert-danger">
+ * **Note:** The $cookieStore service is **deprecated**.
+ * Please use the {@link ngCookies.$cookies `$cookies`} service instead.
+ * </div>
+ *
+ * @example
+ *
+ * ```js
+ * angular.module('cookieStoreExample', ['ngCookies'])
+ *   .controller('ExampleController', ['$cookieStore', function($cookieStore) {
+ *     // Put cookie
+ *     $cookieStore.put('myFavorite','oatmeal');
+ *     // Get cookie
+ *     var favoriteCookie = $cookieStore.get('myFavorite');
+ *     // Removing a cookie
+ *     $cookieStore.remove('myFavorite');
+ *   }]);
+ * ```
+ */
+ factory('$cookieStore', ['$cookies', function($cookies) {
 
     return {
-      restrict: 'A',
-      scope: {
-        whenVisible: '&',
-        whenNotVisible: '&?',
-        delayPercent: '=?',
-        bindScrollTo: '@?'
+      /**
+       * @ngdoc method
+       * @name $cookieStore#get
+       *
+       * @description
+       * Returns the value of given cookie key
+       *
+       * @param {string} key Id to use for lookup.
+       * @returns {Object} Deserialized cookie value, undefined if the cookie does not exist.
+       */
+      get: function(key) {
+        return $cookies.getObject(key);
       },
 
-      controller: ['$scope', function(scope) {
-        if (!scope.whenVisible || !angular.isFunction(scope.whenVisible())) {
-          throw new Error('Directive: angular-scroll-animate \'when-visible\' attribute must specify a function.');
-        }
+      /**
+       * @ngdoc method
+       * @name $cookieStore#put
+       *
+       * @description
+       * Sets a value for given cookie key
+       *
+       * @param {string} key Id for the `value`.
+       * @param {Object} value Value to be stored.
+       */
+      put: function(key, value) {
+        $cookies.putObject(key, value);
+      },
 
-        if (scope.whenNotVisible && !angular.isFunction(scope.whenNotVisible())) {
-          throw new Error('Directive: angular-scroll-animate \'when-not-visible\' attribute must specify a function.');
-        }
-        else if (!scope.whenNotVisible) {
-          scope.whenNotVisible = function() {
-            return angular.noop;
-          };
-        }
-
-        if (scope.delayPercent) {
-
-          var delayPercent = parseFloat(scope.delayPercent);
-
-          if (!angular.isNumber(delayPercent) || (delayPercent < 0 || delayPercent > 1)) {
-            throw new Error('Directive: angular-scroll-animate \'delay-percent\' attribute must be a decimal fraction between 0 and 1.');
-          }
-        }
-    }],
-
-      link: function(scope, el, attributes) {
-
-        var delayPercent = attributes.delayPercent || 0.25; // lower = more eager to hide / show, higher = less eager
-        var document = $document[0].documentElement;
-        var checkPending = false;
-
-        var updateVisibility = function() {
-          determineWhereElementIsInViewport(el, document.clientHeight /* viewportHeight */ ,
-            scope.whenVisible(), scope.whenNotVisible(), delayPercent, scope);
-
-          checkPending = false;
-        };
-
-        var onScroll = function() {
-
-          if (!checkPending) {
-            checkPending = true;
-
-            /* globals requestAnimationFrame */
-            requestAnimationFrame(updateVisibility);
-          }
-        };
-
-        var documentListenerEvents = 'scroll';
-
-        /* allows overflow:auto on container element to animate for Safari browsers */
-        if (attributes.bindScrollTo) {
-          angular.element($document[0].querySelector(attributes.bindScrollTo)).on(documentListenerEvents, onScroll);
-        }
-
-        /* always bind to document scroll as well - works for overflow: auto on Chrome, Firefox browsers */
-        $document.on(documentListenerEvents, onScroll);
-
-        scope.$on('$destroy', function() {
-          $document.off(documentListenerEvents, onScroll);
-        });
-
-        var $elWindow = angular.element($window);
-        var windowListenerEvents = 'resize orientationchange';
-        $elWindow.on(windowListenerEvents, onScroll);
-
-        scope.$on('$destroy', function() {
-          $elWindow.off(windowListenerEvents, onScroll);
-        });
-
-        // initialise
-        el.data('hidden', true);
-        scope.$evalAsync(onScroll);
+      /**
+       * @ngdoc method
+       * @name $cookieStore#remove
+       *
+       * @description
+       * Remove given cookie
+       *
+       * @param {string} key Id of the key-value pair to delete.
+       */
+      remove: function(key) {
+        $cookies.remove(key);
       }
     };
- }]);
+
+  }]);
+
+/**
+ * @name $$cookieWriter
+ * @requires $document
+ *
+ * @description
+ * This is a private service for writing cookies
+ *
+ * @param {string} name Cookie name
+ * @param {string=} value Cookie value (if undefined, cookie will be deleted)
+ * @param {Object=} options Object with options that need to be stored for the cookie.
+ */
+function $$CookieWriter($document, $log, $browser) {
+  var cookiePath = $browser.baseHref();
+  var rawDocument = $document[0];
+
+  function buildCookieString(name, value, options) {
+    var path, expires;
+    options = options || {};
+    expires = options.expires;
+    path = angular.isDefined(options.path) ? options.path : cookiePath;
+    if (angular.isUndefined(value)) {
+      expires = 'Thu, 01 Jan 1970 00:00:00 GMT';
+      value = '';
+    }
+    if (angular.isString(expires)) {
+      expires = new Date(expires);
+    }
+
+    var str = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+    str += path ? ';path=' + path : '';
+    str += options.domain ? ';domain=' + options.domain : '';
+    str += expires ? ';expires=' + expires.toUTCString() : '';
+    str += options.secure ? ';secure' : '';
+
+    // per http://www.ietf.org/rfc/rfc2109.txt browser must allow at minimum:
+    // - 300 cookies
+    // - 20 cookies per unique domain
+    // - 4096 bytes per cookie
+    var cookieLength = str.length + 1;
+    if (cookieLength > 4096) {
+      $log.warn("Cookie '" + name +
+        "' possibly not set or overflowed because it was too large (" +
+        cookieLength + " > 4096 bytes)!");
+    }
+
+    return str;
+  }
+
+  return function(name, value, options) {
+    rawDocument.cookie = buildCookieString(name, value, options);
+  };
+}
+
+$$CookieWriter.$inject = ['$document', '$log', '$browser'];
+
+angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterProvider() {
+  this.$get = $$CookieWriter;
+});
+
+
+})(window, window.angular);
+
+/*!
+ * angular-translate - v2.12.1 - 2016-09-15
+ * 
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
+ */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function () {
+      return (factory());
+    });
+  } else if (typeof exports === 'object') {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  } else {
+    factory();
+  }
+}(this, function () {
+
+$translateCookieStorageFactory.$inject = ['$cookieStore'];
+angular.module('pascalprecht.translate')
+
+/**
+ * @ngdoc object
+ * @name pascalprecht.translate.$translateCookieStorage
+ * @requires $cookieStore
+ *
+ * @description
+ * Abstraction layer for cookieStore. This service is used when telling angular-translate
+ * to use cookieStore as storage.
+ *
+ */
+  .factory('$translateCookieStorage', $translateCookieStorageFactory);
+
+function $translateCookieStorageFactory($cookieStore) {
+
+  'use strict';
+
+  var $translateCookieStorage = {
+
+    /**
+     * @ngdoc function
+     * @name pascalprecht.translate.$translateCookieStorage#get
+     * @methodOf pascalprecht.translate.$translateCookieStorage
+     *
+     * @description
+     * Returns an item from cookieStorage by given name.
+     *
+     * @param {string} name Item name
+     * @return {string} Value of item name
+     */
+    get: function (name) {
+      return $cookieStore.get(name);
+    },
+
+    /**
+     * @ngdoc function
+     * @name pascalprecht.translate.$translateCookieStorage#set
+     * @methodOf pascalprecht.translate.$translateCookieStorage
+     *
+     * @description
+     * Sets an item in cookieStorage by given name.
+     *
+     * @deprecated use #put
+     *
+     * @param {string} name Item name
+     * @param {string} value Item value
+     */
+    set: function (name, value) {
+      $cookieStore.put(name, value);
+    },
+
+    /**
+     * @ngdoc function
+     * @name pascalprecht.translate.$translateCookieStorage#put
+     * @methodOf pascalprecht.translate.$translateCookieStorage
+     *
+     * @description
+     * Sets an item in cookieStorage by given name.
+     *
+     * @param {string} name Item name
+     * @param {string} value Item value
+     */
+    put: function (name, value) {
+      $cookieStore.put(name, value);
+    }
+  };
+
+  return $translateCookieStorage;
+}
+
+$translateCookieStorageFactory.displayName = '$translateCookieStorage';
+return 'pascalprecht.translate';
+
+}));
+
+/*!
+ * angular-translate - v2.12.1 - 2016-09-15
+ * 
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
+ */
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module unless amdModuleId is set
+    define([], function () {
+      return (factory());
+    });
+  } else if (typeof exports === 'object') {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory();
+  } else {
+    factory();
+  }
+}(this, function () {
+
+$translateLocalStorageFactory.$inject = ['$window', '$translateCookieStorage'];
+angular.module('pascalprecht.translate')
+
+/**
+ * @ngdoc object
+ * @name pascalprecht.translate.$translateLocalStorage
+ * @requires $window
+ * @requires $translateCookieStorage
+ *
+ * @description
+ * Abstraction layer for localStorage. This service is used when telling angular-translate
+ * to use localStorage as storage.
+ *
+ */
+.factory('$translateLocalStorage', $translateLocalStorageFactory);
+
+function $translateLocalStorageFactory($window, $translateCookieStorage) {
+
+  'use strict';
+
+  // Setup adapter
+  var localStorageAdapter = (function(){
+    var langKey;
+    return {
+      /**
+       * @ngdoc function
+       * @name pascalprecht.translate.$translateLocalStorage#get
+       * @methodOf pascalprecht.translate.$translateLocalStorage
+       *
+       * @description
+       * Returns an item from localStorage by given name.
+       *
+       * @param {string} name Item name
+       * @return {string} Value of item name
+       */
+      get: function (name) {
+        if(!langKey) {
+          langKey = $window.localStorage.getItem(name);
+        }
+
+        return langKey;
+      },
+      /**
+       * @ngdoc function
+       * @name pascalprecht.translate.$translateLocalStorage#set
+       * @methodOf pascalprecht.translate.$translateLocalStorage
+       *
+       * @description
+       * Sets an item in localStorage by given name.
+       *
+       * @deprecated use #put
+       *
+       * @param {string} name Item name
+       * @param {string} value Item value
+       */
+      set: function (name, value) {
+        langKey=value;
+        $window.localStorage.setItem(name, value);
+      },
+      /**
+       * @ngdoc function
+       * @name pascalprecht.translate.$translateLocalStorage#put
+       * @methodOf pascalprecht.translate.$translateLocalStorage
+       *
+       * @description
+       * Sets an item in localStorage by given name.
+       *
+       * @param {string} name Item name
+       * @param {string} value Item value
+       */
+      put: function (name, value) {
+        langKey=value;
+        $window.localStorage.setItem(name, value);
+      }
+    };
+  }());
+
+  var hasLocalStorageSupport = 'localStorage' in $window;
+  if (hasLocalStorageSupport) {
+    var testKey = 'pascalprecht.translate.storageTest';
+    try {
+      // this check have to be wrapped within a try/catch because on
+      // a SecurityError: Dom Exception 18 on iOS
+      if ($window.localStorage !== null) {
+        $window.localStorage.setItem(testKey, 'foo');
+        $window.localStorage.removeItem(testKey);
+        hasLocalStorageSupport = true;
+      } else {
+        hasLocalStorageSupport = false;
+      }
+    } catch (e){
+      hasLocalStorageSupport = false;
+    }
+  }
+  var $translateLocalStorage = hasLocalStorageSupport ? localStorageAdapter : $translateCookieStorage;
+  return $translateLocalStorage;
+}
+
+$translateLocalStorageFactory.displayName = '$translateLocalStorageFactory';
+return 'pascalprecht.translate';
+
+}));
 
 (function () {
 	'use strict';
-	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate'])
+	angular.module('rssreader', ['ui.router', 'ngAnimate', 'ngValidate', 'ngFileUpload', 'ngTouch', 'favicon', 'dndLists', 'satellizer', 'angular-jwt', '720kb.socialshare', 'ui.bootstrap', 'angular-scroll-animate', 'pascalprecht.translate', 'ngCookies'])
 		.config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $authProvider, $httpProvider) {
 			$httpProvider.interceptors.push('sessionInjector');
 			$urlRouterProvider.otherwise('home');
@@ -3839,22 +4402,24 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 					controller: 'AuthController'
 				})
 				.state('reset', {
-					url: '/reset/:token/:email',
+					url: '/reset/:token',
 					templateUrl: './partials/auth/reset.html',
 					controller: 'AuthController',
-					onEnter : ['$stateParams', 'transfer', function ($stateParams, transfer) {
+					onEnter : ['$stateParams', 'transfer', '$window', function ($stateParams, transfer, $window) {
+						var payload = JSON.parse($window.atob($stateParams.token.split('.')[1]));
 						transfer.setObj($stateParams.token);
-						transfer.setEmail($stateParams.email);	
+						transfer.setEmail(payload.verifEmail);	
 					}]
 				})
 				.state('verify', {
-					url: '/verify/:token/:email',
+					url: '/verify/:token',
 					templateUrl: './partials/auth/verify.html',
 					controller: 'AuthController',
-					onEnter : ['$stateParams', 'transfer', 'toasterService', function ($stateParams, transfer, toasterService) {
-						transfer.setEmail($stateParams.email);
+					onEnter : ['$stateParams', 'transfer', 'toasterService' ,'$window', function ($stateParams, transfer, toasterService, $window) {
+						var payload = JSON.parse($window.atob($stateParams.token.split('.')[1]));
 						transfer.setString($stateParams.token);
-						toasterService.info('You have successfuly approved you email. Please reenter you fields');
+						transfer.setEmail(payload);
+						toasterService.info('You have successfuly approved you email. Please reenter fields');
 					}]
 				})
 				.state('profile', {
@@ -4028,6 +4593,25 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 	}]);
 })();
 
+(function () {
+	angular.module('rssreader')
+		.config(['$translateProvider', function ($translateProvider) {
+			 $translateProvider
+  				.useStaticFilesLoader({
+    				prefix: '/translation/locale-',
+    				suffix: '.json'
+  				})
+			  	.preferredLanguage('en')
+			  	.useLocalStorage()
+			 	.useSanitizeValueStrategy('escape');
+		}])
+		.run(['$rootScope', function($rootScope) {
+  			$rootScope.lang = 'en';
+			$rootScope.default_float = 'left';
+  			$rootScope.default_direction = 'ltr';
+  		
+}])
+})();
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
@@ -4342,7 +4926,6 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 	}]);
 })();
 (function () {
-
     angular.module('rssreader').config(['$validatorProvider', function ($validatorProvider) {
         $validatorProvider.addMethod("pattern", function (value, element) {
             return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).{6,20}/.test(value);
@@ -4900,9 +5483,10 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 })();
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope',
-		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer',
-		function (Upload, $http, $state, profileService, $scope, authService, $window, themeService, dashboardService, $auth, accountInfo, toasterService, transfer) {
+	angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope', '$rootScope',
+		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer', '$translate',
+		function (Upload, $http, $state, profileService, $scope, $rootScope, authService, $window, themeService, dashboardService, $auth, 
+			accountInfo, toasterService, transfer, $translate) {
 			dashboardService.isReadingArticle = true;
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
@@ -4985,7 +5569,6 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 
 			$scope.changePass = function (form) {
 				if (form.validate()) {
-					console.log("Submit change password");
 					return $http.post('/changePassword', $scope.newUserData, {
 						headers: {
 							Authorization: 'Bearer ' + authService.getToken()
@@ -4998,7 +5581,6 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 						});
 					}).error(function (err) {
 						$scope.err = err;
-						console.log(err.message);
 					});
 				}
 			};
@@ -5054,6 +5636,17 @@ angular.module('angular-scroll-animate', []).directive('whenVisible', ['$documen
 				});
 			};
 			$scope.layouts = themeService.layouts;
+
+			$scope.changeLanguage = function (langKey) {
+				$translate.use(langKey);		
+			}
+
+			$rootScope.$on('$translateChangeSuccess', function(event, data) {
+				var language = data.language;
+				$rootScope.lang = language;
+				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
+				$rootScope.default_float = language === 'en' ? 'right' : 'left';
+			});
 		}
 	]);
 })();
@@ -5517,6 +6110,7 @@ angular.module('rssreader').directive('toaster', ['$timeout', 'toasterService', 
 					obj.advicedArticles.length = 0;
 					return $http.get("/advicedArticles").then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
+					    console.log(res.data);
 					    return res;
 					}, function (err) {
 					    console.log(err);
@@ -6150,9 +6744,15 @@ function FeedsToJson(array) {
         var sessionInjector = {
             responseError: function (res) {
                 var $state = $injector.get('$state'),
-                $q = $injector.get('$q');
+                $q = $injector.get('$q'),
+                authService = $injector.get('authService');
                 if (res.status == 404) {
+                    console.log("404");
                     $state.go('404', { reload: true });
+                }
+                else if (res.status == 403) {
+                    authService.logOut();
+                    $state.go('home', {reload: true})
                 }
                 return $q.reject(res);
             }

@@ -311,7 +311,7 @@ li.dropdown > a.dropdown-toggle {
   margin: auto; }
 
 #list .feed-title-wrap {
-  padding: 1em 1em 0 1em; }
+  padding: 1em; }
 
 .favicon {
   margin-right: 1em;
@@ -819,6 +819,9 @@ a.pass {
   font-weight: bold;
   margin-left: 4px; }
 
+.terms-container {
+  padding: 20px; }
+
 #login input, #register input {
   border-radius: 2px; }
 
@@ -1171,9 +1174,18 @@ a.sharing-btn {
   width: 145px;
   margin: 5px 5px 5px 0px; }
 
-#sub_btn {
-  margin-top: 1em;
-  margin-bottom: 1em; }
+.terms-btn {
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 0;
+  border: 1px solid #cccccc; }
+
+.close:hover {
+  color: #3949ab; }
+
+.lang_btn {
+  padding: 0;
+  margin: 10px 0 0 57em; }
 
 .toaster-window {
   border-radius: 2px;
@@ -1516,7 +1528,7 @@ label.error {
   color: #000000; }
 
 .email-label {
-  margin-left: 13px; }
+  margin: 0 0 2em 0; }
   .email-label .user-email {
     font-weight: 600;
     color: #3949ab; }
@@ -1526,6 +1538,9 @@ label.error {
 
 #strength_res {
   padding-left: 0; }
+
+.header {
+  margin-bottom: 20px; }
 
 #article-page {
   padding: 1em; }

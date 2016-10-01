@@ -7,14 +7,18 @@ var mongoose = require('mongoose'),
 	Feed = mongoose.model('Feed'),
 	User = mongoose.model('User'),
 	config = require('../config/config'),
+	googleAuth = require('../controllers/googleAuth'),
+	facebookAuth = require('../controllers/facebookAuth'),
+	twitterAuth = require('../controllers/twitterAuth'),
+	linkedInAuth = require('../controllers/linkedInAuth'),
+	unlink = require('../controllers/unlink'),
+	userInfo = require('../controllers/userInfo'),
 	authCtrl = require('../controllers/authentication'),
 	articlesCtrl = require('../controllers/articles'),
 	feedsCtrl = require('../controllers/feeds'),
 	profCtrl = require('../controllers/profile');
 
-
 var auth = function (req, res, next) {
-	console.log("auth");
 	var token = req.body.token || req.params.token || req.headers['authorization'];
 	// decode token
 	if (token) {
@@ -51,25 +55,24 @@ var auth = function (req, res, next) {
 	}
 }
 
-router.get('/reset/:token', authCtrl.reset);
 router.post('/register', authCtrl.register);
 router.post('/forgot', authCtrl.forgotPass);
+router.get('/reset/:token', authCtrl.reset);
 router.post('/reset/:token', authCtrl.resetPost);
 router.post('/login', authCtrl.login);
 router.post('/changePassword', authCtrl.changePassword);
+//Auth
+router.post('/auth/google', googleAuth.googleAuth);
+router.post('/auth/facebook', facebookAuth.facebookAuth);
+router.post('/auth/twitter', twitterAuth.twitterAuth);
+router.post('/auth/linkedin', linkedInAuth.linkedInAuth);
+router.post('/auth/unlink', unlink.unlink);
+router.get('/api/me', userInfo.getUserInfo);
+router.put('/api/me', userInfo.putUserInfo);
 
-//Secure routes
-router.post('/auth/google', authCtrl.googleAuth);
-router.post('/auth/facebook', authCtrl.facebookAuth);
-router.post('/auth/twitter', authCtrl.twitterAuth);
-router.post('/auth/linkedin', authCtrl.linkedIdAuth);
-router.post('/auth/unlink', authCtrl.unlink);
-router.get('/api/me', authCtrl.getUserInfo);
-router.put('/api/me', authCtrl.putUserInfo);
-
+//Secured routes
 router.post('/changeColorTheme', auth, profCtrl.changeColorTheme);
 
-// get user and feeds
 router.get('/feeds', auth, feedsCtrl.allFeed);
 router.get('/getSingleFeed/:id', auth, feedsCtrl.getSingleFeed);
 router.get('/favourites', auth, articlesCtrl.allFavourites);
@@ -85,7 +88,6 @@ router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
 router.post('/upload', auth, profCtrl.upload);
 router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
 
-// remove feed
 router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
 router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
 

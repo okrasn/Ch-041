@@ -25,7 +25,7 @@
                 </div>
                 <div class="footer">
                     <span class="my-hidden">
-                        <button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)">
+                        <button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)" translate>
                             read
                         </button>
                         <span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || isFavourites()" ng-click="addFavourite(article)"></span>
@@ -46,7 +46,7 @@
         </div>
     </div>
     <modal show='modalShown'>
-        <h4 class="uppercase">add to favourites</h4>
+        <h4 class="uppercase" translate>add to favourites</h4>
         <div class="modal-row">
             <select id="category"
                     class="form-control form-input"
@@ -55,8 +55,9 @@
                     ng-change="checkIfNew()"
                     uib-tooltip="To enter custom category choose 'custom'"
                     tooltip-trigger="'focus'"
-                    tooltip-placement="top-left">
-                <option value="" disabled selected hidden>Choose</option>
+                    tooltip-placement="top-left"
+                    translate>
+                <option value="" disabled selected hidden translate>Choose</option>
             </select>
         </div>
         <div class="modal-row">
@@ -64,20 +65,20 @@
         </div>
         <div class="modal-row">
             <div class="center-children">
-                <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()">confirm</button>
+                <button type="button" class="app-btn app-btn-blue" aria-label="Justify" ng-click="confirmAddFavourite()" translate>confirm</button>
             </div>
         </div>
         <div class="modal-row" ng-show="error">
             <div class="alert alert-danger text-center fading-anim" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Error:</span>
-                <span ng-bind="error"></span>
+                <span ng-bind="error | translate"></span>
             </div>
         </div>
     </modal>
 </div>
 <div class="load-btn-wrap center-children fading-anim" ng-hide="isAllDisplayed()">
-    <button class="app-btn app-btn-blue" ng-click="loadMore()">
+    <button class="app-btn app-btn-blue" ng-click="loadMore()" translate>
         Load more
     </button>
 </div>
