@@ -182,3 +182,13 @@ li.dropdown > a.dropdown-toggle {
 body {
 	background-color: #303032;
 }
+
+
+#sidebar .selected {
+	border-right: 0.7em solid #060606;
+	background-color: #c1c1c1;
+}
+
+#dashboard #sidebar .selected a{
+	color: black;
+}

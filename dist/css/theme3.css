@@ -81,3 +81,11 @@
 .profile-header {
 	background-color: #086bae;
 }
+
+.list-feed-title{
+	background-color: #3498db;
+}
+
+.sidebar-sub-item:hover {
+	border-right: 0.7em solid rgba(52, 152, 219, 0.6);
+}

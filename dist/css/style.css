@@ -100,6 +100,15 @@ p {
 .offset-top {
   margin-top: 1em; }
 
+.offset-right {
+  margin-right: 1em; }
+
+.offset-bottom {
+  margin-bottom: 1em; }
+
+.offset-left {
+  margin-left: 1em; }
+
 .not-important {
   color: #888; }
 
@@ -721,7 +730,7 @@ ul[dnd-list] .dndPlaceholder:after {
 
 .header {
   margin-bottom: 30px;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center; }
 
 .alert-danger-app {
@@ -824,6 +833,9 @@ a.pass {
 
 #login input, #register input {
   border-radius: 2px; }
+
+#register-form {
+  margin-bottom: 0; }
 
 .cstmform-border-profile-header {
   padding: 0 10% 0; }
