@@ -3,7 +3,7 @@
 	angular.module('rssreader').controller('ProfileController', ['Upload', '$http', '$state', 'profileService', '$scope', '$rootScope',
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer', '$translate',
 		function (Upload, $http, $state, profileService, $scope, $rootScope, authService, $window, themeService, dashboardService, $auth, 
-			accountInfo, toasterService, transfer, $translate) {
+			accountInfo, toasterService, transfer) {
 		    dashboardService.isReadingArticle = true;
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
@@ -154,16 +154,7 @@
 			};
 			$scope.layouts = themeService.layouts;
 
-			$scope.changeLanguage = function (langKey) {
-				$translate.use(langKey);		
-			}
-
-			$rootScope.$on('$translateChangeSuccess', function(event, data) {
-      			var language = data.language;
-      			$rootScope.lang = language;
-				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
-      			$rootScope.default_float = language === 'en' ? 'right' : 'left';
-    		});
+			
 		}
 	]);
 })();

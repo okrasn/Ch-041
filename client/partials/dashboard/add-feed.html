@@ -14,13 +14,13 @@
 			<div class="form-group">
 				<label for="category" class="col-sm-3 control-label"><span translate >Category</span></label>
 				<div class="col-sm-7">
-					<select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" translate tooltip-trigger="'focus'" tooltip-placement="top-left">
-						<option translate value="" disabled selected hidden><span>Choose</span></option>
+					<select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" tooltip-trigger="'focus'" tooltip-placement="top-left">
+						<option translate value="" disabled selected hidden><span translate >Choose</span></option>
 					</select>
 				</div>
 			</div>
 			<div id="add-new-category" class="form-group fading-anim" ng-show="addingNewCategory">
-				<label for="new-category" class="col-sm-3 control-label"><span translate >New Category:</span></label>
+				<label for="new-category" class="col-sm-3 control-label"><span>New Category:</span></label>
 				<div class="col-sm-7">
 					<input id="new-category" class="form-control form-input" translate-attr="{placeholder : 'Enter category name'}" placeholder="Enter category name" ng-model="newCategory.category" maxlength="25">
 				</div>

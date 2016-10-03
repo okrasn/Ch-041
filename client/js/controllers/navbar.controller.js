@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('NavbarController', ['$scope', '$state','profileService', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth',
-		function ($scope, $state,profileService, authService, dashboardService, transfer, accountInfo, $auth) {
+	angular.module('rssreader').controller('NavbarController', ['$scope', '$state','profileService', 'authService', 'dashboardService', 'transfer', 'accountInfo', '$auth', '$translate', '$rootScope',
+		function ($scope, $state,profileService, authService, dashboardService, transfer, accountInfo, $auth, $translate, $rootScope) {
 			$scope.isLoggedIn = authService.isLoggedIn;
 			$scope.isDashboard = function () {
 				return /dashboard/.test($state.current.name);
@@ -61,5 +61,16 @@
 			$scope.getImage = function(){
 				return profileService.getImage();
 			};
+
+			$scope.changeLanguage = function (langKey) {
+				$translate.use(langKey);		
+			}
+
+			$rootScope.$on('$translateChangeSuccess', function(event, data) {
+      			var language = data.language;
+      			$rootScope.lang = language;
+				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
+      			$rootScope.default_float = language === 'en' ? 'right' : 'left';
+    		});
 	}]);
 })();
