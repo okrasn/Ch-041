@@ -46,7 +46,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					var symbol = $scope.user.email.indexOf('@');
 					var emailAgent = $scope.user.email.slice(symbol + 1);
 					$scope.linkProvider = emailAgent;
-					console.log(emailAgent);
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
