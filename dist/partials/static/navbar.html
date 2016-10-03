@@ -13,11 +13,26 @@
 					<a class="navbar-brand rss" ng-click="onEmblem()" style="cursor: pointer"><span class="orange">RSS</span>|READER</a>
 				</div>
 			</div>
-			<div class="lang-btn col-xs-offset-6 col-xs-2">
-					<button class="btn btn-default ua flag-icon flag-icon-ua"  ng-click="changeLanguage('ua')"></button>
-	  				<button class="btn btn-default en flag-icon flag-icon-gb"  ng-click="changeLanguage('en')"></button>
-	  				<button class="btn btn-default pl flag-icon flag-icon-pl"  ng-click="changeLanguage('pl')"></button>
+			<!-- 	<ul id="sort-dropdown" class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+						<li class="sort-item" role="menuitem" ng-click="changeLanguage('ua')" ><a translate >ua</a></li>
+						<li class="sort-item" role="menuitem" ng-click="changeLanguage('en')" ><a translate >en</a></li>
+						<li class="sort-item" role="menuitem" ng-click="changeLanguage('pl')" ><a translate >pl</a></li>
+				</ul> -->
+			
+
+
+			<div class="lang-btn">
+				<div ng-hide="hideSortList.state" class="btn-group" uib-dropdown is-open="status.isopen">
+					<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled"><span class="caret"></span>
+					</button>
+					<ul id="sort-dropdown" class="dropdown-menu lang-list" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+						<li class="sort-item" role="menuitem"><button class="btn btn-default ua flag-icon flag-icon-ua"  ng-click="changeLanguage('ua')"></button></li>
+						<li class="sort-item" role="menuitem"><button class="btn btn-default en flag-icon flag-icon-gb"  ng-click="changeLanguage('en')"></button></li>
+						<li class="sort-item" role="menuitem"><button class="btn btn-default pl flag-icon flag-icon-pl"  ng-click="changeLanguage('pl')"></button></li>
+					</ul>
+				</div>	
 			</div>
+
 			<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn()">
 					<li class="dropdown user user-menu hidden-xs">

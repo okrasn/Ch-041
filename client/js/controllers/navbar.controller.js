@@ -72,5 +72,20 @@
 				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
       			$rootScope.default_float = language === 'en' ? 'right' : 'left';
     		});
+
+    		$scope.currentSortTitle = function () {
+				var sortParam = dashboardService.getSortParam();
+				switch (sortParam.type) {
+					case 'date': {
+						if (sortParam.order == 1){
+							return "Newest";
+						}
+						return "Oldest";
+					}
+					case 'feed': {
+						return "By Feed";            
+					}
+				}
+			}
 	}]);
 })();

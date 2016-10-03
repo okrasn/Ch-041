@@ -397,3 +397,11 @@ $desktop-res: 1200px;
 		height: 110px;
 	}
 }
+
+@media screen and (max-width: 766px) {
+	.lang-btn {
+		top: 0;
+		right: 25%;	
+	}
+}
+

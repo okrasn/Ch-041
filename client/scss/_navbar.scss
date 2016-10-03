@@ -182,3 +182,30 @@ li.dropdown > a.dropdown-toggle {
 #menu-toggle{
 	right: 0;
 }
+.en, .pl  {
+	width: 4em;
+	margin: 5px 0 0 6px;
+	padding: 5px;
+	background-color: #ccc;
+}
+.ua {
+	width: 4em;
+	margin: 0 0 0 6px;
+	padding: 5px;
+	background-color: #ccc;
+}
+.lang-list {
+	width: 5em;
+	min-width: 0;
+	left: -3px;
+}
+.sort-item {
+	padding: 0;
+}
+.flag-icon{
+	width: 4em;
+}
+.lang-btn {
+	position: absolute;
+	right: 15em;
+}
