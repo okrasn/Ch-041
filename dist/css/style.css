@@ -1153,6 +1153,10 @@ a.sharing-btn {
   padding: 0;
   margin: 10px 0 0 57em; }
 
+.lang-btn {
+  padding: 1% 0 0 0;
+  width: 10%; }
+
 .toaster-window {
   border-radius: 2px;
   z-index: 1000;
