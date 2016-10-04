@@ -311,7 +311,6 @@
 					        temp_articles.push(articleObj);
 					    }
 					}
-					console.log("fetch");
 					return temp_articles;
 				});
 			},
