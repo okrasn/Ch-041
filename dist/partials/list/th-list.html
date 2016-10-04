@@ -1,4 +1,3 @@
-<!--Detailed table feeds-->
 <div id="cards-wrapper" class="clearfix feeds">
     <div class="clearfix feed-title-wrap" ng-show="checkIfFirst()">
         <div class="col-xs-12 list-feed-title first-title">
@@ -9,7 +8,7 @@
         <div class="hidden" ng-show="setFirstTitle(articleData.articles[$index], $first)">
         </div>
         <div class="app-panel fade-in-anim">
-            <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
+            <div class="fav-indicator" ng-show="checkIfFavourites(article) && !articleData.isFavourites">
             </div>
             <div class="img-responsive article-img hidden-lg pointer" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}" ng-click="readArticle(article)">
             </div>
@@ -28,10 +27,10 @@
                         <button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)" translate>
                             read
                         </button>
-                        <span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || isFavourites()" ng-click="addFavourite(article)"></span>
+                        <span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || articleData.isFavourites" ng-click="addFavourite(article)"></span>
                         <span class="article-footer-item fa fa-share-alt extra-btn onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
                     </span>
-                    <span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="isFavourites()" ng-click="removeFavourite(article)"></span>
+                    <span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="articleData.isFavourites" ng-click="removeFavourite(article)"></span>
                     <span class="article-footer-item article-date not-important" ng-bind="getArticleDate(article.date)"></span>
                     <span class="article-footer-item article-time-icon glyphicon glyphicon-time not-important"></span>
                 </div>

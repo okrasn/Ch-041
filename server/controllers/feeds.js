@@ -14,25 +14,6 @@ module.exports.allFeed = function (req, res, next) {
 	});
 }
 
-module.exports.getAdvicedFeeds = function (req, res, next) {
-	Advice.find({}, function (err, advice) {
-		if (err) {
-			return next(err);
-		}
-		if (advice[0]) {
-			advice[0].populate("feedsDictionary.feeds", function (err, user) {
-				res.json(advice[0].feedsDictionary);
-			});
-		}
-		else {
-			res.status(404).send({
-				message: msg.ERRORS.not_found
-			});
-			return;
-		}
-	});
-}
-
 module.exports.getSingleFeed = function (req, res, next) {
 	if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
 		return res.status(404).json({
@@ -144,45 +125,6 @@ module.exports.add = function (req, res, next) {
 		});
 	});
 };
-
-var JsonFeeds = require('../AdvicedFeeds.json');
-addAdvicedFromJson = function (category, feed) {
-	var passedFeed = feed,
-		passedCategory = category;
-	Advice.find({}, function (err, advice) {
-		if (!advice.length) {
-			var advice = new Advice({
-				articlesDictionary: [],
-				feedsDictionary: []
-			});
-			for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
-				advice.feedsDictionary.push({
-					category: JsonFeeds.feedsDictionary[i].category
-				});
-				for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
-					var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
-					feed.totalSubscriptions = 0;
-					feed.currentSubscriptions = 0;
-					advice.feedsDictionary[i].feeds.push(feed);
-					feed.save(function (err, feed) {
-						if (err) {
-							console.log(err);
-							return;
-						}
-					});
-				}
-			}
-			advice.save(function (err, advice) {
-				if (err) {
-					console.log(err);
-					return;
-				}
-			});
-		}
-	});
-};
-
-addAdvicedFromJson();
 
 module.exports.remove = function (req, res, next) {
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
@@ -338,105 +280,41 @@ module.exports.changeFeedCategory = function (req, res, next) {
 	});
 }
 
-module.exports.advicedFeeds = function (req, res, next) {
-	Advice.findOne({}, function (err, adviced) {
-		adviced.populate("feedsDictionary.feeds", function (err, adviced) {
-			res.json(adviced.feedsDictionary);
-		});
-	});
-}
+//var JsonFeeds = require('../AdvicedFeeds.json');
+//addAdvicedFromJson = function (category, feed) {
+//    var passedFeed = feed,
+//		passedCategory = category;
+//    Advice.find({}, function (err, advice) {
+//        if (!advice.length) {
+//            var advice = new Advice({
+//                articlesDictionary: [],
+//                feedsDictionary: []
+//            });
+//            for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
+//                advice.feedsDictionary.push({
+//                    category: JsonFeeds.feedsDictionary[i].category
+//                });
+//                for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
+//                    var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
+//                    feed.totalSubscriptions = 0;
+//                    feed.currentSubscriptions = 0;
+//                    advice.feedsDictionary[i].feeds.push(feed);
+//                    feed.save(function (err, feed) {
+//                        if (err) {
+//                            console.log(err);
+//                            return;
+//                        }
+//                    });
+//                }
+//            }
+//            advice.save(function (err, advice) {
+//                if (err) {
+//                    console.log(err);
+//                    return;
+//                }
+//            });
+//        }
+//    });
+//};
 
-module.exports.addAdviced = function (req, res, next) {
-	if (req.body.rsslink === undefined) {
-		return res.status(400).json({
-			message: msg.ERRORS.enter_feed_url
-		});
-	}
-	if (req.body.category === undefined) {
-		return res.status(400).json({
-			message: msg.ERRORS.choose_cat
-		});
-	}
-
-	Advice.findOne({}, function (err, adviced) {
-		adviced.populate("feedsDictionary.feeds", function (err, adviced) {
-			Feed.findOne({ rsslink: req.body.rsslink }, function (err, feed) {
-				if (err) {
-					return next(err);
-				}
-				var currentFeed = feed;
-				req.user.populate("feedsDictionary.feeds", function (err, user) {
-					var foundCategory = null;
-					for (var i = 0; i < user.feedsDictionary.length; i++) {
-						if (user.feedsDictionary[i].category === req.body.category) {
-							foundCategory = user.feedsDictionary[i];
-						}
-						for (var j = 0; j < user.feedsDictionary[i].feeds.length; j++) {
-							if (user.feedsDictionary[i].feeds[j].rsslink === req.body.rsslink) {
-								return res.status(400).json({
-									message: msg.ERRORS.feed_already_added,
-									id: user.feedsDictionary[i].feeds[j]._id,
-									category: user.feedsDictionary[i].category
-								});
-							}
-						}
-					}
-
-					if (currentFeed) {
-						currentFeed.totalSubscriptions++;
-						currentFeed.currentSubscriptions++;
-						currentFeed.save(function (err, currentFeed) {
-							if (err) {
-								return next(err);
-							}
-							if (!foundCategory) {
-								var newFeedElement = {
-									category: req.body.category,
-									feeds: []
-								}
-								newFeedElement.feeds.push(currentFeed);
-								req.user.feedsDictionary.push(newFeedElement);
-							}
-							else {
-								foundCategory.feeds.push(currentFeed);
-							}
-							req.user.save(function (err, user) {
-								if (err) {
-									return next(err);
-								}
-								res.json(currentFeed);
-							});
-						});
-					}
-					if (!currentFeed) {
-						var feed = new Feed(req.body);
-						feed.totalSubscriptions = 1;
-						feed.currentSubscriptions = 1;
-						feed.save(function (err, feed) {
-							if (err) {
-								return next(err);
-							}
-							if (!foundCategory) {
-								var newFeedElement = {
-									category: req.body.category,
-									feeds: []
-								}
-								newFeedElement.feeds.push(feed);
-								req.user.feedsDictionary.push(newFeedElement);
-							}
-							else {
-								foundCategory.feeds.push(feed);
-							}
-							req.user.save(function (err, user) {
-								if (err) {
-									return next(err);
-								}
-								res.json(feed);
-							});
-						});
-					}
-				});
-			});
-		});
-	});
-};
+//addAdvicedFromJson();

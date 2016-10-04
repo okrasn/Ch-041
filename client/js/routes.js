@@ -126,8 +126,11 @@
 						dashboardService.setTitle("Add Feed");
 					}],
 					resolve: {
-						feedPromise: ['feedsService', function (feedsService) {
-							return feedsService.getAdvicedFeeds();
+					    feedPromise: ['feedsService', 'dashboardService', function (feedsService, dashboardService) {
+					        dashboardService.displayLoading();
+					        return feedsService.getAdvicedFeeds().finally(function () {
+					            dashboardService.hideLoading();
+					        });
 						}]
 					}
 				})
@@ -136,10 +139,13 @@
 					templateUrl: './partials/dashboard/adviced.html',
 					controller: 'FeedsController',
 					resolve: {
-						feedPromise: ['feedsService', 'articlesService', '$stateParams', function (feedsService, articlesService, $stateParams) {
+						feedPromise: ['feedsService', 'articlesService', '$stateParams', 'dashboardService', function (feedsService, articlesService, $stateParams, dashboardService) {
+							dashboardService.displayLoading();
 							return feedsService.getAdvicedFeeds().then(function (res) {
 								if ($stateParams.category) {
-									return articlesService.getAdvicedArticlesByCat($stateParams.category);
+								    return articlesService.getAdvicedArticlesByCat($stateParams.category).finally(function () {
+								        dashboardService.hideLoading();
+								    });
 								}
 							});
 						}]
@@ -151,10 +157,10 @@
 					controller: 'ArticlesController',
 					resolve: {
 						articlePromise: ['articlesService', 'dashboardService', function (articlesService, dashboardService) {
-						    dashboardService.displayLoading();
-						    return articlesService.getAdvicedArticles().finally(function () {
-						        dashboardService.hideLoading();
-						    });
+							dashboardService.displayLoading();
+							return articlesService.getAdvicedArticles().finally(function () {
+								dashboardService.hideLoading();
+							});
 						}]
 					}
 				})

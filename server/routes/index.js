@@ -16,7 +16,8 @@ var mongoose = require('mongoose'),
 	authCtrl = require('../controllers/authentication'),
 	articlesCtrl = require('../controllers/articles'),
 	feedsCtrl = require('../controllers/feeds'),
-	profCtrl = require('../controllers/profile');
+	profCtrl = require('../controllers/profile'),
+	advicedCtrl = require('../controllers/adviced');
 
 var auth = function (req, res, next) {
 	var token = req.body.token || req.params.token || req.headers['authorization'];
@@ -76,9 +77,10 @@ router.post('/changeColorTheme', auth, profCtrl.changeColorTheme);
 router.get('/feeds', auth, feedsCtrl.allFeed);
 router.get('/getSingleFeed/:id', auth, feedsCtrl.getSingleFeed);
 router.get('/favourites', auth, articlesCtrl.allFavourites);
-router.get('/advicedFeeds', auth, feedsCtrl.getAdvicedFeeds);
 router.get('/advicedArticles', auth, articlesCtrl.getAdvicedArticles);
+router.get('/advicedFeeds', auth, advicedCtrl.getAdvicedFeeds);
 
+router.post('/addAdvicedFeed', auth, advicedCtrl.addAdvicedFeed);
 router.post('/addFeed', auth, feedsCtrl.add);
 router.post('/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
 router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
@@ -89,6 +91,7 @@ router.post('/upload', auth, profCtrl.upload);
 router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
 
 router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
+router.delete('/deleteAdvicedFeed/:id', auth, advicedCtrl.removeAdvicedFeed);
 router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
 
 module.exports = router;

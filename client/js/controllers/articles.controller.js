@@ -1,17 +1,15 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
+	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$rootScope', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $rootScope, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
 		var queryTypes = ['all', 'category', 'feed', 'favourites'];
 		$window.scrollTo(0, 0);
 		analizeRouting();
-
 		$scope.articleData = articlesService;
 		$scope.obj = {};
 		$scope.newCategory = {};
 		$scope.categories = feedsService.allFavsCategories;
 		$scope.error = null;
 		$scope.modalShown = false;
-		$scope.isFavourites = articlesService.checkIfFavourites;
 		$scope.favForAdd = null;
 		$scope.favForRemove = null;
 		$scope.articleForShare = null;
@@ -63,18 +61,21 @@
 		}
 		
 		$scope.getTitle = function (article, index) {
-			if (index == articlesService.articles.length - 1) {
+			if (index == articlesService.articles.length - 1 || !article) {
 				return '';
 			}
-
-			for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
-				for (var j = 0; j < array[i].feeds.length; j++) {
-					if (array[i].feeds[j]._id == article.feed) {
-						return array[i].feeds[j].title;
-					}
-				}
+			if (!$scope.articleData.isFavourites) {
+			    for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
+			        for (var j = 0; j < array[i].feeds.length; j++) {
+			            if (array[i].feeds[j]._id == article.feed) {
+			                return array[i].feeds[j].title;
+			            }
+			        }
+			    }
 			}
-			return "ending";
+			else {
+			    return article.category;
+			}
 		}
 
 		$scope.checkIfFirst = function () {
@@ -85,17 +86,20 @@
 		}
 
 		$scope.setFirstTitle = function (article, flag) {
-			if (!article) {
-				return false;
+			if (!article || !flag) {
+				return;
 			}
-			if (flag) {
-				for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
-					for (var j = 0; j < array[i].feeds.length; j++) {
-						if (array[i].feeds[j]._id == article.feed) {
-							$scope.firstListItem.title = array[i].feeds[j].title;
-						}
-					}
-				}
+			if (!$scope.articleData.isFavourites) {
+			    for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
+			        for (var j = 0; j < array[i].feeds.length; j++) {
+			            if (array[i].feeds[j]._id == article.feed) {
+			                $scope.firstListItem.title = array[i].feeds[j].title;
+			            }
+			        }
+			    }
+			}
+			else {
+			    $scope.firstListItem.title = article.category;
 			}
 			return false;
 		}
@@ -211,6 +215,19 @@
 			$state.go("dashboard.article", { feed: article.feed, link: article.link, type: type });
 		}
 
+		$rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+		    $rootScope.changeList = false;
+		    if (from.name !== to.name) {
+		        $rootScope.changeList = true;
+		        for (var param in toParams) {
+		            if (toParams[param] !== fromParams[param]) {
+		                $rootScope.changeList = false;
+		                break;
+		            }
+		        }
+		    }		    
+		});
+
 		angular.element(document.body).bind('click', function (e) {
 			var popups = document.querySelectorAll('.popover');
 			if (popups) {
@@ -224,14 +241,20 @@
 				}
 			}
 		});
+
 		function analizeRouting() {
+		    if ($rootScope.changeList) {
+		        return;
+		    }
 		    dashboardService.displayLoading();
 			var routeType = $stateParams.type;
 			var exist = queryTypes.filter(function (elem, i, array) {
 				return elem === routeType;
 			});
+
+
 			if (!routeType || !exist.length) {
-			    if ($stateParams.feed && $stateParams.link) {
+				if ($stateParams.feed && $stateParams.link) {
 					dashboardService.isReadingArticle = true;
 					if (articlesService.articleForRead && $stateParams.link === articlesService.articleForRead.link) {
 						dashboardService.hideLoading();
@@ -269,13 +292,13 @@
 				switch (routeType) {
 					case 'all': {
 						if (feedsService.feedsDictionary.length < 1) {
-						    $state.go("dashboard.addFeed");
-						    dashboardService.hideLoading();
+							$state.go("dashboard.addFeed");
+							dashboardService.hideLoading();
 						}
 						else {
-						    articlesService.getAllArticles().finally(function () {
-						        dashboardService.hideLoading();
-						    });
+							articlesService.getAllArticles().finally(function () {
+								dashboardService.hideLoading();
+							});
 						}
 					}
 						break;
@@ -283,20 +306,20 @@
 						feedsService.getSingleFeed($stateParams.value1).then(function (res) {
 							return articlesService.getArticlesByFeed(res.data);
 						}, function (err) {
-						    console.log(err);
-						    return err;
+							console.log(err);
+							return err;
 						}).finally(function () {
-						    dashboardService.hideLoading();
+							dashboardService.hideLoading();
 						});
 					}
 						break;
 					case 'category': {
-					    articlesService.getArticlesByCat($stateParams.value1).finally(function () {
-					        dashboardService.hideLoading();
-					    });
+						articlesService.getArticlesByCat($stateParams.value1).finally(function () {
+							dashboardService.hideLoading();
+						});
 					}
 						break;
-				    case 'favourites': {
+					case 'favourites': {
 						if ($stateParams.value1 === 'category' && $stateParams.value2) {
 							articlesService.getFavArticlesByCat($stateParams.value2);
 						}

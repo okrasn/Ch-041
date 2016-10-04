@@ -180,10 +180,6 @@ ul[dnd-list] .dndPlaceholder:after {
             padding-right: 4em;
         }
 
-        .eye-view-btn {
-            right: 1.3em;
-        }
-
         .my-hidden {
             display: inline;
             visibility: visible;
@@ -209,13 +205,12 @@ ul[dnd-list] .dndPlaceholder:after {
     }
 }
 
-.sidebar-item.selected, .sidebar-sub-item .selected {
-    background-color: red /*$item-hover-color*/;
-}
-
 #sidebar .selected {
     border-right: 0.7em solid $blue-btn-active-color;
     background-color: $item-hover-color;
+    .eye-view-btn {
+        right: 1.3em;
+    }
 }
 
 .eye-view-btn {

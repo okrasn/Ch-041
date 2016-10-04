@@ -3,7 +3,6 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	this.feedsDictionary = [];
 	this.favouritesDictionary = [];
 	this.advicedDictionary = [];
-	this.advicedFeeds = [];
 	this.allArticles = [];
 	this.CATEGORIES = ["News", "IT", "Sport", "Design", "Movies", "Music", "Culture", "Nature", "Gaming", "Food", "Economics", "Science"];
 
@@ -114,22 +113,58 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 					} else {
 						var feedObj = generateFeed(xmlDoc, feed, format);
 						return $http.post("/addFeed", feedObj).success(function (res) {
-							
 							return res;
 						}).error(function (err) {
 							console.log(err);
-							
+							return err;
 						});
 					}
 				return response.data;
 			});
 	}
 
-	this.removeFeed = function () {
-		return $http.delete("/deleteFeed/" + dashboardService.getFeed()._id).then(function (res) {
+	this.addAdvicedFeed = function (feed) {
+	    return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent(feed.link) + "&method=JSON&callback=JSON_CALLBACK&output=xml")
+			.then(function (response) {
+			    if (feed.link === undefined) {
+			        return $q.reject("Enter Rss feed link");
+			    }
+			    if (feed.category === undefined) {
+			        return $q.reject("Choose category");
+			    }
+			    if (response.data.responseData === null) {
+			        return $q.reject("URL is incorrect or does not contain RSS Feed data");
+			    }
+			    var parser = new DOMParser();
+			    xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml");
+			    var format = checkRssFormat(xmlDoc);
+			    if (format === -1) {
+			        return $q.reject("URL is incorrect or does not contain RSS Feed data");
+			    } else {
+			        var feedObj = generateFeed(xmlDoc, feed, format);
+			        return $http.post("/addAdvicedFeed", feedObj).success(function (res) {
+			            return res;
+			        }).error(function (err) {
+			            console.log(err);
+			            return err;
+			        });
+			    }
+			    return response.data;
+			});
+	}
+
+	this.removeFeed = function (feedId) {
+	    return $http.delete("/deleteFeed/" + feedId).then(function (res) {
 		}, function (err) {
 			console.log(err);
 		});
+	}
+
+	this.removeAdvicedFeed = function (feedId) {
+	    return $http.delete("/deleteAdvicedFeed/" + feedId).then(function (res) {
+	    }, function (err) {
+	        console.log(err);
+	    });
 	}
 
 	this.setFeedsOrder = function () {

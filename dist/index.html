@@ -22,6 +22,14 @@
 						<div class="rect5"></div>
 					</div>
 				</div>
+				<div class="loading-icon fading-anim" ng-show="isReload()">
+					<div class="center-absolute">
+						<h1 ng-bind="reloadMsg | translate"></h1>
+						<div>
+							<span class="refresh-icon fa fa-refresh pointer center-block" ng-click="reload($event)"></span>
+						</div>
+					</div>
+				</div>
 				<ui-view></ui-view>
 			</div>
 		</div>

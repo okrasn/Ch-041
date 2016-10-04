@@ -8,10 +8,12 @@ var advicedSchema = new mongoose.Schema({
 		}]
 	}],
 	feedsDictionary: [{
-		category: String, feeds: [{
+		category: String,
+		feeds: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Feed'
-		}]
+		}],
+		coverImage: String
 	}]
 });
 

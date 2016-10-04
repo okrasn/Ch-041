@@ -7,7 +7,7 @@
     <div class="table-feed" ng-repeat-start="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
         <div class="hidden" ng-show="setFirstTitle(articleData.articles[$index], $first)">
         </div>
-        <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
+        <div class="fav-indicator" ng-show="checkIfFavourites(article) && !articleData.isFavourites">
         </div>
         <div class="col-lg-11 col-xs-10 col-same-height">
             <div class="list-item" ng-click="readArticle(article)">
@@ -19,9 +19,9 @@
         </div>
         <div class="col-lg-1 col-xs-2 col-same-height">
             <div class="list-share-wrap center-text">
-                <span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange pointer" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || isFavourites()">
+                <span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange pointer" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || articleData.isFavourites">
                 </span>
-                <span class="list-item-btn-top glyphicon glyphicon-trash onhover-red pointer" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
+                <span class="list-item-btn-top glyphicon glyphicon-trash onhover-red pointer" ng-click="removeFavourite(article)" ng-show="articleData.isFavourites"></span>
                 <div class="list-item-btn">
                     <span class="fa fa-share-alt onhover-green pointer" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right">
                     </span>
@@ -36,29 +36,6 @@
             </div>
         </div>
     </div>
-    <!--<div class="table-feed" ng-repeat="article in articleData.articles | orderBy:getSortParam().type:getSortParam().order | limitTo:articleData.totalDisplayed">
-        <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites()">
-        </div>
-        <div class="col-lg-11 col-xs-10 col-same-height">
-            <div class="list-item" ng-click="readArticle(article)">
-                <p class="shortened-text strong-text" ng-bind="article.title">
-                </p>
-                <p class="shortened-text" ng-bind="article.content">
-                </p>
-            </div>
-        </div>
-        <div class="col-lg-1 col-xs-2 col-same-height">
-            <div class="list-share-wrap center-text">
-                <span class="list-item-btn-top star-icon glyphicon glyphicon-star onhover-orange pointer" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || isFavourites()">
-                </span>
-                <span class="list-item-btn-top glyphicon glyphicon-trash onhover-red pointer" ng-click="removeFavourite(article)" ng-show="isFavourites()"></span>
-                <div class="list-item-btn">
-                    <span class="fa fa-share-alt onhover-green pointer" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right">
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>-->
     <modal show='modalShown'>
         <h4 class="uppercase" translate>add to favourites</h4>
         <div class="modal-row">

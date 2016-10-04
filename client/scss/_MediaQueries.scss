@@ -44,6 +44,9 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $tablet-res) {
+	.sidebar-item>.hover-feed-shrink{
+		padding-right: 4em;
+	}
 	.third-layer {
 		height: 65em;
 		.top-offset-mobile{

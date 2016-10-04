@@ -5,11 +5,16 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.currentArticlesValue = $window.localStorage.category;
 	this.isReadingArticle = false;
 	this.loadingIcon = false;
+	this.toReload = false;
 	this.sidebar = false;
 	this.modalShown = false;
 	this.title = '';
 	this.currentFeed = '';
 	this.currentViewMode = $window.localStorage.viewMode;
+
+	this.isReload = function () {
+	    return that.toReload;
+	}
 
 	this.readSingleFeed = {
 	    state: false

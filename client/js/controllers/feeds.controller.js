@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService) {
+	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', 'profileService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService, profileService) {
 		var changeCatObj = {};
 
 		$scope.advicedCategory = $stateParams.category;
@@ -10,19 +10,27 @@
 		$scope.categories = feedsService.allCategories;
 		$scope.addingNewCategory = false;
 		$scope.newCategory = {};
+		$scope.profileData = profileService;
+		$scope.profile = $scope.profileData.profile;
+
+		$scope.toPopular = false;
+		$scope.advicedToDelete = null;
 
 		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
-		    dashboardService.isReadingArticle = true;
+			dashboardService.isReadingArticle = true;
 		}
 
-		if ($state.current.name === 'dashboard.adviced') {
-		    var invalidCategory = $scope.adviced.filter(function (elem, i) {
-		        return elem.category == $stateParams.category;
-		    });
-		    if (!invalidCategory.length) {
-		        $state.go('404', { reload: true });
-		    }
-		}
+		//if ($state.current.name === 'dashboard.adviced') {
+		//    if ($stateParams.category) {
+		//        articlesService.getAdvicedArticlesByCat($stateParams.category);
+		//    }
+		//	//var invalidCategory = $scope.adviced.filter(function (elem, i) {
+		//	//	return elem.category == $stateParams.category;
+		//	//});
+		//	//if (!invalidCategory.length) {
+		//	//	$state.go('404', { reload: true });
+		//	//}
+		//}
 
 		$scope.getFirstArticle = function (id) {
 			for (var i = 0, array = articlesService.articles; i < array.length; i++) {
@@ -47,11 +55,10 @@
 		}
 
 		$scope.addFeed = function () {
-		    dashboardService.displayLoading();
 			$scope.error = '';
 			if (!$scope.obj.link) {
-			    $scope.error = 'Enter Rss feed link';
-			    dashboardService.hideLoading();
+				$scope.error = 'Enter Rss feed link';
+				dashboardService.hideLoading();
 				return;
 			}
 			if ($scope.newCategory.category) {
@@ -59,20 +66,22 @@
 			}
 			if (!$scope.obj.category) {
 				if (!$scope.advicedCategory) {
-				    $scope.error = 'Choose category';
-				    dashboardService.hideLoading();
+					$scope.error = 'Choose category';
+					dashboardService.hideLoading();
 					return;
 				}
 			}
 			if (!$scope.newCategory.category && $scope.obj.category.toUpperCase() == 'custom'.toUpperCase()) {
-			    $scope.error = 'Enter new category name';
-			    dashboardService.hideLoading();
+				$scope.error = 'Enter new category name';
+				dashboardService.hideLoading();
 				return;
 			}
 			if (!$scope.obj.category) {
 				$scope.obj.category = $scope.advicedCategory;
 			}
-		    feedsService.addFeed($scope.obj)
+			if (!$scope.toPopular) {
+				dashboardService.displayLoading();
+				feedsService.addFeed($scope.obj)
 				.then(function (res) {
 					$scope.addingNewCategory = false;
 					toasterService.success('Feed successfully added');
@@ -105,16 +114,48 @@
 						$scope.error = err.data.message;
 					}
 				}).finally(function () {
-				    dashboardService.hideLoading();
+					dashboardService.hideLoading();
+				});
+			}
+			else {
+				toasterService.confirm({
+					message: 'If you add this feed to popular, everyone will see it. Confirm?',
+					confirm: 'addAdvicedFeed',
+					delay: 6000
+				}, $scope);
+			}
+		}
+
+		$scope.addAdvicedFeed = function () {
+			dashboardService.displayLoading();
+			feedsService.addAdvicedFeed($scope.obj)
+				.then(function (res) {
+					$scope.addingNewCategory = false;
+					toasterService.success('Adviced feed successfully added');
+					$state.reload("dashboard.addFeed");
+				}, function (err) {
+					if (typeof err === 'string') {
+						$scope.error = err;
+					}
+					if (!err.data) {
+						if (err.message) {
+							$scope.error = err.message;
+						}
+					}
+					else {
+						$scope.error = err.data.message;
+					}
+				}).finally(function () {
+					dashboardService.hideLoading();
 				});
 		}
 
 		$scope.switchCategory = function () {
-		    feedsService.switchCategory(changeCatObj);
+			feedsService.switchCategory(changeCatObj);
 		}
 
 		$scope.toAdvicedCategory = function (cat) {
-		    $state.go('dashboard.adviced', { category: cat });
+			$state.go('dashboard.adviced', { category: cat });
 		}
 
 		$scope.addFeedByAdvice = function (feed) {
@@ -123,6 +164,38 @@
 			$scope.error = null;
 			$scope.obj.category = '';
 			$scope.modalShown = !$scope.modalShown;
+		}
+
+		$scope.onAdvicedDelete = function (feed) {
+			$scope.advicedToDelete = feed;
+			toasterService.confirm({
+				message: "Remove this feed from popular?",
+				confirm: "confirmAdvicedDelete"
+			}, $scope);
+		}
+
+		$scope.confirmAdvicedDelete = function () {
+			dashboardService.displayLoading();
+			feedsService.removeAdvicedFeed($scope.advicedToDelete._id)
+				.then(function (res) {
+					toasterService.info("Feed has been deleted");
+					for (var i = 0, array = feedsService.advicedDictionary ; i < array.length; i++) {
+					    if (array[i].category === $stateParams.category) {
+							if (array[i].feeds.length <= 1) {
+								$state.go('dashboard.addFeed', { reload: true });
+							}
+							else {
+								$state.reload('dashboard.adviced');
+							}
+						}
+					}
+					return res;
+				}, function (err) {
+					console.log(err);
+					return err;
+				}).finally(function () {
+					dashboardService.hideLoading();
+				});
 		}
 
 		$scope.setCoverImage = function (item) {
@@ -161,7 +234,7 @@
 		}
 
 		$scope.addPopular = function () {
-		    $scope.modalShown = !$scope.modalShown;
+			$scope.modalShown = !$scope.modalShown;
 		}
 	}]);
 })();
