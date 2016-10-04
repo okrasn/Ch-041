@@ -4,8 +4,8 @@ var jwt = require('jwt-simple'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
 	qs = require('querystring'),
-	config = require('../config/config'),
-	msg = require('../config/msg');
+	config = require('../../config/config'),
+	msg = require('../../config/msg');
 
 module.exports.twitterAuth = function(req, res) {
 	var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';

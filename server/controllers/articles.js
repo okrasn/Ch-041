@@ -1,5 +1,4 @@
-var passport = require('passport'),
-	mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Feed = mongoose.model('Feed'),
 	Article = mongoose.model('Article'),

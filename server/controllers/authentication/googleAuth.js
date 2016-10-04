@@ -3,8 +3,8 @@ var jwt = require('jwt-simple'),
 	request = require('request'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
-	config = require('../config/config'),
-	msg = require('../config/msg');
+	config = require('../../config/config'),
+	msg = require('../../config/msg');
 
 module.exports.googleAuth = function (req, res) {
 	var accessTokenUrl = 'https://accounts.google.com/o/oauth2/token',

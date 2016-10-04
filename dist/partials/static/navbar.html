@@ -13,17 +13,10 @@
 					<a class="navbar-brand rss" ng-click="onEmblem()" style="cursor: pointer"><span class="orange">RSS</span>|READER</a>
 				</div>
 			</div>
-			<!-- 	<ul id="sort-dropdown" class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-						<li class="sort-item" role="menuitem" ng-click="changeLanguage('ua')" ><a translate >ua</a></li>
-						<li class="sort-item" role="menuitem" ng-click="changeLanguage('en')" ><a translate >en</a></li>
-						<li class="sort-item" role="menuitem" ng-click="changeLanguage('pl')" ><a translate >pl</a></li>
-				</ul> -->
-			
-
-
 			<div class="lang-btn">
 				<div ng-hide="hideSortList.state" class="btn-group" uib-dropdown is-open="status.isopen">
-					<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled"><span class="caret"></span>
+					<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled">
+					<span class="lang-title" ng-bind='getLangTitle()'></span><span class="caret"></span>
 					</button>
 					<ul id="sort-dropdown" class="dropdown-menu lang-list" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 						<li class="sort-item" role="menuitem"><button class="btn btn-default ua flag-icon flag-icon-ua"  ng-click="changeLanguage('ua')"></button></li>

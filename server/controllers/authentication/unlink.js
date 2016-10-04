@@ -1,8 +1,8 @@
 
 var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	config = require('../config/config'),
-	msg = require('../config/msg');
+	config = require('../../config/config'),
+	msg = require('../../config/msg');
 
 
 module.exports.unlink = function (req, res) {

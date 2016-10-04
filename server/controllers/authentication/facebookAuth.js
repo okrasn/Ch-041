@@ -3,8 +3,8 @@ var jwt = require('jwt-simple'),
 	request = require('request'),
 	moment = require('moment'),
 	User = mongoose.model('User'),
-	config = require('../config/config'),
-	msg = require('../config/msg');
+	config = require('../../config/config'),
+	msg = require('../../config/msg');
 
 module.exports.facebookAuth = function (req, res) {
 	var fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'],

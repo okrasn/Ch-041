@@ -6,6 +6,7 @@ var exec = require('child_process').exec,
 	useref = require('gulp-useref'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	gulpUtil = require('gulp-util'),
 	watch = require('gulp-watch'),
 	cssmin = require("gulp-cssmin"),
 	rename = require("gulp-rename"),
@@ -18,10 +19,10 @@ mkdirp.sync('./dist/uploads', function (err) {
 });
 
 gulp.task('server', function (cb) {
-	// exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-	// 	console.log(stdout, stderr);
-	// 	cb(err);
-	// });
+	exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
+		console.log(stdout, stderr);
+		cb(err);
+	});
 	console.log("Server is running on port 8080");
 	exec('npm start', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
@@ -56,7 +57,7 @@ gulp.task('scripts', function () {
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest('./client/js/'))
 		.pipe(sourcemaps.init())
-	    .pipe(uglify())
+	    .pipe(uglify().on('error', gulpUtil.log))
 		.pipe(rename({
 			suffix: '.min'
 		}))
@@ -92,6 +93,9 @@ gulp.task('build', ['scripts', 'sass'], function () {
 	
 	gulp.src(['client/translation/**'])
 		.pipe(gulp.dest('./dist/translation/'));
+	
+	gulp.src(['client/bower_components/flag-icon-css/flags/**'])
+		.pipe(gulp.dest('./dist/flags/'));
 
 	gulp.src(['client/scripts/**/*.js'])
 		.pipe(ngAnnotate({

@@ -8,8 +8,8 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		    return this.optional(element) || /^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(value);
 		}, "Please enter a valid email address.")
 	}]).
-	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', 
-		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService) {
+	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', '$timeout', 
+		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService, $timeout) {
 		$scope.user = {
 			verifyEmail : transfer.getString(),
 			counter : 0
@@ -55,6 +55,12 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					});
 					$scope.user.counter ++;
 				});
+				console.log($scope.registerform);
+				$timeout(function() {
+					$scope.user.email = '';
+					$scope.user.password = '';
+					$scope.user.repPassword = '';
+				}, 200);
 			}
 		};
 

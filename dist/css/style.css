@@ -265,7 +265,10 @@ li.dropdown > a.dropdown-toggle {
 
 .lang-btn {
   position: absolute;
-  right: 15em; }
+  right: 16em; }
+
+.lang-title {
+  color: #3949ab; }
 
 #add-feed {
   height: 100%; }
@@ -1177,8 +1180,15 @@ a.sharing-btn {
   color: #3949ab; }
 
 .lang-btn {
-  padding: 12px 0 0 0;
-  width: 3%; }
+  padding: 0.7em 0 0 0;
+  width: 1.1em; }
+
+.sort-btn {
+  padding: 3px;
+  background: #ffffff; }
+
+.caret {
+  color: #3949ab; }
 
 .toaster-window {
   border-radius: 2px;

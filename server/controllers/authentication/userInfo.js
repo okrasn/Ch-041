@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	config = require('../config/config'),
-	msg = require('../config/msg');
+	config = require('../../config/config'),
+	msg = require('../../config/msg');
 
 module.exports.getUserInfo = function (req, res) {
 	User.find(req.user, function (err, user) {
