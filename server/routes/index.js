@@ -80,18 +80,22 @@ router.get('/favourites', auth, articlesCtrl.allFavourites);
 router.get('/advicedArticles', auth, articlesCtrl.getAdvicedArticles);
 router.get('/advicedFeeds', auth, advicedCtrl.getAdvicedFeeds);
 
-router.post('/addAdvicedFeed', auth, advicedCtrl.addAdvicedFeed);
 router.post('/addFeed', auth, feedsCtrl.add);
 router.post('/setCategoryOrder', auth, feedsCtrl.setCategoryOrder);
 router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
 router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
 router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
 router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
+router.post('/changeFeedCategory/:category', auth, feedsCtrl.changeFeedCategory);
 router.post('/upload', auth, profCtrl.upload);
-router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
+
+// Admin routes
+router.post('/uploadAdvicedCover', auth, advicedCtrl.uploadAdvicedCover);
+router.post('/addAdvicedFeed', auth, advicedCtrl.addAdvicedFeed);
+router.delete('/deleteAdvicedFeed/:id', auth, advicedCtrl.removeAdvicedFeed);
+
 
 router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
-router.delete('/deleteAdvicedFeed/:id', auth, advicedCtrl.removeAdvicedFeed);
 router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
 
 module.exports = router;

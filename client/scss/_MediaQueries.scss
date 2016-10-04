@@ -44,6 +44,14 @@ $desktop-res: 1200px;
 }
 
 @media screen and (max-width: $tablet-res) {
+	.adviced-card-wrap {
+		.my-hidden {
+			display: block;
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+
 	.sidebar-item>.hover-feed-shrink{
 		padding-right: 4em;
 	}

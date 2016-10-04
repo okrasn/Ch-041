@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', 'profileService', function ($scope, $state, $stateParams, $http, toasterService, feedsService, dashboardService, articlesService, authService, profileService) {
+	angular.module('rssreader').controller('FeedsController', ['$scope', '$state', '$stateParams', 'Upload', '$http', 'toasterService', 'feedsService', 'dashboardService', 'articlesService', 'authService', 'profileService', function ($scope, $state, $stateParams, Upload, $http, toasterService, feedsService, dashboardService, articlesService, authService, profileService) {
 		var changeCatObj = {};
 
 		$scope.advicedCategory = $stateParams.category;
@@ -19,18 +19,6 @@
 		if ($state.current.name === 'dashboard.addFeed' || $state.current.name === 'dashboard.adviced') {
 			dashboardService.isReadingArticle = true;
 		}
-
-		//if ($state.current.name === 'dashboard.adviced') {
-		//    if ($stateParams.category) {
-		//        articlesService.getAdvicedArticlesByCat($stateParams.category);
-		//    }
-		//	//var invalidCategory = $scope.adviced.filter(function (elem, i) {
-		//	//	return elem.category == $stateParams.category;
-		//	//});
-		//	//if (!invalidCategory.length) {
-		//	//	$state.go('404', { reload: true });
-		//	//}
-		//}
 
 		$scope.getFirstArticle = function (id) {
 			for (var i = 0, array = articlesService.articles; i < array.length; i++) {
@@ -150,6 +138,40 @@
 				});
 		}
 
+		$scope.setAdvicedCover = function (file, errFiles, category) {
+			$scope.f = file;
+			if (errFiles) {
+				$scope.errFile = errFiles[0];
+			}
+			else {
+				$scope.errFile = null;
+			}
+			console.log("uploading");
+
+			if (file) {
+				Upload.upload({
+					url: "/uploadAdvicedCover", //webAPI exposed to upload the file
+					data: {
+						file: file,
+						user: authService.userID(),
+						category: category
+					}, //pass file as data, should be user ng-model
+					headers: {
+						Authorization: 'Bearer ' + authService.getToken()
+					}
+				}).then(function (res) { //upload function returns a promise
+					if (res.data.error_code === 0) { //validate success
+						$state.reload();
+					} else {
+						$window.alert('an error occured');
+					}
+				}, function (err) { //catch error
+					if (err.status > 0)
+						$scope.errorMsg = err.status + ': ' + err.data;
+				});
+			}
+		}
+
 		$scope.switchCategory = function () {
 			feedsService.switchCategory(changeCatObj);
 		}
@@ -180,7 +202,7 @@
 				.then(function (res) {
 					toasterService.info("Feed has been deleted");
 					for (var i = 0, array = feedsService.advicedDictionary ; i < array.length; i++) {
-					    if (array[i].category === $stateParams.category) {
+						if (array[i].category === $stateParams.category) {
 							if (array[i].feeds.length <= 1) {
 								$state.go('dashboard.addFeed', { reload: true });
 							}
@@ -199,34 +221,10 @@
 		}
 
 		$scope.setCoverImage = function (item) {
-			var coverImage = '';
-			switch (item.category) {
-				case 'IT': {
-					coverImage = '/assets/images/it.jpeg'
-					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
-				}
-					break;
-				case 'Gaming': {
-					coverImage = '/assets/images/gaming.jpeg'
-					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
-				}
-					break;
-				case 'News': {
-					coverImage = '/assets/images/news.jpeg'
-					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
-				}
-					break;
-				case 'Sport': {
-					coverImage = '/assets/images/sport.jpeg'
-					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
-				}
-					break;
-				case 'Food': {
-					coverImage = '/assets/images/food.jpeg'
-					return { 'background-image': 'url(' + coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
-				}
-					break;
-			}
+		    if (item.coverImage) {
+		        return { 'background-image': 'url(' + item.coverImage + ')', 'background-size': 'cover', 'background-position': 'center center' }
+		    }
+		    return '';
 		}
 
 		$scope.readArticle = function (article) {

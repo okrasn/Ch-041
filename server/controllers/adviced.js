@@ -1,10 +1,24 @@
-﻿var passport = require('passport'),
+﻿var multer = require('multer'),
+	fs = require('fs'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Feed = mongoose.model('Feed'),
 	Article = mongoose.model('Article'),
 	Advice = mongoose.model('Advice'),
-	msg = require('../config/msg');
+	msg = require('../config/msg'),
+	storage = multer.diskStorage({
+		destination: function (req, file, cb) {
+			cb(null, './dist/assets/images/');
+		},
+		filename: function (req, file, cb) {
+			var datetimestamp = Date.now();
+			cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+		}
+	});
+
+var upload = multer({
+	storage: storage
+}).single('file');
 
 module.exports.getAdvicedFeeds = function (req, res, next) {
 	Advice.findOne({}, function (err, advice) {
@@ -133,10 +147,10 @@ module.exports.addAdvicedFeed = function (req, res, next) {
 	});
 };
 
-module.exports.removeAdvicedFeed= function (req, res, next) {
+module.exports.removeAdvicedFeed = function (req, res, next) {
 	if (!req.user.admin) {
 		res.status(400).send({
-		    message: msg.ERRORS.no_rights
+			message: msg.ERRORS.no_rights
 		});
 		return;
 	}
@@ -182,6 +196,7 @@ module.exports.removeAdvicedFeed= function (req, res, next) {
 				}
 
 				adviced.save(function (err, adviced) {
+					console.log(adviced);
 					if (err) return next(err);
 					res.statusCode = 200;
 					return res.send();
@@ -194,5 +209,52 @@ module.exports.removeAdvicedFeed= function (req, res, next) {
 			});
 			return;
 		}
+	});
+}
+
+module.exports.uploadAdvicedCover = function (req, res, next) {
+	if (!req.user.admin) {
+		res.status(400).send({
+			message: msg.ERRORS.no_rights
+		});
+		return;
+	}
+	upload(req, res, function (err) {
+		if (req.file) {
+			var fileName = req.file.filename;
+			Advice.findOne({}, function (err, adviced) {
+				if (err) {
+					return next(err);
+				}
+				var foundCategory;
+				for (var i = 0, array = adviced.feedsDictionary; i < array.length; i++) {
+					if (array[i].category === req.body.category) {
+						foundCategory = array[i];
+						break;
+					}
+				}
+				if (!foundCategory) {
+					res.status(404).send({
+						message: msg.ERRORS.not_found
+					});
+					return;
+				}
+				try {
+					fs.unlinkSync('dist/' + foundCategory.coverImage);
+				} catch (e) {
+					console.log(err);
+				}
+				foundCategory.coverImage = "assets/images/" + fileName;
+				adviced.save(function (err, adviced) {
+					res.json({ error_code: 0, err_desc: null });
+				});
+				if (err) {
+					res.json({ error_code: 1, err_desc: err });
+					return;
+				}
+			});			
+		} else return res.status(500).json({
+			message: msg.ERRORS.file_not_found
+		});
 	});
 }

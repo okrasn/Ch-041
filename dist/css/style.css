@@ -1743,6 +1743,28 @@ label.error {
   font-weight: 600;
   margin: 0; }
 
+.adviced-card-wrap:hover .my-hidden {
+  display: block;
+  visibility: visible;
+  opacity: 1; }
+
+.upload-indicator {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1000;
+  left: 100%;
+  transform: translateX(-110%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 4em 4em 0;
+  border-color: transparent #22f772 transparent transparent; }
+
+.cover-icon {
+  position: relative;
+  left: 2em;
+  top: 0.5em; }
+
 @media screen and (max-width: 1200px) {
   .divider + span {
     margin-left: -10px; }
@@ -1767,6 +1789,10 @@ label.error {
     margin-bottom: 15px; } }
 
 @media screen and (max-width: 992px) {
+  .adviced-card-wrap .my-hidden {
+    display: block;
+    visibility: visible;
+    opacity: 1; }
   .sidebar-item > .hover-feed-shrink {
     padding-right: 4em; }
   .third-layer {

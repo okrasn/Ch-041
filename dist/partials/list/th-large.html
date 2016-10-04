@@ -27,7 +27,7 @@
                         <button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)" translate>
                             read
                         </button>
-                        <span class="article-footer-item glyphicon glyphicon-star extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || articleData.isFavourites" ng-click="addFavourite(article)"></span>
+                        <span class="article-footer-item glyphicon glyphicon-star-empty extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || articleData.isFavourites" ng-click="addFavourite(article)"></span>
                         <span class="article-footer-item fa fa-share-alt extra-btn onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
                     </span>
                     <span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="articleData.isFavourites" ng-click="removeFavourite(article)"></span>
