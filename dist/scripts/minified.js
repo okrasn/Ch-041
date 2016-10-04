@@ -4587,6 +4587,7 @@ return 'pascalprecht.translate';
 			});
 	}]);
 })();
+
 (function () {
 	angular.module('rssreader')
 		.config(['$translateProvider', function ($translateProvider) {
@@ -4606,7 +4607,6 @@ return 'pascalprecht.translate';
   		
 }])
 })();
-
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
@@ -4912,12 +4912,12 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					});
 					$scope.user.counter ++;
 				});
-				console.log($scope.registerform);
-				$timeout(function() {
-					$scope.user.email = '';
-					$scope.user.password = '';
-					$scope.user.repPassword = '';
-				}, 200);
+				// console.log($scope.registerform);
+				// $timeout(function() {
+				// 	$scope.user.email = '';
+				// 	$scope.user.password = '';
+				// 	$scope.user.repPassword = '';
+				// }, 200);
 			}
 		};
 

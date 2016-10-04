@@ -62,17 +62,32 @@ module.exports.linkedInAuth = function(req, res) {
 							token: config.createJWT(existingUser) 
 						});
 					}
-					var user = new User();
-					user.linkedin = profile.id;
-					user.email = profile.emailAddress;
-					user.picture = profile.pictureUrl;
-					user.displayName = profile.firstName + ' ' + profile.lastName;
-					user.save(function () {
-						var token = config.createJWT(user);
-						res.send({ 
-							token: token,
-							profile : profile	
-						});
+					User.findOne({email : profile.emailAddress}, function (err, existingUser) {
+						if(existingUser) {
+							existingUser.linkedin = profile.id;
+							existingUser.picture = profile.pictureUrl;
+							existingUser.displayName = profile.firstName + ' ' + profile.lastName;
+							existingUser.save(function () {
+								var token = config.createJWT(existingUser);
+								res.send({
+									token: token
+								});
+							});
+						} else {
+
+							var user = new User();
+							user.linkedin = profile.id;
+							user.email = profile.emailAddress;
+							user.picture = profile.pictureUrl;
+							user.displayName = profile.firstName + ' ' + profile.lastName;
+							user.save(function () {
+								var token = config.createJWT(user);
+								res.send({ 
+									token: token,
+									profile : profile	
+								});
+							});
+						}
 					});
 				});
 			}

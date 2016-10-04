@@ -78,17 +78,33 @@ module.exports.facebookAuth = function (req, res) {
 							profile: profile
 						});
 					}
-					var user = new User();
-					user.email = profile.email;
-					user.facebook = profile.id;
-					user.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
-					user.displayName = profile.name;
-					user.save(function () {
-						var token = config.createJWT(user);
-						res.send({
-							token: token,
-							profile: profile
-						});
+
+					User.findOne({email : profile.email}, function (err, existingUser) {
+						if(existingUser) {
+							existingUser.facebook = profile.id;
+							existingUser.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+							existingUser.displayName = profile.name;
+							existingUser.save(function () {
+								var token = config.createJWT(existingUser);
+								res.send({
+									token: token
+								});
+							});
+						} else {
+
+							var user = new User();
+							user.email = profile.email;
+							user.facebook = profile.id;
+							user.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+							user.displayName = profile.name;
+							user.save(function () {
+								var token = config.createJWT(user);
+								res.send({
+									token: token,
+									profile: profile
+								});
+							});
+						}
 					});
 				});
 			}

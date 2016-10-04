@@ -54,6 +54,7 @@ module.exports.googleAuth = function (req, res) {
 								message: msg.ERRORS.user_not_found
 							});
 						}
+
 						user.google = profile.sub;
 						user.email = profile.email;
 						user.picture = user.picture || profile.picture.replace('sz=100', 'sz=100');
@@ -77,18 +78,33 @@ module.exports.googleAuth = function (req, res) {
 							profile: profile
 						});
 					}
-					var user = new User();
-					user.email = profile.email;
-					user.google = profile.sub;
-					user.picture = profile.picture.replace('sz=50', 'sz=200');
-					user.displayName = profile.name;
-					user.save(function (err) {
-						var token = config.createJWT(user);
-						res.send({
-							token: token,
-							profile: profile,
-							user: user
-						});
+					User.findOne({email : profile.email}, function (err, existingUser) {
+						if(existingUser) {
+							existingUser.google = profile.sub;
+							existingUser.picture = profile.picture.replace('sz=100', 'sz=100');
+							existingUser.displayName = profile.name;
+							existingUser.save(function () {
+								var token = config.createJWT(existingUser);
+								res.send({
+									token: token
+								});
+							});
+						} else {
+
+							var user = new User();
+							user.email = profile.email;
+							user.google = profile.sub;
+							user.picture = profile.picture.replace('sz=50', 'sz=200');
+							user.displayName = profile.name;
+							user.save(function (err) {
+								var token = config.createJWT(user);
+								return res.send({
+									token: token,
+									profile: profile,
+									user: user
+								});
+							});
+						}
 					});
 				});
 			}

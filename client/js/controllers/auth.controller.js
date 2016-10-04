@@ -55,12 +55,12 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					});
 					$scope.user.counter ++;
 				});
-				console.log($scope.registerform);
-				$timeout(function() {
-					$scope.user.email = '';
-					$scope.user.password = '';
-					$scope.user.repPassword = '';
-				}, 200);
+				// console.log($scope.registerform);
+				// $timeout(function() {
+				// 	$scope.user.email = '';
+				// 	$scope.user.password = '';
+				// 	$scope.user.repPassword = '';
+				// }, 200);
 			}
 		};
 
