@@ -86,7 +86,7 @@ router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
 router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
 router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
 router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
-router.post('/changeFeedCategory/:category', auth, feedsCtrl.changeFeedCategory);
+router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
 router.post('/upload', auth, profCtrl.upload);
 
 // Admin routes

@@ -15,9 +15,29 @@
 		$scope.articleForShare = null;
 		$scope.articleForRead = articlesService.articleForRead;
 		$scope.addingNewFavCategory = false;
+		$scope.isFavourites = articlesService.isFavourites;
+		$scope.multiDelete = dashboardService.multiDelete;
+
+		$scope.favsToDelete = {};
 
 		$scope.firstListItem = {
 			title: ''
+		}
+
+		$scope.display = function () {
+		    console.log($scope.favsToDelete);
+		}
+
+		$scope.pushToDeleteQueue = function (val) {
+		    console.log('in method');
+		    console.log(val);
+		    console.log('in deletes');
+		    console.log($scope.favsToDelete);
+		}
+
+		$scope.removeFromDeletes = function (article) {
+		    console.log('dsafasdf');
+		    //delete $scope.favsToDelete[article._id];
 		}
 
 		$scope.checkIfFavourites = function (article) {

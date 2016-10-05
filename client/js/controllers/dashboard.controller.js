@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'articlesService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, articlesService, feedsService, toasterService) {
 	    $scope.dashboardData = dashboardService;
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.feed = dashboardService.getFeed;
@@ -8,7 +8,8 @@
 		$scope.successMsg = dashboardService.successMsg;
 		$scope.readSingleFeed = dashboardService.readSingleFeed;
 		$scope.hideSortList = dashboardService.hideSortList;
-		
+		$scope.isFavourites = articlesService.isFavourites;
+
 		$scope.checkIfReading = function () {
 			return dashboardService.isReadingArticle;
 		};
@@ -53,6 +54,12 @@
 		}
 
 		$scope.onFeedDelete = function () {
+		    if (articlesService.isFavourites.value) {
+		        dashboardService.multiDelete.value = !dashboardService.multiDelete.value;
+		        console.log('favourites');
+		        console.log(dashboardService.multiDelete.value);
+		        return;
+		    }
 			toasterService.confirm({
 				message: "Remove this feed?",
 				confirm: "confirmFeedDelete"
@@ -60,17 +67,17 @@
 		}
 
 		$scope.confirmFeedDelete = function () {
-		    dashboardService.displayLoading();
-		    feedsService.removeFeed(dashboardService.getFeed()._id)
+			dashboardService.displayLoading();
+			feedsService.removeFeed(dashboardService.getFeed()._id)
 				.then(function (res) {
 					toasterService.info("Feed has been deleted");
 					$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
 					return res;
 				}, function (err) {
-				    console.log(err);
-				    return err;
+					console.log(err);
+					return err;
 				}).finally(function () {
-				    dashboardService.hideLoading();
+					dashboardService.hideLoading();
 				});
 		}
 

@@ -380,7 +380,7 @@ li.dropdown > a.dropdown-toggle {
   border-color: transparent #ff9d00 transparent transparent; }
 
 #article-page .fav-indicator {
-  transform: translateX(-145%); }
+  transform: translateX(-125%); }
 
 .list-item {
   cursor: pointer; }
@@ -473,6 +473,10 @@ li.dropdown > a.dropdown-toggle {
   float: right;
   line-height: 2em;
   margin-left: 1em; }
+
+.delete-checkbox {
+  width: 1.5em;
+  height: 1.5em; }
 
 #sidebar-toggle {
   float: left;

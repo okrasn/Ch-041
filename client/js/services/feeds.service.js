@@ -76,8 +76,8 @@ angular.module('rssreader').service('feedsService', ['$http', '$state', '$q', 'a
 	}
 
 	this.switchCategory = function (changeCatObj) {
-		return $http.post('/changeFeedCategory', changeCatObj).success(function (res) {
-		    $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+	    return $http.post('/changeFeedCategory', changeCatObj).success(function (res) {
+	        $state.reload();
 		    return res;
 		}).error(function (err) {
 		    console.log(err);
