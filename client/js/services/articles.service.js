@@ -16,6 +16,8 @@
 				isFavourites: {
 					value: false
 				},
+				favsToDelete: {
+				},
 				displayedIncrement: 20,
 				totalDisplayed: 20,
 
@@ -153,11 +155,13 @@
 					});
 				},
 				removeFavourite: function (article) {
-					
 					return $http.delete('/deleteFavFeed/' + article._id).then(function (res) {
 						angular.copy(res.data, feedsService.favouritesDictionary);
 						return res;
 					});
+				},
+				removeMultiFavourites: function () { 
+				    return $http.post('/deleteMultiFavourites', obj.favsToDelete);
 				},
 				getAdvicedArticles: function () {
 					obj.advicedArticles.length = 0;

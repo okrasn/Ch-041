@@ -8,7 +8,9 @@
         <div class="hidden" ng-show="setFirstTitle(articleData.articles[$index], $first)">
         </div>
         <div class="app-panel fade-in-anim">
-            <div class="fav-indicator" ng-show="checkIfFavourites(article) && !articleData.isFavourites">
+            <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites.value">
+            </div>
+            <div class="fav-indicator del-indicator" ng-show="favsToDelete[article._id]">
             </div>
             <div class="img-responsive article-img hidden-lg pointer" ng-show="article.img" ng-style="{'background-image':'url(' + article.img + ')'}" ng-click="readArticle(article)">
             </div>
@@ -23,16 +25,19 @@
                     <span class="hidden-xs hidden-sm hidden-md" ng-bind="article.content"></span>
                 </div>
                 <div class="footer">
-                    <span class="my-hidden">
+                    <span class="my-hidden" ng-hide="multiDelete.value && isFavourites.value">
                         <button type="button" class="app-btn app-btn-blue read-btn visible-lg-inline" ng-click="readArticle(article)" translate>
                             read
                         </button>
-                        <span class="article-footer-item glyphicon glyphicon-star-empty extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || articleData.isFavourites" ng-click="addFavourite(article)"></span>
+                        <span class="article-footer-item glyphicon glyphicon-star-empty extra-btn onhover-orange" ng-hide="checkIfFavourites(article) || isFavourites.value" ng-click="addFavourite(article)"></span>
                         <span class="article-footer-item fa fa-share-alt extra-btn onhover-green" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom"></span>
                     </span>
-                    <span class="trash-icon glyphicon glyphicon-trash extra-btn onhover-red" ng-show="articleData.isFavourites" ng-click="removeFavourite(article)"></span>
-                    <span class="article-footer-item article-date not-important" ng-bind="getArticleDate(article.date)"></span>
-                    <span class="article-footer-item article-time-icon glyphicon glyphicon-time not-important"></span>
+                    <input class="trash-icon extra-btn delete-checkbox" type="checkbox" 
+                           ng-model="favsToDelete[article._id]" 
+                           ng-change="checkValue(article._id)" 
+                           ng-show="multiDelete.value && isFavourites.value" />
+                    <span class="article-footer-item article-date not-important" ng-bind="getArticleDate(article.date)" ng-hide="multiDelete.value && isFavourites.value"></span>
+                    <span class="article-footer-item article-time-icon glyphicon glyphicon-time not-important" ng-hide="multiDelete.value && isFavourites.value"></span>
                 </div>
             </div>
         </div>

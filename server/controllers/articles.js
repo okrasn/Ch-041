@@ -158,9 +158,40 @@ module.exports.removeFavArticle = function (req, res, next) {
 	});
 }
 
+module.exports.removeMultiFavourites = function (req, res, next) {
+	req.user.populate("favouritesDictionary.articles", function (err, user) {
+		var favsToDelete = [];
+		for (member in req.body) {
+			favsToDelete.push(member);
+		}
+		for (var k = 0; k < favsToDelete.length; k++) {
+		    for (var i = 0, array = user.favouritesDictionary; i < array.length; i++) {
+		        if (!array[i].articles.length) {
+		            array.splice(i, 1);
+		            continue;
+		        }
+		        for (var j = 0; j < array[i].articles.length; j++) {
+		            if (array[i].articles[j]._id == favsToDelete[k]) {
+		                array[i].articles.splice(j, 1);
+		            }
+		        }
+		        if (!array[i].articles.length) {
+		            array.splice(i, 1);
+		        }
+		    }
+		}
+		user.save(function (err) {
+		    if (err) return next(err);
+		    user.populate("favouritesDictionary.articles", function (err, user) {
+		        res.json(user.favouritesDictionary);
+		    });
+		});
+	});
+}
+
 module.exports.getFavArticle = function (req, res, next) {
 	if (!req.body.link) {
-	    res.status(404).send(msg.ERRORS.not_found);
+		res.status(404).send(msg.ERRORS.not_found);
 		return;
 	}
 	Article.findOne({ link: req.body.link }, function (err, article) {

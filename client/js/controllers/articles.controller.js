@@ -17,29 +17,18 @@
 		$scope.addingNewFavCategory = false;
 		$scope.isFavourites = articlesService.isFavourites;
 		$scope.multiDelete = dashboardService.multiDelete;
-
-		$scope.favsToDelete = {};
+		$scope.favsToDelete = articlesService.favsToDelete;
 
 		$scope.firstListItem = {
 			title: ''
 		}
 
-		$scope.display = function () {
-		    console.log($scope.favsToDelete);
+		$scope.checkValue = function (id) {
+		    if (!$scope.favsToDelete[id]) {
+		        delete $scope.favsToDelete[id];
+		    }
 		}
-
-		$scope.pushToDeleteQueue = function (val) {
-		    console.log('in method');
-		    console.log(val);
-		    console.log('in deletes');
-		    console.log($scope.favsToDelete);
-		}
-
-		$scope.removeFromDeletes = function (article) {
-		    console.log($scope.favForAdd);
-		    //delete $scope.favsToDelete[article._id];
-		}
-
+		
 		$scope.checkIfFavourites = function (article) {
 			if (!article) {
 				return false;
@@ -339,7 +328,10 @@
 						});
 					}
 						break;
-					case 'favourites': {
+				    case 'favourites': {
+				        if (!feedsService.favouritesDictionary.length) {
+				            $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+				        }
 						if ($stateParams.value1 === 'category' && $stateParams.value2) {
 							articlesService.getFavArticlesByCat($stateParams.value2);
 						}

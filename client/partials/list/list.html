@@ -9,6 +9,8 @@
         </div>
         <div class="fav-indicator" ng-show="checkIfFavourites(article) && !isFavourites.value">
         </div>
+        <div class="fav-indicator del-indicator" ng-show="favsToDelete[article._id]">
+        </div>
         <div class="col-lg-11 col-xs-10 col-same-height">
             <div class="list-item" ng-click="readArticle(article)">
                 <p class="shortened-text strong-text" ng-bind="article.title">
@@ -22,14 +24,13 @@
                 <span class="list-item-btn-top star-icon glyphicon glyphicon-star-empty onhover-orange pointer" ng-click="addFavourite(article)" ng-hide="checkIfFavourites(article) || isFavourites.value">
                 </span>
                 <div class="list-item-btn-top" ng-show="multiDelete.value && isFavourites.value">
-                    <input class="delete-checkbox" type="checkbox" ng-model="favsToDelete[article._id]" ng-change="display()"></span>
+                    <input class="delete-checkbox extra-btn" type="checkbox" ng-model="favsToDelete[article._id]" ng-change="checkValue(article._id)"></span>
                 </div>
                 
                 <div class="list-item-btn" ng-hide="multiDelete.value && isFavourites.value">
                     <span class="fa fa-share-alt onhover-green pointer" ng-click="share(article)" uib-popover-template="'partials/modals/sharing.html'" popover-placement="bottom-right">
                     </span>
                 </div>
-                <!--<span class="list-item-btn-top glyphicon glyphicon-trash onhover-red pointer" ng-click="removeFavourite(article)" ng-show="articleData.isFavourites.value"></span>-->
             </div>
         </div>
     </div>

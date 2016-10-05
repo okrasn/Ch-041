@@ -97,5 +97,6 @@ router.delete('/deleteAdvicedFeed/:id', auth, advicedCtrl.removeAdvicedFeed);
 
 router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
 router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
+router.post('/deleteMultiFavourites', auth, articlesCtrl.removeMultiFavourites);
 
 module.exports = router;
