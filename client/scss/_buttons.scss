@@ -293,11 +293,51 @@ a.sharing-btn {
 .lang-btn {
 	padding: 0.7em 0 0 0;
 	width: 1.1em;
+	position: absolute;
+	right: 16.8em;
 }
-.sort-btn {
+.select-lang-btn {
+	@extend .app-btn-feed-list;
+	border-radius: $main-border-radius;
+	margin-left: $main-app-offset;
 	padding: 3px;
 	background: #ffffff;
+	height: 24px;
+	margin-top: 2px;
+}
+
+.en, .pl  {
+	width: 4em;
+	margin: 5px 0 0 6px;
+	padding: 5px;
+	background-color: #ccc;
+}
+.ua {
+	width: 4em;
+	margin: 0 0 0 6px;
+	padding: 5px;
+	background-color: #ccc;
+}
+.lang-list {
+	width: 5em;
+	min-width: 0;
+	left: -3px;
+}
+.select-lang-item {
+	padding: 0;
+	cursor: pointer;
+}
+.flag-icon {
+	width: 4em;
+}
+
+.lang-title {
+	color: #3949ab;
+	position: relative;
+	bottom: 0.1em;
 }
 .caret {
+	position: relative;
+	bottom: 0.1em;
 	color: #3949ab;
 }

@@ -28,6 +28,13 @@ $desktop-res: 1200px;
 	.adviced-articles-wrapper {
 		padding-left: 0;
 	}
+
+	.profile-date {
+		margin-bottom: 0.5em;
+	}
+	.profile-name {
+		margin-bottom: -7.5em;
+	}
 }
 
 @media screen and (max-width: 1600px) and (min-width: $desktop-res) {
@@ -175,6 +182,10 @@ $desktop-res: 1200px;
 
 	.home-image {
 		width: 80%;
+	}
+
+	.profile-date {
+		margin-bottom: 0.7em;
 	}
 }
 
@@ -380,6 +391,10 @@ $desktop-res: 1200px;
 		margin-top: 1em;
 	}
 
+	.profile-date {
+		margin-bottom: 0.7em;
+	}
+
 	.text-center-mobile {
 		text-align: center;
 	}
@@ -401,7 +416,20 @@ $desktop-res: 1200px;
 @media screen and (max-width: 766px) {
 	.lang-btn {
 		top: 0;
-		right: 25%;	
+		right: 3.8em;	
+
+	}
+	.select-lang-btn {
+		position: absolute;
+		margin-top: 3px;
+		height: 20px;
+	}
+	.lang-title, .caret {
+		bottom: 0.2em;
+		position: relative;
+	}
+	.lang-list {
+		top: 1.5em;
 	}
 }
 

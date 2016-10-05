@@ -4587,7 +4587,6 @@ return 'pascalprecht.translate';
 			});
 	}]);
 })();
-
 (function () {
 	angular.module('rssreader')
 		.config(['$translateProvider', function ($translateProvider) {
@@ -4607,6 +4606,7 @@ return 'pascalprecht.translate';
   		
 }])
 })();
+
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('ArticlesController', ['$scope', '$state', '$window', '$stateParams', 'toasterService', 'dateFilter', 'feedsService', 'articlesService', 'dashboardService', function ($scope, $state, $window, $stateParams, toasterService, dateFilter, feedsService, articlesService, dashboardService) {
