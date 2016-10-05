@@ -16,11 +16,15 @@ module.exports = {
 		email_taken_or_not_approved: 'Email is already taken or not approved yet',
 		check_your_email: 'Please check your email to continue registration',
 		email_taken: 'Email is already taken',
+		login: 'You have successfully login',
+		register: 'You have successfully registered',
+		change_pwd: 'You have successfully changed password',
 		//social auth
 		facebook_account_belongs: 'There is already a Facebook account that belongs to you',
 		twitter_account_belongs: 'There is already a Twitter account that belongs to you',
 		google_account_belongs: 'There is already a Google account that belongs to you',
 		linkedin_account_belongs: 'There is already a Linkedin account that belongs to you',
+		same_email : 'This accaunt was linked to your local accaunt with the same email',
 
 		//articles ctrl
 		choose_cat: 'Choose category',

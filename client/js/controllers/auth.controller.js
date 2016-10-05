@@ -49,18 +49,12 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 					$scope.error = error;
 				}).then(function (response) {
 				    dashboardService.loadingIcon = false;
-					toasterService.success('You have successfully registered');
+					toasterService.success(response.data.message);
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
 					});
 					$scope.user.counter ++;
 				});
-				// console.log($scope.registerform);
-				// $timeout(function() {
-				// 	$scope.user.email = '';
-				// 	$scope.user.password = '';
-				// 	$scope.user.repPassword = '';
-				// }, 200);
 			}
 		};
 
@@ -70,7 +64,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		        authService.logIn($scope.user, $scope.session).error(function (error) {
 		            dashboardService.loadingIcon = false;
 					$scope.error = error;
-				}).then(function () {
+				}).then(function (response) {
 					if (!$scope.session) {
 						$scope.onExit = function () {
 							auth.logOut();
@@ -79,13 +73,13 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
-						toasterService.success('You have successfully login');
+						toasterService.success(response.data.message);
 						$window.onbeforeunload = $scope.onExit;
 					} else {
 						$state.go('dashboard.' + dashboardService.getViewMode(), {
 							id: authService.userID()
 						});
-						toasterService.success('You have successfully login');
+						toasterService.success(response.data.message);
 					}
 				});
 			}
@@ -115,7 +109,10 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			$auth.authenticate(provider).then(function (response) {
 				$auth.removeToken();
 				authService.saveToken(response.data.token);
-				toasterService.success('You have successfully authenticated');
+				if (response.data.message) {
+					toasterService.success(response.data.message);
+				}
+				toasterService.success('You have successfully authenticated')
 				$state.go('dashboard.' + dashboardService.getViewMode(), {type: 'all'});
 			},function (response) {
 				toasterService.error(response.data.message);

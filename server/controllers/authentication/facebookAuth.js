@@ -87,7 +87,8 @@ module.exports.facebookAuth = function (req, res) {
 							existingUser.save(function () {
 								var token = config.createJWT(existingUser);
 								res.send({
-									token: token
+									token: token,
+									message : msg.ERRORS.same_email
 								});
 							});
 						} else {

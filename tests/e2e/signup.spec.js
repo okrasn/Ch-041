@@ -1,7 +1,7 @@
 describe('Sign up a new user account', function () {
 	var mongoose = require('mongoose'),
 		userPassword = '123456789aA!',
-		userEmail = 'testemail@test.com',
+		userEmail = 'testemail1@test.com',
 		host = 'http://rss-reader.azurewebsites.net/#/register',
 		localhost = 'http://localhost:8080/#/register'
 

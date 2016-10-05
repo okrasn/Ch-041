@@ -36,7 +36,7 @@ module.exports = function (config) {
     		"./client/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js",
     		"./client/bower_components/angular-translate-storage-local/angular-translate-storage-local.js",
 
-			"./client/js/app.js",
+			"./client/js/app.min.js",
 
 			"./client/bower_components/satellizer/dist/satellizer.min.js",
 			"./client/bower_components/angular-jwt/dist/angular-jwt.min.js",

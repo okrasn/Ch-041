@@ -110,7 +110,8 @@ module.exports.register = function (req, res) {
 								});
 							}
 							res.send({
-								token: config.createJWT(result)
+								token: config.createJWT(result),
+								message: msg.ERRORS.register
 							});
 						});	
 					} else {
@@ -146,7 +147,8 @@ module.exports.login = function (req, res) {
 			}
 			res.send({
 				token: config.createJWT(user),
-				user: user
+				user: user,
+				message: msg.ERRORS.login 
 			});
 		});
 	});
