@@ -36,7 +36,7 @@
 		}
 
 		$scope.removeFromDeletes = function (article) {
-		    console.log('dsafasdf');
+		    console.log($scope.favForAdd);
 		    //delete $scope.favsToDelete[article._id];
 		}
 
@@ -84,7 +84,7 @@
 			if (index == articlesService.articles.length - 1 || !article) {
 				return '';
 			}
-			if (!$scope.articleData.isFavourites) {
+			if (!$scope.isFavourites.value) {
 			    for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
 			        for (var j = 0; j < array[i].feeds.length; j++) {
 			            if (array[i].feeds[j]._id == article.feed) {
@@ -109,7 +109,7 @@
 			if (!article || !flag) {
 				return;
 			}
-			if (!$scope.articleData.isFavourites) {
+			if (!$scope.isFavourites.value) {
 			    for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
 			        for (var j = 0; j < array[i].feeds.length; j++) {
 			            if (array[i].feeds[j]._id == article.feed) {

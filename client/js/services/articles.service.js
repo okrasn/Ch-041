@@ -255,9 +255,8 @@
 				if (!from || from > num - 1) {
 					from = 0;
 				}
-				return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=' + articlesNum + '&q=' + encodeURIComponent(feed.rsslink) + '&method=JSONP&callback=JSON_CALLBACK&output=xml&dummy=' + Date.now())
-				.then(function (response) {
-					
+				return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=' + articlesNum + '&q=' + encodeURIComponent(feed.rsslink) + '&method=JSONP&callback=JSON_CALLBACK&output=xml')
+				.then(function (response) {					
 					var parser = new DOMParser(),
 						xmlDoc = parser.parseFromString(response.data.responseData.xmlString, 'text/xml'),
 						items = [];
