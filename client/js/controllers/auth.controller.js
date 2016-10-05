@@ -96,6 +96,16 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			})
 		}
 
+        $scope.reset = function(form){
+            authService.reset($scope.password).error(function (error) {
+                $scope.error = error;
+                toasterService.error(error.message);
+            }).then(function (response) {
+                toasterService.success('You have successfully changed password');
+                $state.go('login'); 
+            })
+        };  
+
 		$scope.authenticate = function (provider) {
 			transfer.setProviderString(provider);
 			$auth.authenticate(provider).then(function (response) {
