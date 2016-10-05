@@ -146,8 +146,6 @@
 			else {
 				$scope.errFile = null;
 			}
-			console.log("uploading");
-
 			if (file) {
 				Upload.upload({
 					url: "/uploadAdvicedCover", //webAPI exposed to upload the file
