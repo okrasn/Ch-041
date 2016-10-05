@@ -15,7 +15,7 @@
                 };
                 transfer.setString("");
                 $scope.setEmail = function () {
-                    return transfer.getEmail();
+                    return transfer.getEmail().verifEmail;
                 }
                 $scope.password = {
                     token: transfer.getObj(),
@@ -38,10 +38,15 @@
                     if (form.validate()) {
                         dashboardService.displayLoading();
                         if ($scope.user.verifyEmail) {
-                            $scope.user.email = transfer.getEmail();
+                            $scope.user.email = transfer.getEmail().verifEmail;
+
                         }
                         authService.register($scope.user).error(function (error) {
                             dashboardService.hideLoading();
+                            var symbol = $scope.user.email.indexOf('@');
+                            var emailAgent = $scope.user.email.slice(symbol + 1);
+                            $scope.linkProvider = emailAgent;
+                            console.log(emailAgent);
                             $scope.error = error;
                         }).then(function (response) {
                             dashboardService.hideLoading();
