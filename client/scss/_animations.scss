@@ -35,6 +35,26 @@ $fading-duration: 0.3s;
 	animation: fadeIn 1s ease;
 }
 
+.reload-spin{
+	animation: reloadSpin 1s ease;
+}
+
+@keyframes simpleSlide{
+	0%{
+		transform: translate(100%, -100%);
+	}
+	100%{
+		transform: translate(0%, 0%);
+	}
+}
+
+@keyframes reloadSpin{
+	100%{
+		opacity: 0;
+		transform: rotate(360deg);
+	}
+}
+
 @keyframes slideFromLeftSmooth {
 	0% {
 		transform: translateX(-800px);

@@ -1,8 +1,8 @@
 <div id="feed-head" ng-hide="checkIfReading()">
-	<h2>
-		<span class="title shortened-text-block" ng-bind="headTitle() | translate "></span>
+	<h2 class="feed-title shortened-text">
+		<span class="title" ng-bind="dashboardData.title | translate"></span>
 	</h2>
-	<div class='clearfix' ng-hide="hideViewBtns()">
+	<div class="clearfix">
 		<div class="row">
 			<div class="col-lg-11 col-xs-10">
 				<div class="btn-group change-view-btn pull-left">

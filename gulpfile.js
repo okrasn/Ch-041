@@ -53,7 +53,7 @@ gulp.task('scripts', function () {
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest('./client/js/'))
 		.pipe(sourcemaps.init())
-	    .pipe(uglify())
+		.pipe(uglify())
 		.pipe(rename({
 			suffix: '.min'
 		}))
@@ -86,7 +86,7 @@ gulp.task('build', ['scripts', 'sass'], function () {
 
 	gulp.src(['client/css/**'])
 		.pipe(gulp.dest('./dist/css/'));
-	
+
 	gulp.src(['client/translation/**'])
 		.pipe(gulp.dest('./dist/translation/'));
 

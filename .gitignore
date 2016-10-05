@@ -5,7 +5,6 @@ data/
 client/bower_components
 client/js/app.min.js
 client/js/app.js
-client/css/
 client/libs/*
 tmp
 .DS_Store

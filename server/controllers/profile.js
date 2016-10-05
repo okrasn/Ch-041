@@ -18,6 +18,7 @@ var upload = multer({
 	storage: storage
 }).single('file');
 
+/** API path that will upload the files */
 module.exports.upload = function(req, res) {
 	upload(req, res, function(err) {
 		if (req.file) {
@@ -55,6 +56,5 @@ module.exports.changeColorTheme = function(req, res) {
 			error_code: 0,
 			err_desc: null
 		}); 
-
 	});      
 };

@@ -10,6 +10,7 @@ module.exports.getUserInfo = function (req, res) {
 		});
 	});
 };
+
 module.exports.putUserInfo = function (req, res) {
 	User.findById(req.user, function (err, user) {
 		if (!user) {

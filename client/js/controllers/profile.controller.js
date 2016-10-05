@@ -4,7 +4,7 @@
 		'authService', '$window', 'themeService', 'dashboardService', '$auth', 'accountInfo', 'toasterService', 'transfer', '$translate',
 		function (Upload, $http, $state, profileService, $scope, $rootScope, authService, $window, themeService, dashboardService, $auth, 
 			accountInfo, toasterService, transfer, $translate) {
-		    dashboardService.isReadingArticle = true;
+			dashboardService.isReadingArticle = true;
 			$scope.currentUser = profileService.refreshProfileData;
 			$scope.test = 5;
 			$scope.sameProvider = transfer.getProviderString();
@@ -54,7 +54,7 @@
 				}
 				if (file) {
 					Upload.upload({
-						url: '/users/' + authService.userID() + '/upload', //webAPI exposed to upload the file
+						url: "/upload", //webAPI exposed to upload the file
 						data: {
 							file: file,
 							user: authService.userID()
@@ -146,10 +146,13 @@
 			};
 
 			$scope.updateTheme = function (layout) {
+			    dashboardService.displayLoading();
 				themeService.changeTheme(layout.url).error(function (error) {
 					console.log("theme not changed" + error);
 				}).then(function (response) {
 					profileService.getProfile();
+				}).finally(function () {
+				    dashboardService.hideLoading();
 				});
 			};
 			$scope.layouts = themeService.layouts;
@@ -159,11 +162,11 @@
 			}
 
 			$rootScope.$on('$translateChangeSuccess', function(event, data) {
-      			var language = data.language;
-      			$rootScope.lang = language;
+				var language = data.language;
+				$rootScope.lang = language;
 				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
-      			$rootScope.default_float = language === 'en' ? 'right' : 'left';
-    		});
+				$rootScope.default_float = language === 'en' ? 'right' : 'left';
+			});
 		}
 	]);
 })();

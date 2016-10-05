@@ -1,8 +1,8 @@
 (function () {
 	'use strict';
 	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+	    $scope.dashboardData = dashboardService;
 		$scope.sidebar = dashboardService.checkSidebar;
-		$scope.headTitle = dashboardService.getTitle;
 		$scope.feed = dashboardService.getFeed;
 		$scope.alertMsg = dashboardService.alertMsg;
 		$scope.successMsg = dashboardService.successMsg;
@@ -16,20 +16,15 @@
 		$scope.toggleSidebar = function () {
 			dashboardService.sidebar = !dashboardService.sidebar;
 		}
+
 		$scope.hideSidebar = function () {
 			dashboardService.sidebar = false;
 		}
+
 		$scope.showSidebar = function () {
 			dashboardService.sidebar = true;
 		}
 
-		$scope.hideViewBtns = function () {
-			if ($scope.headTitle() === "Add Feed" || feedsService.feedsDictionary.length == 0) {
-				return true;
-			}
-			return false;
-			
-		}
 		$scope.checkIfToggled = function (mode) {
 			return dashboardService.getViewMode() === mode;
 		}
@@ -56,24 +51,29 @@
 			}
 			$state.go('dashboard.' + dashboardService.getViewMode(), { type: $state.params.type, value1: $state.params.value1, value2: $state.params.value2});
 		}
-		var timer;
+
 		$scope.onFeedDelete = function () {
 			toasterService.confirm({
 				message: "Remove this feed?",
 				confirm: "confirmFeedDelete"
 			}, $scope);
 		}
+
 		$scope.confirmFeedDelete = function () {
-			dashboardService.loadingIcon = true;
-			feedsService.removeFeed()
+		    dashboardService.displayLoading();
+		    feedsService.removeFeed(dashboardService.getFeed()._id)
 				.then(function (res) {
 					toasterService.info("Feed has been deleted");
-					$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, {reload: true});
+					$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+					return res;
 				}, function (err) {
-					dashboardService.loadingIcon = false;
-					console.log(err);
+				    console.log(err);
+				    return err;
+				}).finally(function () {
+				    dashboardService.hideLoading();
 				});
 		}
+
 		$scope.currentSortTitle = function () {
 			var sortParam = dashboardService.getSortParam();
 			switch (sortParam.type) {
@@ -88,7 +88,9 @@
 				}
 			}
 		}
+
 		var sortTypeElement;
+
 		$scope.setSortParam = function (e, type, order) {
 			if (sortTypeElement) {
 				sortTypeElement.removeClass('selected');

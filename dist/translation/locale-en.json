@@ -1,11 +1,12 @@
 {
   "button-lang-ua": "Ukrainian",
   "button-lang-en": "English",
+  "button-lang-pl": "Polish",
   "change theme": "change theme",
   "change password": "change password",
-  "current password:":"current password:",
-  "new password:":"new password:",
-  "confirm password:":"confirm password:",
+  "current password:": "current password:",
+  "new password:": "new password:",
+  "confirm password:": "confirm password:",
   "Upload Avatar": "Upload Avatar",
   "save": "save",
   "reset": "reset",
@@ -115,8 +116,6 @@
   "You have successfully authenticated": "You have successfully authenticated",
   "Load more": "Load more",
   "Click to apply": "Click to apply",
-  "Close": "Close"
-
-  
- 
+  "Close": "Close",
+  "It takes to long to load": "It takes to long to load"
 }

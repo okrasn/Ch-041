@@ -162,7 +162,7 @@ ul[dnd-list] .dndPlaceholder:after {
 
     a {
         text-overflow: ellipsis;
-        padding-right: 4em;
+        padding-right: 0.5em;
         overflow: hidden;
     }
 
@@ -174,11 +174,10 @@ ul[dnd-list] .dndPlaceholder:after {
 
     &:hover {
         transition: background 0.2s ease;
-        border-right: 0.7em solid $blue-btn-active-color;
         background-color: $item-hover-color;
 
-        .eye-view-btn {
-            right: 1.3em;
+        &>.hover-feed-shrink{
+            padding-right: 4em;
         }
 
         .my-hidden {
@@ -190,32 +189,37 @@ ul[dnd-list] .dndPlaceholder:after {
     }
 }
 
-.sidebar-item .sidebar-sub-item {
+.sidebar-sub-item {
     padding-left: 2em;
     box-sizing: border-box;
     cursor: pointer;
     width: 100%;
     line-height: 3em;
     border-right: 0em solid;
-}
 
-.sidebar-item.selected, .sidebar-sub-item .selected {
-    background-color: red /*$item-hover-color*/;
+    &:hover {
+        border-right: 0.7em solid rgba(57, 73, 171, 0.60);
+        .sidebar-item{
+            border: none;
+        }
+    }
 }
 
 #sidebar .selected {
     border-right: 0.7em solid $blue-btn-active-color;
     background-color: $item-hover-color;
+    .eye-view-btn {
+        right: 1.3em;
+    }
 }
 
 .eye-view-btn {
     opacity: 0.3;
     position: absolute;
     right: 2em;
-    transition: opacity 0.2s ease;
-
     &:hover {
-        transition: opacity 0.2s ease;
+        transform: scale(1.1);
+        color: $blue-btn-active-color;
         opacity: 1;
     }
 }

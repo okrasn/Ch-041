@@ -126,6 +126,10 @@ p {
 	cursor:pointer; 
 }
 
+.no-pointer-events{
+	pointer-events: none;
+}
+
 .center-absolute{
 	position: absolute;
 	top: 50%;
@@ -137,9 +141,15 @@ p {
 	background-color: #cecece;
 }
 
-.offset-top{
-	margin-top: 1em;
-}
+.offset-top    {margin-top:    1em;}
+.offset-right  {margin-right:  1em;}
+.offset-bottom {margin-bottom: 1em;}
+.offset-left   {margin-left:   1em;}
+
+.offset-half-top    {margin-top:    0.5em;}
+.offset-half-right  {margin-right:  0.5em;}
+.offset-half-bottom {margin-bottom: 0.5em;}
+.offset-half-left   {margin-left:   0.5em;}
 
 .not-important{
 	color: #888;

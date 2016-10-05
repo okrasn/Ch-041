@@ -1,6 +1,6 @@
 .header {
 	margin-bottom: 30px;
-	font-weight: 700;
+	font-weight: 400;
 	text-align: center;
 }
 
@@ -130,4 +130,8 @@ a.pass {
 	input{
 		border-radius: $main-border-radius;
 	}
+}
+
+#register-form{
+	margin-bottom: 0;
 }
