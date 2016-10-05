@@ -37,7 +37,7 @@
 		httpBackend.whenGET("./partials/home.html").respond(200);
 		httpBackend.whenGET("/translation/locale-en.json").respond(200);
 		httpBackend.whenJSONP("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q=" + encodeURIComponent("http://itc.ua/feed") + "&method=JSON&callback=JSON_CALLBACK&output=xml").respond(RESPOND_SUCCESS);
-		httpBackend.whenPOST("/users/" + undefined + "/addFeed").respond(assert_feed);
+		httpBackend.whenPOST("/addFeed").respond(assert_feed);
 
 		feedsService.addFeed(feed).then(function (data) {
 			result = data;

@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	angular.module('rssreader').controller('DashboardController', ['$scope', '$state', 'dashboardService', 'feedsService', 'toasterService', function ($scope, $state, dashboardService, feedsService, toasterService) {
+	angular.module('rssreader').controller('DashboardController', ['$rootScope', '$scope', '$state', 'dashboardService', 'articlesService', 'feedsService', 'toasterService', function ($rootScope, $scope, $state, dashboardService, articlesService, feedsService, toasterService) {
 	    $scope.dashboardData = dashboardService;
 		$scope.sidebar = dashboardService.checkSidebar;
 		$scope.feed = dashboardService.getFeed;
@@ -8,7 +8,11 @@
 		$scope.successMsg = dashboardService.successMsg;
 		$scope.readSingleFeed = dashboardService.readSingleFeed;
 		$scope.hideSortList = dashboardService.hideSortList;
-		
+		$scope.isFavourites = articlesService.isFavourites;
+		$scope.multiDelete = dashboardService.multiDelete;
+
+		var selectAllFlag = false;
+
 		$scope.checkIfReading = function () {
 			return dashboardService.isReadingArticle;
 		};
@@ -52,25 +56,74 @@
 			$state.go('dashboard.' + dashboardService.getViewMode(), { type: $state.params.type, value1: $state.params.value1, value2: $state.params.value2});
 		}
 
+		$scope.selectAll = function () {
+		    selectAllFlag = !selectAllFlag;
+		    if (articlesService.isFavourites.value) {
+		        for (var i = 0, array = articlesService.articles; i < array.length; i++) {
+		            if (selectAllFlag) {
+		                articlesService.favsToDelete[array[i]._id] = true;
+		            }
+		            else {
+		                delete articlesService.favsToDelete[array[i]._id];
+		            }
+		        }
+		    }
+		}
+
+		$scope.askMultiDelete = function () {
+		    if (!Object.keys(articlesService.favsToDelete).length) {
+		        toasterService.info("Select one ore more");
+		        return;
+		    };
+		    toasterService.confirm({
+		        message: "Remove selected articles?",
+		        confirm: "confirmMultiDelete"
+		    }, $scope);
+		}
+
+		$scope.confirmMultiDelete = function () {
+		    dashboardService.displayLoading();
+		    articlesService.removeMultiFavourites().finally(function () {
+		        dashboardService.hideLoading();
+		        $state.reload();
+		    });
+		}
+
 		$scope.onFeedDelete = function () {
+		    if (articlesService.isFavourites.value) {
+		        dashboardService.multiDelete.value = !dashboardService.multiDelete.value;
+		        if (!dashboardService.multiDelete.value) {
+		            for (var member in articlesService.favsToDelete) {
+		                delete articlesService.favsToDelete[member];
+		            }
+		        }
+		        return;
+		    }
 			toasterService.confirm({
 				message: "Remove this feed?",
 				confirm: "confirmFeedDelete"
 			}, $scope);
 		}
 
+		$rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+		    dashboardService.multiDelete.value = false;
+		    for (var member in articlesService.favsToDelete) {
+		        delete articlesService.favsToDelete[member];
+		    }
+		});
+
 		$scope.confirmFeedDelete = function () {
-		    dashboardService.displayLoading();
-		    feedsService.removeFeed(dashboardService.getFeed()._id)
+			dashboardService.displayLoading();
+			feedsService.removeFeed(dashboardService.getFeed()._id)
 				.then(function (res) {
 					toasterService.info("Feed has been deleted");
 					$state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
 					return res;
 				}, function (err) {
-				    console.log(err);
-				    return err;
+					console.log(err);
+					return err;
 				}).finally(function () {
-				    dashboardService.hideLoading();
+					dashboardService.hideLoading();
 				});
 		}
 

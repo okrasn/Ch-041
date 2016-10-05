@@ -11,6 +11,9 @@ angular.module('rssreader').service('dashboardService', ['$window', function ($w
 	this.title = '';
 	this.currentFeed = '';
 	this.currentViewMode = $window.localStorage.viewMode;
+	this.multiDelete = {
+	    value: false
+	};
 
 	this.isReload = function () {
 	    return that.toReload;

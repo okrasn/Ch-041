@@ -81,7 +81,7 @@ router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
 router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
 router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
 router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
-router.post('/changeFeedCategory/:category', auth, feedsCtrl.changeFeedCategory);
+router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
 router.post('/upload', auth, profCtrl.upload);
 
 // Admin routes
@@ -92,5 +92,6 @@ router.delete('/deleteAdvicedFeed/:id', auth, advicedCtrl.removeAdvicedFeed);
 
 router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
 router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
+router.post('/deleteMultiFavourites', auth, articlesCtrl.removeMultiFavourites);
 
 module.exports = router;

@@ -11,6 +11,7 @@ module.exports = {
 		pass_incorrect: 'Entered password is incorrect',
 		user_exist: 'That user already exists',
 		invalid_data: 'Invalid email or password',
+		invalid_pass: 'Invalid password',
 		email_not_found: 'User with this email not found',
 		not_local_user: 'User with this email not a local created',
 		email_verification: 'First you have to approve you email. We have send verification link to your email',

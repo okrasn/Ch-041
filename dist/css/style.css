@@ -305,6 +305,8 @@ li.dropdown > a.dropdown-toggle {
   padding: 15px;
   border-bottom: 1px solid #888888;
   background-color: #fff; }
+  #feed-head .ng-hide.ng-hide-animate {
+    display: none !important; }
   #feed-head .feed-title {
     margin-top: 0.5em; }
     #feed-head .feed-title > span {
@@ -378,6 +380,9 @@ li.dropdown > a.dropdown-toggle {
   border-style: solid;
   border-width: 0 30px 30px 0;
   border-color: transparent #ff9d00 transparent transparent; }
+
+.del-indicator {
+  border-color: transparent #eb4e54 transparent transparent; }
 
 #article-page .fav-indicator {
   transform: translateX(-125%); }
@@ -473,6 +478,10 @@ li.dropdown > a.dropdown-toggle {
   float: right;
   line-height: 2em;
   margin-left: 1em; }
+
+.delete-checkbox {
+  width: 1.5em;
+  height: 1.5em; }
 
 #sidebar-toggle {
   float: left;

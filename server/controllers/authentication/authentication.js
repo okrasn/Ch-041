@@ -274,24 +274,26 @@ module.exports.changePassword = function (req, res, next) {
 				message: msg.ERRORS.user_not_found
 			});
 		} else {
-			if (req.body.currentPass) {
-				user.password = req.body.password;
+		    user.comparePassword(req.body.currentPass, function (err, isMatch) {
+		        if (!isMatch) {
+		            return res.status(401).send({
+		                pwd: user.password,
+		                message: msg.ERRORS.invalid_pass
+		            });
+		        }
+		        user.password = req.body.password;
 
-				user.save(function (err) {
-					if (err) {
-						return next(err);
-					}
-					res.status(200);
-					res.json({
-						"token": config.createJWT(user)
-					});
+		        user.save(function (err) {
+		            if (err) {
+		                return next(err);
+		            }
+		            res.status(200);
+		            res.json({
+		                "token": config.createJWT(user)
+		            });
 
-				});
-			} else {
-				return res.status(400).json({
-					message: msg.ERRORS.pass_incorrect
-				});
-			}
+		        });
+		    });
 		}
 	});
 };
