@@ -10,6 +10,7 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 	}]).
 	controller('AuthController', ['$scope', '$state', 'authService', '$window', 'dashboardService', '$auth', 'transfer', 'jwtHelper', 'toasterService', '$timeout', 
 		function ($scope, $state, authService, $window, dashboardService, $auth, transfer, jwtHelper, toasterService, $timeout) {
+		
 		$scope.user = {
 			verifyEmail : transfer.getString(),
 			counter : 0

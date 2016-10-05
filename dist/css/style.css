@@ -817,15 +817,17 @@ a.cstmblock {
   background-color: #1d2129; }
 
 .profile-name {
-  margin-top: 95px;
+  margin-top: 55px;
   margin-left: 15px;
   color: white; }
 
 .profile-email {
+  margin-top: 10px;
   margin-left: 15px;
   color: white; }
 
 .profile-date {
+  margin-top: 10px;
   margin-left: 15px;
   color: #ffffff; }
 
@@ -1725,7 +1727,7 @@ label.error {
   .profile-date {
     margin-bottom: 0.5em; }
   .profile-name {
-    margin-bottom: -7.1em; } }
+    /*margin-bottom: -5.1em;*/ } }
 
 @media screen and (max-width: 1600px) and (min-width: 1200px) {
   #cards-wrapper.desktop-grow .app-panel {
