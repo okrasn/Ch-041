@@ -30,8 +30,8 @@ module.exports = {
 	createEmailJWT: function (email) {
 	var payload = {
 		verifEmail: email,
-		iat: moment().unix(),
-		exp: moment().add(1, 'hours').unix()
+		iat: moment(),
+		exp: moment().add(1, 'hours')
 	};
 	return jwt.encode(payload, this.TOKEN_SECRET);
 	},

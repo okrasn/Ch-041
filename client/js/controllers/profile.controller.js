@@ -156,17 +156,6 @@
 				});
 			};
 			$scope.layouts = themeService.layouts;
-
-			$scope.changeLanguage = function (langKey) {
-				$translate.use(langKey);		
-			}
-
-			$rootScope.$on('$translateChangeSuccess', function(event, data) {
-				var language = data.language;
-				$rootScope.lang = language;
-				$rootScope.default_direction = language === 'en' ? 'rtl' : 'ltr';
-				$rootScope.default_float = language === 'en' ? 'right' : 'left';
-			});
 		}
 	]);
 })();

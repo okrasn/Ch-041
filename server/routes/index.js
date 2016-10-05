@@ -1,19 +1,18 @@
 var mongoose = require('mongoose'),
 	express = require('express'),
 	router = express.Router(),
-	passport = require('passport'),
 	jwt = require('jwt-simple'),
 	Article = mongoose.model('Article'),
 	Feed = mongoose.model('Feed'),
 	User = mongoose.model('User'),
 	config = require('../config/config'),
-	googleAuth = require('../controllers/googleAuth'),
-	facebookAuth = require('../controllers/facebookAuth'),
-	twitterAuth = require('../controllers/twitterAuth'),
-	linkedInAuth = require('../controllers/linkedInAuth'),
-	unlink = require('../controllers/unlink'),
-	userInfo = require('../controllers/userInfo'),
-	authCtrl = require('../controllers/authentication'),
+	googleAuth = require('../controllers/authentication/googleAuth'),
+	facebookAuth = require('../controllers/authentication/facebookAuth'),
+	twitterAuth = require('../controllers/authentication/twitterAuth'),
+	linkedInAuth = require('../controllers/authentication/linkedInAuth'),
+	unlink = require('../controllers/authentication/unlink'),
+	userInfo = require('../controllers/authentication/userInfo'),
+	authCtrl = require('../controllers/authentication/authentication'),
 	articlesCtrl = require('../controllers/articles'),
 	feedsCtrl = require('../controllers/feeds'),
 	profCtrl = require('../controllers/profile'),
@@ -21,11 +20,9 @@ var mongoose = require('mongoose'),
 
 var auth = function (req, res, next) {
 	var token = req.body.token || req.params.token || req.headers['authorization'];
-	// decode token
 	if (token) {
 		token = token.replace('Bearer ', '');
 		var decoded = jwt.decode(token, config.TOKEN_SECRET);
-		// verifies secret and checks exp
 		if (decoded) {
 			if (new Date(decoded.exp) < new Date()) {
 				return res.status(403).send({
@@ -47,8 +44,6 @@ var auth = function (req, res, next) {
 			}
 		}
 	} else {
-		// if there is no token
-		// return an error
 		return res.status(403).send({
 			success: false,
 			message: 'No auth token provided.'
