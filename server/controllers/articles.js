@@ -131,7 +131,7 @@ module.exports.removeFavArticle = function (req, res, next) {
 				return next(err);
 			}
 			if (!article) {
-				return next(new Error(msg.ERRORS.article_not_found));
+				return next(new Error(msg.ERRORS.not_found));
 			}
 			if (article.currentSubscriptions > 0) {
 				article.currentSubscriptions--;
@@ -158,13 +158,17 @@ module.exports.removeFavArticle = function (req, res, next) {
 }
 
 module.exports.getFavArticle = function (req, res, next) {
+	if (!req.body.link) {
+	    res.status(404).send(msg.ERRORS.not_found);
+		return;
+	}
 	Article.findOne({ link: req.body.link }, function (err, article) {
 		if (err) {
 			return next(err);
 		}
 		if (!article) {
 			res.status(404).send({
-				message: msg.ERRORS.article_not_found
+				message: msg.ERRORS.not_found
 			});
 			return;
 		}
@@ -180,7 +184,7 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		if (!articles) {
 			if (!article) {
 				res.status(404).send({
-					message: msg.ERRORS.article_not_found
+					message: msg.ERRORS.not_found
 				});
 				return;
 			}

@@ -16,13 +16,11 @@
 			    isFavourites: false,
 			    displayedIncrement: 20,
 			    totalDisplayed: 20,
-			    checkIfFavourites: function () {
-			        return obj.isFavourites;
-			    },
+
 			    setReadArticle: function (feed, link, type) {
 			        var someObj = obj.articleForRead;
 			        if(!type){
-			            return this.getFeedDataById(feed).then(function (res) {
+			            return feedsService.getSingleFeed(feed).then(function (res) {
 			                obj.resetArticles();
 			                var feedObj = res.data;
 			                return fetchArticles(feedObj).then(function (res) {
@@ -45,15 +43,15 @@
 				},
 				getAllArticles: function () {
 					obj.resetArticles();
-					dashboardService.setTitle("All");
+					dashboardService.setTitle('All');
 					angular.forEach(feedsService.feedsDictionary, function (value, key) {
 						angular.forEach(value.feeds, function (value, key) {
 							promises.push(fetchArticles(value));
 						});
 					});
-					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+					return $q.all(promises).then(function (res) {
+					    obj.articles = temp_articles;
+					    return res;
 					});
 				},
 				getArticlesByFeed: function (feed, num) {
@@ -64,11 +62,10 @@
 						dashboardService.readSingleFeed.state = true;
 						dashboardService.setSortParam('date', 1);
 						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+						return res;
 					}, function (err) {
-						dashboardService.hideLoading();
-						console.log(err);
-						$state.go("404");
+					    console.log(err);
+					    return err;
 					});
 				},
 				getArticlesByCat: function (cat) {
@@ -84,34 +81,38 @@
 					});
 					if (!found) {
 						return $q.reject().catch(function (err) {
-							dashboardService.hideLoading();
-							$state.go("404");
+						    $state.go('404');
+						    return err;
 						});
 					}
-					return $q.all(promises).then(function () {
+					return $q.all(promises).then(function (res) {
 						dashboardService.setTitle(cat);
 						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+						return res;
+					}, function (err) {
+					    console.log(err);
+					    return err;
 					});
 				},
 				getAdvicedArticlesByCat: function (cat) {
-					obj.resetArticles();
-					angular.forEach(feedsService.advicedDictionary, function (value, key) {
-						if (value.category === cat) {
-							angular.forEach(value.feeds, function (value, key) {
-								promises.push(fetchArticles(value, 1));
-							});
-						}
-					});
-					return $q.all(promises).then(function () {
-						obj.articles = temp_articles;
-						dashboardService.hideLoading();
+				    obj.resetArticles();
+				    for (var i = 0, array = feedsService.advicedDictionary; i < array.length; i++) {
+				        if (array[i].category === cat) {
+				            for (var j = 0; j < array[i].feeds.length; j++) {
+				                promises.push(fetchArticles(array[i].feeds[j], 1));
+				            }
+				            break;
+				        }
+				    }
+				    return $q.all(promises).then(function (res) {
+					    obj.articles = temp_articles;
+					    return res;
 					});
 				},
 				getFavourites: function () {
 					obj.resetArticles();
 					obj.isFavourites = true;
-					dashboardService.setTitle("Favourites");
+					dashboardService.setTitle('Favourites');
 					var tempCategory = '';
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
 					    tempCategory = value.category;
@@ -120,12 +121,11 @@
 							obj.articles.push(value);
 						});
 					});
-					dashboardService.hideLoading();
 				},
 				getFavArticlesByCat: function (cat) {
 					obj.resetArticles();
 					obj.isFavourites = true;
-					dashboardService.setTitle("Favourites: " + cat);
+					dashboardService.setTitle('Favourites: ' + cat);
 					var tempCategory = '';
 					angular.forEach(feedsService.favouritesDictionary, function (value, key) {
 					    if (value.category === cat){
@@ -136,45 +136,40 @@
 							});
 						}
 					});
-					dashboardService.hideLoading();
 				},
 				getFavArticle: function (article) {
 					obj.resetArticles();
 					dashboardService.hideSortList.state = true;
 					obj.isFavourites = true;
-					dashboardService.setTitle("Favourites");
+					dashboardService.setTitle('Favourites');
 					obj.articles.push(article);
-					dashboardService.hideLoading();
 				},
 				addFavourite: function (article) {
-					dashboardService.displayLoading();
-					return $http.post('/users/' + authService.userID() + '/addFavArticle', article).then(function (res) {
+					return $http.post('/addFavArticle', article).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
-					    dashboardService.hideLoading();
 					    return res;
 					});
 				},
 				removeFavourite: function (article) {
-					dashboardService.displayLoading();
-					return $http.delete('/users/' + authService.userID() + '/deleteFavFeed/' + article._id).then(function (res) {
+					
+					return $http.delete('/deleteFavFeed/' + article._id).then(function (res) {
 					    angular.copy(res.data, feedsService.favouritesDictionary);
-					    dashboardService.hideLoading();
 					    return res;
 					});
 				},
 				getAdvicedArticles: function () {
-				    dashboardService.displayLoading();
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					return $http.get('/advicedArticles').then(function (res) {
 					    angular.copy(res.data, obj.advicedArticles);
-					    dashboardService.hideLoading();
+					    return res;
 					}, function (err) {
-						console.log(err);
+					    console.log(err);
+					    return err;
 					});
 				},
 				getAdvicedFeedsArticles: function () {
 					obj.advicedArticles.length = 0;
-					return $http.get('/users/' + authService.userID() + "/advicedArticles").then(function (res) {
+					return $http.get('/advicedArticles').then(function (res) {
 						angular.copy(res.data, obj.advicedArticles);
 					}, function (err) {
 						console.log(err);
@@ -183,16 +178,13 @@
 				resetArticles: function () {
 					dashboardService.hideSortList.state = false;
 					dashboardService.readSingleFeed.state = false;
+					
+					dashboardService.resetFeed();
 					this.totalDisplayed = this.displayedIncrement;
-					dashboardService.displayLoading();
 					temp_articles.length = 0;
 					obj.articles.length = 0;
 					obj.isFavourites = false;
-					dashboardService.resetFeed();
 					promises.length = 0;
-				},
-				getFeedDataById: function (id) {
-					return $http.post('/users/' + authService.userID() + '/getFeedData', { id: id });
 				},
 				// Additional method for unit testing
 				getArticlesFetcher: function () {
@@ -200,54 +192,56 @@
 				}
 			},
 			getImage = function (item, format) {
-				var source = "";
-				if (format === "RSS") {
-					if (!item.getElementsByTagName('enclosure').length) {
-						try {
-							source = $(item).find('media\\:content, content')[0].getAttribute('url');
-						} catch (err) {
-							source = "";
-						}
-						if (source == "" || source == undefined) {
-							try {
-								var content = document.createElement('div');
-								content.innerHTML = item.getElementsByTagName('description')[0].textContent;
-								source = $(content).find('img')[0].src;
-							} catch (err) {
-								source = "";
-							}
+				var source = '';
+				if (format === 'RSS') {
+				    if (!item.getElementsByTagName('enclosure').length) {
+				        try {
+				            var content = document.createElement('div');
+				            content.innerHTML = item.getElementsByTagName('description')[0].textContent;
+				            if ($(content).find('img')[0].width > 10 && $(content).find('img')[0].height > 10) {
+				                source = $(content).find('img')[0].src;
+				            }
+				        } catch (err) {
+				            source = '';
+				        }
+						if (source === '' || source === undefined) {
+						    try {
+						        source = $(item).find('media\\:content, content')[0].getAttribute('url');
+						    } catch (err) {
+						        source = '';
+						    }
 						}
 					} else {
 						source = item.getElementsByTagName('enclosure')[0].getAttribute('url');
 					}
-				} else if (format === "ATOM") {
+				} else if (format === 'ATOM') {
 					if (!item.getElementsByTagName('enclosure').length) {
 						try {
-							var content = document.createElement('div');
-							content.innerHTML = item.getElementsByTagName('content')[0].textContent;
+						    var content = document.createElement('div');
+						    content.innerHTML = item.getElementsByTagName('content')[0].textContent;
 							source = $(content).find('img')[0].src;
 						} catch (err) {
-							source = "";
+							source = '';
 						}
 					}
 				}
 				return source;
 			},
 			getContent = function (item, format) {
-				var content = "";
-				if (format === "RSS") {
+				var content = '';
+				if (format === 'RSS') {
 					try {
 						content = document.createElement('div');
 						content.innerHTML = item.getElementsByTagName('description')[0].textContent;
 						content = $(content).text();
 					} catch (err) {
 					}
-				} else if (format === "ATOM") {
+				} else if (format === 'ATOM') {
 					content = $(item.getElementsByTagName('content')[0].childNodes[0].data).text();
 
 				}
 				if (typeof content !== 'string') {
-					return "";
+					return '';
 				}
 				else return content.toString();
 			},
@@ -259,63 +253,69 @@
 				if (!from || from > num - 1) {
 					from = 0;
 				}
-				return $http.jsonp("https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + articlesNum + "&q=" + encodeURIComponent(feed.rsslink) + "&method=JSONP&callback=JSON_CALLBACK&output=xml")
-					.then(function (response) {
-						var parser = new DOMParser(),
-							xmlDoc = parser.parseFromString(response.data.responseData.xmlString, "text/xml"),
-							items = [];
-						if (feed.format === "RSS") {
-							items = xmlDoc.getElementsByTagName('item');
-							if (from > items.length) {
-								from = 0;
-							}
-							for (var i = from; i < items.length; i++) {
-								var articleObj = {
-									title: items[i].getElementsByTagName('title')[0].innerHTML,
-									link: items[i].getElementsByTagName('link')[0].textContent,
-									img: getImage(items[i], feed.format),
-									content: getContent(items[i], feed.format),
-									feed: feed._id
-								};
-								if (articleObj.title) {
-									articleObj.title.replaceAll("apos;", '\'')
-													.replaceAll("&apos;", '\'')
-													.replaceAll("&amp;", '')
-													.replaceAll("&#8217;", 'bb');
-								}
-								if (items[i].getElementsByTagName('pubDate')[0]) {
-									articleObj.date = Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent);
-								}
-								else if (!items[i].getElementsByTagName('pubDate')[0] && !articleObj.img && !articleObj.content) {
-									continue;
-								}
-								articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
-								temp_articles.push(articleObj);
-							}
-						} else if (feed.format === "ATOM") {
-							items = xmlDoc.getElementsByTagName('entry');
-							if (from > items.length) {
-								from = 0;
-							}
-							for (var i = from; i < items.length; i++) {
-								var articleObj = {
-									title: items[i].getElementsByTagName('title')[0].textContent,
-									link: angular.element(items[i].getElementsByTagName('link'))[0].attributes["href"].value,
-									img: getImage(items[i], feed.format),
-									content: getContent(items[i], feed.format),
-									date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
-									feed: feed._id
-								};
-								articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
-								temp_articles.push(articleObj);
-							}
-						}
-						dashboardService.loadingIcon = false;
-						return temp_articles;
-					});
+				return $http.jsonp('https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=' + articlesNum + '&q=' + encodeURIComponent(feed.rsslink) + '&method=JSONP&callback=JSON_CALLBACK&output=xml&dummy=' + Date.now())
+				.then(function (response) {
+				    
+					var parser = new DOMParser(),
+						xmlDoc = parser.parseFromString(response.data.responseData.xmlString, 'text/xml'),
+						items = [];
+					if (feed.format === 'RSS') {
+					    items = xmlDoc.getElementsByTagName('item');
+					    if (from > items.length) {
+					        from = 0;
+					    }
+					    for (var i = from; i < items.length; i++) {
+					        var articleObj = {
+					            title: items[i].getElementsByTagName('title')[0].innerHTML,
+					            link: items[i].getElementsByTagName('link')[0].textContent,
+					            img: getImage(items[i], feed.format),
+					            content: getContent(items[i], feed.format),
+					            feed: feed._id
+					        };
+					        if (articleObj.title) {
+					            articleObj.title.replaceAll('apos;', '\'')
+												.replaceAll('&apos;', '\'')
+												.replaceAll('&amp;', '')
+												.replaceAll('&#8217;', 'bb');
+					        }
+					        if (items[i].getElementsByTagName('pubDate')[0]) {
+					            articleObj.date = Date.parse(items[i].getElementsByTagName('pubDate')[0].textContent);
+					        }
+					        else if (!items[i].getElementsByTagName('pubDate')[0] && !articleObj.img && !articleObj.content) {
+					            continue;
+					        }
+					        articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
+					        temp_articles.push(articleObj);
+					    }
+					} else if (feed.format === 'ATOM') {
+					    items = xmlDoc.getElementsByTagName('entry');
+					    if (from > items.length) {
+					        from = 0;
+					    }
+					    for (var i = from; i < items.length; i++) {
+					        var articleObj = {
+					            title: items[i].getElementsByTagName('title')[0].textContent,
+					            link: angular.element(items[i].getElementsByTagName('link'))[0].attributes['href'].value,
+					            img: getImage(items[i], feed.format),
+					            content: getContent(items[i], feed.format),
+					            date: Date.parse(items[i].getElementsByTagName('published')[0].textContent),
+					            feed: feed._id
+					        };
+					        if (articleObj.title) {
+					            articleObj.title.replaceAll('apos;', '\'')
+												.replaceAll('&apos;', '\'')
+												.replaceAll('&amp;', '')
+												.replaceAll('&#8217;', 'bb');
+					        }
+					        articleObj.content = articleObj.content ? articleObj.content : articleObj.title;
+					        temp_articles.push(articleObj);
+					    }
+					}
+					return temp_articles;
+				});
 			},
 			getArticleDataByLink = function (link) {
-				return $http.post('/users/' + authService.userID() + '/getFavArticle', { link: link });
+				return $http.post('/getFavArticle', { link: link });
 			}
 		return obj;
 	}]);

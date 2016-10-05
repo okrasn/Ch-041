@@ -2,6 +2,8 @@ module.exports = {
 	ERRORS: {
 		//local auth
 		fill_out_fields: 'Please fill out all fields',
+		not_found: 'Not found',
+	    no_rights: 'No rights',
 		user_not_found: 'User not found',
 		pass_or_token_not_match: 'Passwords or tokens does\'t match',
 		pass_not_match: 'Passwords does\'t match',
@@ -25,7 +27,6 @@ module.exports = {
 		google_account_belongs: 'There is already a Google account that belongs to you',
 		linkedin_account_belongs: 'There is already a Linkedin account that belongs to you',
 		same_email : 'This accaunt was linked to your local accaunt with the same email',
-
 		//articles ctrl
 		choose_cat: 'Choose category',
 		fav_article_already_added: 'You have already added this article to favourites',
@@ -37,6 +38,7 @@ module.exports = {
 		cant_find_user: 'Can\'t find user',
 		category_not_found: 'Category not found',
 		feed_already_added: 'You have already added this feed',
+		feed_already_added_to_popular: 'You have already added this feed to popular',
 		feed_not_found: 'Feed not found',
 		enter_feed_url: 'Enter feed url',
 		server_error: 'Server error',

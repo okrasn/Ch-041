@@ -1,4 +1,3 @@
-/*----------------Navbar--------------*/
 
 .main-navbar .navbar {
 	background: #3498db;
@@ -8,20 +7,17 @@
 	background: #3498db;
 }
 
-	.navbar-nav > .user-menu > .dropdown-toggle:active {
-		background: #3498db;
-	}
+.navbar-nav > .user-menu > .dropdown-toggle:active {
+	background: #3498db;
+}
 
-	.navbar-nav > .user-menu > .dropdown-toggle:hover {
-		background: #3498db;
-	}
+.navbar-nav > .user-menu > .dropdown-toggle:hover {
+	background: #3498db;
+}
 
-	.navbar-nav > .user-menu > .dropdown-toggle > span:hover {
-		color: #ffffff;
-	}
-
-
-/*-----------------Btn----------------*/
+.navbar-nav > .user-menu > .dropdown-toggle > span:hover {
+	color: #ffffff;
+}
 
 .app-btn-blue {
 	color: white;
@@ -53,11 +49,9 @@
 
 .subscribe-btn {
 	border-color: #3498db;
-	color: #3498db;
 }
 
 .sidebar-item:hover {
-	-webkit-transition: background 0.2s ease;
 	transition: background 0.2s ease;
 	border-right: 0.7em solid #3498db;
 	background-color: #c1c1c1;
@@ -88,3 +82,12 @@
 .profile-header {
 	background-color: #086bae;
 }
+
+.list-feed-title{
+	background-color: #3498db;
+}
+
+.sidebar-sub-item:hover {
+	border-right: 0.7em solid rgba(52, 152, 219, 0.6);
+}
+

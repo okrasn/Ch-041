@@ -44,6 +44,7 @@
     "angular-translate-handler-log": "^2.12.1",
     "angular-translate-loader-static-files": "^2.12.1",
     "angular-translate-storage-local": "^2.12.1",
-    "flag-icon-css": "^2.5.0"
+    "flag-icon-css": "^2.5.0",
+    "reset-css": "^2.2.0"
   }
 }

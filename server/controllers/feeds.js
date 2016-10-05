@@ -7,69 +7,26 @@ var mongoose = require('mongoose'),
 	config = require('../config/config'),
 	msg = require('../config/msg');
 
-module.exports.userParam = function (req, res, next, id) {
-	var query = User.findById(id);
-	query.exec(function (err, user) {
-		if (err) {
-			return next(err);
-		}
-		if (!user) {
-			return next(new Error(msg.ERRORS.cant_find_user));
-		}
-		req.user = user;
-		return next();
-	});
-};
-
 module.exports.allFeed = function (req, res, next) {
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		res.json(user.feedsDictionary);
 	});
 }
 
-module.exports.advicedFeeds = function (req, res, next) {
-	Advice.find({}, function (err, adviced) {
-		adviced[0].populate("feedsDictionary.feeds", function (err, adviced) {
-			res.json(adviced.feedsDictionary);
+module.exports.getSingleFeed = function (req, res, next) {
+	if (!req.params.id || !req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+		return res.status(404).json({
+			message: msg.ERRORS.not_found
 		});
-	});
-}
-
-module.exports.getAdvicedFeeds = function (req, res, next) {
-	Advice.find({}, function (err, advice) {
-		if (err) {
-			return next(err);
-		}
-		if (advice[0]) {
-			advice[0].populate("feedsDictionary.feeds", function (err, user) {
-				res.json(advice[0].feedsDictionary);
-			});
-		}
-		else {
-			res.status(404).send({
-				message: msg.ERRORS.feed_not_found
-			});
-			return;
-		}
-	});
-}
-
-module.exports.getFeedData = function (req, res, next) {
-	if (!req.body.id.match(/^[0-9a-fA-F]{24}$/)) {
-	res.status(404).send({
-		message: msg.ERRORS.invalid_feed
-	});
-		return;
 	}
-	Feed.findById(req.body.id, function (err, feed) {
+	Feed.findById(req.params.id, function (err, feed) {
 		if (err) {
 			return next(err);
 		}
 		if (!feed) {
-			res.status(404).send({
-				message: msg.ERRORS.feed_not_found
+			return res.status(404).json({
+				message: msg.ERRORS.not_found
 			});
-			return;
 		}
 		else {
 			res.json(feed);
@@ -168,45 +125,6 @@ module.exports.add = function (req, res, next) {
 	});
 };
 
-var JsonFeeds = require('../AdvicedFeeds.json');
-addAdvicedFromJson = function (category, feed) {
-	var passedFeed = feed,
-		passedCategory = category;
-	Advice.find({}, function (err, advice) {
-		if (!advice.length) {
-			var advice = new Advice({
-				articlesDictionary: [],
-				feedsDictionary: []
-			});
-			for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
-				advice.feedsDictionary.push({
-					category: JsonFeeds.feedsDictionary[i].category
-				});
-				for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
-					var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
-					feed.totalSubscriptions = 0;
-					feed.currentSubscriptions = 0;
-					advice.feedsDictionary[i].feeds.push(feed);
-					feed.save(function (err, feed) {
-						if (err) {
-							console.log(err);
-							return;
-						}
-					});
-				}
-			}
-			advice.save(function (err, advice) {
-				if (err) {
-					console.log(err);
-					return;
-				}
-			});
-		}
-	});
-};
-
-addAdvicedFromJson();
-
 module.exports.remove = function (req, res, next) {
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		var foundCategoryIndex,
@@ -227,13 +145,13 @@ module.exports.remove = function (req, res, next) {
 
 		if (!foundCategory) {
 			return res.send({
-				error: msg.ERRORS.cant_delete_feed_no_such_cat
+				message: msg.ERRORS.cant_delete_feed_no_such_cat
 			});
 		}
 
 		if (!foundFeed) {
 			return res.send({
-				error: msg.ERRORS.cant_delete_feed_no_such_feed
+				message: msg.ERRORS.cant_delete_feed_no_such_feed
 			});
 		}
 
@@ -285,6 +203,15 @@ module.exports.setCategoryOrder = function (req, res, next) {
 	});
 }
 
+module.exports.setFeedsOrder = function (req, res, next) {
+	req.user.feedsDictionary = req.body;
+	req.user.save(function (err) {
+		if (err) return next(err);
+		res.statusCode = 200;
+		return res.send();
+	});
+}
+
 module.exports.setFavsCategoryOrder = function (req, res, next) {
 	var newFavsDictionary = [],
 		lookup = {};
@@ -306,7 +233,7 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
 module.exports.changeFeedCategory = function (req, res, next) {
 	if (!req.body.id || !req.body.category || !req.body.newCategory) {
 		res.status(404).send({
-			message: msg.ERRORS.category_not_found
+			message: msg.ERRORS.not_found
 		});
 	}
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
@@ -351,3 +278,42 @@ module.exports.changeFeedCategory = function (req, res, next) {
 		}
 	});
 }
+
+//var JsonFeeds = require('../AdvicedFeeds.json');
+//addAdvicedFromJson = function (category, feed) {
+//    var passedFeed = feed,
+//		passedCategory = category;
+//    Advice.find({}, function (err, advice) {
+//        if (!advice.length) {
+//            var advice = new Advice({
+//                articlesDictionary: [],
+//                feedsDictionary: []
+//            });
+//            for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
+//                advice.feedsDictionary.push({
+//                    category: JsonFeeds.feedsDictionary[i].category
+//                });
+//                for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
+//                    var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
+//                    feed.totalSubscriptions = 0;
+//                    feed.currentSubscriptions = 0;
+//                    advice.feedsDictionary[i].feeds.push(feed);
+//                    feed.save(function (err, feed) {
+//                        if (err) {
+//                            console.log(err);
+//                            return;
+//                        }
+//                    });
+//                }
+//            }
+//            advice.save(function (err, advice) {
+//                if (err) {
+//                    console.log(err);
+//                    return;
+//                }
+//            });
+//        }
+//    });
+//};
+
+//addAdvicedFromJson();

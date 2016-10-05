@@ -26,7 +26,6 @@
 
 .subscribe-btn {
 	background-color: #060606;
-	border-color: #ff9d00;
 	color: #ff9d00;
 }
 
@@ -73,7 +72,11 @@
 	background-color: #504f54;
 }
 
+<<<<<<< HEAD
 #sidebar .selected{
+=======
+#feed-head .selected{
+>>>>>>> ad764cc4d4aaaedf6442cafe68d6373a771c4fd3
 	background-color: white;
 }
 .chevron-down > span.glyphicon.glyphicon-chevron-right,
@@ -183,3 +186,13 @@ li.dropdown > a.dropdown-toggle {
 body {
 	background-color: #303032;
 }
+
+#sidebar .selected {
+	border-right: 0.7em solid #060606;
+	background-color: #c1c1c1;
+}
+
+#dashboard #sidebar .selected a{
+	color: black;
+}
+

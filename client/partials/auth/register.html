@@ -2,11 +2,11 @@
 	<div id="register" class="mobile-half-padding col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-3 col-md-6">
 		<div class="cstmform-border card">
 			<h2 class="header uppercase">
-				<span class="orange">rss</span><span translate>|registration</span>
+				<span translate>registration</span>
 			</h2>
 			<div class="row">
 				<div class="col-xs-12">
-					<form name="registerform" id="registration" ng-submit="register(registerform)" ng-validate="validationRegistrOptions" ng-keyup="defaultAgreeWith()">
+					<form name="registerform" id="register-form" ng-submit="register(registerform)" ng-validate="validationRegistrOptions" ng-keyup="defaultAgreeWith()">
 						<div class="form-group login">
 							<label translate class="capitalize" for="enterEmail">email</label>
 							<input type="email" name="mail" class="form-control" id="enterEmail" placeholder="jacksparrow@gmail.com" autocomplete="false" ng-model="user.email">
@@ -28,7 +28,9 @@
 								<input type="checkbox" ng-model="agreeWith"><span translate>I Agree with</span></label>
 							<a translate class="btn-link" href data-toggle="modal" data-target="#terms">terms & conditions</a>
 						</div>
-						<button translate id="sub_btn" type="submit" class="center-block app-btn app-btn-blue" ng-disabled="!agreeWith">Sign Up</button>
+						<div class="center-children submit-btn">
+							<button translate type="submit" class="center-block app-btn app-btn-blue" ng-disabled="!agreeWith">Sign Up</button>
+						</div>
 						<div class="alert alert-info text-center animate-error" role="alert" ng-show="error">
 							<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 							<span class="sr-only">Error:</span>
@@ -64,7 +66,7 @@
 										
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn app-btn-blue terms-btn" data-dismiss="modal"><span translate>Сlose</span></button>
+									<button type="button" class="app-btn app-btn-blue terms-btn" data-dismiss="modal"><span translate>Сlose</span></button>
 								</div>
 							</div>
 						</div>

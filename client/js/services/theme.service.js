@@ -21,7 +21,7 @@
 					src: 'assets/images/theme4.jpg'
 				},],
 				changeTheme: function(theme) {
-					return $http.post('/users/' + authService.userID() + '/changeColorTheme', {
+					return $http.post("/changeColorTheme", {
 						colorTheme: theme
 					}, {
 						headers: {

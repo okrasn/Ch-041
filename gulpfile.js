@@ -19,10 +19,6 @@ mkdirp.sync('./dist/uploads', function (err) {
 });
 
 gulp.task('server', function (cb) {
-	// exec('mongod --dbpath ./data/', function (err, stdout, stderr) {
-	// 	console.log(stdout, stderr);
-	// 	cb(err);
-	// });
 	console.log("Server is running on port 8080");
 	exec('npm start', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
@@ -57,7 +53,7 @@ gulp.task('scripts', function () {
 		.pipe(concat('app.js'))
 		.pipe(gulp.dest('./client/js/'))
 		.pipe(sourcemaps.init())
-	    .pipe(uglify().on('error', gulpUtil.log))
+		.pipe(uglify())
 		.pipe(rename({
 			suffix: '.min'
 		}))
@@ -90,7 +86,7 @@ gulp.task('build', ['scripts', 'sass'], function () {
 
 	gulp.src(['client/css/**'])
 		.pipe(gulp.dest('./dist/css/'));
-	
+
 	gulp.src(['client/translation/**'])
 		.pipe(gulp.dest('./dist/translation/'));
 	
@@ -99,8 +95,6 @@ gulp.task('build', ['scripts', 'sass'], function () {
 
 	gulp.src(['client/scripts/**/*.js'])
 		.pipe(ngAnnotate({
-			// true helps add where @ngInject is not used. It infers.
-			// Doesn't work with resolve, so we must be explicit there
 			add: true
 		}));
 	gulp.src(['client/index.html'])

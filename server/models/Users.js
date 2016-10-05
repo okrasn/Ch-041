@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
 			email : String,
 			password : String
 		},
+		admin: Boolean,
 		date_of_signup : {type : Date},
 		emailToken : String,
 		emailVerification: { type : Boolean },
@@ -68,6 +69,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 		cb(null, isMatch);
 	});
 };
+
 userSchema.methods.generateHash = function(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };

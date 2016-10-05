@@ -27,29 +27,30 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 		$scope.session;
 		$scope.test = 5;
 
-		var ERRORS = {
-			field_required: 'This field is required',
-			email_example: 'Please, use example: jacksparrow@gmail.com',
-			min_6symbl: 'Please, enter at least 6 characters',
-			min_9symbl: 'Please, enter at least 9 characters',
-			max_20symbl: 'Please, enter no more then 40 characters',
-			reg_exp: 'Password must contain (a-z,A-Z,0-9,!@#)'
-		}
 
-		$scope.register = function (form) {
-			if (form.validate()) {
-				dashboardService.loadingIcon = false;
-				if($scope.user.verifyEmail){
-					$scope.user.email = transfer.getEmail().verifEmail;
+        var ERRORS = {
+            field_required: 'This field is required',
+            email_example: 'Please, use example: jacksparrow@gmail.com',
+            min_6symbl: 'Please, enter at least 6 characters',
+            min_9symbl: 'Please, enter at least 9 characters',
+            max_20symbl: 'Please, enter no more then 40 characters',
+            reg_exp: 'Password must contain (a-z,A-Z,0-9,!@#)'
+        }
 
-				}
+        $scope.register = function (form) {
+            if (form.validate()) {
+                dashboardService.displayLoading();
+                    if ($scope.user.verifyEmail) {
+                        $scope.user.email = transfer.getEmail().verifEmail;
+				    }
 				authService.register($scope.user).error(function (error) {
-					var symbol = $scope.user.email.indexOf('@');
+					dashboardService.hideLoading();
+                    var symbol = $scope.user.email.indexOf('@');
 					var emailAgent = $scope.user.email.slice(symbol + 1);
 					$scope.linkProvider = emailAgent;
 					$scope.error = error;
 				}).then(function (response) {
-				    dashboardService.loadingIcon = false;
+				    dashboardService.hideLoading();
 					toasterService.success(response.data.message);
 					$state.go('dashboard.' + dashboardService.getViewMode(), {
 						id: authService.userID()
@@ -59,32 +60,32 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 			}
 		};
 
-		$scope.logIn = function (form) {
-		    if (form.validate()) {
-		        dashboardService.loadingIcon = false;
-		        authService.logIn($scope.user, $scope.session).error(function (error) {
-		            dashboardService.loadingIcon = false;
-					$scope.error = error;
-				}).then(function (response) {
-					if (!$scope.session) {
-						$scope.onExit = function () {
-							auth.logOut();
-						};
-						dashboardService.loadingIcon = false;
-						$state.go('dashboard.' + dashboardService.getViewMode(), {
-							id: authService.userID()
-						});
-						toasterService.success(response.data.message);
-						$window.onbeforeunload = $scope.onExit;
-					} else {
-						$state.go('dashboard.' + dashboardService.getViewMode(), {
-							id: authService.userID()
-						});
-						toasterService.success(response.data.message);
-					}
-				});
-			}
-		};
+    	$scope.logIn = function (form) {
+    	    if (form.validate()) {
+    	        dashboardService.displayLoading();
+    	        authService.logIn($scope.user, $scope.session).error(function (error) {
+    	            dashboardService.hideLoading();
+    				$scope.error = error;
+    			}).then(function (response) {
+    				if (!$scope.session) {
+    					$scope.onExit = function () {
+    						auth.logOut();
+    					};
+                        dashboardService.hideLoading();
+    					$state.go('dashboard.' + dashboardService.getViewMode(), {
+    						id: authService.userID()
+    					});
+    					toasterService.success(response.data.message);
+    					$window.onbeforeunload = $scope.onExit;
+    				} else {
+    					$state.go('dashboard.' + dashboardService.getViewMode(), {
+    						id: authService.userID()
+    					});
+    					toasterService.success(response.data.message);
+    				}
+    			});
+    		}
+    	};
 		
 		$scope.forgot = function(form){
 			authService.forgot($scope.confirm_email).error(function (error) {
@@ -94,16 +95,6 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				toasterService.info('An e-mail has been sent to ' + $scope.confirm_email.email + ' with further instructions.');	
 			})
 		}
-
-		$scope.reset = function(form){
-				authService.reset($scope.password).error(function (error) {
-					$scope.error = error;
-					toasterService.error(error.message);
-				}).then(function (response) {
-					toasterService.success('You have successfully changed password');
-					$state.go('login');	
-				})
-		};	
 
 		$scope.authenticate = function (provider) {
 			transfer.setProviderString(provider);
@@ -119,71 +110,70 @@ angular.module('rssreader').config(['$validatorProvider', function($validatorPro
 				toasterService.error(response.data.message);
 			})
 		};
+        
+        $scope.defaultAgreeWith = function () {
+            $scope.agreeWith = false;
+        }
 
-		
-		$scope.defaultAgreeWith = function () {
-			$scope.agreeWith = false;
-		}
+        $scope.validationLoginOptions = {
+            rules: {
+                mail: {
+                    required: true,
+                    email: true
+                },
+                pwd: {
+                    required: true
+                }
+            },
+            messages: {
+                mail: {
+                    required: ERRORS.field_required,
+                    email: ERRORS.email_example
+                },
 
-		$scope.validationLoginOptions = {
-			rules: {
-				mail: {
-					required: true,
-					email: true
-				},
-				pwd: {
-					required: true
-				}
-			},
-			messages: {
-				mail: {
-					required: ERRORS.field_required,
-					email: ERRORS.email_example
-				},
+                pwd: {
+                    required: ERRORS.field_required
+                }
+            }
+        };
 
-				pwd: {
-					required: ERRORS.field_required
-				}
-			}
-		};
+        $scope.validationRegistrOptions = {
+            rules: {
+                mail: {
+                    required: true,
+                    email: true,
+                    minlength: 9,
+                    maxlength: 40,
+                },
+                pwd: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 20,
+                    pattern: true
+                },
+                reppwd: {
+                    required: true
+                }
+            },
+            messages: {
+                mail: {
+                    required: ERRORS.field_required,
+                    email: ERRORS.email_example,
+                    minlength: ERRORS.min_9symbl,
+                    maxlength: ERRORS.max_20symbl
+                },
 
-		$scope.validationRegistrOptions = {
-			rules: {
-				mail: {
-					required: true,
-					email: true,
-					minlength: 9,
-					maxlength: 40,
-				},
-				pwd: {
-					required: true,
-					minlength: 6,
-					maxlength: 20,
-					pattern: true
-				},
-				reppwd: {
-					required: true
-				}
-			},
-			messages: {
-				mail: {
-					required: ERRORS.field_required,
-					email: ERRORS.email_example,
-					minlength: ERRORS.min_9symbl,
-					maxlength: ERRORS.max_20symbl
-				},
+                pwd: {
+                    required: ERRORS.field_required,
+                    minlength: ERRORS.min_6symbl,
+                    maxlength: ERRORS.max_20symbl,
+                    pattern: ERRORS.reg_exp
+                },
 
-				pwd: {
-					required: ERRORS.field_required,
-					minlength: ERRORS.min_6symbl,
-					maxlength: ERRORS.max_20symbl,
-					pattern: ERRORS.reg_exp
-				},
-
-				reppwd: {
-					required: ERRORS.field_required
-				}
-			}
-		}
-	}]);
+                reppwd: {
+                    required: ERRORS.field_required
+                }
+            }
+        }
+    }]);
 })();

@@ -20,14 +20,13 @@ require('./server/models/Articles');
 require('./server/models/Users');
 require('./server/models/Advised');
 
-
 var routes = require('./server/routes/index');
 
 app.set('port', process.env.PORT || 8080);
 app.set('base url', process.env.URL || 'http://localhost');
 
 mongoose.connect(process.env.DB_URL || 'mongodb://feedsUser:Ch-041feedsUser@ds044979.mlab.com:44979/feeds');
-// mongoose.connect('mongodb://localhost/feeds');
+
 mongoose.connection.on('error', function (err) {
 	console.log('Error: Could not connect to MongoDB');
 });
@@ -42,12 +41,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
 })); 
-
-app.use(session({
-	secret: 'MY_SECRET',
-	resave: false,
-	saveUninitialized: false
-}));
 
 app.use(express.static(__dirname + '/dist'));
 app.use('/', routes);

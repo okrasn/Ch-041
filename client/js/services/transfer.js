@@ -28,7 +28,6 @@
 			return obj;
 		}
 		return {
-
 			setObj: setObj,
 			getObj: getObj,
 			setString: setString,
