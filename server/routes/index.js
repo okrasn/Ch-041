@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
 	express = require('express'),
 	router = express.Router(),
-	passport = require('passport'),
 	jwt = require('jwt-simple'),
 	Article = mongoose.model('Article'),
 	Feed = mongoose.model('Feed'),
