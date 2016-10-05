@@ -1368,6 +1368,12 @@ a.sharing-btn {
 .reload-spin {
   animation: reloadSpin 1s ease; }
 
+@keyframes simpleSlide {
+  0% {
+    transform: translate(100%, -100%); }
+  100% {
+    transform: translate(0%, 0%); } }
+
 @keyframes reloadSpin {
   100% {
     opacity: 0;
@@ -1622,13 +1628,21 @@ label.error {
   height: 3em;
   overflow: hidden; }
 
-.adviced-article-card {
-  margin-bottom: 1em; }
+.card-padding {
+  padding: 0.5em; }
+
+.also-read-header {
+  margin-left: 0.2em; }
 
 #adviced-wrapper {
   margin-bottom: 2em; }
 
+.adviced-card-container {
+  overflow: hidden;
+  position: relative; }
+
 .adviced-card {
+  position: relative;
   display: block;
   overflow: hidden;
   box-sizing: border-box;
@@ -1637,6 +1651,13 @@ label.error {
 
 .add-adviced-card {
   border: 5px solid #3949ab; }
+
+.adviced-card::after {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.78));
+  transition: opacity 0.2s ease; }
 
 .advice-cover-image {
   z-index: 0;
@@ -1659,13 +1680,6 @@ label.error {
   height: 175px;
   border-radius: 2px 0 0 2px; }
 
-.adviced-card::after {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.78));
-  transition: opacity 0.2s ease; }
-
 .adviced-no-img {
   background-image: url(/assets/images/noimage.png); }
 
@@ -1680,12 +1694,10 @@ label.error {
 
 .gradient {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  width: 95%;
-  height: 92%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.78)); }
 
 .gradient:hover {
@@ -1743,22 +1755,25 @@ label.error {
   font-weight: 600;
   margin: 0; }
 
-.adviced-card-wrap:hover .my-hidden {
-  display: block;
-  visibility: visible;
-  opacity: 1; }
+.adviced-card-wrap:hover {
+  overflow: hidden; }
+  .adviced-card-wrap:hover .my-hidden {
+    animation: simpleSlide 0.4s ease;
+    display: block;
+    visibility: visible;
+    opacity: 1; }
 
 .upload-indicator {
   cursor: pointer;
   position: absolute;
   z-index: 1000;
-  left: 100%;
-  transform: translateX(-110%);
+  right: 0;
   width: 0;
   height: 0;
   border-style: solid;
   border-width: 0 4em 4em 0;
-  border-color: transparent #22f772 transparent transparent; }
+  border-color: transparent #22f772 transparent transparent;
+  transition: all 1s ease; }
 
 .cover-icon {
   position: relative;
@@ -1773,13 +1788,18 @@ label.error {
   #cards-wrapper .app-panel .my-hidden {
     visibility: visible;
     display: inline;
-    opacity: 1; } }
+    opacity: 1; }
+  .adviced-articles-wrapper {
+    padding: 0 0.5em 0 0.5em; } }
 
 @media screen and (min-width: 1200px) {
   .also-read-header {
-    margin-top: 0; }
+    margin-top: 0;
+    margin-bottom: 0.25em; }
+  .article-wrapper {
+    padding-right: 0.5em; }
   .adviced-articles-wrapper {
-    padding-left: 0; } }
+    padding: 0 0.5em 0 0; } }
 
 @media screen and (max-width: 1600px) and (min-width: 1200px) {
   #cards-wrapper.desktop-grow .app-panel {
@@ -1793,6 +1813,8 @@ label.error {
     display: block;
     visibility: visible;
     opacity: 1; }
+  .adviced-card-wrap:hover .my-hidden {
+    animation: none; }
   .sidebar-item > .hover-feed-shrink {
     padding-right: 4em; }
   .third-layer {

@@ -39,6 +39,15 @@ $fading-duration: 0.3s;
 	animation: reloadSpin 1s ease;
 }
 
+@keyframes simpleSlide{
+	0%{
+		transform: translate(100%, -100%);
+	}
+	100%{
+		transform: translate(0%, 0%);
+	}
+}
+
 @keyframes reloadSpin{
 	100%{
 		opacity: 0;

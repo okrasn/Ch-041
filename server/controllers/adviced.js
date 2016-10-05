@@ -196,7 +196,6 @@ module.exports.removeAdvicedFeed = function (req, res, next) {
 				}
 
 				adviced.save(function (err, adviced) {
-					console.log(adviced);
 					if (err) return next(err);
 					res.statusCode = 200;
 					return res.send();
