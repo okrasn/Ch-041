@@ -6,6 +6,8 @@
 			<div class="col-xs-12 col-md-5">
 				<div class="profile-name text-center-mobile">
 					<h4 ng-show="currentUser().displayName"><span ng-bind="currentUser().displayName"></h4>
+				</div>
+				<div class="profile-date text-center-mobile">
 					<h5 ng-show="currentUser().date_of_signup"><span translate>Joined:</span><span ng-bind="currentUser().date_of_signup | date : 'mediumDate'"></h5>
 				</div>
 				<div class="profile-email text-center-mobile">
@@ -51,6 +53,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-xs-12 center-children-mobile">
+
 					<button class="app-btn app-btn-blue pull-right upload-btn" id="change_theme" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
 					
 					<button class="btn btn-default ua" ng-show="lang == 'en'" ng-click="changeLanguage('ua')" translate="button-lang-ua"></button>

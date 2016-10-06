@@ -6,11 +6,14 @@
 		<div class="row">
 			<div class="col-lg-11 col-xs-10">
 				<div class="btn-group change-view-btn pull-left">
-					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-list" aria-label="Left Align" ng-class="{'selected' : checkIfToggled('list')}" ng-click="onViewChange('view-mode1')"><span aria-hidden="true"></span></button>
-					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-list" aria-label="Center Align" ng-class="{'selected' : checkIfToggled('th-list')}" ng-click="onViewChange('view-mode2')"><span></span></button>
-					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-large visible-lg" aria-label="Justify" ng-class="{'selected' : checkIfToggled('th-large')}" ng-click="onViewChange('view-mode3')"><span aria-hidden="true"></span></button>
+					<button ng-hide="multiDelete.value" class="btn btn-default app-btn-feed-list glyphicon glyphicon-list" aria-label="Left Align" ng-class="{'selected' : checkIfToggled('list')}" ng-click="onViewChange('view-mode1')"><span aria-hidden="true"></span></button>
+					<button ng-hide="multiDelete.value" class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-list" aria-label="Center Align" ng-class="{'selected' : checkIfToggled('th-list')}" ng-click="onViewChange('view-mode2')"><span></span></button>
+					<button ng-hide="multiDelete.value" class="btn btn-default app-btn-feed-list glyphicon glyphicon-th-large visible-lg" aria-label="Justify" ng-class="{'selected' : checkIfToggled('th-large')}" ng-click="onViewChange('view-mode3')"><span aria-hidden="true"></span></button>
+
+					<button ng-show="multiDelete.value" class="btn btn-default app-btn-feed-list glyphicon glyphicon-arrow-left" aria-label="Center Align" ng-click="onFeedDelete()"><span></span></button>
+					<button ng-show="multiDelete.value" class="btn btn-default app-btn-feed-list glyphicon glyphicon-trash" aria-label="Justify" ng-click="askMultiDelete()"><span aria-hidden="true"></span></button>
 				</div>
-				<div ng-hide="hideSortList.state" class="btn-group" uib-dropdown is-open="status.isopen">
+				<div ng-hide="hideSortList.state || multiDelete.value" class="btn-group" uib-dropdown is-open="status.isopen">
 					<button type="button" class="sort-btn" uib-dropdown-toggle ng-disabled="disabled">
 						{{currentSortTitle() | translate}}<span class="caret"></span>
 					</button>
@@ -21,9 +24,13 @@
 					</ul>
 				</div>
 			</div>
+
 			<div class="col-lg-1 col-xs-2">
-				<div class="delete-btn-wrap" ng-show='feed()'>
+				<div class="delete-btn-wrap" ng-hide="multiDelete.value">
 					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-trash app-btn-delete" aria-label="Justify" ng-click="onFeedDelete()"><span aria-hidden="true"></span></button>
+				</div>
+				<div class="delete-btn-wrap" ng-show="multiDelete.value">
+					<input class="delete-checkbox" type="checkbox" aria-label="Justify" ng-click="selectAll()"></input>
 				</div>
 			</div>
 		</div>

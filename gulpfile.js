@@ -6,6 +6,7 @@ var exec = require('child_process').exec,
 	useref = require('gulp-useref'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	gulpUtil = require('gulp-util'),
 	watch = require('gulp-watch'),
 	cssmin = require("gulp-cssmin"),
 	rename = require("gulp-rename"),
@@ -18,7 +19,6 @@ mkdirp.sync('./dist/uploads', function (err) {
 });
 
 gulp.task('server', function (cb) {
-
 	console.log("Server is running on port 8080");
 	exec('npm start', function (err, stdout, stderr) {
 		console.log(stdout, stderr);
@@ -89,11 +89,12 @@ gulp.task('build', ['scripts', 'sass'], function () {
 
 	gulp.src(['client/translation/**'])
 		.pipe(gulp.dest('./dist/translation/'));
+	
+	gulp.src(['client/bower_components/flag-icon-css/flags/**'])
+		.pipe(gulp.dest('./dist/flags/'));
 
 	gulp.src(['client/scripts/**/*.js'])
 		.pipe(ngAnnotate({
-			// true helps add where @ngInject is not used. It infers.
-			// Doesn't work with resolve, so we must be explicit there
 			add: true
 		}));
 	gulp.src(['client/index.html'])

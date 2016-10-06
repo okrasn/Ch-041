@@ -2,7 +2,7 @@
     <div class="mobile-half-padding col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
         <form class="form-horizontal add-feed-form" role="form" ng-submit="addFeed()">
             <div class="col-xs-12">
-                <h3 class="text-center uppercase"><span translate>Add new feed</span></h3>
+                <h3 class="text-center uppercase"><span translate>new feed</span></h3>
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="url"><span translate>Url:</span></label>
                     <div class="col-sm-7">
@@ -15,8 +15,8 @@
                 <div class="form-group">
                     <label for="category" class="col-sm-3 control-label"><span translate>Category</span></label>
                     <div class="col-sm-7">
-                        <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" translate tooltip-trigger="'focus'" tooltip-placement="top-left">
-                            <option translate value="" disabled selected hidden><span>Choose</span></option>
+                        <select id="category" class="form-control form-input" ng-model="obj.category" ng-options="category for category in categories()" ng-change="checkIfNew()" uib-tooltip="To enter custom category choose 'custom'" tooltip-trigger="'focus'" tooltip-placement="top-left">
+                            <option translate value="" disabled selected hidden><span translate >Choose</span></option>
                         </select>
                     </div>
                 </div>

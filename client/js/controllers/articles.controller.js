@@ -15,11 +15,20 @@
 		$scope.articleForShare = null;
 		$scope.articleForRead = articlesService.articleForRead;
 		$scope.addingNewFavCategory = false;
+		$scope.isFavourites = articlesService.isFavourites;
+		$scope.multiDelete = dashboardService.multiDelete;
+		$scope.favsToDelete = articlesService.favsToDelete;
 
 		$scope.firstListItem = {
 			title: ''
 		}
 
+		$scope.checkValue = function (id) {
+		    if (!$scope.favsToDelete[id]) {
+		        delete $scope.favsToDelete[id];
+		    }
+		}
+		
 		$scope.checkIfFavourites = function (article) {
 			if (!article) {
 				return false;
@@ -64,7 +73,7 @@
 			if (index == articlesService.articles.length - 1 || !article) {
 				return '';
 			}
-			if (!$scope.articleData.isFavourites) {
+			if (!$scope.isFavourites.value) {
 			    for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
 			        for (var j = 0; j < array[i].feeds.length; j++) {
 			            if (array[i].feeds[j]._id == article.feed) {
@@ -89,7 +98,7 @@
 			if (!article || !flag) {
 				return;
 			}
-			if (!$scope.articleData.isFavourites) {
+			if (!$scope.isFavourites.value) {
 			    for (var i = 0, array = feedsService.feedsDictionary; i < array.length; i++) {
 			        for (var j = 0; j < array[i].feeds.length; j++) {
 			            if (array[i].feeds[j]._id == article.feed) {
@@ -319,7 +328,10 @@
 						});
 					}
 						break;
-					case 'favourites': {
+				    case 'favourites': {
+				        if (!feedsService.favouritesDictionary.length) {
+				            $state.go('dashboard.' + dashboardService.getViewMode(), { type: 'all' }, { reload: true });
+				        }
 						if ($stateParams.value1 === 'category' && $stateParams.value2) {
 							articlesService.getFavArticlesByCat($stateParams.value2);
 						}

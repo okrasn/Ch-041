@@ -6,13 +6,13 @@ var mongoose = require('mongoose'),
 	Feed = mongoose.model('Feed'),
 	User = mongoose.model('User'),
 	config = require('../config/config'),
-	googleAuth = require('../controllers/googleAuth'),
-	facebookAuth = require('../controllers/facebookAuth'),
-	twitterAuth = require('../controllers/twitterAuth'),
-	linkedInAuth = require('../controllers/linkedInAuth'),
-	unlink = require('../controllers/unlink'),
-	userInfo = require('../controllers/userInfo'),
-	authCtrl = require('../controllers/authentication'),
+	googleAuth = require('../controllers/authentication/googleAuth'),
+	facebookAuth = require('../controllers/authentication/facebookAuth'),
+	twitterAuth = require('../controllers/authentication/twitterAuth'),
+	linkedInAuth = require('../controllers/authentication/linkedInAuth'),
+	unlink = require('../controllers/authentication/unlink'),
+	userInfo = require('../controllers/authentication/userInfo'),
+	authCtrl = require('../controllers/authentication/authentication'),
 	articlesCtrl = require('../controllers/articles'),
 	feedsCtrl = require('../controllers/feeds'),
 	profCtrl = require('../controllers/profile'),
@@ -20,11 +20,9 @@ var mongoose = require('mongoose'),
 
 var auth = function (req, res, next) {
 	var token = req.body.token || req.params.token || req.headers['authorization'];
-	// decode token
 	if (token) {
 		token = token.replace('Bearer ', '');
 		var decoded = jwt.decode(token, config.TOKEN_SECRET);
-		// verifies secret and checks exp
 		if (decoded) {
 			if (new Date(decoded.exp) < new Date()) {
 				return res.status(403).send({
@@ -46,8 +44,6 @@ var auth = function (req, res, next) {
 			}
 		}
 	} else {
-		// if there is no token
-		// return an error
 		return res.status(403).send({
 			success: false,
 			message: 'No auth token provided.'
@@ -85,7 +81,7 @@ router.post('/setFeedsOrder', auth, feedsCtrl.setFeedsOrder);
 router.post('/setFavsCategoryOrder', auth, feedsCtrl.setFavsCategoryOrder);
 router.post('/addFavArticle', auth, articlesCtrl.addFavArticle);
 router.post('/getFavArticle', auth, articlesCtrl.getFavArticle);
-router.post('/changeFeedCategory/:category', auth, feedsCtrl.changeFeedCategory);
+router.post('/changeFeedCategory', auth, feedsCtrl.changeFeedCategory);
 router.post('/upload', auth, profCtrl.upload);
 
 // Admin routes
@@ -96,5 +92,6 @@ router.delete('/deleteAdvicedFeed/:id', auth, advicedCtrl.removeAdvicedFeed);
 
 router.delete('/deleteFeed/:id', auth, feedsCtrl.remove);
 router.delete('/deleteFavFeed/:id', auth, articlesCtrl.removeFavArticle);
+router.post('/deleteMultiFavourites', auth, articlesCtrl.removeMultiFavourites);
 
 module.exports = router;
