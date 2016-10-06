@@ -11,6 +11,7 @@ module.exports.addFavArticle = function (req, res, next) {
 			message: msg.ERRORS.enter_article_url
 		});
 	}
+
 	if (req.body.category === undefined) {
 		req.body.category = 'Unsorted';
 	}
@@ -159,10 +160,12 @@ module.exports.removeFavArticle = function (req, res, next) {
 
 module.exports.removeMultiFavourites = function (req, res, next) {
 	req.user.populate("favouritesDictionary.articles", function (err, user) {
-		var favsToDelete = [];
+	    var favsToDelete = [];
+
 		for (member in req.body) {
 			favsToDelete.push(member);
 		}
+
 		for (var k = 0; k < favsToDelete.length; k++) {
 		    for (var i = 0, array = user.favouritesDictionary; i < array.length; i++) {
 		        if (!array[i].articles.length) {
@@ -179,6 +182,7 @@ module.exports.removeMultiFavourites = function (req, res, next) {
 		        }
 		    }
 		}
+
 		user.save(function (err) {
 		    if (err) return next(err);
 		    user.populate("favouritesDictionary.articles", function (err, user) {
@@ -193,6 +197,7 @@ module.exports.getFavArticle = function (req, res, next) {
 		res.status(404).send(msg.ERRORS.not_found);
 		return;
 	}
+
 	Article.findOne({ link: req.body.link }, function (err, article) {
 		if (err) {
 			return next(err);
@@ -212,6 +217,7 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		if (err) {
 			return next(err);
 		}
+
 		if (!articles) {
 			if (!article) {
 				res.status(404).send({
@@ -220,25 +226,31 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 				return;
 			}
 		}
+
 		var result;
 		var num = articles.length;
+
 		if (num < 11) {
 			result = articles;
 		}
+
 		if (num > 10 && num < 51) {
 			result = articles.slice(0, 10);
 			result.sort(function () { return 0.5 - Math.random() });
 		}
+
 		if (num > 50 && num < 101) {
 			result = articles.slice(0, 20);
 			result.sort(function () { return 0.5 - Math.random() });
 			result = result.slice(0, 10);
 		}
+
 		if (num > 100 && num < 1001) {
 			result = articles.slice(0, 100);
 			result.sort(function () { return 0.5 - Math.random() });
 			result = result.slice(0, 10);
 		}
+
 		res.json(result);
 	});
 }

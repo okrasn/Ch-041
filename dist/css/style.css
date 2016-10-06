@@ -1988,6 +1988,8 @@ label.error {
 @media screen and (max-width: 768px) {
   #cards-wrapper .fav-indicator {
     margin-top: -0.5em; }
+  #article-page .fav-indicator {
+    transform: translateX(-145%); }
   #cards-wrapper .app-panel {
     height: 10em;
     padding: 0.5em; }

@@ -261,6 +261,10 @@ $desktop-res: 1200px;
 		}
 	}
 
+	#article-page .fav-indicator {
+		transform: translateX(-145%);
+	}
+
 	#cards-wrapper .app-panel {
 		height: 10em;
 		padding: $main-app-offset/2;
