@@ -10,7 +10,7 @@
 		$scope.hideSortList = dashboardService.hideSortList;
 		$scope.isFavourites = articlesService.isFavourites;
 		$scope.multiDelete = dashboardService.multiDelete;
-
+		$scope.allSelected = false;
 		var selectAllFlag = false;
 
 		$scope.checkIfReading = function () {
@@ -57,10 +57,9 @@
 		}
 
 		$scope.selectAll = function () {
-		    selectAllFlag = !selectAllFlag;
 		    if (articlesService.isFavourites.value) {
 		        for (var i = 0, array = articlesService.articles; i < array.length; i++) {
-		            if (selectAllFlag) {
+		            if ($scope.allSelected) {
 		                articlesService.favsToDelete[array[i]._id] = true;
 		            }
 		            else {
@@ -91,6 +90,7 @@
 
 		$scope.onFeedDelete = function () {
 		    if (articlesService.isFavourites.value) {
+		        $scope.allSelected = false;
 		        dashboardService.multiDelete.value = !dashboardService.multiDelete.value;
 		        if (!dashboardService.multiDelete.value) {
 		            for (var member in articlesService.favsToDelete) {
