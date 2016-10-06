@@ -5,6 +5,9 @@ var mongoose = require('mongoose'),
 	config = require('../config/config'),
 	msg = require('../config/msg');
 
+// thresholds for adviced articles representation
+var thresholds = [10, 50, 100, 1000];
+
 module.exports.addFavArticle = function (req, res, next) {
 	if (req.body.link === undefined) {
 		return res.status(400).json({
@@ -230,25 +233,25 @@ module.exports.getAdvicedArticles = function (req, res, next) {
 		var result;
 		var num = articles.length;
 
-		if (num < 11) {
+		if (num < thresholds[0]+1) {
 			result = articles;
 		}
 
-		if (num > 10 && num < 51) {
-			result = articles.slice(0, 10);
+		if (num > thresholds[0] && num < thresholds[1]+1) {
+		    result = articles.slice(0, thresholds[0]);
 			result.sort(function () { return 0.5 - Math.random() });
 		}
 
-		if (num > 50 && num < 101) {
-			result = articles.slice(0, 20);
+		if (num > thresholds[1] && num < thresholds[2]+1) {
+		    result = articles.slice(0, thresholds[0]*2);
 			result.sort(function () { return 0.5 - Math.random() });
-			result = result.slice(0, 10);
+			result = result.slice(0, thresholds[0]);
 		}
 
-		if (num > 100 && num < 1001) {
-			result = articles.slice(0, 100);
+		if (num > thresholds[2] && num < thresholds[3]+1) {
+		    result = articles.slice(0, thresholds[2]);
 			result.sort(function () { return 0.5 - Math.random() });
-			result = result.slice(0, 10);
+			result = result.slice(0, thresholds[0]);
 		}
 
 		res.json(result);
