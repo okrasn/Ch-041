@@ -71,10 +71,6 @@ gulp.task('useref', function () {
 });
 
 gulp.task('build', ['scripts', 'sass'], function () {
-	gulp.src('client/scss/**/*.scss')
-		.pipe(sass())
-		.pipe(gulp.dest('dist/css/'));
-
 	gulp.src(['client/partials/**/*.html'])
 		.pipe(gulp.dest('dist/partials/'));
 
@@ -83,9 +79,6 @@ gulp.task('build', ['scripts', 'sass'], function () {
 
 	gulp.src(['client/fonts/**'])
 	.pipe(gulp.dest('dist/fonts/'));
-
-	gulp.src(['client/css/**'])
-		.pipe(gulp.dest('./dist/css/'));
 
 	gulp.src(['client/translation/**'])
 		.pipe(gulp.dest('./dist/translation/'));
@@ -97,6 +90,10 @@ gulp.task('build', ['scripts', 'sass'], function () {
 		.pipe(ngAnnotate({
 			add: true
 		}));
+
+	gulp.src(['client/css/**'])
+	.pipe(gulp.dest('./dist/css/'));
+
 	gulp.src(['client/index.html'])
 		.pipe(sourcemaps.init())
 		.pipe(useref())

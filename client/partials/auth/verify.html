@@ -14,7 +14,7 @@
 						<div class="form-group login">
 							<label translate class="capitalize" for="enterPassword">password</label>
 							<input type="password" name="pwd" class="form-control" id="enterPassword"  autocomplete="off" translate-attr="{placeholder : 'Enter your Password'}" placeholder="Enter your Password" ng-model="user.password" ng-required>
-							<ul id="strength" check-strength="user.password" myuser="user"></ul>
+							<ul id="strength" class="clear-floats" check-strength="user.password" myuser="user"></ul>
 						</div>
 						<button translate type="submit" class="app-btn app-btn-blue center-block" >Sign Up</button>
 						<div class="alert alert-danger text-center animate-error" role="alert" ng-show="error">

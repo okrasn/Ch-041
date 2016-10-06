@@ -76,7 +76,7 @@
 						<label class="col-sm-5 capitalize" for="newPassword"><span translate>new password:</span></label>
 						<div class="col-sm-7">
 							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.password" ng-required>
-							<ul id="strength" check-strength="newUserData.password" myuser="newUserData"></ul>
+							<ul id="strength" class="clear-floats" check-strength="newUserData.password" myuser="newUserData"></ul>
 						</div>
 					</div>
 				</div>
@@ -91,7 +91,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="center-children">
+				<div class="center-children clear-floats">
 					<button type="submit" class="app-btn app-btn-blue margin-right"><span translate>save</span></button>
 					<button type="reset" ng-click="resetPass()" class="app-btn app-btn-blue margin-left"><span translate>reset</span></button>
 				</div>
@@ -143,7 +143,7 @@
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="item" ng-class="$first? 'active':''" ng-repeat="layout in layouts">
-				<img class="change-theme-img" src="{{layout.src}}" alt="{{layout.name}}" ng-click="updateTheme(layout)">
+				<img id="layout_{{$index + 1}}" class="change-theme-img" src="{{layout.src}}" alt="{{layout.name}}" ng-click="updateTheme(layout)">
 			</div>
 		</div>
 		<a class="left carousel-control" data-target="#myCarousel" role="button" data-slide="prev">
