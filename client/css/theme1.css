@@ -1,7 +1,6 @@
-/*----------------Navbar--------------*/
-
-.main-navbar .navbar {
-	background: #3949ab;
+.profile-header{
+    height: 10em;
+    background-color: #18246e;
 }
 
 .navbar-nav > .user-menu > .dropdown-toggle {

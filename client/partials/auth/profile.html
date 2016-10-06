@@ -53,16 +53,13 @@
 			<hr>
 			<div class="row">
 				<div class="col-xs-12 center-children-mobile">
-<<<<<<< HEAD
-					<button id="change_theme" class="app-btn app-btn-blue pull-right upload-btn" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
+
+					<button class="app-btn app-btn-blue pull-right upload-btn" id="change_theme" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
 					
 					<button class="btn btn-default ua" ng-show="lang == 'en'" ng-click="changeLanguage('ua')" translate="button-lang-ua"></button>
 					<button class="btn btn-default en" ng-show="lang == 'ua'" ng-click="changeLanguage('en')" translate="button-lang-en"></button>
 					<button class="btn btn-default pl" ng-show="lang == 'ua'" ng-click="changeLanguage('pl')" translate="button-lang-en"></button>
 				
-=======
-					<button class="app-btn app-btn-blue pull-right upload-btn" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
->>>>>>> 3b6ae0ad78b585317bd0c9b4b73e8b2c5fe41fb5
 				</div>
 			</div>
 			<hr>
@@ -152,7 +149,7 @@
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="item" ng-class="$first? 'active':''" ng-repeat="layout in layouts">
-				<img class="change-theme-img" src="{{layout.src}}" alt="{{layout.name}}" ng-click="updateTheme(layout)">
+				<img id="layout_{{$index + 1}}" class="change-theme-img" src="{{layout.src}}" alt="{{layout.name}}" ng-click="updateTheme(layout)">
 			</div>
 		</div>
 		<a class="left carousel-control" data-target="#myCarousel" role="button" data-slide="prev">
