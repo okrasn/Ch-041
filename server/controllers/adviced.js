@@ -25,6 +25,7 @@ module.exports.getAdvicedFeeds = function (req, res, next) {
 		if (err) {
 			return next(err);
 		}
+
 		if (advice) {
 			advice.populate("feedsDictionary.feeds", function (err, user) {
 				res.json(advice.feedsDictionary);
@@ -46,26 +47,31 @@ module.exports.addAdvicedFeed = function (req, res, next) {
 		});
 		return;
 	}
+
 	if (req.body.rsslink === undefined) {
 		return res.status(400).json({
 			message: msg.ERRORS.enter_feed_url
 		});
 	}
+
 	if (req.body.category === undefined) {
 		return res.status(400).json({
 			message: msg.ERRORS.choose_cat
 		});
 	}
+
 	Advice.findOne({}, function (err, adviced) {
 		if (err) {
 			return next(err);
 		}
+
 		if (adviced) {
 			adviced.populate("feedsDictionary.feeds", function (err, adviced) {
 				Feed.findOne({ rsslink: req.body.rsslink }, function (err, feed) {
 					if (err) {
 						return next(err);
 					}
+					
 					var currentFeed = feed;
 					var foundCategory = null;
 
@@ -154,6 +160,7 @@ module.exports.removeAdvicedFeed = function (req, res, next) {
 		});
 		return;
 	}
+
 	Advice.findOne({}, function (err, adviced) {
 		if (err) {
 			return next(err);
@@ -218,6 +225,7 @@ module.exports.uploadAdvicedCover = function (req, res, next) {
 		});
 		return;
 	}
+
 	upload(req, res, function (err) {
 		if (req.file) {
 			var fileName = req.file.filename;

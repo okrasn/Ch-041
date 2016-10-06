@@ -19,6 +19,7 @@ module.exports.getSingleFeed = function (req, res, next) {
 			message: msg.ERRORS.not_found
 		});
 	}
+
 	Feed.findById(req.params.id, function (err, feed) {
 		if (err) {
 			return next(err);
@@ -40,6 +41,7 @@ module.exports.add = function (req, res, next) {
 			message: msg.ERRORS.enter_feed_url
 		});
 	}
+	
 	if (req.body.category === undefined) {
 		return res.status(400).json({
 			message: msg.ERRORS.choose_cat
@@ -50,7 +52,9 @@ module.exports.add = function (req, res, next) {
 		if (err) {
 			return next(err);
 		}
+
 		var currentFeed = feed;
+
 		req.user.populate("feedsDictionary.feeds", function (err, user) {
 			var foundCategory = null;
 			for (var i = 0; i < user.feedsDictionary.length; i++) {
@@ -94,6 +98,7 @@ module.exports.add = function (req, res, next) {
 					});
 				});		        
 			}
+
 			if (!currentFeed) {
 				var feed = new Feed(req.body);
 				feed.totalSubscriptions = 1;
@@ -188,6 +193,7 @@ module.exports.remove = function (req, res, next) {
 module.exports.setCategoryOrder = function (req, res, next) {
 	var newFeedsDictionary = [],
 		lookup = {};
+
 	for (var i = 0, array = req.user.feedsDictionary; i < array.length; i++) {
 		lookup[array[i].category] = array[i];
 	}
@@ -195,6 +201,7 @@ module.exports.setCategoryOrder = function (req, res, next) {
 	for (var i = 0; i < req.body.newCategories.length; i++) {
 		newFeedsDictionary.push(lookup[req.body.newCategories[i]]);
 	}
+
 	req.user.feedsDictionary = newFeedsDictionary;
 	req.user.save(function (err) {
 		if (err) return next(err);
@@ -205,6 +212,7 @@ module.exports.setCategoryOrder = function (req, res, next) {
 
 module.exports.setFeedsOrder = function (req, res, next) {
 	req.user.feedsDictionary = req.body;
+
 	req.user.save(function (err) {
 		if (err) return next(err);
 		res.statusCode = 200;
@@ -215,6 +223,7 @@ module.exports.setFeedsOrder = function (req, res, next) {
 module.exports.setFavsCategoryOrder = function (req, res, next) {
 	var newFavsDictionary = [],
 		lookup = {};
+
 	for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
 		lookup[array[i].category] = array[i];
 	}
@@ -222,6 +231,7 @@ module.exports.setFavsCategoryOrder = function (req, res, next) {
 	for (var i = 0; i < req.body.newCategories.length; i++) {
 		newFavsDictionary.push(lookup[req.body.newCategories[i]]);
 	}
+
 	req.user.favouritesDictionary = newFavsDictionary;
 	req.user.save(function (err) {
 		if (err) return next(err);
@@ -236,6 +246,7 @@ module.exports.changeFeedCategory = function (req, res, next) {
 			message: msg.ERRORS.not_found
 		});
 	}
+
 	req.user.populate("feedsDictionary.feeds", function (err, user) {
 		var lookup = {};
 		for (var i = 0, array = req.user.favouritesDictionary; i < array.length; i++) {
@@ -278,42 +289,3 @@ module.exports.changeFeedCategory = function (req, res, next) {
 		}
 	});
 }
-
-//var JsonFeeds = require('../AdvicedFeeds.json');
-//addAdvicedFromJson = function (category, feed) {
-//    var passedFeed = feed,
-//		passedCategory = category;
-//    Advice.find({}, function (err, advice) {
-//        if (!advice.length) {
-//            var advice = new Advice({
-//                articlesDictionary: [],
-//                feedsDictionary: []
-//            });
-//            for (var i = 0; i < JsonFeeds.feedsDictionary.length; i++) {
-//                advice.feedsDictionary.push({
-//                    category: JsonFeeds.feedsDictionary[i].category
-//                });
-//                for (var j = 0; j < JsonFeeds.feedsDictionary[i].feeds.length; j++) {
-//                    var feed = new Feed(JsonFeeds.feedsDictionary[i].feeds[j]);
-//                    feed.totalSubscriptions = 0;
-//                    feed.currentSubscriptions = 0;
-//                    advice.feedsDictionary[i].feeds.push(feed);
-//                    feed.save(function (err, feed) {
-//                        if (err) {
-//                            console.log(err);
-//                            return;
-//                        }
-//                    });
-//                }
-//            }
-//            advice.save(function (err, advice) {
-//                if (err) {
-//                    console.log(err);
-//                    return;
-//                }
-//            });
-//        }
-//    });
-//};
-
-//addAdvicedFromJson();

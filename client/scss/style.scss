@@ -155,6 +155,10 @@ p {
 	color: #888;
 }
 
+.clear-floats{
+	clear: both;
+}
+
 @import "navbar";
 @import "addFeed";
 @import "feedList";

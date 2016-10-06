@@ -53,13 +53,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-xs-12 center-children-mobile">
-
-					<button class="app-btn app-btn-blue pull-right upload-btn" id="change_theme" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
-					
-					<button class="btn btn-default ua" ng-show="lang == 'en'" ng-click="changeLanguage('ua')" translate="button-lang-ua"></button>
-					<button class="btn btn-default en" ng-show="lang == 'ua'" ng-click="changeLanguage('en')" translate="button-lang-en"></button>
-					<button class="btn btn-default pl" ng-show="lang == 'ua'" ng-click="changeLanguage('pl')" translate="button-lang-en"></button>
-				
+				<button id="change_theme" class="app-btn app-btn-blue pull-right upload-btn" ng-click="changeTheme()"><span class="fa fa-paint-brush profile-btn-icon"></span><span class="test-lang" translate >change theme</span></button>
 				</div>
 			</div>
 			<hr>
@@ -82,7 +76,7 @@
 						<label class="col-sm-5 capitalize" for="newPassword"><span translate>new password:</span></label>
 						<div class="col-sm-7">
 							<input name="newPassword" id="newPassword" class="form-control" type="password" ng-model="newUserData.password" ng-required>
-							<ul id="strength" check-strength="newUserData.password" myuser="newUserData"></ul>
+							<ul id="strength" class="clear-floats" check-strength="newUserData.password" myuser="newUserData"></ul>
 						</div>
 					</div>
 				</div>
@@ -97,7 +91,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="center-children">
+				<div class="center-children clear-floats">
 					<button type="submit" class="app-btn app-btn-blue margin-right"><span translate>save</span></button>
 					<button type="reset" ng-click="resetPass()" class="app-btn app-btn-blue margin-left"><span translate>reset</span></button>
 				</div>

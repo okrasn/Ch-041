@@ -220,7 +220,7 @@ $desktop-res: 1200px;
 	}
 
 	.home-image {
-		margin-top: 8em;
+		margin-top: 10em;
 		width: 21em;
 	}
 
@@ -259,6 +259,10 @@ $desktop-res: 1200px;
 		.fav-indicator {
 			margin-top: -$main-app-offset/2;
 		}
+	}
+
+	#article-page .fav-indicator {
+		transform: translateX(-145%);
 	}
 
 	#cards-wrapper .app-panel {

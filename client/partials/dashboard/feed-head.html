@@ -26,11 +26,11 @@
 			</div>
 
 			<div class="col-lg-1 col-xs-2">
-				<div class="delete-btn-wrap" ng-hide="multiDelete.value">
+				<div class="delete-btn-wrap" ng-show="(feed() || isFavourites.value) && !multiDelete.value">
 					<button class="btn btn-default app-btn-feed-list glyphicon glyphicon-trash app-btn-delete" aria-label="Justify" ng-click="onFeedDelete()"><span aria-hidden="true"></span></button>
 				</div>
 				<div class="delete-btn-wrap" ng-show="multiDelete.value">
-					<input class="delete-checkbox" type="checkbox" aria-label="Justify" ng-click="selectAll()"></input>
+					<input class="delete-checkbox" type="checkbox" aria-label="Justify" ng-model="allSelected" ng-click="selectAll()"></input>
 				</div>
 			</div>
 		</div>
