@@ -179,7 +179,6 @@ button[disabled] {
 }
 
 .onhover-orange {
-	color: black;
 	&:hover {
 		color: #ff9d00;
 	}
@@ -190,7 +189,6 @@ button[disabled] {
 }
 
 .onhover-red {
-	color: black;
 	&:hover {
 		color: #ff6c00;
 	}
@@ -201,7 +199,6 @@ button[disabled] {
 }
 
 .onhover-green {
-	color: black;
 	&:hover {
 		color: #33c23e;
 	}
@@ -212,7 +209,6 @@ button[disabled] {
 }
 
 .onhover-blue {
-	color: black;
 	&:hover {
 		color: $blue-btn-active-color;
 	}
