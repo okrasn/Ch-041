@@ -2,7 +2,7 @@ describe('change theme', function () {
 	var host = 'http://rss-reader.azurewebsites.net',
 		localhost = 'http://localhost:8080';
 		email = 'eRR0R4ik@yandex.ru',
-		password = 'qwertyQ1!',
+		password = 'qwertyQ1@',
 		bgColor = element(by.css('.navbar'));
 	it('login RSS|Reader', function () {
 		browser.get(localhost ? localhost : host);
