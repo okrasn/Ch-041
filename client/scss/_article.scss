@@ -1,3 +1,5 @@
+$colorGray: #888;
+
 #article-page {
 	padding: $main-app-offset;
 }
@@ -14,13 +16,13 @@
 .article-page-time-icon {
 	margin-right: $main-app-offset/2;
 	line-height: $main-app-offset*2;
-	color: #888;
+	color: $colorGray;
 	padding: 0;
 }
 
 .article-page-date {
 	left: $main-app-offset/2;
 	line-height: $main-app-offset*2;
-	color:#888;
+	color:$colorGray;
 	padding: 0;
 }
