@@ -11,15 +11,17 @@ a.cstmblock {
 	font-weight: bold;
 }
 
-#profile label {
-	line-height: 30px;
-	font-size: 17px;
-}
+#profile {
+	label {
+		line-height: 30px;
+		font-size: 17px;
+	}
 
-#profile .capitalize {
-	margin-top: 5px;
-}
+	.capitalize {
+		margin-top: 5px;
+	}
 
+}
 .profile-header{
 	height: 10em;
 	background-color: #1d2129;
